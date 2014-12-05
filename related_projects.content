@@ -1,0 +1,51 @@
+<h1>Projects related OSPRay</h1>
+
+This page gives a brief (and incomplete) list of other projects that
+make use of OSPRay, as well as a set of related links to other
+projects and related information.
+
+<p>If you have a project that makes use of OSPRay and would like this
+to be listed here, please let us know.
+
+<h2>Projects that use OSPRay</h2>
+
+
+<table rules="rows">
+  <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:top">
+      <a href="related_projects/vtk-paraview/screenshot-paraview-fiu.jpg">
+	<img src="related_projects/vtk-paraview/screenshot-paraview-fiu.jpg"/ width=150></a></td>
+    <td style="vertical-align:top"><h3>"OSPRay/VTK/ParaView Plugin"</h3>
+
+      The Remote Visualization Group at the Texas Advanced Computing Center (TACC) is building a 
+      <a href="teaser.html">OSPRay/VTK/ParaView plugin</a>.
+
+    </td>
+  <tr>
+
+  <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:top">
+      <a href="demos/nasa-streamlines/nasa-streamlines.png">
+	<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg"/></a></td>
+    <td style="vertical-align:top"><h3>"StingRay"</h3>
+      
+      SURVICE
+      Engineering's <a href="http://www.rtvtk.org/~cgribble/research/papers/gribble14high.pdf" width=150>"StingRay"
+      toolkit</a> makes use of Embree for simulating radio frequency,
+      and uses OSPRay for visualizing the resuls.
+
+    </td>
+  <tr>
+    
+</table>
+
+
+<h2>Projects that OSPRay makes use of</h2>
+
+<ul>
+  <li><a href="embree.github.io">The Embree Ray Tracing Kernel Framework (embree.github.io)</a></li>
+  <li><a href="ispc.github.io">The Intel SPMD Program compiler (ISPC, ispc.github.io)</a></li>
+</ul>
+

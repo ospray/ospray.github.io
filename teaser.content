@@ -1,0 +1,14 @@
+<h1>OSPRay running inside ParaView</h1>
+
+<p><a href="jpg/screenshot-paraview-fiu.jpg"><img src="jpg/screenshot-paraview-fiu.jpg"></a></p>
+
+<p>This picture shows a ParaView plugin that allows ParaView to render
+through OSPRay, using a ParaView/VTK plugin developed by the Texas Advanced Computing Center.</p>
+
+<p>The particular model used in this screenshot is courtesy Florida
+International University and Texas Advanced Computing Center, and
+stems from a simulation of Ground Water Flow performed by Florida
+International University</p>
+
+<p>Screenshot courtesy Carson Brownlee, Texas Advanced Computing Center.</a>
+
