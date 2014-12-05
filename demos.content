@@ -1,6 +1,4 @@
-<h1>Demos</h1>
-
-<h1  style="background-color: rgb(125,164,239);">OSPRay Demos</h1>
+<h1>OSPRay Demos</h1>
 
 <hr>
 This page serves as a repository for 'ready-to-run' demos for OSPRay (currently, all
@@ -16,12 +14,33 @@ demos as intended for OSPRay V0.5.0).
   <a href="getting_ospray.html">download a version of ospray here</a>. Make sure to
   follow the installation instructions.
 
+  <hr>
   <table rules="rows">
     <tr>
       <!-- ======================================================= -->
       <td style="vertical-align:top">
+	<a href="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris.png">
+	  <img src="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris-small.jpg" width=200/></a></td>
+      <td style="vertical-align:top">
+	<h2>"Daughton Space Weather IsoSurface</h2>
+
+	<p><i><b>Disclaimer</b>: BLA.</i>
+
+	  <h4>Demo Highlights</h4>
+	  <ul>
+	    <li>BLA</li>
+	  </ul>
+	  <h4>Instructions</h4>
+	  <ul>
+	    <li>BLA</li>
+	    <ul>
+      </td>
+    <tr>
+
+      <!-- ======================================================= -->
+      <td style="vertical-align:top">
 	<a href="demos/xfrog/xfrog.png">
-	  <img src="demos/xfrog/xfrog-small.jpg"/></a></td>
+	  <img src="demos/xfrog/xfrog-small.jpg" width=200/></a></td>
       <td style="vertical-align:top">
 	<h2>"XFrog Forest" - A 1.7 billion triangle forest model</h2>
 
@@ -56,7 +75,7 @@ demos as intended for OSPRay V0.5.0).
     <tr>
       <td style="vertical-align:top">
 	<a href="demos/fiu/fiu-ao.png">
-	  <img src="demos/fiu/fiu-ao-small.jpg"/></a></td>
+	  <img src="demos/fiu/fiu-ao-small.jpg" width=200/></a></td>
       <td style="vertical-align:top"><h2>"FIU" Ground Water Simulation</h2>
 	
 	<p><i><b>Disclaimer</b>: Model courtesy Texas Advanced Computing Center
@@ -92,7 +111,7 @@ demos as intended for OSPRay V0.5.0).
     <tr>
       <td style="vertical-align:top">
 	<a href="demos/nasa-streamlines/nasa-streamlines.png">
-	  <img src="demos/nasa-streamlines/nasa-streamlines-small.jpg"/></a></td>
+	  <img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=200/></a></td>
       <td style="vertical-align:top"><h2>"NASA Streamlines"</h2>
 	Model courtesy Timothy Sandstrom, NASA.<p>
       </td>

@@ -22,16 +22,27 @@
 
       color:#373737;
       background: #212121;
-      font-size: 16px;
+      background: #f2f2f2;
       font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
 
-      background: #ffffff;
       text-align: justify;
       margin: 0;
       }
       
+h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
+  font-weight: 700;
+  color:#222222;
+  font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+  letter-spacing: -1px;
+}
+
+p {
+  margin: 10px 0 15px 0;
+}
+
       #footer { 
       padding-top: 5px;
       margin: 0;
@@ -80,9 +91,10 @@
 
       #content { 
       position:static; 
-      max-width: 640px;
+      max-width: 800px;
       background: #f2f2f2;
       padding-top:10px;
+      padding-bottom:100px;
       }
 
       #header-title {
