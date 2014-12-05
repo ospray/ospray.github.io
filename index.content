@@ -5,7 +5,7 @@
   that use ray tracing based rendering for interactive
   applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
 
-<p><a href="teaser.html"><img src="jpg/screenshot-paraview-fiu.jpg" width="40%"></a></p>
+<p><a href="teaser.html"><img src="related_projects/vtk-paraview/screenshot-paraview-fiu.jpg" width="40%"></a></p>
 
 <p>OSPRay internally builds on top
   of <a href="http://embree.github.io">@Embree
