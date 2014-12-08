@@ -1,10 +1,8 @@
 <h1>OSPRay Demos</h1>
 
-<hr>
 This page serves as a repository for 'ready-to-run' demos for OSPRay (currently, all
 demos as intended for OSPRay V0.7.0).
-
-<p>
+<br>
   If you do not yet have a version of OSPRay installed on your system, you can follow these
   <a href="getting_ospray.html">instructions for getting OSPRay</a>. 
 
@@ -14,7 +12,7 @@ demos as intended for OSPRay V0.7.0).
     <tr>
       <td style="vertical-align:top">
 				<a id="demo_image" href="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris.png">
-					<img src="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris-small.jpg" width=200/></a></td>
+					<img src="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris-small.jpg" width=220/></a></td>
       <td style="vertical-align:top">
 				<h3>"Daughton Space Weather" IsoSurface</h3>
 
@@ -33,7 +31,7 @@ demos as intended for OSPRay V0.7.0).
 					</ul>
 					<h4>Instructions</h4>
 					<ul>
-						<li>Get the X3D file from <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d">http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d</a>
+						<li>Get the <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d">dsw-1024-twoisos.x3d</a> file.
 						<li>Run via <code>./ospModelViewer dsw-1024-twoisos.x3d --renderer ao4</code>.</li>
 					</ul>
       </td>
@@ -43,7 +41,7 @@ demos as intended for OSPRay V0.7.0).
     <tr>
       <td style="vertical-align:top">
 				<a href="demos/fiu/fiu-ao.png">
-					<img src="demos/fiu/fiu-ao-small.jpg" width=200/></a></td>
+					<img src="demos/fiu/fiu-ao-small.jpg" width=220/></a></td>
       <td style="vertical-align:top"><h3>"FIU" Ground Water Simulation</h3>
 				
 				<p><i><b>Disclaimer</b>: Model courtesy Texas Advanced Computing Center
@@ -53,7 +51,7 @@ demos as intended for OSPRay V0.7.0).
 
 					<h4>Demo Highlights</h4>
 					<ul>
-						<li>Dataset captured directly from VTK-based ParaView renderer through
+						<li>Dataset captured from VTK-based ParaView renderer through
 							TACC's GLURay tool.</li>
 						<li>Stream lines in this data set are actually
 							tessellated. OSPRay could do them natively, but ParaView
@@ -65,7 +63,7 @@ demos as intended for OSPRay V0.7.0).
 					<h4>Instructions</h4>
 					<ul>
 						<li>Download <a href="http://www.ospray.org/download/demos/fiu/fiu.xml">fiu.xml</a>
-							and <a href="http://www.ospray.org/download/demos/fiu/fiu.xml.bin">fiu.xml.bin</a> files.
+							and <a href="http://www.ospray.org/download/demos/fiu/fiu.xml.bin">fiu.xml.bin</a>.
 						</li>
 						<li>run via <br><code>./ospModelViewer fiu.xml --renderer ao</code>
 						<li>to run on Phi: <br><code>./ospModelViewer fiu.xml --renderer ao --osp:coi</code>
@@ -79,7 +77,7 @@ demos as intended for OSPRay V0.7.0).
 		<tr>
       <td style="vertical-align:top">
 				<a href="demos/xfrog/xfrog.png">
-					<img src="demos/xfrog/xfrog-small.jpg" width=200/></a></td>
+					<img src="demos/xfrog/xfrog-small.jpg" width=220/></a></td>
       <td style="vertical-align:top">
 				<h3>"XFrog Forest" - A 1.7 billion triangle forest model</h3>
 
@@ -102,7 +100,7 @@ demos as intended for OSPRay V0.7.0).
 					<h4>Instructions</h4>
 					<ul>
 						<li>Download <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml">xfrog.xml</a>
-							and <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml.bin">xfrog.xml.bin</a> files.
+							and <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml.bin">xfrog.xml.bin</a>.
 						</li>
 						<li>run via <br><code>./ospModelViewer xfrog.xml --renderer obj</code>
 						</li>
@@ -114,25 +112,21 @@ demos as intended for OSPRay V0.7.0).
     <tr>
       <td style="vertical-align:top">
 				<a href="demos/nasa-streamlines/nasa-streamlines.png">
-					<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=200/></a></td>
+					<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=220/></a></td>
       <td style="vertical-align:top"><h3>"NASA Streamlines"</h3>
-				<p><i><b>Disclaimer</b>: Model courtesy Timothy Sandstrom, NASA.
+				<p><i><b>Disclaimer</b>: Model courtesy Timothy Sandstrom, NASA.</i>
+				<h4>Disclaimer</h4> Model courtesy Timothy Sandstrom, NASA.
 					<h4>Demo Highlights</h4>
 					<ul>
-						<li>1.7 billion triangles (377,266 instances of 69 different
-							kinds of plants, for a total of 1,679,235,546 triangles
-							after instantiation).</li>
-						<li>Additional detail through high-resolution alpha
-							"stencil" textures to stencil detailed leaf shapes out of
-							already highly detailed geometry</li>
-						<li>Costly: requires many rays per pixel to handle the
-							(high!) number of transparency layers.
+						<li>Model of a magnetic field on the sun, visualized through a attribute-mapped iso-surface of the B-field, plus a set of stream lines.</li>
+						<li>The stream lines are not tessellated, but OSPRay's actual "streamlines" primitive (essentially, a set of smoothly connected cylinders), which makes for a very memory-efficient representation.</li>
+						<li>Ambient occlusion greatly helps in understanding the shape of the streamlines
+							(when rendered with local-only shading, it looks like a "lint ball").
 					</ul>
 					<h4>Instructions</h4>
 					<ul>
 						<li>Download
-							the <a href="http://www.ospray.org/download/NASA-B-field-sun.osx">NASA-B-field-sun.osx</a>
-							file.</li>
+							 <a href="http://www.ospray.org/download/NASA-B-field-sun.osx">NASA-B-field-sun.osx</a>.</li>
 						<li>run via <br><code>./ospModelViewer
 								NASA-B-field-sun.osx --renderer ao4</code></li>
 						<ul>
