@@ -245,118 +245,141 @@ p {
 
 <hr>
 This page serves as a repository for 'ready-to-run' demos for OSPRay (currently, all
-demos as intended for OSPRay V0.5.0).
+demos as intended for OSPRay V0.7.0).
 
 <p>
-  This page assumes that you already have a version of OSPRay compiled
-  and properly installed in your system (including proper MPSS setup
-  when running the demos on Xeon Phi systems, etcpp).
-
-<p>
-  If you do not yet have a version of OSPRay installed on your system, you can
-  <a href="getting_ospray.html">download a version of ospray here</a>. Make sure to
-  follow the installation instructions.
+  If you do not yet have a version of OSPRay installed on your system, you can follow these
+  <a href="getting_ospray.html">instructions for getting OSPRay</a>. 
 
   <hr>
   <table rules="rows">
+    <!-- ======================================================= -->
     <tr>
+      <td style="vertical-align:top">
+				<a id="demo_image" href="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris.png">
+					<img src="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris-small.jpg" width=200/></a></td>
+      <td style="vertical-align:top">
+				<h3>"Daughton Space Weather" IsoSurface</h3>
+
+				<p><i><b>Disclaimer</b>: Model courtesy Bill Daughton (LANL)
+				and Berk Geveci (KitWare). When used in papers, please
+				cite <a href="http://arxiv.org/abs/1405.4040">this
+				paper</a>.</i>
+
+					<h4>Demo Highlights</h4>
+					<ul>
+						<li>Iso-surface of the Daughton Space Weather volume data
+							set, generated with ParaView, and exported through ParaView's X3D exporter.</li>
+						<li>Original data is <code>1024^3</code> voxels per time step, the generated iso-surface has roughly 36 million triangles</li>
+						<li>OSPRay's Ambient Occlusion renderer (<code>ao4</code>)
+						greatly helps in bringing out the 3D shape of the surface.
+					</ul>
+					<h4>Instructions</h4>
+					<ul>
+						<li>Get the X3D file from <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d">http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d</a>
+						<li>Run via <code>./ospModelViewer dsw-1024-twoisos.x3d --renderer ao4</code>.</li>
+					</ul>
+      </td>
+    <tr>
+			
       <!-- ======================================================= -->
+    <tr>
       <td style="vertical-align:top">
-	<a id="demo_image" href="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris.png">
-	  <img src="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris-small.jpg" width=200/></a></td>
-      <td style="vertical-align:top">
-	<h2>"Daughton Space Weather IsoSurface</h2>
+				<a href="demos/fiu/fiu-ao.png">
+					<img src="demos/fiu/fiu-ao-small.jpg" width=200/></a></td>
+      <td style="vertical-align:top"><h3>"FIU" Ground Water Simulation</h3>
+				
+				<p><i><b>Disclaimer</b>: Model courtesy Texas Advanced Computing Center
+						(TACC) and Florida International University. Please obtain
+						TACC/FIU's permission before using this model in any public
+						demonstrations.</i>
 
-	<p><i><b>Disclaimer</b>: BLA.</i>
-
-	  <h4>Demo Highlights</h4>
-	  <ul>
-	    <li>BLA</li>
-	  </ul>
-	  <h4>Instructions</h4>
-	  <ul>
-	    <li>BLA</li>
-	    <ul>
+					<h4>Demo Highlights</h4>
+					<ul>
+						<li>Dataset captured directly from VTK-based ParaView renderer through
+							TACC's GLURay tool.</li>
+						<li>Stream lines in this data set are actually
+							tessellated. OSPRay could do them natively, but ParaView
+							tessellated internally.</li>
+						<li>Rendered via OSPRay's Ambient Occlusion based
+							renderer. To see a comparison with/without Ambient
+							occlusion, <a href="demos/fiu/comparison.html">see this page</a>.
+					</ul>
+					<h4>Instructions</h4>
+					<ul>
+						<li>Download <a href="http://www.ospray.org/download/demos/fiu/fiu.xml">fiu.xml</a>
+							and <a href="http://www.ospray.org/download/demos/fiu/fiu.xml.bin">fiu.xml.bin</a> files.
+						</li>
+						<li>run via <br><code>./ospModelViewer fiu.xml --renderer ao</code>
+						<li>to run on Phi: <br><code>./ospModelViewer fiu.xml --renderer ao --osp:coi</code>
+						<li>run via OBJ renderer rather than Ambient Occlusion:<br><code>./ospModelViewer fiu.xml --renderer obj --sun-dir -1.5 -1 -1</code>
+						</li>
+						<ul>
       </td>
     <tr>
 
       <!-- ======================================================= -->
+		<tr>
       <td style="vertical-align:top">
-	<a href="demos/xfrog/xfrog.png">
-	  <img src="demos/xfrog/xfrog-small.jpg" width=200/></a></td>
+				<a href="demos/xfrog/xfrog.png">
+					<img src="demos/xfrog/xfrog-small.jpg" width=200/></a></td>
       <td style="vertical-align:top">
-	<h2>"XFrog Forest" - A 1.7 billion triangle forest model</h2>
+				<h3>"XFrog Forest" - A 1.7 billion triangle forest model</h3>
 
-	<p><i><b>Disclaimer</b>: Model courtesy Oliver Deussen,
-	    University of Konstanz; modelled via the XFrog tool
-	    (www.xfrog.com). Please acknowledge accordingly when
-	    using/showing this demo.</i>
+				<p><i><b>Disclaimer</b>: Model courtesy Oliver Deussen,
+						University of Konstanz; modelled via the XFrog tool
+						(www.xfrog.com). Please acknowledge accordingly when
+						using/showing this demo.</i>
 
-	  <h4>Demo Highlights</h4>
-	  <ul>
-	    <li>1.7 billion triangles (377,266 instances of 69 different
-	      kinds of plants, for a total of 1,679,235,546 triangles
-	      after instantiation).</li>
-	    <li>Additional detail through high-resolution alpha
-	      "stencil" textures to stencil detailed leaf shapes out of
-	      already highly detailed geometry</li>
-	    <li>Costly: requires many rays per pixel to handle the
-	      (high!) number of transparency layers.
-	  </ul>
-	  <h4>Instructions</h4>
-	  <ul>
-	    <li>Download <a href="demos/xfrog/download/xfrog.xml">xfrog.xml</a>
-	      and <a href="demos/xfrog/download/xfrog.xml.bin">xfrog.xml.bin</a> files.
-	    </li>
-	    <li>run via <pre>./ospModelViewer xfrog.xml --renderer obj</pre>
-	    </li>
-	    <ul>
+					<h4>Demo Highlights</h4>
+					<ul>
+						<li>1.7 billion triangles (377,266 instances of 69 different
+							kinds of plants, for a total of 1,679,235,546 triangles
+							after instantiation).</li>
+						<li>Additional detail through high-resolution alpha
+							"stencil" textures to stencil detailed leaf shapes out of
+							already highly detailed geometry</li>
+						<li>Costly: requires many rays per pixel to handle the
+							(high!) number of transparency layers.
+					</ul>
+					<h4>Instructions</h4>
+					<ul>
+						<li>Download <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml">xfrog.xml</a>
+							and <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml.bin">xfrog.xml.bin</a> files.
+						</li>
+						<li>run via <br><code>./ospModelViewer xfrog.xml --renderer obj</code>
+						</li>
+						<ul>
       </td>
     <tr>
 
       <!-- ======================================================= -->
     <tr>
       <td style="vertical-align:top">
-	<a href="demos/fiu/fiu-ao.png">
-	  <img src="demos/fiu/fiu-ao-small.jpg" width=200/></a></td>
-      <td style="vertical-align:top"><h2>"FIU" Ground Water Simulation</h2>
-	
-	<p><i><b>Disclaimer</b>: Model courtesy Texas Advanced Computing Center
-	    (TACC) and Florida International University. Please obtain
-	    TACC/FIU's permission before using this model in any public
-	    demonstrations.</i>
+				<a href="demos/nasa-streamlines/nasa-streamlines.png">
+					<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=200/></a></td>
+      <td style="vertical-align:top"><h3>"NASA Streamlines"</h3>
+				<p><i><b>Disclaimer</b>: Model courtesy Timothy Sandstrom, NASA.
+					<h4>Demo Highlights</h4>
+					<ul>
+						<li>1.7 billion triangles (377,266 instances of 69 different
+							kinds of plants, for a total of 1,679,235,546 triangles
+							after instantiation).</li>
+						<li>Additional detail through high-resolution alpha
+							"stencil" textures to stencil detailed leaf shapes out of
+							already highly detailed geometry</li>
+						<li>Costly: requires many rays per pixel to handle the
+							(high!) number of transparency layers.
+					</ul>
+					<h4>Instructions</h4>
+					<ul>
+						<li>Download
+							the <a href="http://www.ospray.org/download/NASA-B-field-sun.osx">NASA-B-field-sun.osx</a>
+							file.</li>
+						<li>run via <br><code>./ospModelViewer
+								NASA-B-field-sun.osx --renderer ao4</code></li>
+						<ul>
 
-	  <h4>Demo Highlights</h4>
-	  <ul>
-	    <li>Dataset captured directly from VTK-based ParaView renderer through
-	      TACC's GLURay tool.</li>
-	    <li>Stream lines in this data set are actually
-	      tessellated. OSPRay could do them natively, but ParaView
-	      tessellated internally.</li>
-	    <li>Rendered via OSPRay's Ambient Occlusion based
-	      renderer. To see a comparison with/without Ambient
-	      occlusion, <a href="demos/fiu/comparison.html">see this page</a>.
-	  </ul>
-	  <h4>Instructions</h4>
-	  <ul>
-	    <li>Download <a href="demos/fiu/download/fiu.xml">fiu.xml</a>
-	      and <a href="demos/fiu/download/fiu.xml.bin">fiu.xml.bin</a> files.
-	    </li>
-	    <li>run via <pre>./ospModelViewer fiu.xml --renderer ao</pre>
-	    <li>to run on Phi: <pre>./ospModelViewer fiu.xml --renderer ao --osp:coi</pre>
-	    <li>run via OBJ renderer rather than Ambient Occlusion:<pre>./ospModelViewer fiu.xml --renderer obj --sun-dir -1.5 -1 -1</pre>
-	    </li>
-	    <ul>
-      </td>
-    <tr>
-
-      <!-- ======================================================= -->
-    <tr>
-      <td style="vertical-align:top">
-	<a href="demos/nasa-streamlines/nasa-streamlines.png">
-	  <img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=200/></a></td>
-      <td style="vertical-align:top"><h2>"NASA Streamlines"</h2>
-	Model courtesy Timothy Sandstrom, NASA.<p>
       </td>
     <tr>
 

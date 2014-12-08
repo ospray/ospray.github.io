@@ -27,14 +27,13 @@ to be listed here, please let us know.
   <!-- ======================================================= -->
   <tr>
     <td style="vertical-align:top">
-      <a href="demos/nasa-streamlines/nasa-streamlines.png">
-	<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=200/></a></td>
+      <a href="related_projects/stingray/stingray.jpg">
+	<img src="related_projects/stingray/stingray.jpg" width=200/></a></td>
     <td style="vertical-align:top"><h3>"StingRay"</h3>
       SURVICE
       Engineering's <a href="http://www.rtvtk.org/~cgribble/research/papers/gribble14high.pdf">"StingRay"
       toolkit</a> makes use of Embree for simulating radio frequency,
       and uses OSPRay for visualizing the resuls.
-
     </td>
   <tr>
     
@@ -44,7 +43,10 @@ to be listed here, please let us know.
 <h2>Projects that OSPRay makes use of</h2>
 
 <ul>
-  <li><a href="embree.github.io">The Embree Ray Tracing Kernel Framework (embree.github.io)</a></li>
-  <li><a href="ispc.github.io">The Intel SPMD Program compiler (ISPC, ispc.github.io)</a></li>
+  <li><a href="http://embree.github.io">The Embree Ray Tracing Kernel Framework (embree.github.io)</a></li>
+  <li><a href="http://ispc.github.io">The Intel SPMD Program compiler (ISPC, ispc.github.io)</a></li>
+	<li>OSPRay's "sister project" is the 
+		<a href="http://OpenSWR.github.io">OpenSWR software rasterizer</a>, 
+		a new high-performance, highly-scalable, software OpenGL implementation that runs on host CPUs.</li>
 </ul>
 
