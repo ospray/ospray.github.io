@@ -1,3 +1,5 @@
+<p><a href="teaser.html"><img src="related_projects/vtk-paraview/screenshot-paraview-fiu.jpg" width="40%"></a></p>
+
 <h1>OSPRay "Alpha" Release Now Available</h1>
 
 Following our annoucement at Supercomputing 2014, a early "alpha"
@@ -27,8 +29,6 @@ please contact us via email.
   that use ray tracing based rendering for interactive
   applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
 
-<p><a href="teaser.html"><img src="related_projects/vtk-paraview/screenshot-paraview-fiu.jpg" width="40%"></a></p>
-
 <p>OSPRay internally builds on top
   of <a href="http://embree.github.io">@Embree
     (http://embree.github.io)</a>
@@ -37,15 +37,12 @@ please contact us via email.
   instruction sets like Intel(c) SSE, AVX, AVX2, or Intel(c) Xeon
   Phi(tm) to achieve high rendering performance.</p>
 
-<p>We are currently putting the final touches on our first public "alpha" release of
-  OSPRay (to be released on this very site). Please hang on.</p>
-
 <h1>News and Updates</h1>
 
 <dl>
 	<!-- ------------------------------------------------------- -->
   <dt>Dev 12, 2014</dt><dd>
-		OSPRay's "alpha" release is finally avaiable via github.
+		OSPRay's "alpha" release is finally avaiable via <a href="ospray.github.io>ospray.github.io</a>.
 	</dd>
 	<!-- ------------------------------------------------------- -->
   <dt>Nov 25, 2014</dt><dd>
