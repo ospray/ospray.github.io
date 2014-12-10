@@ -7,6 +7,7 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 
 <hr>
 <table rules="rows">
+
   <!-- ======================================================= -->
   <tr>
     <td style="vertical-align:top">
@@ -15,31 +16,29 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
     <td style="vertical-align:top">
       <h3>"Daughton Space Weather" IsoSurface</h3>
 
-      <p><i><b>Disclaimer</b>: Model courtesy Bill Daughton (LANL)
-	  and Berk Geveci (KitWare). When used in papers, please
-	  cite <a href="http://arxiv.org/abs/1405.4040">this
+      <i id="demo-bullets">Model courtesy Bill Daughton (LANL)
+	  and Berk Geveci (KitWare). Please acknowledge via
+	  <a href="http://arxiv.org/abs/1405.4040">this
 	    paper</a>.</i>
 
 	<h4>Demo Highlights</h4>
-	<ul>
-	  <li>Iso-surface of the Daughton Space Weather volume data
+	<ul id="demo-bullets">
+	  <li>Iso-surface of the <code>1024^3</code> Daughton Space Weather volume data
 	    set, generated with ParaView, and exported through
 	    ParaView's X3D exporter.</li>
-	  <li>Original data is <code>1024^3</code> voxels per time
-	  step, the generated iso-surface has roughly 36 million
-	  triangles</li>
-	  <li>OSPRay's Ambient Occlusion renderer (<code>ao4</code>)
-	    greatly helps in bringing out the 3D shape of the
-	    surface.</li>
+	  <li>Generated iso-surface has approx 36M triangles.</li>
+	  <li>Rendered using OSPRay's Ambient Occlusion renderer
+	    (<code>ao4</code>).</li>
 	</ul>
 	<h4>Instructions</h4>
-	<ul>
+	<ul id="demo-bullets">
 	  <li>Download <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d">dsw-1024-twoisos.x3d</a>.
 	  <li>Run via <br><code>./ospModelViewer dsw-1024-twoisos.x3d --renderer ao4</code>.</li>
 	</ul>
     </td>
   </tr>
     
+
     <!-- ======================================================= -->
   <tr>
     <td style="vertical-align:top">
@@ -47,14 +46,13 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	<img src="demos/fiu/fiu-ao-small.jpg" width=220/></a></td>
     <td style="vertical-align:top"><h3>"FIU" Ground Water Simulation</h3>
       
-      <p><i><b>Disclaimer</b>: Model courtesy Texas Advanced Computing
+      <i id="demo-bullets">Model courtesy Texas Advanced Computing
 	  Center (TACC) and Florida International University. Please
-	  obtain TACC/FIU's permission before using this model in any
-	  public demonstrations.</i>
+	  obtain TACC/FIU's permission before using this model.</i>
 
 	<h4>Demo Highlights</h4>
-	<ul>
-	  <li>Dataset captured from VTK-based ParaView renderer
+	<ul id="demo-bullets">
+	  <li>Dataset captured from VTK-based ParaView 
 	    through TACC's GLURay tool.</li>
 	  <li>Stream lines in this data set are actually
 	    tessellated. OSPRay could do them natively, but ParaView
@@ -65,13 +63,12 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	    page</a>.</li>
 	</ul>
 	<h4>Instructions</h4>
-	<ul>
+	<ul id="demo-bullets">
 	  <li>Download <a href="http://www.ospray.org/download/demos/fiu/fiu.xml">fiu.xml</a>
 	    and <a href="http://www.ospray.org/download/demos/fiu/fiu.xml.bin">fiu.xml.bin</a>.
 	  </li>
-	  <li>run via <br><code>./ospModelViewer fiu.xml --renderer ao</code>
-	  <li>to run on Phi: <br><code>./ospModelViewer fiu.xml --renderer ao --osp:coi</code>
-	  <li>run via OBJ renderer rather than Ambient Occlusion:<br><code>./ospModelViewer fiu.xml --renderer obj --sun-dir -1.5 -1 -1</code>
+	  <li>run via <code>ospModelViewer fiu.xml --renderer ao</code>
+	  <li>run via OBJ renderer rather than Ambient Occlusion:<br><code>ospModelViewer fiu.xml --renderer obj --sun-dir -1.5 -1 -1</code>
 	  </li>
 	</ul>
     </td>
@@ -85,28 +82,28 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
     <td style="vertical-align:top">
       <h3>"XFrog Forest" - A 1.7 billion triangle forest model</h3>
 
-      <p><i><b>Disclaimer</b>: Model courtesy Oliver Deussen,
-	  University of Konstanz; modelled via the XFrog tool
-	  (www.xfrog.com). Please acknowledge accordingly when
-	  using/showing this demo.</i>
-
+      <i id="demo-bullets">Model courtesy Oliver Deussen,
+	University of Konstanz; modelled via the XFrog tool
+	(www.xfrog.com). Please acknowledge accordingly when
+	using this model.</i>
+      
 	<h4>Demo Highlights</h4>
-	<ul>
+	<ul id="demo-bullets">
 	  <li>1.7 billion triangles (377,266 instances of 69 different
 	    kinds of plants, for a total of 1,679,235,546 triangles
 	    after instantiation).</li>
 	  <li>Additional detail through high-resolution alpha
 	    "stencil" textures to stencil detailed leaf shapes out of
 	    already highly detailed geometry</li>
-	  <li>Costly: requires many rays per pixel to handle the
+	  <li>Requires many rays per pixel to handle the
 	    (high!) number of transparency layers.</li>
 	</ul>
 	<h4>Instructions</h4>
-	<ul>
+	<ul id="demo-bullets">
 	  <li>Download <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml">xfrog.xml</a>
 	    and <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml.bin">xfrog.xml.bin</a>.
 	  </li>
-	  <li>run via <br><code>./ospModelViewer xfrog.xml --renderer
+	  <li>run via <code>./ospModelViewer xfrog.xml --renderer
 	      obj</code></li>
 	</ul>
     </td>
@@ -118,10 +115,9 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
       <a href="demos/nasa-streamlines/nasa-streamlines.png">
 	<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=220/></a></td>
     <td style="vertical-align:top"><h3>"NASA Streamlines"</h3>
-      <p><i><b>Disclaimer</b>: Model courtesy Timothy Sandstrom, NASA.</i>
-	<h4>Disclaimer</h4> Model courtesy Timothy Sandstrom, NASA.
+      <i id="demo-bullets">Model courtesy Timothy Sandstrom, NASA.</i>
 	<h4>Demo Highlights</h4>
-	<ul>
+	<ul id="demo-bullets">
 	  <li>Model of a magnetic field on the sun, visualized through
 	  a attribute-mapped iso-surface of the B-field, plus a set of
 	  stream lines.</li>
@@ -134,10 +130,10 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	    shading, it looks like a "lint ball").</li>
 	</ul>
 	<h4>Instructions</h4>
-	<ul>
+	<ul id="demo-bullets">
 	  <li>Download
 	    <a href="http://www.ospray.org/download/NASA-B-field-sun.osx">NASA-B-field-sun.osx</a>.</li>
-	  <li>run via <br><code>./ospModelViewer
+	  <li>run via <code>ospModelViewer
 	      NASA-B-field-sun.osx --renderer ao4</code></li>
 	</ul>
     </td>

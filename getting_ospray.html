@@ -33,7 +33,7 @@
       }
       
 h1, h2, h3, h4, h5, h6 {
-  margin: 10px 0;
+  margin: 5px 0;
   font-weight: 700;
   color:#222222;
   font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
@@ -51,6 +51,8 @@ p {
 
 dl dt { font-weight:bold; 
 }
+
+#demo-bullets { font-size: 90%; }
 
       #footer { 
       padding-top: 5px;
