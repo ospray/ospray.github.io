@@ -2,12 +2,12 @@
 
 <h1>OSPRay "Alpha" Release Now Available</h1>
 
-Following our annoucement at Supercomputing 2014, a early "alpha"
+Following our announcement at Supercomputing 2014, a early "alpha"
 version of OSPRay is now available
 on <a href="http://ospray.github.io">http://ospray.github.io</a>.
 
 The main purpose of this "alpha" release is to give all interested
-parties an early idea of the capabitlies, features, and performance
+parties an early idea of the capabilities, features, and performance
 they can can expect from the eventual 1.0 version (which we currently
 estimate to appear somewhere around mid 2015), as well as to give
 early adopters "something" to experiment with that's not restricted by
@@ -21,9 +21,14 @@ any NDAs etc.
   please report them immediately via
   <a href="https://github.com/ospray/OSPRay/issues">OSPRay's GitHub
     Issue Tracker</a> (or send us a pull request); for missing features
-  please contact us via email.
-  <h1>What is OSPRay</h1>
+  please contact us via email.</p>
 
+<h1>What is OSPRay</h1>
+
+<p>
+  OSPRay is a open, scalable, and portable ray tracing engine for
+  high-performance, high-fidelity visualization on Intel&reg; Architecture CPUs.
+</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and
   easy-to-use rendering library that allows to easily build applications
   that use ray tracing based rendering for interactive
@@ -32,17 +37,17 @@ any NDAs etc.
 <p>OSPRay internally builds on top
   of <a href="http://embree.github.io">@Embree
     (http://embree.github.io)</a>
-  and <a href="http://ispc.github.io">@ispc (The Intel(c) SPMD Program
+  and <a href="http://ispc.github.io">@ispc (The Intel&reg; SPMD Program
     Compiler, ISPC)</a>, and fully utilizes modern
-  instruction sets like Intel(c) SSE, AVX, AVX2, or Intel(c) Xeon
-  Phi(tm) to achieve high rendering performance.</p>
+  instruction sets like Intel(c) SSE, AVX, AVX2, or Intel&reg; Xeon
+  Phi&trade; to achieve high rendering performance.</p>
 
 <h1>News and Updates</h1>
 
 <dl>
   <!-- ------------------------------------------------------- -->
   <dt>Dec 12, 2014</dt><dd>
-    OSPRay's "alpha" release is finally avaiable via <a href="ospray.github.io">ospray.github.io</a>.
+    OSPRay's "alpha" release is finally available via <a href="ospray.github.io">ospray.github.io</a>.
   </dd>
   <!-- ------------------------------------------------------- -->
   <dt>Nov 25, 2014</dt><dd>
@@ -56,7 +61,7 @@ any NDAs etc.
       <li>
 	<a href="talks/SC14DevConf-OSPRay.pdf">"OSPRay - A
 	  Ray Tracing based Rendering Engine for High-Fidelity
-	  Visualization"</a> (presented at the Intel HPC Developers
+	  Visualization"</a> (presented at the Intel&reg; HPC Developers
 	Conference at SC14).
       </li>
       <li>
@@ -69,7 +74,7 @@ any NDAs etc.
   <!-- ------------------------------------------------------- -->
   <dt>Nov 13, 2014</dt><dd>There are two upcoming talks on OSPRay at Supercomputing 2014:
     <ul>
-      <li>At the "Visualization" track of the <a href="http://ihpcc2014.com/dw-visual.html">Intel(c) HPC Developer Conference (Nov 16, 2014)</a></li>
+      <li>At the "Visualization" track of the <a href="http://ihpcc2014.com/dw-visual.html">Intel&reg; HPC Developer Conference (Nov 16, 2014)</a></li>
       <li>In the third session of the <a href="http://vis.cs.ucdavis.edu/Ultravis14">UltraVis 2014 workshop on Ultra-scale Visualization</a></li>
     </ul>
     We will be posting the slides of these talks as soon as these events are over.

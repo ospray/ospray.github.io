@@ -2,7 +2,6 @@
 
 This page serves as a repository for 'ready-to-run' demos for OSPRay (currently, all
 demos as intended for OSPRay V0.7.0).
-<br>
 If you do not yet have a version of OSPRay installed on your system, you can follow these
 <a href="getting_ospray.html">instructions for getting OSPRay</a>. 
 
@@ -35,8 +34,8 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	</ul>
 	<h4>Instructions</h4>
 	<ul>
-	  <li>Get the <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d">dsw-1024-twoisos.x3d</a> file.
-	  <li>Run via <code>./ospModelViewer dsw-1024-twoisos.x3d --renderer ao4</code>.</li>
+	  <li>Download <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d">dsw-1024-twoisos.x3d</a>.
+	  <li>Run via <br><code>./ospModelViewer dsw-1024-twoisos.x3d --renderer ao4</code>.</li>
 	</ul>
     </td>
   </tr>

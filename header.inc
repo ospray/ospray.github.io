@@ -49,6 +49,9 @@ p {
   margin: 10px 0 15px 0;
 }
 
+dl dt { font-weight:bold; 
+}
+
       #footer { 
       padding-top: 5px;
       margin: 0;
