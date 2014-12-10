@@ -13,16 +13,16 @@ estimate to appear somewhere around mid 2015), as well as to give
 early adopters "something" to experiment with that's not restricted by
 any NDAs etc.
 <p>
-Being an "alpha"-level release a certain amount of bugs,
-as-yet-missing features, or any other issues in the current version
-cannot be ruled out; however, we are committed to eradicating all such
-issues as soon as possible, and will constantly be posting
-bugfix-releases fox fixed issues. Should you find any such issues
-please report them immediately via
-<a href="https://github.com/ospray/OSPRay/issues">OSPRay's GitHub
-Issue Tracker</a> (or send us a pull request); for missing features
-please contact us via email.
-<h1>What is OSPRay</h1>
+  Being an "alpha"-level release a certain amount of bugs,
+  as-yet-missing features, or any other issues in the current version
+  cannot be ruled out; however, we are committed to eradicating all such
+  issues as soon as possible, and will constantly be posting
+  bugfix-releases fox fixed issues. Should you find any such issues
+  please report them immediately via
+  <a href="https://github.com/ospray/OSPRay/issues">OSPRay's GitHub
+    Issue Tracker</a> (or send us a pull request); for missing features
+  please contact us via email.
+  <h1>What is OSPRay</h1>
 
 <p>The purpose of OSPRay is to provide an open, powerful, and
   easy-to-use rendering library that allows to easily build applications
@@ -40,11 +40,11 @@ please contact us via email.
 <h1>News and Updates</h1>
 
 <dl>
-	<!-- ------------------------------------------------------- -->
+  <!-- ------------------------------------------------------- -->
   <dt>Dec 12, 2014</dt><dd>
-		OSPRay's "alpha" release is finally avaiable via <a href="ospray.github.io">ospray.github.io</a>.
-	</dd>
-	<!-- ------------------------------------------------------- -->
+    OSPRay's "alpha" release is finally avaiable via <a href="ospray.github.io">ospray.github.io</a>.
+  </dd>
+  <!-- ------------------------------------------------------- -->
   <dt>Nov 25, 2014</dt><dd>
     The slides for our OSPRay-related talks at SC14 are now available:
     <ul>
@@ -66,7 +66,7 @@ please contact us via email.
     </ul>
   </dd>
 
-	<!-- ------------------------------------------------------- -->
+  <!-- ------------------------------------------------------- -->
   <dt>Nov 13, 2014</dt><dd>There are two upcoming talks on OSPRay at Supercomputing 2014:
     <ul>
       <li>At the "Visualization" track of the <a href="http://ihpcc2014.com/dw-visual.html">Intel(c) HPC Developer Conference (Nov 16, 2014)</a></li>
