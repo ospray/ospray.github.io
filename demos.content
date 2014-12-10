@@ -39,6 +39,33 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
   </tr>
     
 
+  <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:top">
+      <a id="demo_image" href="demos/llnl-250/llnl-250.png">
+	<img src="demos/llnl-250/llnl-250.png" width=220/></a></td>
+    <td style="vertical-align:top">
+      <h3>290M triangle "Richtmyer-Meshkov" Iso-Surface</h3>
+
+      <i id="demo-bullets">Model courtesy Lawrence-Livermore National Labs (LLNL).</i>
+
+	<h4>Demo Highlights</h4>
+	<ul id="demo-bullets">
+	  <li>Iso-surface of the <code>2048^3</code> Richtmyer-Meshkov Instability simulation performed by LLNL, iso-surface extracted through ParaView.</li>
+	  <li>Detailed iso-surface has 290 million triangle.</li>
+	  <li>Rendered using OSPRay's Ambient Occlusion renderer
+	    (<code>ao4</code>).</li>
+	</ul>
+	<h4>Instructions</h4>
+	<ul id="demo-bullets">
+	  <li>Download <a href="http://www.ospray.org/download/demos/llnl-250/llnl-250.xml">llnl-250.xml</a> and <a href="http://www.ospray.org/download/demos/llnl-250/llnl-250.xml.bin">llnl-250.xml.bin</a>.
+	  <li>Run via <br><code>./ospModelViewer llnl-250.xml --renderer ao4</code>.</li>
+	</ul>
+    </td>
+  </tr>
+    
+
+
     <!-- ======================================================= -->
   <tr>
     <td style="vertical-align:top">
@@ -57,6 +84,7 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	  <li>Stream lines in this data set are actually
 	    tessellated. OSPRay could do them natively, but ParaView
 	    tessellated internally.</li>
+          <li>Model size roughly 8 million triangles</li>
 	  <li>Rendered via OSPRay's Ambient Occlusion based
 	    renderer. To see a comparison with/without Ambient
 	    occlusion, <a href="demos/fiu/comparison.html">see this
