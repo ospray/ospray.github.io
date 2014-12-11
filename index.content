@@ -6,12 +6,11 @@ Following our announcement at Supercomputing 2014, a early "alpha"
 version of OSPRay is now available
 on <a href="http://ospray.github.io">http://ospray.github.io</a>.
 
-The main purpose of this "alpha" release is to give all interested
-parties an early idea of the capabilities, features, and performance
-they can can expect from the eventual 1.0 version (which we currently
-estimate to appear somewhere around mid 2015), as well as to give
-early adopters "something" to experiment with that's not restricted by
-any NDAs etc.
+The main purpose of this "alpha" release is to give interested
+parties an early indication of the capabilities, features, and performance
+they can can expect from the eventual 1.0 version (which we anticipate
+releasing in 2015), as well as to give early adopters "something" to
+experiment with that is unencumbered by NDAs.
 <p>
   Being an "alpha"-level release a certain amount of bugs,
   as-yet-missing features, or any other issues in the current version
@@ -26,8 +25,9 @@ any NDAs etc.
 <h1>What is OSPRay</h1>
 
 <p>
-  OSPRay is a open, scalable, and portable ray tracing engine for
+  OSPRay is an open source, scalable, and portable ray tracing engine for
   high-performance, high-fidelity visualization on Intel&reg; Architecture CPUs.
+  OSPRay is released under the permissive Apache 2.0 license.
 </p>
 <p>The purpose of OSPRay is to provide an open, powerful, and
   easy-to-use rendering library that allows to easily build applications
@@ -39,7 +39,7 @@ any NDAs etc.
     (http://embree.github.io)</a>
   and <a href="http://ispc.github.io">@ispc (The Intel&reg; SPMD Program
     Compiler, ISPC)</a>, and fully utilizes modern
-  instruction sets like Intel(c) SSE, AVX, AVX2, or Intel&reg; Xeon
+  instruction sets like Intel&reg; SSE, AVX, AVX2, or Intel&reg; Xeon
   Phi&trade; to achieve high rendering performance.</p>
 
 <h1>News and Updates</h1>

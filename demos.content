@@ -10,9 +10,9 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 
   <!-- ======================================================= -->
   <tr>
-    <td style="vertical-align:top">
+    <td style="vertical-align:center" width=235>
       <a id="demo_image" href="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris.png">
-	<img src="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris-small.jpg" width=220/></a></td>
+	<img src="demos/DaughtonSpaceWeather/DaughtonSpaceWeather-1k-twoIsos-45Mtris-small.jpg" width=220 border=1/></a></td>
     <td style="vertical-align:top">
       <h3>"Daughton Space Weather" IsoSurface</h3>
 
@@ -23,7 +23,7 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 
 	<h4>Demo Highlights</h4>
 	<ul id="demo-bullets">
-	  <li>Iso-surface of the <code>1024^3</code> Daughton Space Weather volume data
+	  <li>Iso-surface of the <code>1024<sup>3</sup></code> Daughton Space Weather volume data
 	    set, generated with ParaView, and exported through
 	    ParaView's X3D exporter.</li>
 	  <li>Generated iso-surface has approx 36M triangles.</li>
@@ -38,12 +38,37 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
     </td>
   </tr>
     
+  <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:center" width=235>
+      <a id="demo_image" href="demos/DaughtonSpaceWeather/dsw-512-volume.png">
+        <img src="demos/DaughtonSpaceWeather/dsw-512-volume-thumbnail.jpg" width=220 border=1/></a></td>
+    <td style="vertical-align:top">
+      <h3>"Daughton Space Weather" Volume Rendered</h3>
+
+      <i id="demo-bullets">Model courtesy Bill Daughton (LANL)
+          and Berk Geveci (KitWare). Please acknowledge via
+          <a href="http://arxiv.org/abs/1405.4040">this
+            paper</a>.</i>
+
+        <h4>Demo Highlights</h4>
+        <ul id="demo-bullets">
+          <li>Volume rendering of the <code>512<sup>3</sup></code> Daughton Space Weather volume data.</li>
+          <li>Rendered using OSPRay's ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ul id="demo-bullets">
+          <li>Download <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-512-volume.tar.bz2">dsw-512-volume.tar.bz2</a>.
+          <li>Run via <br><code>./ospVolumeViewer dsw-512-volume.osp</code>.</li>
+        </ul>
+    </td>
+  </tr>
 
   <!-- ======================================================= -->
   <tr>
-    <td style="vertical-align:top">
+    <td style="vertical-align:center" width=235>
       <a id="demo_image" href="demos/llnl-250/llnl-250.png">
-	<img src="demos/llnl-250/llnl-250.png" width=220/></a></td>
+	<img src="demos/llnl-250/llnl-250.png" width=220 border=1/></a></td>
     <td style="vertical-align:top">
       <h3>290M triangle "Richtmyer-Meshkov" Iso-Surface</h3>
 
@@ -51,7 +76,7 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 
 	<h4>Demo Highlights</h4>
 	<ul id="demo-bullets">
-	  <li>Iso-surface of the <code>2048^3</code> Richtmyer-Meshkov Instability simulation performed by LLNL, iso-surface extracted through ParaView.</li>
+	  <li>Iso-surface of the <code>2048<sup>3</sup></code> Richtmyer-Meshkov Instability simulation performed by LLNL, iso-surface extracted through ParaView.</li>
 	  <li>Detailed iso-surface has 290 million triangle.</li>
 	  <li>Rendered using OSPRay's Ambient Occlusion renderer
 	    (<code>ao4</code>).</li>
@@ -64,13 +89,35 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
     </td>
   </tr>
     
+  <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:center" width=235>
+      <a id="demo_image" href="demos/TACCIsotropicTurbulence/tacc-turbulence-256-volume.png">
+        <img src="demos/TACCIsotropicTurbulence/tacc-turbulence-256-volume-thumbnail.jpg" width=220 border=1/></a></td>
+    <td style="vertical-align:top">
+      <h3>"TACC Isotropic Turbulence" Volume Rendered</h3>
 
+      <i id="demo-bullets">Model courtesy of the Texas Advanced Computing Center (TACC), Texas A&M University, and Georgia Tech.</i>
+
+        <h4>Demo Highlights</h4>
+        <ul id="demo-bullets">
+          <li>Volume rendering of a <code>256<sup>3</sup></code> data set containing a single time
+              step from a computational simulation of isotropic turbulence.</li>
+          <li>Rendered using OSPRay's ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ul id="demo-bullets">
+          <li>Download <a href="http://www.ospray.org/download/demos/TACCIsotropicTurbulence/tacc-turbulence-256-volume.tar.bz2">tacc-turbulence-256-volume.tar.bz2</a>.
+          <li>Run via <br><code>./ospVolumeViewer tacc-turbulence-256-volume.osp</code>.</li>
+        </ul>
+    </td>
+  </tr>
 
     <!-- ======================================================= -->
   <tr>
-    <td style="vertical-align:top">
+    <td style="vertical-align:center" width=235>
       <a href="demos/fiu/fiu-ao.png">
-	<img src="demos/fiu/fiu-ao-small.jpg" width=220/></a></td>
+	<img src="demos/fiu/fiu-ao-small.jpg" width=220 border=1/></a></td>
     <td style="vertical-align:top"><h3>"FIU" Ground Water Simulation</h3>
       
       <i id="demo-bullets">Model courtesy Texas Advanced Computing
@@ -104,9 +151,9 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 
     <!-- ======================================================= -->
   <tr>
-    <td style="vertical-align:top">
+    <td style="vertical-align:center" width=235>
       <a href="demos/xfrog/xfrog.png">
-	<img src="demos/xfrog/xfrog-small.jpg" width=220/></a></td>
+	<img src="demos/xfrog/xfrog-small.jpg" width=220 border=1/></a></td>
     <td style="vertical-align:top">
       <h3>"XFrog Forest" - A 1.7 billion triangle forest model</h3>
 
@@ -137,11 +184,35 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
     </td>
   </tr>
     
+  <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:center" width=235>
+      <a id="demo_image" href="demos/CSAFEHeptane/csafe-heptane-302-volume.png">
+        <img src="demos/CSAFEHeptane/csafe-heptane-302-volume-thumbnail.jpg" width=220 border=1/></a></td>
+    <td style="vertical-align:top">
+      <h3>"TACC Isotropic Turbulence" Volume Rendered</h3>
+
+      <i id="demo-bullets">Model courtesy of University of Utah Center for the Simulation of Accidental Fires and Explosions.</i>
+
+        <h4>Demo Highlights</h4>
+        <ul id="demo-bullets">
+          <li>Volume rendering of a <code>302<sup>3</sup></code> data set containing a single time
+              step from a computational simulation of the combustion of heptane gas.</li>
+          <li>Rendered using OSPRay's ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ul id="demo-bullets">
+          <li>Download <a href="http://www.ospray.org/download/demos/CSAFEHeptane/csafe-heptane-302-volume.tar.bz2">csafe-heptane-302-volume.tar.bz2</a>.
+          <li>Run via <br><code>./ospVolumeViewer csafe-heptane-302-volume.osp</code>.</li>
+        </ul>
+    </td>
+  </tr>
+
     <!-- ======================================================= -->
   <tr>
-    <td style="vertical-align:top">
+    <td style="vertical-align:center" width=235>
       <a href="demos/nasa-streamlines/nasa-streamlines.png">
-	<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=220/></a></td>
+	<img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" width=220 border=1/></a></td>
     <td style="vertical-align:top"><h3>"NASA Streamlines"</h3>
       <i id="demo-bullets">Model courtesy Timothy Sandstrom, NASA.</i>
 	<h4>Demo Highlights</h4>
