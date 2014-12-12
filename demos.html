@@ -286,8 +286,8 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	</ul>
 	<h4>Instructions</h4>
 	<ul id="demo-bullets">
-	  <li>Download <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-twoisos.x3d">dsw-1024-twoisos.x3d</a>.
-	  <li>Run via <br><code>./ospModelViewer dsw-1024-twoisos.x3d --renderer ao4</code>.</li>
+	  <li>Download <a href="http://www.ospray.org/download/demos/DaughtonSpaceWeather/dsw-1024-iso.x3d.bz2">dsw-1024-iso.x3d.bz2</a>.
+	  <li>Run via <br><code>./ospModelViewer dsw-1024-iso.x3d --renderer ao4</code>.</li>
 	</ul>
     </td>
   </tr>
@@ -331,14 +331,14 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	<h4>Demo Highlights</h4>
 	<ul id="demo-bullets">
 	  <li>Iso-surface of the <code>2048<sup>3</sup></code> Richtmyer-Meshkov Instability simulation performed by LLNL, iso-surface extracted through ParaView.</li>
-	  <li>Detailed iso-surface has 290 million triangle.</li>
+	  <li>Detailed iso-surface has 290 million triangles.</li>
 	  <li>Rendered using OSPRay's Ambient Occlusion renderer
 	    (<code>ao4</code>).</li>
 	</ul>
 	<h4>Instructions</h4>
 	<ul id="demo-bullets">
-	  <li>Download <a href="http://www.ospray.org/download/demos/llnl-250/llnl-250.xml">llnl-250.xml</a> and <a href="http://www.ospray.org/download/demos/llnl-250/llnl-250.xml.bin">llnl-250.xml.bin</a>.
-	  <li>Run via <br><code>./ospModelViewer llnl-250.xml --renderer ao4</code>.</li>
+	  <li>Download <a href="http://www.ospray.org/download/demos/LLNLRichtmyerMeshkov/llnl-2048-iso.tar.bz2">llnl-2048-iso.tar.bz2</a>.
+	  <li>Run via <br><code>./ospModelViewer llnl-2048-iso.xml --renderer ao4</code>.</li>
 	</ul>
     </td>
   </tr>
@@ -393,11 +393,10 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	</ul>
 	<h4>Instructions</h4>
 	<ul id="demo-bullets">
-	  <li>Download <a href="http://www.ospray.org/download/demos/fiu/fiu.xml">fiu.xml</a>
-	    and <a href="http://www.ospray.org/download/demos/fiu/fiu.xml.bin">fiu.xml.bin</a>.
+	  <li>Download <a href="http://www.ospray.org/download/demos/FIUGroundWater/fiu-groundwater.tar.bz2">fiu-groundwater.tar.bz2</a>.
 	  </li>
-	  <li>run via <code>ospModelViewer fiu.xml --renderer ao</code>
-	  <li>run via OBJ renderer rather than Ambient Occlusion:<br><code>ospModelViewer fiu.xml --renderer obj --sun-dir -1.5 -1 -1</code>
+	  <li>run via <code>ospModelViewer fiu-groundwater.xml --renderer ao</code>
+	  <li>run via OBJ renderer rather than Ambient Occlusion:<br><code>ospModelViewer fiu-groundwater.xml --renderer obj --sun-dir -1.5 -1 -1</code>
 	  </li>
 	</ul>
     </td>
@@ -429,36 +428,11 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	</ul>
 	<h4>Instructions</h4>
 	<ul id="demo-bullets">
-	  <li>Download <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml">xfrog.xml</a>
-	    and <a href="http://www.ospray.org/download/demos/xfrog/xfrog.xml.bin">xfrog.xml.bin</a>.
+	  <li>Download <a href="http://www.ospray.org/download/demos/XFrogForest/xfrog-forest.tar.bz2">xfrog-forest.tar.bz2</a>.
 	  </li>
-	  <li>run via <code>./ospModelViewer xfrog.xml --renderer
+	  <li>run via <code>./ospModelViewer xfrog-forest.xml --renderer
 	      obj</code></li>
 	</ul>
-    </td>
-  </tr>
-    
-  <!-- ======================================================= -->
-  <tr>
-    <td style="vertical-align:center" width=235>
-      <a id="demo_image" href="demos/CSAFEHeptane/csafe-heptane-302-volume.png">
-        <img src="demos/CSAFEHeptane/csafe-heptane-302-volume-thumbnail.jpg" width=220 border=1/></a></td>
-    <td style="vertical-align:top">
-      <h3>"TACC Isotropic Turbulence" Volume Rendered</h3>
-
-      <i id="demo-bullets">Model courtesy of University of Utah Center for the Simulation of Accidental Fires and Explosions.</i>
-
-        <h4>Demo Highlights</h4>
-        <ul id="demo-bullets">
-          <li>Volume rendering of a <code>302<sup>3</sup></code> data set containing a single time
-              step from a computational simulation of the combustion of heptane gas.</li>
-          <li>Rendered using OSPRay's ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
-        </ul>
-        <h4>Instructions</h4>
-        <ul id="demo-bullets">
-          <li>Download <a href="http://www.ospray.org/download/demos/CSAFEHeptane/csafe-heptane-302-volume.tar.bz2">csafe-heptane-302-volume.tar.bz2</a>.
-          <li>Run via <br><code>./ospVolumeViewer csafe-heptane-302-volume.osp</code>.</li>
-        </ul>
     </td>
   </tr>
 
@@ -485,7 +459,7 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
 	<h4>Instructions</h4>
 	<ul id="demo-bullets">
 	  <li>Download
-	    <a href="http://www.ospray.org/download/NASA-B-field-sun.osx">NASA-B-field-sun.osx</a>.</li>
+	    <a href="http://www.ospray.org/download/demos/NASA-B-field-sun/NASA-B-field-sun.osx">NASA-B-field-sun.osx</a>.</li>
 	  <li>run via <code>ospModelViewer
 	      NASA-B-field-sun.osx --renderer ao4</code></li>
 	</ul>
