@@ -2,7 +2,7 @@
 
 <h1>OSPRay "Alpha" Release Now Available</h1>
 
-Following our announcement at Supercomputing 2014, a early "alpha"
+Following our announcement at Supercomputing 2014, an early "alpha"
 version of OSPRay is now available
 on <a href="http://ospray.github.io">http://ospray.github.io</a>.
 
@@ -20,7 +20,7 @@ experiment with that is unencumbered by NDAs.
   please report them immediately via
   <a href="https://github.com/ospray/OSPRay/issues">OSPRay's GitHub
     Issue Tracker</a> (or send us a pull request); for missing features
-  please contact us via email.</p>
+  please contact us via email at <a href="mailto:ospray@googlegroups.com">ospray@googlegroups.com</a>.</p>
 
 <h1>What is OSPRay</h1>
 
