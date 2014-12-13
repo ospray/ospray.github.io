@@ -1,5 +1,184 @@
-<h1>Gallery</h1>
+<h1>OSPRay Gallery</h1>
 
-(coming soon)
+This page contains a few sample screenshots of different renderings
+done with OSPRay.
+If <em>you</em> have created any interesting images through OSPRay and
+would like to share them on this page,
+please <a href="mailto:ospray@googlegroups.com">send us an email</a>.
+
+<!-- ======================================================= -->
+<hr>
+<h2>VMD/Tachyon Screenshots</h2>
+
+This section shows some screenshots from the Tachyon module applied to
+models exported from the widely used "Visual Molecular Dynamics" (VMD)
+tool. In that workflow, a VMD user uses the VMD command
+<code>export Tachyon mymodel.tachy</code> to export the VMD model in
+tachyon format, then uses the <code>ospTachyon mymodel.tachy</code>
+viewer on those models.
+
+<table>
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/ospTachyon-glpf.png">
+	<img src="gallery/ospTachyon-glpf-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center">
+      VMD "GLPF" model; original model courtesy John Stone, UIUC.
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/ospTachyon-organelle.png">
+	<img src="gallery/ospTachyon-organelle-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center">
+      VMD "Organelle", using vdW-representation via ospray
+      spheres. Model courtesy Carsten Kutzner, MPI BPC, Goettingen.
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/ospTachyon-ribosome.png">
+	<img src="gallery/ospTachyon-ribosome-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center">
+      VMD "ribosome", with balls, sticks, ribbons, and
+      quicksurfs. Model courtesy Carsten Kutzner, MPI BPC, Goettingen.
+    </td>
+
+  </tr>
+</table>
 
 
+
+
+
+
+
+<!-- ======================================================= -->
+<hr>
+<h2>ospModelViewer Samples</h2>
+
+Sample screen-shots from the <code>ospModelViewer</code>, typically
+imported via the OBJ model file format.
+
+<table>
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/obj-fairy.png">
+	<img src="gallery/obj-fairy-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center" width=600>
+      The "Utah Fairy" (174k triangles), rendered with textures,
+      transparency, and shadows (using the <code>OBJ</code>
+      renderer. Model originally modelled using DAZ3D's DAZ Studio.
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/obj-powerplant.png">
+	<img src="gallery/obj-powerplant-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center"  width=600>
+      The "UNC PowerPlant" model (12.5 million triangles).
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/ao-boeing.png">
+	<img src="gallery/ao-boeing-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center"  width=600>
+      The "Boeing 777" model (342 million triangles), rendered using
+      Ambient Occlusion.  Model obtained from and used with permission
+      of the Boeing Company (special thanks to oDave Kasik).
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/obj-xfrog.png">
+	<img src="gallery/obj-xfrog-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center"  width=600>
+      The "xfrog" model of 1.7 billion (instanced) triangles and
+       transparency textures. Model originally created using XFrog,
+       model courtesy Oliver Deussen, University of Konstanz.
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/pt-dragon.png">
+	<img src="gallery/pt-dragon-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center"  width=600>
+      The 1 million triangle "DAZ Dragon" model, with textures,
+      transparency textures, and rendered with OSPRay's experimental
+      path tracer. Model originally created using DAZ3D's DAZ Studio.
+    </td>
+  </tr>
+
+
+  </tr>
+</table>
+
+
+
+
+
+
+<!-- ======================================================= -->
+<hr>
+<h2>Particle Viewer Examples</h2>
+
+Sample screen-shots from the <code>ospParticleViewer</code>.
+
+<table>
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/ospParticle-nanospheres.png">
+	<img src="gallery/ospParticle-nanospheres-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center" width=600>
+      The 740k-particle "nanospheres" model. Model courtesy Aaron Knoll, University of Utah, and Ken-Ichi Nomura, University of Southern California.
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/ospParticle-uintah.png">
+	<img src="gallery/ospParticle-uintah-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center"  width=600>
+      A 80 million particle model from the University of Utah's
+"UIntah" simulation package. Data courtesy Aaron Knoll and Jacqueline Beckvermit, University of Utah.
+    </td>
+  </tr>
+
+</table>

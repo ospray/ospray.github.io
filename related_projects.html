@@ -52,6 +52,8 @@ p {
 dl dt { font-weight:bold; 
 }
 
+code { font-size: 90%; }
+
 #demo-bullets { font-size: 90%; }
 
       #footer { 
