@@ -98,7 +98,7 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
     <td style="vertical-align:top">
       <h3>CSAFE Heptane Gas Dataset</h3>
       <i id="demo-bullets">Model courtesy of the Center for the
-	Simulation of Accidental Fires and Explosions (CSAFE),
+	Simulation of Accidental Fires and Explosions (CSAFE) at the 
 	Scientific Computing and Imaging Institute (SCI), University
 	of Utah.</i>
       <h4>Demo Highlights</h4>
