@@ -68,7 +68,7 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
   <tr>
     <td style="vertical-align:center" width=235>
       <a id="demo_image" href="demos/llnl-250/llnl-250.png">
-	<img src="demos/llnl-250/llnl-250.png" width=220 border=1/></a></td>
+	<img src="demos/llnl-250/llnl-250-small.png" width=220 border=1/></a></td>
     <td style="vertical-align:top">
       <h3>290M triangle "Richtmyer-Meshkov" Iso-Surface</h3>
 
@@ -89,6 +89,32 @@ If you do not yet have a version of OSPRay installed on your system, you can fol
     </td>
   </tr>
     
+  
+  <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:center" width=235>
+      <a id="demo_image" href="demos/CSAFEHeptane/csafe-heptane-302-volume.png">
+	<img src="demos/CSAFEHeptane/csafe-heptane-302-volume-thumbnail.jpg" width=220 border=1/></a></td>
+    <td style="vertical-align:top">
+      <h3>CSAFE Heptane Gas Dataset</h3>
+      <i id="demo-bullets">Model courtesy of the Center for the
+	Simulation of Accidental Fires and Explosions (CSAFE) at the 
+	Scientific Computing and Imaging Institute (SCI), University
+	of Utah.</i>
+      <h4>Demo Highlights</h4>
+      <ul id="demo-bullets">
+        <li>Volume rendering of a <code>302<sup>3</sup></code> data set containing a single time
+          step from a computational simulation of the combustion of heptane gas.</li>
+        <li>Rendered using OSPRay's ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
+      </ul>
+      <h4>Instructions</h4>
+      <ul id="demo-bullets">
+        <li>Download <a href="http://www.ospray.org/download/demos/CSAFEHeptane/csafe-heptane-302-volume.tar.bz2">csafe-heptane-302-volume.tar.bz2</a>.
+        <li>Run via <br><code>./ospVolumeViewer csafe-heptane-302-volume.osp</code>.</li>
+      </ul>
+    </td>
+  </tr>
+
   <!-- ======================================================= -->
   <tr>
     <td style="vertical-align:center" width=235>
