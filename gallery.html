@@ -235,7 +235,7 @@ code { font-size: 90%; }
 	OSPRay
       </div>
       <div id="header-subtitle">
-	A Ray Tracing based Rendering Engine for High-Fidelity Visualization
+	A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
       </div>
       <div id="header-navbar">
 	<ul>
