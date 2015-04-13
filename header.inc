@@ -240,7 +240,8 @@ code { font-size: 90%; }
       <div id="header-navbar">
 	<ul>
 	  <li><a href="index.html">Overview</a></li>
-	  <li><a href="demos.html">Demos</a></li>
+	  <li><a href="news.html">News/Updates</a></li>
+	  <li><a href="demos.html">Downloadable Demos</a></li>
 	  <li><a href="gallery.html">Gallery</a></li>
 	  <li><a href="getting_ospray.html">Getting OSPRay</a></li>
 	  <li><a href="https://github.com/ospray/OSPRay/wiki">Wiki</a></li>

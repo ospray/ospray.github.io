@@ -240,7 +240,8 @@ code { font-size: 90%; }
       <div id="header-navbar">
 	<ul>
 	  <li><a href="index.html">Overview</a></li>
-	  <li><a href="demos.html">Demos</a></li>
+	  <li><a href="news.html">News/Updates</a></li>
+	  <li><a href="demos.html">Downloadable Demos</a></li>
 	  <li><a href="gallery.html">Gallery</a></li>
 	  <li><a href="getting_ospray.html">Getting OSPRay</a></li>
 	  <li><a href="https://github.com/ospray/OSPRay/wiki">Wiki</a></li>
@@ -254,7 +255,7 @@ code { font-size: 90%; }
 
     <div id="content-wrap">
       <div id="content">
-<h1>Projects using / related to OSPRay</h1>
+<h1>Projects that make use of OSPRay</h1>
 
 This page gives a brief (and incomplete) list of other projects that
 make use of OSPRay, as well as a set of related links to other
@@ -263,19 +264,44 @@ projects and related information.
 <p>If you have a project that makes use of OSPRay and would like this
   to be listed here, please let us know.</p>
 
-<h2>Projects that use OSPRay</h2>
-
 
 <table rules="rows">
+    <!-- ======================================================= -->
+  <tr>
+    <td style="vertical-align:top">
+      <a href="related_projects/ballview/ballview.jpg">
+	<img src="related_projects/ballview/ballview.jpg" width=200/></a></td>
+    <td style="vertical-align:top"><h3>BALLView</h3>
+
+			<a href="http://bio.informatik.uni-mainz.de/members/andreas.hildebrandt">Prof
+			Andreas Hildebrandt</a>, head of
+			the <a href="http://bio.informatik.uni-mainz.de/">Software
+			Engineering and Bioinformatics group at the University of
+			Mainz</a> is currently creating an OSPRay rendering module for their
+			<a href="http://www.ballview.org/">BALLView</a> package, a
+			standalone molecular modelling and visualization application for
+			the "BALL" Biochemical Algorithm Library.
+    </td>
+  </tr>
+    
   <!-- ======================================================= -->
   <tr>
     <td style="vertical-align:top">
       <a href="related_projects/vtk-paraview/screenshot-paraview-fiu.jpg">
 	<img src="related_projects/vtk-paraview/screenshot-paraview-fiu-thumb.jpg"/ width=200></a></td>
-    <td style="vertical-align:top"><h3>"OSPRay/VTK/ParaView Plugin"</h3>
+    <td style="vertical-align:top"><h3>pvOSPRay: A OSPRay Plugin to ParaView/VTKx</h3>
 
-      The Remote Visualization Group at the Texas Advanced Computing Center (TACC) is building a 
-      <a href="teaser.html">OSPRay/VTK/ParaView plugin</a>.
+      The Remote Visualization Group at the Texas Advanced Computing
+Center (TACC) is building and maintaining OSPRay plugins for ParaView,
+VisIt, and VTK. The <a href="teaser.html">screenshot supplied here</a>
+shows a working version of ParaView rendering a non-trivial model
+through OSPRay.
+
+All three OSPRay plugins are hosted on TACC's github pages, under
+<a href="https://github.com/TACC/pvOSPRay">https://github.com/TACC/pvOSPRay</a> for the ParaView module, 
+<a href="https://github.com/TACC/visitOSPRay">https://github.com/TACC/visitOSPRay</a>
+for the VisIt module, and
+<a href="https://github.com/TACC/vtkOSPRay">https://github.com/TACC/vtkOSPRay</a> for the base VTK module.
 
     </td>
   </tr>
@@ -285,7 +311,7 @@ projects and related information.
     <td style="vertical-align:top">
       <a href="related_projects/stingray/stingray.jpg">
 	<img src="related_projects/stingray/stingray.jpg" width=200/></a></td>
-    <td style="vertical-align:top"><h3>"StingRay"</h3>
+    <td style="vertical-align:top"><h3>StingRay</h3>
       SURVICE
       Engineering's <a href="http://www.rtvtk.org/~cgribble/research/papers/gribble14high.pdf">"StingRay"
         toolkit</a> makes use of Embree for simulating radio frequency,
@@ -296,7 +322,7 @@ projects and related information.
 </table>
 
 
-<h2>Projects that OSPRay makes use of</h2>
+<h1>Projects that are closely related to OSPRay</h1>
 
 <ul>
   <li><a href="http://embree.github.io">The Embree Ray Tracing Kernel Framework (embree.github.io)</a></li>

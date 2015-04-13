@@ -8,6 +8,26 @@ please <a href="mailto:ospray@googlegroups.com">send us an email</a>.
 
 <!-- ======================================================= -->
 <hr>
+<h2>OSPRay Parallel Rendering on TACC's "Stallion" Display Wall</h2>
+
+<table>
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/displaywall.html">
+	<img src="gallery/ospray_stallion.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center">
+		This shows a photo of OSPRay parallel rendering on TACC's 320 MPixel "Stallion" Display wall.
+<p>
+		<a href="displaywall.html">Read more.</a>
+    </td>
+  </tr>
+</table>
+
+<!-- ======================================================= -->
+<hr>
 <h2>VMD/Tachyon Screenshots</h2>
 
 This section shows some screenshots from the Tachyon module applied to
