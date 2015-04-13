@@ -24,9 +24,9 @@
   <!-- ======================================================= -->
   <tr>
     <td style="vertical-align:center" width=150>
-			<a href="related_projects/ballview/ballview.png"><img width="98%" border=1 src="related_projects/ballview/ballview.jpg"></a></td>
+			</td>
     <td style="vertical-align:top">
-      <h4>Apr 2014: OSPRay related paper accepted at EGPGV</h4>
+      <h4>Apr 2015: OSPRay related paper accepted at EGPGV</h4>
 			
 			A paper on extending OSPRay to allow ray tracing of unstructured
 			polyhedral grids has been accepted at the EUROGRAPHICS Symposium
