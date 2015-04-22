@@ -20,11 +20,11 @@ In addition, before you can build OSPRay you need the following prerequisites:
   <li>To build OSPRay you require a copy of
     the <a href="http://ispc.github.io">Intel&reg; SPMD Program Compiler
       (ISPC)</a>. Please obtain a copy of the latest binary release of ISPC
-    (currently 1.8.0) from
+    (currently 1.8.1) from
     the <a href="https://ispc.github.io/downloads.html">ISPC downloads
       page</a>, and place it right "next to" the checked-out OSPRay sources
     in your directory tree (e.g., if OSPRay is in ~/Projects/ospray, ISPC
-    should be in ~/Projects/ispc-v1.8.0-linux).</li>
+    should be in ~/Projects/ispc-v1.8.1-linux).</li>
   <li>Additional packages you need
     are <a href="http://www.cmake.org">CMake</a>, any form of C++ compiler
     (we recommend using
