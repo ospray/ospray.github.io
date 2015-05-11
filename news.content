@@ -8,6 +8,17 @@
   	<td style="vertical-align:center" width=150>
   	</td>
   	<td style="vertical-align:top">
+  		<h4>May 8, 2015: Version v0.8.1 now released on GitHub</h4>
+		
+  		New release version 0.8.1 is now available on the <a href="https://github.com/ospray/OSPRay">OSPRay GitHub page</a>.
+  	</td>
+  </tr>
+
+  <!-- ======================================================= -->
+  <tr>
+  	<td style="vertical-align:center" width=150>
+  	</td>
+  	<td style="vertical-align:top">
   		<h4>Apr 22, 2015: Version v0.8.0 now released on GitHub</h4>
 		
   		New release version 0.8.0 is now available on the <a href="https://github.com/ospray/OSPRay">OSPRay GitHub page</a>.
