@@ -8,6 +8,55 @@ please <a href="mailto:ospray@googlegroups.com">send us an email</a>.
 
 <!-- ======================================================= -->
 <hr>
+<h2>More Screenshots of OSPRay's Path Tracer</h2>
+
+<table>
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/pt-Wohnung1.png">
+	<img src="gallery/pt-Wohnung1-thumb.jpg" width=120></img>
+      </a>
+      <a href="gallery/pt-Wohnung2.png">
+	<img src="gallery/pt-Wohnung2-thumb.jpg" width=120></img>
+      </a>
+      <a href="gallery/pt-LoftOffice.png">
+	<img src="gallery/pt-LoftOffice-thumb.jpg" width=120></img>
+      </a>
+      <a href="gallery/pt-SedusPanorama.png">
+	<img src="gallery/pt-SedusPanorama-thumb.jpg" width=120></img>
+      </a>
+      <a href="gallery/pt-ActiuRender.png">
+	<img src="gallery/pt-ActiuRender-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center" width=600>
+      The first five example scenes were modeled with
+      <a href="http://www.easterngraphics.com/en.html">EasternGraphics</a>'
+      room planning and interior design software
+      <a href="http://pcon-planner.com/en/">pcon.Planner</a>,
+      exported to <code>obj</code> and rendered using OSPRay.
+      The scenes contain between one million and ten millon triangles.
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------- -->
+  <tr>
+    <td style="vertical-align:center" width=130>
+      <a href="gallery/pt-car.png">
+	<img src="gallery/pt-car-thumb.jpg" width=120></img>
+      </a>
+    </td>
+    <td style="vertical-align:center"  width=600>
+      This car model consists of 5.7 million triangles and features some
+      of the more advanced materials of OSPRay's path tracer.
+    </td>
+  </tr>
+
+</table>
+
+<!-- ======================================================= -->
+<hr>
 <h2>OSPRay Parallel Rendering on TACC's "Stallion" Display Wall</h2>
 
 <table>
@@ -161,7 +210,6 @@ imported via the OBJ model file format.
   </tr>
 
 
-  </tr>
 </table>
 
 
