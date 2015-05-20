@@ -48,10 +48,26 @@
     <div id="content-wrap">
       <div id="content">
 
-<h1 id="ospray-parallel-rendering-on-taccs-stallion-display-wall">OSPRay parallel rendering on TACC’s “Stallion” display wall</h1>
-<p><a href="gallery/ospray_stallion.jpg"><img src="gallery/ospray_stallion-thumb.jpg" /></a></p>
-<p>This photo shows OSPRay running on the <a href="https://www.tacc.utexas.edu/vislab/stallion">Stallion 328 megapixel tiled display</a> at the Texas Advanced Computing Center (TACC) visualization lab. OSPRay is rendering in an MPI parallel mode and interactively streaming to the tiled display via its <a href="https://www.tacc.utexas.edu/research-development/tacc-software/displaycluster">DisplayCluster</a> interface. These features are scheduled to be released in OSPRay v0.9.</p>
-<p>The model used is courtesy Florida International University and the Texas Advanced Computing Center, and stems from a simulation of Ground Water Flow performed by Florida International University.</p>
+<h1 id="fiu-dataset-shadows-and-ambient-occlusion-vs-opengl-like-local-shading">FIU Dataset: Shadows and Ambient Occlusion vs OpenGL-like local shading</h1>
+<p>(click on images to see higher-res versions)</p>
+<p><a href="demos/fiu/fiu-gl.png"><img src="demos/fiu/fiu-gl-small.jpg" /></a></p>
+<dl>
+<dt>FIU with local (OpenGL-like) Shading</dt>
+<dd>Without shadows and/or ambient occlusion (i.e., using a OpenGL-like local shading model), the FIU dataset looks like this.
+</dd>
+</dl>
+<p><br /><a href="demos/fiu/fiu-obj.png"><img src="demos/fiu/fiu-obj-small.jpg" /></a></p>
+<dl>
+<dt>FIU with ray traced shadows</dt>
+<dd>Simply adding shadows already greatly enhances the user’s perception of depth (e.g., the relative positions of stream lines and base geometry, the actual shape of the geometry, etc).
+</dd>
+</dl>
+<p><br /><a href="demos/fiu/fiu-ao.png"><img src="demos/fiu/fiu-ao-small.jpg" /></a></p>
+<dl>
+<dt>FIU with OSPRay’s Ambient Occlusion Renderer</dt>
+<dd>Ambient Occlusion further increases perception of depth. In OSPRay, enabling (true, ray-cast) Ambient Occlusion is as simple as selecting the “ao” renderer.
+</dd>
+</dl>
 
       </div>
     </div>
