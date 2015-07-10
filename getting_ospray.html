@@ -70,9 +70,9 @@
 user@mymachine[~/Projects]: cd ospray/release</code></pre>
 (We do recommend having separate build directories for different configurations such as release, debug, etc).</li>
 <li><p>Open the CMake configuration dialog</p>
-<pre><code>user@mymachine[~/Projects]: ccmake ..</code></pre></li>
+<pre><code>user@mymachine[~/Projects/ospray/release]: ccmake ..</code></pre></li>
 <li><p>Make sure to properly set build mode, desired Instruction set to build for (SSE, AVX, AVX2), enable the components you need, etc; then type ’c’onfigure and ’g’enerate. When back on the command prompt, build it using</p>
-<pre><code>user@mymachine[~/Projects]: make</code></pre></li>
+<pre><code>user@mymachine[~/Projects/ospray/release]: make</code></pre></li>
 <li><p>You should now have <code>libospray.so</code> as well as a set of sample viewers. You can test your version of OSPRay using any of the examples on the <a href="demos.html">OSPRay Demos and Examples</a> page.</p></li>
 </ul>
 
