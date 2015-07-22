@@ -54,12 +54,12 @@
 <h1 id="building-ospray-from-source">Building OSPRay from Source</h1>
 <p>The latest OSPRay sources are always available at the <a href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The default “master” branch should always point to the latest tested bugfix release.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>OSPRay currently supports both Linux and Mac OS X (a Windows version will soon follow). In addition, before you can build OSPRay you need the following prerequisites:</p>
+<p>OSPRay currently supports both Linux and Mac OS X (a Windows version will soon follow). In addition, before you can build OSPRay you need the following prerequisites:</p>
 <ul>
 <li><p>You can clone the latest OSPRay sources via:</p>
 <pre><code>git clone https://github.com/ospray/ospray.git</code></pre></li>
-<li>To build OSPRay you require a copy of the <a href="http://ispc.github.io">Intel® SPMD Program Compiler (ISPC)</a>. Please obtain a copy of the latest binary release of ISPC (currently 1.8.1) from the <a href="https://ispc.github.io/downloads.html">ISPC downloads page</a>, and place it right “next to” the checked-out OSPRay sources in your directory tree (e.g., if OSPRay is in <code>~/Projects/ospray</code>, ISPC should be in <code>~/Projects/ispc-v1.8.1-linux</code>).</li>
-<li>Additional packages you need are <a href="http://www.cmake.org">CMake</a>, any form of C++ compiler (we recommend using the <a href="https://software.intel.com/en-us/c-compilers">Intel® C++ compiler (icc)</a>, but also support GCC and clang-cc), and standard Linux development tools. To build the demo viewers, you should also have some version of OpenGL and the GL Utility Toolkit (GLUT or freeglut).</li>
+<li>To build OSPRay you require a copy of the <a href="http://ispc.github.io">Intel® SPMD Program Compiler (ISPC)</a>. Please obtain a copy of the latest binary release of ISPC (currently 1.8.2) from the <a href="https://ispc.github.io/downloads.html">ISPC downloads page</a>, and place it right “next to” the checked-out OSPRay sources in your directory tree (e.g., if OSPRay is in <code>~/Projects/ospray</code>, ISPC should be in <code>~/Projects/ispc-v1.8.2-linux</code>).</li>
+<li>Additional packages you need are <a href="http://www.cmake.org">CMake</a>, any form of C++ compiler (we recommend using the <a href="https://software.intel.com/en-us/c-compilers">Intel® C++ compiler (icc)</a>, but also support GCC and clang-cc), and standard Linux development tools. To build the demo viewers, you should also have some version of OpenGL and the GL Utility Toolkit (GLUT or freeglut), as well as Qt 4.6 or higher.</li>
 <li><p>OSPRay also heavily uses <a href="http://embree.github.io">Embree</a>; however, OSPRay directly includes its own copy of Embree, so a special installation of Embree is <em>not</em> required.</p></li>
 </ul>
 <h2 id="compiling-ospray">Compiling OSPRay</h2>
@@ -71,7 +71,7 @@ user@mymachine[~/Projects]: cd ospray/release</code></pre>
 (We do recommend having separate build directories for different configurations such as release, debug, etc).</li>
 <li><p>Open the CMake configuration dialog</p>
 <pre><code>user@mymachine[~/Projects/ospray/release]: ccmake ..</code></pre></li>
-<li><p>Make sure to properly set build mode, desired Instruction set to build for (SSE, AVX, AVX2), enable the components you need, etc; then type ’c’onfigure and ’g’enerate. When back on the command prompt, build it using</p>
+<li><p>Make sure to properly set build mode, desired compiler, enable the components you need, etc; then type ’c’onfigure and ’g’enerate. When back on the command prompt, build it using</p>
 <pre><code>user@mymachine[~/Projects/ospray/release]: make</code></pre></li>
 <li><p>You should now have <code>libospray.so</code> as well as a set of sample viewers. You can test your version of OSPRay using any of the examples on the <a href="demos.html">OSPRay Demos and Examples</a> page.</p></li>
 </ul>

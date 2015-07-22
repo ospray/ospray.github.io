@@ -72,6 +72,19 @@
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v0.8.2">Changes in v0.8.2:</h3>
+<ul>
+<li>Initial support for AVX512 and the Intel® Xeon Phi™ processor (codename Knights Landing)</li>
+<li>Performance improvements to the volume renderer</li>
+<li>Incorporated implicit slices and isosurfaces of volumes as core geometry types</li>
+<li>Added support for multiple disjoint volumes to the volume renderer</li>
+<li>Improved performance of <code>ospSetRegion()</code>, reducing volume load times</li>
+<li>Improved large data handling for the <code>shared_structured_volume</code> and <code>block_bricked_volume</code> volume types</li>
+<li>Added support for DDS horizon data to the seismic module</li>
+<li>Initial support in the Qt viewer for volume rendering</li>
+<li>Updated to ISPC 1.8.2</li>
+<li>Various bug fixes, cleanups and documentation updates throughout the codebase</li>
+</ul>
 <h3 id="changes-in-v0.8.1">Changes in v0.8.1:</h3>
 <ul>
 <li>The volume renderer and volume viewer can now be run MPI parallel (data replicated) using the <code>--osp:mpi</code> command line option</li>
@@ -83,7 +96,7 @@
 <li>Bug fix for geometries with invalid bounds; fixes streamline and sphere rendering in some scenes</li>
 <li>Fixed bug in depth buffer generation</li>
 </ul>
-<h3 id="ospray-v0.8.0">OSPRay v0.8.0</h3>
+<h3 id="changes-in-v0.8.0">Changes in v0.8.0:</h3>
 <ul>
 <li>Incorporated early version of a new Qt-based viewer to eventually unify (and replace) the existing simpler GLUT-based viewers</li>
 <li>Added new path tracing renderer (<code>ospray/render/pathtracer</code>),</li>
@@ -103,7 +116,7 @@
 <li>Added <code>--osp:numthreads &lt;n&gt;</code> command line option to restrict the number of threads OSPRay creates</li>
 <li>Various bug fixes, cleanups and documentation updates throughout the codebase</li>
 </ul>
-<h3 id="ospray-v0.7.2">OSPRay v0.7.2</h3>
+<h3 id="changes-in-v0.7.2">Changes in v0.7.2:</h3>
 <ul>
 <li>Build fixes for older versions of GCC and Clang</li>
 <li>Fixed time series support in ospVolumeViewer</li>
