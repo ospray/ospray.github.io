@@ -72,6 +72,45 @@
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v0.10.0">Changes in v0.10.0:</h3>
+<ul>
+<li>Added new tasking options: <code>Cilk</code>, <code>Internal</code>, and <code>Debug</code>
+<ul>
+<li>Provides more ways for OSPRay to interact with calling application tasking systems
+<ul>
+<li><code>Cilk</code>: Use Intel® Cilk™ Plus language extensions (ICC only)</li>
+<li><code>Internal</code>: Use hand written OSPRay tasking system</li>
+<li><code>Debug</code>: All tasks are run in serial (useful for debugging)</li>
+</ul></li>
+<li>In most cases, <code>TBB</code> remains the fastest option</li>
+</ul></li>
+<li>Added support for adaptive accumulation and stopping
+<ul>
+<li><code>ospRenderFrame</code> now returns an estimation of the variance in the rendered image if the framebuffer was created with the <code>OSP_FB_VARIANCE</code> channel</li>
+<li>If the renderer parameter <code>varianceThreshold</code> is set, progressive refinement concentrates on regions of the image with a variance higher than this threshold</li>
+</ul></li>
+<li>Added support for volumes with voxelType <code>ushort</code> (16-bit unsigned integers)</li>
+<li><code>OSPTexture2D</code> now supports sRGB formats – actually most images are stored in sRGB. As a consequence the API call <code>ospNewTexture2D()</code> needed to change to accept the new <code>OSPTextureFormat</code> parameter.</li>
+<li>Similarly, OSPRay’s framebuffer types now also distinguishes between linear and sRGB 8-bit formats. The new types are <code>OSP_FB_NONE</code>, <code>OSP_FB_RGBA8</code>, <code>OSP_FB_SRGBA</code>, and <code>OSP_FB_RGBA32F</code></li>
+<li>Changed “scivis” renderer parameter defaults
+<ul>
+<li>All shading (AO + shadows) must be explicitly enabled</li>
+</ul></li>
+<li>OSPRay can now use a newer, pre-installed Embree enabled by the new <code>OSPRAY_USE_EXTERNAL_EMBREE</code> CMake option</li>
+<li>New <code>ospcommon</code> library used to separately provide math types and OS abstractions for both OSPRay and sample apps
+<ul>
+<li>Removes extra dependencies on internal Embree math types and utility functions</li>
+<li><code>ospray.h</code> header is now C99 compatible</li>
+</ul></li>
+<li>Removed loaders module, functionality remains inside of <code>ospVolumeViewer</code></li>
+<li>Many miscellaneous cleanups, bugfixes, and improvements:
+<ul>
+<li>Fixed data distributed volume rendering bugs when using less blocks than workers</li>
+<li>Fixes to CMake <code>find_package()</code> config</li>
+<li>Fix bug in <code>GhostBlockBrickVolume</code> when using <code>double</code>s</li>
+<li>Various robustness changes made in CMake to make it easier to compile OSPRay</li>
+</ul></li>
+</ul>
 <h3 id="changes-in-v0.9.1">Changes in v0.9.1:</h3>
 <ul>
 <li>Volume rendering now integrated into the “scivis” renderer
@@ -81,9 +120,9 @@
 </ul></li>
 <li>Intel® Xeon Phi™ (codename Knights Corner) COI device and build infrastructure restored (volume rendering is known to still be broken)</li>
 <li>New support for CPack built OSPRay binary redistributable packages</li>
-<li>Add support for HDRI lighting in path tracer</li>
-<li>Add <code>ospRemoveVolume()</code> API call</li>
-<li>Add ability to render a subsection of the full view into the entire framebuffer in the perspective camera</li>
+<li>Added support for HDRI lighting in path tracer</li>
+<li>Added <code>ospRemoveVolume()</code> API call</li>
+<li>Added ability to render a subsection of the full view into the entire framebuffer in the perspective camera</li>
 <li>Many miscellaneous cleanups, bugfixes, and improvements:
 <ul>
 <li>The depthbuffer is now correctly populated by in the “scivis” renderer</li>
