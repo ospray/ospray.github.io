@@ -66,12 +66,17 @@
 <h1 id="ospray-overview">OSPRay Overview</h1>
 <p>OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel® Architecture CPUs. OSPRay is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
-<p>OSPRay internally builds on top of <a href="https://embree.github.io/">Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel® SPMD Program Compiler)</a>, and fully utilizes modern instruction sets like Intel® SSE, AVX, AVX2, or Intel® Xeon Phi™ to achieve high rendering performance.</p>
+<p>OSPRay internally builds on top of <a href="https://embree.github.io/">Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel® SPMD Program Compiler)</a>, and fully utilizes modern instruction sets like Intel® SSE, AVX, AVX2, and AVX-512 to achieve high rendering performance.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is still in beta stage, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are unavoidable at this stage. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com">ospray@googlegroups.com</a>.</p>
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v0.10.1">Changes in v0.10.1:</h3>
+<ul>
+<li>Fixed support of first generation Intel® Xeon Phi™ coprocessor (codename Knights Corner)</li>
+<li>Restored missing implementation of <code>ospRemoveVolume()</code></li>
+</ul>
 <h3 id="changes-in-v0.10.0">Changes in v0.10.0:</h3>
 <ul>
 <li>Added new tasking options: <code>Cilk</code>, <code>Internal</code>, and <code>Debug</code>
@@ -82,7 +87,7 @@
 <li><code>Internal</code>: Use hand written OSPRay tasking system</li>
 <li><code>Debug</code>: All tasks are run in serial (useful for debugging)</li>
 </ul></li>
-<li>In most cases, <code>TBB</code> remains the fastest option</li>
+<li>In most cases, Intel Threading Building Blocks (Intel <code>TBB</code>) remains the fastest option</li>
 </ul></li>
 <li>Added support for adaptive accumulation and stopping
 <ul>
@@ -118,7 +123,7 @@
 <li>Volumes are rendered in the same way the “dvr” volume renderer renders them</li>
 <li>Ambient occlusion works with implicit isosurfaces, with a known visual quality/performance trade-off</li>
 </ul></li>
-<li>Intel® Xeon Phi™ (codename Knights Corner) COI device and build infrastructure restored (volume rendering is known to still be broken)</li>
+<li>Intel Xeon Phi coprocessor (codename Knights Corner) COI device and build infrastructure restored (volume rendering is known to still be broken)</li>
 <li>New support for CPack built OSPRay binary redistributable packages</li>
 <li>Added support for HDRI lighting in path tracer</li>
 <li>Added <code>ospRemoveVolume()</code> API call</li>
@@ -129,8 +134,8 @@
 <li>Updated default renderer to be “ao1” in ospModelViewer</li>
 <li>Trianglemesh postIntersect shading is now 64-bit safe</li>
 <li>Texture2D has been reworked, with many improvements and bug fixes</li>
-<li>Fixed bug where MPI device would freeze while rendering frames with TBB</li>
-<li>Updates to CMake with better error messages when TBB is missing</li>
+<li>Fixed bug where MPI device would freeze while rendering frames with Intel TBB</li>
+<li>Updates to CMake with better error messages when Intel TBB is missing</li>
 </ul></li>
 </ul>
 <h3 id="changes-in-v0.9.0">Changes in v0.9.0:</h3>
@@ -141,7 +146,7 @@
 <ul>
 <li>Ambient occlusion is quite flexible: dynamic number of samples, maximum ray distance, and weight</li>
 </ul></li>
-<li>Updated Embree version to v2.7.1 with native support for AVX512 for triangle mesh surface rendering on the Intel Xeon Phi processor (codename Knights Landing)</li>
+<li>Updated Embree version to v2.7.1 with native support for Intel AVX-512 for triangle mesh surface rendering on the Intel Xeon Phi processor (codename Knights Landing)</li>
 <li>OSPRay now uses C++11 features, requiring up to date compiler and standard library versions (GCC v4.8.0)</li>
 <li>Optimization of volume sampling resulting in volume rendering speedups of up to 1.5x</li>
 <li>Updates to pathtracer
@@ -151,7 +156,7 @@
 <li>Support for alpha and depth components of framebuffer</li>
 </ul></li>
 <li>Added thinlens camera, i.e. support for depth of field</li>
-<li>Tasking system has been updated to use Intel® Threading Building Blocks (TBB)</li>
+<li>Tasking system has been updated to use Intel Threading Building Blocks (Intel TBB)</li>
 <li>The <code>ospGet*()</code> API calls have been deprecated and will be removed in a subsequent release</li>
 </ul>
 <h3 id="changes-in-v0.8.3">Changes in v0.8.3:</h3>
@@ -182,7 +187,7 @@
 </ul>
 <h3 id="changes-in-v0.8.2">Changes in v0.8.2:</h3>
 <ul>
-<li>Initial support for AVX512 and the Intel® Xeon Phi™ processor (codename Knights Landing)</li>
+<li>Initial support for Intel AVX-512 and the Intel Xeon Phi processor (codename Knights Landing)</li>
 <li>Performance improvements to the volume renderer</li>
 <li>Incorporated implicit slices and isosurfaces of volumes as core geometry types</li>
 <li>Added support for multiple disjoint volumes to the volume renderer</li>
