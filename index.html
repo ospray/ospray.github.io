@@ -68,13 +68,52 @@
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
 <p>OSPRay internally builds on top of <a href="https://embree.github.io/">Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel® SPMD Program Compiler)</a>, and fully utilizes modern instruction sets like Intel® SSE, AVX, AVX2, and AVX-512 to achieve high rendering performance.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
-<p>OSPRay is still in beta stage, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are unavoidable at this stage. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com">ospray@googlegroups.com</a>.</p>
+<p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com">ospray@googlegroups.com</a>.</p>
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.0.0">Changes in v1.0.0:</h3>
+<ul>
+<li>New OSPRay ‘SDK’
+<ul>
+<li>OSPRay internal headers are now installed, enabling applications to extend OSPRay from a binary install</li>
+<li>CMake macros for OSPRay and ISPC configuration now a part of binary releases
+<ul>
+<li>CMake clients use them by calling <code>include(${OSPRAY_USE_FILE})</code> in their CMake code after calling <code>find_package(ospray)</code></li>
+</ul></li>
+<li>New OSPRay C++ wrapper classes
+<ul>
+<li>These act as a thin layer on top of OSPRay object handles, where multiple wrappers will share the same underlying handle when assigned, copied, or moved</li>
+<li>New OSPRay objects are only created when a class instance is explicity constructed</li>
+<li>C++ users are encouraged to use these over the <code>ospray.h</code> API</li>
+</ul></li>
+</ul></li>
+<li>Complete rework of sample applications
+<ul>
+<li>New shared code for parsing the <code>commandline</code></li>
+<li>Save/load of transfer functions now handled through a separate library which does not depend on Qt</li>
+<li>Added <code>ospCvtParaViewTfcn</code> utility, which enables <code>ospVolumeViewer</code> to load color maps from ParaView</li>
+<li>GLUT based sample viewer updates
+<ul>
+<li>Rename of <code>ospModelViewer</code> to <code>ospGlutViewer</code></li>
+<li>GLUT viewer now supports volume rendering</li>
+<li>Command mode with preliminary scripting capabilities, enabled by pressing ‘<code>:</code>’ key (not available when using Intel C++ compiler (icc))</li>
+</ul></li>
+<li>Enhanced support of sample applications on Windows</li>
+</ul></li>
+<li>New minimum ISPC version is 1.9.0</li>
+<li>Support of Intel® AVX-512 for second generation Intel® Xeon Phi™ processor (codename Knights Landing) is now a part of the <code>OSPRAY_BUILD_ISA</code> CMake build configuration
+<ul>
+<li>Compiling AVX-512 requires icc to be enabled as a build option</li>
+</ul></li>
+<li>Enhanced error messages when <code>ospLoadModule()</code> fails</li>
+<li>Added <code>OSP_FB_RGBA32F</code> support in the <code>DistributedFrameBuffer</code></li>
+<li>Updated Glass shader in the PathTracer</li>
+<li>Many miscellaneous cleanups, bugfixes, and improvements</li>
+</ul>
 <h3 id="changes-in-v0.10.1">Changes in v0.10.1:</h3>
 <ul>
-<li>Fixed support of first generation Intel® Xeon Phi™ coprocessor (codename Knights Corner)</li>
+<li>Fixed support of first generation Intel Xeon Phi coprocessor (codename Knights Corner)</li>
 <li>Restored missing implementation of <code>ospRemoveVolume()</code></li>
 </ul>
 <h3 id="changes-in-v0.10.0">Changes in v0.10.0:</h3>
@@ -83,7 +122,7 @@
 <ul>
 <li>Provides more ways for OSPRay to interact with calling application tasking systems
 <ul>
-<li><code>Cilk</code>: Use Intel® Cilk™ Plus language extensions (ICC only)</li>
+<li><code>Cilk</code>: Use Intel® Cilk™ Plus language extensions (icc only)</li>
 <li><code>Internal</code>: Use hand written OSPRay tasking system</li>
 <li><code>Debug</code>: All tasks are run in serial (useful for debugging)</li>
 </ul></li>
