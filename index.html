@@ -72,6 +72,56 @@
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.1.0">Changes in v1.1.0:</h3>
+<ul>
+<li>New “scivis” renderer features
+<ul>
+<li>Single sided lighting (enabled by default)</li>
+<li>Many new volume rendering specific features
+<ul>
+<li>Adaptive sampling to help improve the correctness of rendering high frequency volume data</li>
+<li>Pre-integration of transfer function for higher fidelity images</li>
+<li>Ambient occlusion</li>
+<li>Volumes can cast shadows</li>
+<li>Smooth shading in volumes</li>
+<li>Single shading point option for accelerated shading</li>
+</ul></li>
+</ul></li>
+<li>Add preliminary support for adaptive accumulation in the MPI device</li>
+<li>Camera specific features
+<ul>
+<li>Initial support for stereo rendering with the perspective camera</li>
+<li>Option <code>architectural</code> in perspective camera, rectifying vertical edges to appear parallel</li>
+<li>Rendering a subsection of the full view with <code>imageStart</code>/<code>imageEnd</code> supported by all cameras</li>
+</ul></li>
+<li>This will be our last release supporting the first generation Intel® Xeon Phi™ coprocessor (codename Knights Corner)
+<ul>
+<li>Future major and minor releases will be upgraded to the latest version of Embree, which no longer supports Knights Corner</li>
+<li>Depending on user feedback, patch releases are still made to fix bugs</li>
+</ul></li>
+<li>Enhanced output statistics in <code>ospBenchmark</code> application</li>
+<li>Many fixes to the OSPRay SDK
+<ul>
+<li>Improved CMake detection of compile-time enabled features</li>
+<li>Now distribute OSPRay configuration and ISPC CMake macros</li>
+<li>Improved SDK support on Windows</li>
+</ul></li>
+<li>OSPRay library can now be compiled with <code>-Wall</code> and <code>-Wextra</code> enabled
+<ul>
+<li>Tested with GCC v5.3.1 and Clang v3.8</li>
+<li>Sample applications and modules have not been fixed yet, thus applications which build OSPRay as a CMake subproject should disable them with <code>-DOSPRAY_ENABLE_APPS=OFF</code> and <code>-DOSPRAY_ENABLE_MODULES=OFF</code></li>
+</ul></li>
+<li>Minor bug fixes, improvements, and cleanups
+<ul>
+<li>Regard shading normal when bump mapping</li>
+<li>Fix internal CMake naming inconsistencies in macros</li>
+<li>Fix missing API calls in C++ wrapper classes</li>
+<li>Fix crashes on MIC</li>
+<li>Fix thread count initialization bug with TBB</li>
+<li>CMake optimizations for faster configuration times</li>
+<li>Enhanced support for scripting in both <code>ospGlutViewer</code> and <code>ospBenchmark</code> applications</li>
+</ul></li>
+</ul>
 <h3 id="changes-in-v1.0.0">Changes in v1.0.0:</h3>
 <ul>
 <li>New OSPRay ‘SDK’
@@ -84,7 +134,7 @@
 <li>New OSPRay C++ wrapper classes
 <ul>
 <li>These act as a thin layer on top of OSPRay object handles, where multiple wrappers will share the same underlying handle when assigned, copied, or moved</li>
-<li>New OSPRay objects are only created when a class instance is explicity constructed</li>
+<li>New OSPRay objects are only created when a class instance is explicitly constructed</li>
 <li>C++ users are encouraged to use these over the <code>ospray.h</code> API</li>
 </ul></li>
 </ul></li>
@@ -102,13 +152,13 @@
 <li>Enhanced support of sample applications on Windows</li>
 </ul></li>
 <li>New minimum ISPC version is 1.9.0</li>
-<li>Support of Intel® AVX-512 for second generation Intel® Xeon Phi™ processor (codename Knights Landing) is now a part of the <code>OSPRAY_BUILD_ISA</code> CMake build configuration
+<li>Support of Intel® AVX-512 for second generation Intel Xeon Phi processor (codename Knights Landing) is now a part of the <code>OSPRAY_BUILD_ISA</code> CMake build configuration
 <ul>
 <li>Compiling AVX-512 requires icc to be enabled as a build option</li>
 </ul></li>
 <li>Enhanced error messages when <code>ospLoadModule()</code> fails</li>
 <li>Added <code>OSP_FB_RGBA32F</code> support in the <code>DistributedFrameBuffer</code></li>
-<li>Updated Glass shader in the PathTracer</li>
+<li>Updated Glass shader in the path tracer</li>
 <li>Many miscellaneous cleanups, bugfixes, and improvements</li>
 </ul>
 <h3 id="changes-in-v0.10.1">Changes in v0.10.1:</h3>
@@ -141,7 +191,7 @@
 <li>All shading (AO + shadows) must be explicitly enabled</li>
 </ul></li>
 <li>OSPRay can now use a newer, pre-installed Embree enabled by the new <code>OSPRAY_USE_EXTERNAL_EMBREE</code> CMake option</li>
-<li>New <code>ospcommon</code> library used to separately provide math types and OS abstractions for both OSPRay and sample apps
+<li>New <code>ospcommon</code> library used to separately provide math types and OS abstractions for both OSPRay and sample applications
 <ul>
 <li>Removes extra dependencies on internal Embree math types and utility functions</li>
 <li><code>ospray.h</code> header is now C99 compatible</li>
@@ -188,7 +238,7 @@
 <li>Updated Embree version to v2.7.1 with native support for Intel AVX-512 for triangle mesh surface rendering on the Intel Xeon Phi processor (codename Knights Landing)</li>
 <li>OSPRay now uses C++11 features, requiring up to date compiler and standard library versions (GCC v4.8.0)</li>
 <li>Optimization of volume sampling resulting in volume rendering speedups of up to 1.5x</li>
-<li>Updates to pathtracer
+<li>Updates to path tracer
 <ul>
 <li>Reworked material system</li>
 <li>Added texture transformations and colored transparency in OBJ material</li>
