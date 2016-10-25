@@ -25,10 +25,11 @@
       </div>
       <div id="header-title">
         OSPRay
-      </div>
-      <div id="header-subtitle">
+              <div id="header-subtitle">
         A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
       </div>
+      </div>
+
       <div id="header-navbar">
         <ul>
           <li><a href="index.html">Overview</a></li>
@@ -56,15 +57,13 @@
 <dd>Without shadows and/or ambient occlusion (i.e., using a OpenGL-like local shading model), the FIU dataset looks like this.
 </dd>
 </dl>
-<p><br />
-<a href="demos/fiu/fiu-obj.png"><img src="demos/fiu/fiu-obj-small.jpg" /></a></p>
+<p><br /><a href="demos/fiu/fiu-obj.png"><img src="demos/fiu/fiu-obj-small.jpg" /></a></p>
 <dl>
 <dt>FIU with ray traced shadows</dt>
 <dd>Simply adding shadows already greatly enhances the user’s perception of depth (e.g., the relative positions of stream lines and base geometry, the actual shape of the geometry, etc).
 </dd>
 </dl>
-<p><br />
-<a href="demos/fiu/fiu-ao.png"><img src="demos/fiu/fiu-ao-small.jpg" /></a></p>
+<p><br /><a href="demos/fiu/fiu-ao.png"><img src="demos/fiu/fiu-ao-small.jpg" /></a></p>
 <dl>
 <dt>FIU with OSPRay’s Ambient Occlusion Renderer</dt>
 <dd>Ambient Occlusion further increases perception of depth. In OSPRay, enabling (true, ray-cast) Ambient Occlusion is as simple as selecting the “ao” renderer.

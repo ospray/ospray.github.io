@@ -25,10 +25,11 @@
       </div>
       <div id="header-title">
         OSPRay
-      </div>
-      <div id="header-subtitle">
+              <div id="header-subtitle">
         A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
       </div>
+      </div>
+
       <div id="header-navbar">
         <ul>
           <li id="selected"><a href="index.html">Overview</a></li>
@@ -48,21 +49,161 @@
     <div id="content-wrap">
       <div id="content">
 
-<div style="float:left; width:40%; padding:10px;">
-<a href="displaywall.html"><img src="gallery/ospray_stallion-thumb.jpg" width="100%"> <br />
-<center>
-<i>OSPRay parallel rendering on TACC’s “Stallion” display wall.</i>
-</center>
-<p></a></p>
+<!-- <div style="float:left; width:40%; padding:10px;">
+  <a href="displaywall.html"><img src="gallery/ospray_stallion-thumb.jpg" width="100%">
+  <br />
+  <center><i>OSPRay parallel rendering on TACC's "Stallion" display wall.</i></center></a>
 </div>
+
 <div style="float:left; width:40%; padding:10px;">
-<a href="pvospray.html"><img src="related_projects/vtk-paraview/screenshot-paraview-fiu-thumb.jpg" width="100%"> <br />
-<center>
-<i>OSPRay running inside of ParaView through the pvOSPRay plugin.</i>
-</center>
-<p></a></p>
+  <a href="pvospray.html"><img src="related_projects/vtk-paraview/screenshot-paraview-fiu-thumb.jpg" width="100%">
+  <br />
+  <center><i>OSPRay running inside of ParaView through the pvOSPRay plugin.</i></center></a>
+</div> -->
+
+<div class= "title"><h1> 
+OSPRay
+</h1></div>
+<hr/>
+<p/>
+
+<div class="fadein">
+    
+<img id="f1" src="gallery/rm_volume_ao_shadows_small.png"> <img id="f2" src="gallery/rm_volume_small.png">
 </div>
+<hr/>
+
+<p></p>
+<p></p>
+
+<p class="vertical-space"> </p>
+<p class="vertical-space"> </p>
+<p class="vertical-space"> </p>
+<p class="vertical-space"> </p>
+
+<!-- <div class= "title"><h2> Features </h2></div> -->
+
 <p><br style="clear:both;" /></p>
+<div class="feature">
+<img src="gallery/heptane_bubbly_osp_small.png">
+<div class="container">
+<h2> 
+Interactive CPU Rendering
+</h2>
+  <!-- <h3> Volume Rendering </h3> -->
+  
+<p>
+    
+OSPRay features interactive CPU rendering capabilities geared towards Scientific Visualization applications. Advanced shading effects such as Ambient Occlusion, shadows, and transparency can be rendered interactively, enabling new insights into data exploration.
+</div>
+</div>
+<div class="feature feature-alt">
+  
+<img src="gallery/mag_pt_small.png">
+<div class="container">
+ <h2> 
+Global Illumination
+</h2>
+  <!-- <h3> Volume Rendering </h3> -->
+  
+<p>
+    
+OSPRay includes a path tracer capable of interactively rendering photorealistic global illumination.
+</p>
+  </div>
+</div>
+
+<div class="feature">
+  
+<img src="gallery/rm_volume2_small.png">
+<div class="container">
+  <h2> 
+Volume Rendering
+</h2>
+  <!-- <h3> Volume Rendering </h3> -->
+  
+<p>
+    
+OSPRay supports high-fidelity interactive direct volume rendering with a number of state of the art features.
+</p>
+  </div>
+</div>
+
+<div class="feature feature-alt">
+  
+<img src="gallery/dns_small2.jpg">
+<div class="container">
+ <h2> 
+MPI Distributed
+</h2>
+  <!-- <h3> Volume Rendering </h3> -->
+  
+<p>
+    
+Run on large scale distributed-memory systems with a high-performance MPI backend. Shown is a 450GB direct numerical simulation dataset running interactively at TACC’s Maverick cluster.
+</p>
+  </div>
+</div>
+
+<div class="feature">
+  
+<img src="gallery/ospray_stallion-thumb.jpg">
+<div class="container">
+  <h2> 
+Display Walls
+</h2>
+  <!-- <h3> Volume Rendering </h3> -->
+  
+<p>
+    
+OSPRay parallel rendering on TACC’s “Stallion” display wall.
+</p>
+  </div>
+</div>
+
+<div class="feature feature-alt">
+  
+<img src="related_projects/vtk-paraview/screenshot-paraview-fiu-thumb.jpg">
+<div class="container">
+ <h2> 
+ParaView
+</h2>
+  <!-- <h3> Volume Rendering </h3> -->
+  
+<p>
+    
+OSPRay is directly integrated into ParaView 5.x. Implementations for VisIt, VMD, and other popular tools have also been developed.
+</p>
+  </div>
+</div>
+
+<div class="feature">
+  
+<img src="gallery/code_small.png">
+<div class="container">
+ <h2> 
+Open Source
+</h2>
+  <!-- <h3> Volume Rendering </h3> -->
+  
+<p>
+    
+OSPRay is Open Sourced under the Apache 2.0 license.
+</p>
+  </div>
+</div>
+
+
+
+
+<p class="vertical-space"> </p>
+<p class="vertical-space"> </p>
+<p class="vertical-space"> </p>
+<p class="vertical-space"> </p>
+<hr/>
+
+
+
 <h1 id="ospray-overview">OSPRay Overview</h1>
 <p>OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel® Architecture CPUs. OSPRay is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>

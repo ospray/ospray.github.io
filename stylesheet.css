@@ -97,47 +97,56 @@ br { clear:both; }
     position:fixed; 
     width:100%;
     letter-spacing: -1px;
+    background:#379; 
 }
 
 #content-wrap {
     width:100%;
     height:100%;
     background: #f2f2f2;
-    padding-left: 100px;
-    padding-top:200px; 
+    /*padding-left: 100px;*/
+    padding-top:100px; 
 }
 
 #content { 
+    padding-left: 5px;
+    padding-right: 0px;
     position:static; 
-    max-width: 800px;
+    /*max-width: 800px;*/
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
     background: #f2f2f2;
     padding-top:10px;
-    padding-bottom:100px;
+    padding-bottom:10px;
 }
 
 #header-title  {
+    display:inline-block;
     margin: 0;
     color: #fff;
     font-size: 42px;
-    background:#212121; 
+    /*background:#212121; */
     font-weight: 700;
     padding: 20px 0px 0px 10px; 
     text-shadow: #111 0px 0px 10px;
     padding-left: 100px;
-    padding-top:50px;
+    padding-top:10px;
     letter-spacing: -1px;
 }
 
 #header-subtitle  {
+    display:inline-block;
     color: #fff;
     font-size: 21px;
     font-weight: 300;
-    background: none;
+    /*background: none;*/
     text-shadow: #111 0px 0px 10px;
-    padding-top: 10px;
-    padding-left: 100px;
-    padding-bottom: 10px;
-    background:#212121; 
+    /*padding-top: 10px;*/
+    /*padding-left: 100px;*/
+    padding-left: 10px;
+    /*padding-bottom: 10px;*/
+    /*background:#212121; */
     letter-spacing: -1px;
 }
 
@@ -183,7 +192,7 @@ br { clear:both; }
     color: #fff;
     font-size: 14px;
     font-weight: 300;
-    background: #323232;
+    background: #444;
     padding-top: 0px; 
     padding-bottom: 4px; 
     padding-left: 100px;
@@ -226,4 +235,221 @@ br { clear:both; }
 }
 #header-navbar ul li#selected a {
     color: #fff;
+}
+
+div.feature {
+    display:inline-block;
+    width: 100%;
+    height: 300px;
+    /*height: 900px;*/
+    /*width: 80%;*/
+    /*margin:0; */
+    /*float:left;*/
+    /*border: none;*/
+            /*margin-left: auto;*/
+    /*margin-right: auto ;*/
+    /*padding: 0;*/
+     /*box-sizing:border-box;*/
+    /*display: block;*/
+    /*max-width: 80%;*/
+    /*position: absolute;*/
+    /*position:relative;*/
+
+        /*margin: auto;*/
+    /*width:auto;*/
+      /*left: 0;*/
+  /*top: 0;*/
+
+/*    background: url(gallery/rm_volume_ao_shadows.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
+/*border-bottom-style: none;
+  margin-bottom: 25px;*/
+}
+
+
+div.feature img {
+    float: left;
+    /*max-width: 100%;*/
+    display:inline-block;
+    width: 380px;
+    height: 280px;
+    /*margin:0; */
+    padding:0; 
+    margin-right: 10px;
+    /*box-sizing:border-box;*/
+    /*float: left;*/
+    /*display: block;*/
+        /*max-width: 100%;*/
+            /*margin-left: auto;*/
+    /*margin-right: auto ;*/
+    /*height:auto;*/
+/*        -webkit-filter: grayscale(100%); 
+    filter: grayscale(100%);*/
+     /*position: absolute;*/
+  /*left: 0;*/
+  /*top: 0;*/
+  /*width: 100%;*/
+        -webkit-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
+-moz-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
+box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
+}
+.feature-alt img
+{
+    float: right !important;
+}
+
+/*div.feature img:hover {
+    height:auto;
+        -webkit-filter: none;
+    filter: none;
+}*/
+.feature .container {
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #666;
+    /*float: right;*/
+    display:inline-block;
+    max-width: 500px;
+}
+
+div.feature p {
+    padding-left: 20px;
+/*    position: relative;
+    border: none;
+    padding: 10px 20px;
+    margin: 100px;*/
+    /*margin-left: 180px;*/
+    /*overflow: hidden;*/
+    /*text-align: left;*/
+}
+
+div.feature h2 {
+    text-align: left;
+    /*float: right;*/
+    border: none;
+  /*z-index: 100;*/
+  /*position: absolute;*/
+  color: #444;
+  font-size: 42px;
+  font-weight: bold;
+/*  left: 15px;
+  top: 10px;*/
+}
+div.feature-alt h2 {
+    text-align: left !important;
+    }
+.title
+{
+    border: 0; padding: 0; margin: 0;
+}
+.title h1 {
+    color: #777;
+    font-size: 80px;
+  font-weight: bold;
+  text-align: center;
+      border: 0; padding: 0; margin: 0;
+}
+.fadein {
+        display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    /*position:absolute;*/
+    /*position:relative;*/
+    position: relative;
+    /*top:0px;*/
+    /*left:50%;*/
+    /*margin:auto;*/
+        /*max-width: 100%;*/
+            /*float:left;*/
+    /*border: none;*/
+            /*margin-left: auto;*/
+    /*margin-right: auto ;*/
+    /*padding: 0;*/
+
+    /*padding:0; */
+    /*box-sizing:border-box;*/
+    /*border-bottom-style: none;*/
+  /*margin-bottom: 25px;*/
+/*  height: 600px;*/
+/*height: 100%;
+width: 100%;*/
+height: 500px;
+max-width: 1000px;
+        margin-bottom: 20px;
+    margin-top: 0px;
+    padding:0; box-sizing:border-box;
+    padding-left: 80px;  /*carson: no clue why this is needed...*/
+}
+.fadein img {
+    margin-left: auto;
+    max-width: 100%;
+    height: 100%;
+    /*margin:0; */
+    padding:0; box-sizing:border-box;
+    position:absolute;
+    /*left:-65px;*/
+    /*top:0;*/
+    -webkit-animation-name: fade;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 6s;
+    animation-name: fade;
+    animation-iteration-count: infinite;
+    animation-duration: 12s;
+              -webkit-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
+-moz-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
+box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
+}
+
+@-webkit-keyframes fade {
+    0% {opacity: 0;}
+    20% {opacity: 1;}
+    33% {opacity: 1;}
+    53% {opacity: 0;}
+    100% {opacity: 0;}
+}
+@keyframes fade {
+/*    0% {opacity: 0;}
+    20% {opacity: 1;}
+    33% {opacity: 1;}
+    53% {opacity: 0;}
+    100% {opacity: 0;}*/
+        0% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+#f1 {
+    /*background-color: lightblue;*/
+}
+#f2 {
+    -webkit-animation-delay: -6s;
+    /*background-color: yellow;*/
+}
+/*#f3 {
+    -webkit-animation-delay: -2s;
+    background-color: lightgreen;
+}*/
+
+hr 
+{
+    width: 80%;
+   display: block;
+    height: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 0;
+    border-top: 1.5px solid #888;
+    /*margin: 1em 0;*/
+    padding: 0; 
+}
+
+.vertical-space 
+{
+    margin-bottom: 55px;
 }
