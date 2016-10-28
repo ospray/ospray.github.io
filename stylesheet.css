@@ -220,13 +220,13 @@ br { clear:both; }
 
 .title
 {
-  margin-top: 100px;
-  margin-bottom: 100px;
   border: 0; padding: 0; margin: 0;
 }
 
 .title h1 {
- color: #777;
+  padding-top: 400px;
+  margin-bottom: 100px;
+ color: #000;
  font-size: 80px;
  font-weight: bold;
  text-align: center;
