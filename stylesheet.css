@@ -226,12 +226,12 @@ br { clear:both; }
 .title h1 {
   padding-top: 400px;
   margin-bottom: 100px;
- color: #000;
- font-size: 80px;
- font-weight: bold;
- text-align: center;
- border: 0; padding: 0; margin: 0;
- border: 0;
+  color: #000;
+  font-size: 80px;
+  font-weight: bold;
+  text-align: center;
+  border: 0; padding: 0; margin: 0;
+  border: 0;
  }
 
 
@@ -310,7 +310,7 @@ div.feature h2 {
 #f2 {
     animation-name: fade;
     animation-duration: 28s;
-    animation-iteration-count: 1;
+    animation-iteration-count: infinite;
 }
 @keyframes fade {
      0% {opacity: 0;}
