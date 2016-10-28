@@ -228,11 +228,19 @@ br { clear:both; }
   margin-bottom: 100px;
   color: #000;
   font-size: 80px;
-  font-weight: bold;
+  //font-weight: bold;
   text-align: center;
   border: 0; padding: 0; margin: 0;
   border: 0;
  }
+
+.title h2 {
+  color: #888;
+  font-size: 30px;
+  text-align: center;
+  border: 0; padding: 0; margin: 0;
+  border: 0;
+}
 
 
 div.feature {
