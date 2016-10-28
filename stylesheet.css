@@ -1,4 +1,5 @@
 body {
+    font-size: 16px;
     color:#373737;
     background: #f2f2f2;
     font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
@@ -217,6 +218,21 @@ br { clear:both; }
     color: #fff;
 }
 
+.title
+{
+    border: 0; padding: 0; margin: 0;
+}
+
+.title h1 {
+ color: #777;
+ font-size: 80px;
+ font-weight: bold;
+ text-align: center;
+ border: 0; padding: 0; margin: 0;
+ border: 0;
+ }
+
+
 div.feature {
     display:inline-block;
     width: 100%;
@@ -229,7 +245,8 @@ div.feature a {
 div.feature img {
     float: left;
     display:inline-block;
-    width: 400px;
+    width: 380px;
+    height: 280px;
     padding:0; 
     -webkit-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
     -moz-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
@@ -245,6 +262,7 @@ div.feature img {
     margin-right: 20px;
     display:inline-block;
     max-width: 574px;
+    color: #666;
 }
 
 div.feature p {
@@ -253,6 +271,8 @@ div.feature p {
 
 div.feature h2 {
     border: 0;
+    color:#222222;
+    font-size: 42px;
 }
 
 .fadein {
