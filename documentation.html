@@ -1077,9 +1077,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>In particular when using the path tracer it is important to adhere to the principle of energy conservation, i.e. that the amount of light reflected by a surface is not larger than the light arriving. Therefore the path tracer issues a warning and renormalizes the color parameters if the sum of <code>Kd</code>, <code>Ks</code>, and <code>Tf</code> is larger than one in any color channel. Similarly important to mention is that almost all materials of the real world reflect at most only about 80% of the incoming light. So even for a white sheet of paper or white wall paint do better not set <code>Kd</code> larger than 0.8; otherwise rendering times are unnecessary long and the contrast in the final images is low (for example, the corners of a white room would hardly be discernible).</p>
 <p>Note that currently only the path tracer implements colored transparency with <code>Tf</code> and normal mapping to simulate small geometric features via <code>map_Bump</code>. The normals <span class="math"><em>n</em></span> in the normal map are wrt. the local tangential shading coordinate system and are encoded as <span class="math">½(<em>n</em> + 1)</span>, thus a texel <span class="math">(0.5, 0.5, 1)</span><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> represents the unperturbed shading normal <span class="math">(0, 0, 1)</span>. Because of this encoding a linear [texture] format is recommended for the normal map. Note that the orientation of normal maps is important for a visually consistent look: by convention OSPRay uses a coordinate system with the origin in the lower left corner; thus a convexity will look green towards the top of the texture image (see also the example image of a normal map). If this is not the case flip the normal map vertically or invert its green channel.</p>
-<div class="figure">
-<embed src="images/normalmap_frustum.png%20{%20width=60%%20}" /><p class="caption">Normal map representing an exalted square pyramidal frustum.</p>
-</div>
+<p>[Normal map representing an exalted square pyramidal frustum.]<img src="normalmap_frustum.png" style="width: 60%;"/></p>
 <p>All parameters (except <code>Tf</code>) can be textured by passing a [texture] handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires [geometries] with texture coordinates, e.g. a [triangle mesh] with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). The path tracer additionally supports [texture transformations] for all textures.</p>
 <h4 id="glass">Glass</h4>
 <p>The [path tracer] offers a realistic a glass material, supporting refraction and volumetric attenuation (i.e. the transparency color varies with the geometric thickness). To create a Glass material pass the type string “<code>Glass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
@@ -1302,15 +1300,9 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Note that when setting the <code>aspect</code> ratio a non-default image region (using <code>imageStart</code> &amp; <code>imageEnd</code>) needs to be regarded.</p>
 <p>In architectural photography it is often desired for aesthetic reasons to display the vertical edges of buildings or walls vertically in the image as well, regardless of how the camera is tilted. Enabling the <code>architectural</code> mode achieves this by internally leveling the camera parallel to the ground (based on the <code>up</code> direction) and then shifting the lens such that the objects in direction <code>dir</code> are centered in the image. If finer control of the lens shift is needed use <code>imageStart</code> &amp; <code>imageEnd</code>. Because the camera is now effectively leveled its image plane and thus the plane of focus is oriented parallel to the front of buildings, the whole façade appears sharp, as can be seen in the example images below.</p>
-<div class="figure">
-<embed src="images/camera_perspective.jpg%20{%20width=60%%20}" /><p class="caption">Example image created with the perspective camera, featuring depth of field.</p>
-</div>
-<div class="figure">
-<embed src="images/camera_architectual.jpg%20{%20width=60%%20}" /><p class="caption">Enabling the <code>architectural</code> flag corrects the perspective projection distortion, resulting in parallel vertical edges.</p>
-</div>
-<div class="figure">
-<embed src="images/camera_stereo.jpg%20{%20width=90%%20}" /><p class="caption">Example 3D stereo image using <code>stereoMode</code> side-by-side.</p>
-</div>
+<p>[Example image created with the perspective camera, featuring depth of field.]<img src="camera_perspective.jpg" style="width: 60%;"/></p>
+<p>[Enabling the <code>architectural</code> flag corrects the perspective projection distortion, resulting in parallel vertical edges.]<img src="images/camera_architectual.jpg" style="width: 60%;"/></p>
+<p>[Example 3D stereo image using <code>stereoMode</code> side-by-side.]<img src="images/camera_stereo.jpg" style="width: 90%;"/></p>
 <h4 id="orthographic-camera">Orthographic Camera</h4>
 <p>The orthographic camera implements a simple camera with orthographic projection, without support for depth of field or motion blur. It is created by passing the type string “<code>orthographic</code>” to <code>ospNewCamera</code>. In addition to the <a href="#cameras">general parameters</a> understood by all cameras the orthographic camera supports the following special parameters:</p>
 <table>
@@ -1336,14 +1328,10 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <p>For convenience the size of the camera sensor, and thus the extent of the scene that is captured in the image, can be controlled with the <code>height</code> parameter. The same effect can be achieved with <code>imageStart</code> and <code>imageEnd</code>, and both methods can be combined. In any case, the <code>aspect</code> ratio needs to be set accordingly to get an undistorted image.</p>
-<div class="figure">
-<embed src="images/camera_orthographic.jpg%20{%20width=60%%20}" /><p class="caption">Example image created with the orthographic camera.</p>
-</div>
+<p>[Example image created with the orthographic camera.]<img src="images/camera_orthographic.jpg" style="width: 60%;"/></p>
 <h4 id="panoramic-camera">Panoramic Camera</h4>
 <p>The panoramic camera implements a simple camera without support for motion blur. It captures the complete surrounding with a latitude / longitude mapping and thus the rendered images should best have a ratio of 2:1. A panoramic camera is created by passing the type string “<code>panoramic</code>” to <code>ospNewCamera</code>. It is placed and oriented in the scene by using the <a href="#cameras">general parameters</a> understood by all cameras.</p>
-<div class="figure">
-<embed src="images/camera_panoramic.jpg%20{%20width=90%%20}" /><p class="caption">Latitude / longitude map created with the panoramic camera.</p>
-</div>
+<p>[Latitude / longitude map created with the panoramic camera.]<img src="images/camera_panoramic.jpg" style="width: 90%;"/></p>
 <h3 id="picking">Picking</h3>
 <p>To get the world-space position of the geometry (if any) seen at [0–1] normalized screen-space pixel coordinates <code>screenPos</code> use</p>
 <pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> ospPick(OSPPickResult*, OSPRenderer, <span class="dt">const</span> vec2f &amp;screenPos);</code></pre>
