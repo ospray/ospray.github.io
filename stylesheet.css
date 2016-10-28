@@ -1,16 +1,11 @@
 body {
     font-size: 16px;
-    font-weight: normal;
-    letter-spacing: normal;
     color:#373737;
     background: #f2f2f2;
-    //font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
-    font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-rendering: optimizeLegibility;
-    //font-weight: 200;
-    font-style: normal;
+    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+
     text-align: justify;
     margin: 0;
 }
@@ -19,9 +14,8 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px 0;
     font-weight: 700;
     color: #0071C5;
-    //font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
-    //letter-spacing: -1px;
-    letter-spacing: normal;
+    font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+    letter-spacing: -1px;
     clear: both;
 }
 
@@ -190,11 +184,9 @@ br { clear:both; }
 }
 
 #header-navbar  {
-    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     color: #fff;
     font-size: 14px;
-    font-weight: normal;
-    letter-spacing: normal;
+    font-weight: 300;
     background: #444;
     padding-top: 0px; 
     padding-bottom: 4px; 
@@ -229,27 +221,18 @@ br { clear:both; }
 .title
 {
   border: 0; padding: 0; margin: 0;
-  margin-top: 40px;
-  margin-bottom: 60px;
 }
 
 .title h1 {
-  color: #333;
-  font-size: 60px;
-  font-weight: 300;
-  //font-weight: bold;
+  padding-top: 400px;
+  margin-bottom: 100px;
+  color: #000;
+  font-size: 80px;
+  font-weight: bold;
   text-align: center;
   border: 0; padding: 0; margin: 0;
   border: 0;
  }
-
-.title h2 {
-  color: #888;
-  font-size: 24px;
-  text-align: center;
-  border: 0; padding: 0; margin: 0;
-  border: 0;
-}
 
 
 div.feature {
@@ -282,9 +265,6 @@ div.feature img {
     display:inline-block;
     max-width: 574px;
     color: #666;
-    font-size: 22px;
-    letter-spacing: 0em;
-    font-weight: 300;
 }
 
 div.feature p {
@@ -293,7 +273,7 @@ div.feature p {
 
 div.feature h2 {
     border: 0;
-    color:#333;
+    color:#222222;
     font-size: 42px;
 }
 
@@ -305,8 +285,8 @@ div.feature h2 {
     margin-top: 0px;
     padding: 0;
     position: relative;
-    height: 600px;
-    max-width: 1000px;
+    height: 480px;
+    max-width: 800px;
     box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
 }
 .fadein img {
@@ -318,13 +298,13 @@ div.feature h2 {
 }
 
 .teaser-img {
-  margin-top: 60px;
-  margin-bottom: 200px;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .teaser-features {
   margin-top: 50px;
-  margin-bottom: 150px;
+  margin-bottom: 50px;
 }
 
 #f2 {
@@ -343,7 +323,7 @@ div.feature h2 {
 }
 
 hr {
-    width: 60%;
+    width: 80%;
     display: block;
     height: 1px;
     margin-left: auto;
