@@ -35,6 +35,7 @@
           <li><a href="index.html">Overview</a></li>
 	  <li><a href="news.html">News/Updates</a></li>
 	  <li><a href="demos.html">Downloadable Demos</a></li>
+	  <li><a href="documentation.html">Documentation</a></li>
 	  <li id="selected"><a href="gallery.html">Gallery</a></li>
 	  <li><a href="getting_ospray.html">Getting OSPRay</a></li>
 	  <li><a href="https://github.com/ospray/OSPRay/wiki">Wiki</a></li>
@@ -52,14 +53,15 @@
 <p>This page contains a few sample screenshots of different renderings done with OSPRay. If <em>you</em> have created any interesting images through OSPRay and would like to share them on this page, please <a href="mailto:ospray@googlegroups.com">send us an email</a>.</p>
 <h2 id="screenshots-and-video-of-the-10tb-walls-dataset">Screenshots and Video of the 10TB Walls Dataset</h2>
 <div class="left">
-<a href="gallery/walls_4k_00.png"><img src="gallery/walls_4k_00-thumb.jpg" /></a> <a href="gallery/walls_4k_01.png"><img src="gallery/walls_4k_01-thumb.jpg" /></a> <a href="gallery/walls_4k_05.png"><img src="gallery/walls_4k_05-thumb.jpg" /></a> <a href="gallery/walls_4k_11.png"><img src="gallery/walls_4k_11-thumb.jpg" /></a> <a href="gallery/walls_4k_21.png"><img src="gallery/walls_4k_21-thumb.jpg" /></a>
+<p><a href="gallery/walls_4k_00.png"><img src="gallery/walls_4k_00-thumb.jpg" /></a> <a href="gallery/walls_4k_01.png"><img src="gallery/walls_4k_01-thumb.jpg" /></a> <a href="gallery/walls_4k_05.png"><img src="gallery/walls_4k_05-thumb.jpg" /></a> <a href="gallery/walls_4k_11.png"><img src="gallery/walls_4k_11-thumb.jpg" /></a> <a href="gallery/walls_4k_21.png"><img src="gallery/walls_4k_21-thumb.jpg" /></a></p>
 </div>
 <p>Some of the forty timesteps of the <code>walls</code> dataset, which is a simulation of the formation of domain walls in the early universe by <a href="http://www.ctc.cam.ac.uk/">the Centre for Theoretical Cosmology (CTC)</a> in cooperation with <a href="http://www.sgi.com/">SGI</a>. Each volume has a resolution of 4096<sup>3</sup>, thus the total dataset is <em>10TB</em> large. With OSPRay running on a SGI UV300 system you can interactively explore the data – watch the <a href="gallery/walls_4k.mp4">movie</a>. For more background read the related <a href="http://blog.sgi.com/accelerating-scientific-discovery-through-visualization/">blog post by SGI</a>.</p>
 <h2 id="more-screenshots-of-osprays-path-tracer">More Screenshots of OSPRay’s Path Tracer</h2>
 <div class="left">
-<a href="gallery/pt-Wohnung1.png"><img src="gallery/pt-Wohnung1-thumb.jpg" /></a> <a href="gallery/pt-Wohnung2.png"><img src="gallery/pt-Wohnung2-thumb.jpg" /></a> <a href="gallery/pt-LoftOffice.png"><img src="gallery/pt-LoftOffice-thumb.jpg" /></a> <a href="gallery/pt-SedusPanorama.png"><img src="gallery/pt-SedusPanorama-thumb.jpg" /></a> <a href="gallery/pt-ActiuRender.png"><img src="gallery/pt-ActiuRender-thumb.jpg" /></a>
+<p><a href="gallery/pt-Wohnung1.png"><img src="gallery/pt-Wohnung1-thumb.jpg" /></a> <a href="gallery/pt-Wohnung2.png"><img src="gallery/pt-Wohnung2-thumb.jpg" /></a> <a href="gallery/pt-LoftOffice.png"><img src="gallery/pt-LoftOffice-thumb.jpg" /></a> <a href="gallery/pt-SedusPanorama.png"><img src="gallery/pt-SedusPanorama-thumb.jpg" /></a> <a href="gallery/pt-ActiuRender.png"><img src="gallery/pt-ActiuRender-thumb.jpg" /></a></p>
 </div>
-<p>The first five example scenes were modeled with <a href="http://www.easterngraphics.com/en.html">EasternGraphics</a>’ room planning and interior design software <a href="http://pcon-planner.com/en/">pcon.Planner</a>, exported to <code>obj</code> and rendered using OSPRay. The scenes contain between one million and ten millon triangles.<br /> <a href="gallery/pt-car.png"><img src="gallery/pt-car-thumb.jpg" /></a></p>
+<p>The first five example scenes were modeled with <a href="http://www.easterngraphics.com/en.html">EasternGraphics</a>’ room planning and interior design software <a href="http://pcon-planner.com/en/">pcon.Planner</a>, exported to <code>obj</code> and rendered using OSPRay. The scenes contain between one million and ten millon triangles.<br />
+<a href="gallery/pt-car.png"><img src="gallery/pt-car-thumb.jpg" /></a></p>
 <p>This car model consists of 5.7 million triangles and features some of the more advanced materials of OSPRay’s path tracer.</p>
 <h2 id="ospray-parallel-rendering-on-taccs-stallion-display-wall">OSPRay Parallel Rendering on TACC’s “Stallion” Display Wall</h2>
 <p><a href="displaywall.html"><img src="gallery/ospray_stallion-thumb.jpg" /></a></p>
@@ -68,21 +70,28 @@
 <h2 id="vmdtachyon-screenshots">VMD/Tachyon Screenshots</h2>
 <p>This section shows some screenshots from the Tachyon module applied to models exported from the widely used “Visual Molecular Dynamics” (VMD) tool. In that workflow, a VMD user uses the VMD command <code>export Tachyon mymodel.tachy</code> to export the VMD model in tachyon format, then uses the <code>ospTachyon mymodel.tachy</code> viewer on those models.</p>
 <p><a href="gallery/ospTachyon-glpf.png"><img src="gallery/ospTachyon-glpf-thumb.jpg" /></a></p>
-<p>VMD “GLPF” model; original model courtesy John Stone, UIUC.<br /> <a href="gallery/ospTachyon-organelle.png"><img src="gallery/ospTachyon-organelle-thumb.jpg" /></a></p>
-<p>VMD “Organelle”, using vdW-representation via ospray spheres. Model courtesy Carsten Kutzner, MPI BPC, Goettingen.<br /> <a href="gallery/ospTachyon-ribosome.png"><img src="gallery/ospTachyon-ribosome-thumb.jpg" /></a></p>
+<p>VMD “GLPF” model; original model courtesy John Stone, UIUC.<br />
+<a href="gallery/ospTachyon-organelle.png"><img src="gallery/ospTachyon-organelle-thumb.jpg" /></a></p>
+<p>VMD “Organelle”, using vdW-representation via ospray spheres. Model courtesy Carsten Kutzner, MPI BPC, Goettingen.<br />
+<a href="gallery/ospTachyon-ribosome.png"><img src="gallery/ospTachyon-ribosome-thumb.jpg" /></a></p>
 <p>VMD “ribosome”, with balls, sticks, ribbons, and quicksurfs. Model courtesy Carsten Kutzner, MPI BPC, Goettingen.</p>
 <h2 id="ospmodelviewer-samples">ospModelViewer Samples</h2>
 <p>Sample screen-shots from the <code>ospModelViewer</code>, typically imported via the OBJ model file format.</p>
 <p><a href="gallery/obj-fairy.png"><img src="gallery/obj-fairy-thumb.jpg" /></a></p>
-<p>The “Utah Fairy” (174k triangles), rendered with textures, transparency, and shadows (using the <code>OBJ</code> renderer. Model originally modelled using DAZ3D’s DAZ Studio.<br /> <a href="gallery/obj-powerplant.png"><img src="gallery/obj-powerplant-thumb.jpg" /></a></p>
-<p>The “UNC PowerPlant” model (12.5 million triangles).<br /> <a href="gallery/ao-boeing.png"><img src="gallery/ao-boeing-thumb.jpg" /></a></p>
-<p>The “Boeing 777” model (342 million triangles), rendered using Ambient Occlusion. Model obtained from and used with permission of the Boeing Company (special thanks to Dave Kasik).<br /> <a href="gallery/obj-xfrog.png"><img src="gallery/obj-xfrog-thumb.jpg" /></a></p>
-<p>The “xfrog” model of 1.7 billion (instanced) triangles and transparency textures. Model originally created using XFrog, model courtesy Oliver Deussen, University of Konstanz.<br /> <a href="gallery/pt-dragon.png"><img src="gallery/pt-dragon-thumb.jpg" /></a></p>
+<p>The “Utah Fairy” (174k triangles), rendered with textures, transparency, and shadows (using the <code>OBJ</code> renderer. Model originally modelled using DAZ3D’s DAZ Studio.<br />
+<a href="gallery/obj-powerplant.png"><img src="gallery/obj-powerplant-thumb.jpg" /></a></p>
+<p>The “UNC PowerPlant” model (12.5 million triangles).<br />
+<a href="gallery/ao-boeing.png"><img src="gallery/ao-boeing-thumb.jpg" /></a></p>
+<p>The “Boeing 777” model (342 million triangles), rendered using Ambient Occlusion. Model obtained from and used with permission of the Boeing Company (special thanks to Dave Kasik).<br />
+<a href="gallery/obj-xfrog.png"><img src="gallery/obj-xfrog-thumb.jpg" /></a></p>
+<p>The “xfrog” model of 1.7 billion (instanced) triangles and transparency textures. Model originally created using XFrog, model courtesy Oliver Deussen, University of Konstanz.<br />
+<a href="gallery/pt-dragon.png"><img src="gallery/pt-dragon-thumb.jpg" /></a></p>
 <p>The 1 million triangle “DAZ Dragon” model, with textures, transparency textures, and rendered with OSPRay’s experimental path tracer. Model originally created using DAZ3D’s DAZ Studio.</p>
 <h2 id="particle-viewer-examples">Particle Viewer Examples</h2>
 <p>Sample screen-shots from the <code>ospParticleViewer</code>.</p>
 <p><a href="gallery/ospParticle-nanospheres.png"><img src="gallery/ospParticle-nanospheres-thumb.jpg" /></a></p>
-<p>The 740k-particle “nanospheres” model. Model courtesy KC Lau and Larry Curtiss, Argonne National Labs, and Aaron Knoll, University of Utah.<br /> <a href="gallery/ospParticle-uintah.png"><img src="gallery/ospParticle-uintah-thumb.jpg" /></a></p>
+<p>The 740k-particle “nanospheres” model. Model courtesy KC Lau and Larry Curtiss, Argonne National Labs, and Aaron Knoll, University of Utah.<br />
+<a href="gallery/ospParticle-uintah.png"><img src="gallery/ospParticle-uintah-thumb.jpg" /></a></p>
 <p>A 80 million particle model from the University of Utah’s “UIntah” simulation package. Data courtesy James Guilkey, Aaron Knoll, and Dave de St.Germain, University of Utah.</p>
 
       </div>
