@@ -351,7 +351,58 @@ hr {
     margin-top: 0px;
     margin-bottom: 0px;
     border: 0;
-    border-top: 1.5px solid #aaa;
-    /*margin: 1em 0;*/
+    border-top: 1.5px solid #888;
     padding: 0; 
+}
+
+table {
+  counter-increment: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0px solid #373737;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+table > caption:before {
+  content: 'Table ' counter(table) ': ';
+  color: #0071C5;
+}
+
+th {
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  background: #0071C5;
+  color: #fff;
+}
+
+td {
+  padding: 10px;
+  border: 0px solid #373737;
+  color: #222;
+  background-color: #fff;
+  vertical-align:top;
+}
+
+div.figure {
+  clear: both;
+  counter-increment: figure;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  margin: 0 0 3em 0;
+  display: inline-block;
+  width: 100%;
+}
+p.caption {
+  margin-top: 3ex;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: left;
+}
+p.caption:before {
+  content: 'Figure ' counter(figure) ': ';
+  color: #0071C5;
 }
