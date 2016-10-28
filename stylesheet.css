@@ -2,7 +2,11 @@ body {
     font-size: 16px;
     color:#373737;
     background: #f2f2f2;
-    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    //font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    font-weight: 200;
+    font-style: normal;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 
@@ -14,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px 0;
     font-weight: 700;
     color: #0071C5;
-    font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+    //font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
     letter-spacing: -1px;
     clear: both;
 }
@@ -221,13 +225,13 @@ br { clear:both; }
 .title
 {
   border: 0; padding: 0; margin: 0;
+  margin-top: 200px;
+  margin-bottom: 200px;
 }
 
 .title h1 {
-  padding-top: 400px;
-  margin-bottom: 100px;
-  color: #000;
-  font-size: 80px;
+  color: #333;
+  font-size: 60px;
   //font-weight: bold;
   text-align: center;
   border: 0; padding: 0; margin: 0;
@@ -273,6 +277,9 @@ div.feature img {
     display:inline-block;
     max-width: 574px;
     color: #666;
+    font-size: 22px;
+    letter-spacing: 0em;
+    font-weight: 300;
 }
 
 div.feature p {
@@ -281,7 +288,7 @@ div.feature p {
 
 div.feature h2 {
     border: 0;
-    color:#222222;
+    color:#333;
     font-size: 42px;
 }
 
@@ -307,12 +314,12 @@ div.feature h2 {
 
 .teaser-img {
   margin-top: 100px;
-  margin-bottom: 100px;
+  margin-bottom: 200px;
 }
 
 .teaser-features {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 }
 
 #f2 {
