@@ -1,11 +1,16 @@
 body {
     font-size: 16px;
+    font-weight: normal;
+    letter-spacing: normal;
     color:#373737;
     background: #f2f2f2;
-    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    //font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    //font-weight: 200;
+    font-style: normal;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-
     text-align: justify;
     margin: 0;
 }
@@ -14,8 +19,9 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px 0;
     font-weight: 700;
     color: #0071C5;
-    font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
-    letter-spacing: -1px;
+    //font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+    //letter-spacing: -1px;
+    letter-spacing: normal;
     clear: both;
 }
 
@@ -184,9 +190,11 @@ br { clear:both; }
 }
 
 #header-navbar  {
+    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     color: #fff;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: normal;
+    letter-spacing: normal;
     background: #444;
     padding-top: 0px; 
     padding-bottom: 4px; 
@@ -221,18 +229,27 @@ br { clear:both; }
 .title
 {
   border: 0; padding: 0; margin: 0;
+  margin-top: 40px;
+  margin-bottom: 60px;
 }
 
 .title h1 {
-  padding-top: 400px;
-  margin-bottom: 100px;
-  color: #000;
-  font-size: 80px;
-  font-weight: bold;
+  color: #333;
+  font-size: 60px;
+  font-weight: 300;
+  //font-weight: bold;
   text-align: center;
   border: 0; padding: 0; margin: 0;
   border: 0;
  }
+
+.title h2 {
+  color: #888;
+  font-size: 24px;
+  text-align: center;
+  border: 0; padding: 0; margin: 0;
+  border: 0;
+}
 
 
 div.feature {
@@ -265,6 +282,9 @@ div.feature img {
     display:inline-block;
     max-width: 574px;
     color: #666;
+    font-size: 22px;
+    letter-spacing: 0em;
+    font-weight: 300;
 }
 
 div.feature p {
@@ -273,7 +293,7 @@ div.feature p {
 
 div.feature h2 {
     border: 0;
-    color:#222222;
+    color:#333;
     font-size: 42px;
 }
 
@@ -285,8 +305,8 @@ div.feature h2 {
     margin-top: 0px;
     padding: 0;
     position: relative;
-    height: 480px;
-    max-width: 800px;
+    height: 600px;
+    max-width: 1000px;
     box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
 }
 .fadein img {
@@ -298,13 +318,13 @@ div.feature h2 {
 }
 
 .teaser-img {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 60px;
+  margin-bottom: 200px;
 }
 
 .teaser-features {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 }
 
 #f2 {
@@ -323,7 +343,7 @@ div.feature h2 {
 }
 
 hr {
-    width: 80%;
+    width: 60%;
     display: block;
     height: 1px;
     margin-left: auto;
@@ -331,58 +351,7 @@ hr {
     margin-top: 0px;
     margin-bottom: 0px;
     border: 0;
-    border-top: 1.5px solid #888;
+    border-top: 1.5px solid #aaa;
+    /*margin: 1em 0;*/
     padding: 0; 
-}
-
-table {
-  counter-increment: table;
-  border-collapse: collapse;
-  border-spacing: 0;
-  border: 0px solid #373737;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  text-align: left;
-}
-table > caption:before {
-  content: 'Table ' counter(table) ': ';
-  color: #0071C5;
-}
-
-th {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 10px;
-  background: #0071C5;
-  color: #fff;
-}
-
-td {
-  padding: 10px;
-  border: 0px solid #373737;
-  color: #222;
-  background-color: #fff;
-  vertical-align:top;
-}
-
-div.figure {
-  clear: both;
-  counter-increment: figure;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  margin: 0 0 3em 0;
-  display: inline-block;
-  width: 100%;
-}
-p.caption {
-  margin-top: 3ex;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  text-align: left;
-}
-p.caption:before {
-  content: 'Figure ' counter(figure) ': ';
-  color: #0071C5;
 }
