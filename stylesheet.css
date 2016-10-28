@@ -5,11 +5,10 @@ body {
     //font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-rendering: optimizeLegibility;
-    font-weight: 200;
+    //font-weight: 200;
     font-style: normal;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-
     text-align: justify;
     margin: 0;
 }
@@ -188,6 +187,7 @@ br { clear:both; }
 }
 
 #header-navbar  {
+    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     color: #fff;
     font-size: 14px;
     font-weight: 300;
