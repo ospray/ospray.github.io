@@ -246,7 +246,7 @@ br { clear:both; }
 .title h2 {
   color: #888;
   font-size: 24px;
-  font-weight: 200;
+  font-weight: 100;
   text-align: center;
   border: 0; padding: 0; margin: 0;
   border: 0;
@@ -268,8 +268,6 @@ div.feature img {
     width: 380px;
     height: 280px;
     padding:0; 
-    -webkit-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
-    -moz-box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
     box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
 }
 .feature-alt img
@@ -329,14 +327,20 @@ div.feature h2 {
 }
 
 #f2 {
-    animation: fade 20s infinite;
+    animation: fade 28s 1;
 }
 @keyframes fade {
      0% {opacity: 0;}
-    10% {opacity: 0}
+    10% {opacity: 0;}
+    20% {opacity: 1;}
     30% {opacity: 1;}
+    40% {opacity: 0;}
+    50% {opacity: 0;}
     60% {opacity: 1;}
-    100% {opacity: 0;}
+    70% {opacity: 1;}
+    80% {opacity: 0;}
+    90% {opacity: 0;}
+   100% {opacity: 1;}
 }
 
 hr {
