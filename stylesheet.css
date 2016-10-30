@@ -246,7 +246,7 @@ br { clear:both; }
 .title h2 {
   color: #888;
   font-size: 24px;
-  font-weight: 100;
+  font-weight: 200;
   text-align: center;
   border: 0; padding: 0; margin: 0;
   border: 0;
@@ -327,18 +327,18 @@ div.feature h2 {
 }
 
 #f2 {
-    animation: fade 28s 1;
+    animation: fade 40s 1;
 }
 @keyframes fade {
      0% {opacity: 0;}
-    10% {opacity: 0;}
-    20% {opacity: 1;}
+    5% {opacity: 0;}
     30% {opacity: 1;}
-    40% {opacity: 0;}
+    35% {opacity: 1;}
+    45% {opacity: 0;}
     50% {opacity: 0;}
-    60% {opacity: 1;}
     70% {opacity: 1;}
-    80% {opacity: 0;}
+    75% {opacity: 1;}
+    85% {opacity: 0;}
     90% {opacity: 0;}
    100% {opacity: 1;}
 }
