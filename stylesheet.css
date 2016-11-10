@@ -325,7 +325,7 @@ div.feature h2 {
   margin-bottom: 150px;
 }
 
-#f2 {
+.fade {
     animation: fade 28s 1;
 }
 @keyframes fade {

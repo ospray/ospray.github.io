@@ -56,10 +56,19 @@ A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
 <hr>
 <div class="teaser-img">
 <div class="fadein">
-<img id="f1" src="images/rm_volume.jpg"> <img id="f2" src="images/rm_volume_ao_shadows.jpg">
+<img id="f1" src="images/rm_volume.jpg"> <img id="f2" class="fade" src="images/rm_volume_ao_shadows.jpg">
 </div>
 <!-- do not change formatting here! -->
 </div>
+<script>
+el=document.getElementById("f2");
+el.addEventListener("click", function(e) {
+ e.preventDefault;
+ el.classList.remove("fade");
+ void el.offsetWidth;
+ el.classList.add("fade");
+}, false);
+</script>
 <hr>
 <div class="teaser-features">
 <div class="feature">
