@@ -323,20 +323,20 @@ div.feature h2 {
 }
 
 .fade {
-    animation: fade 28s 1;
+    animation: fade 30s 1;
 }
 @keyframes fade {
-     0% {opacity: 0;}
-    5% {opacity: 0;}
-    30% {opacity: 1;}
-    35% {opacity: 1;}
-    45% {opacity: 0;}
-    50% {opacity: 0;}
-    70% {opacity: 1;}
-    75% {opacity: 1;}
-    85% {opacity: 0;}
-    90% {opacity: 0;}
-   100% {opacity: 1;}
+      0% {opacity: 0;}
+      5% {opacity: 0;}
+     20% {opacity: 1;}
+     25% {opacity: 1;}
+     45% {opacity: 0;}
+     50% {opacity: 0;}
+     60% {opacity: 1;}
+     65% {opacity: 1;}
+     75% {opacity: 0;}
+     80% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
 hr {
