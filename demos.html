@@ -47,28 +47,14 @@
 
 <h1 id="ospray-demos">OSPRay Demos</h1>
 <p>This page serves as a repository for “ready-to-run” demos for OSPRay (currently, most demos are intended for OSPRay v1.1.1). If you do not yet have a version of OSPRay installed on your system, you can follow these instructions for <a href="getting_ospray.html">getting OSPRay</a>.</p>
-<h2 id="animated-woody">Animated Woody</h2>
-<p><a href="demos/sponza_animated.jpg"><img src="demos/sponza_animated_small.jpg" /></a></p>
-<p><em>Model courtesy Carson Brownlee, Ingo Wald, Morgan McGuire, Crytek</em></p>
-<h3 id="demo-highlights">Demo Highlights</h3>
-<ul>
-<li>Animated Wooden Doll walking in the Sponza model (from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
-</ul>
-<h3 id="instructions">Instructions</h3>
-<ul>
-<li><em>IMPORTANT:</em> This demo currently requires a build off of the latest github devel, the latest Embree (OSPRAY_USE_EXTERNAL_EMBREE=ON), OSPRAY_USE_IMAGE_MAGICK=ON, USE_IMAGEMAGICK=ON.</li>
-<li>Download <a href="http://www.sdvis.org/ospray/download/demos/crytek-sponza.tgz">crytek-sponza.tgz</a> and <a href="http://www.sdvis.org/ospray/download/demos/wooddoll.tgz">wooddoll.tgz</a>.</li>
-<li>Run via<br /> <code>./ospGlutViewer crytek-sponza/sponza.obj --sun-dir -.3 -1 -.04 --renderer scivis --sun-int 3 -vp 667.492554 186.974228 76.008301 -vu 0.000000 1.000000 0.000000 -vi 84.557503 188.199417 -38.148270 --translate 250 -11 0 --scale 300 300 300 --lockFirstFrame wooddoll/wooddoll*.obj -ao 0 --ambient .85 .9 1 .3</code></li>
-<li>Controls: +/- increase and decrease animation speed. Space bar pauses.</li>
-</ul>
 <h2 id="sponza">Sponza</h2>
 <p><a href="demos/sponza.jpg"><img src="demos/sponza_small.jpg" /></a></p>
 <p><em>Model courtesy Carson Brownlee, Morgan McGuire, Crytek</em></p>
-<h3 id="demo-highlights-1">Demo Highlights</h3>
+<h3 id="demo-highlights">Demo Highlights</h3>
 <ul>
 <li>Crytek Sponza scene – a common scene for showcasing global illumination (model from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
 </ul>
-<h3 id="instructions-1">Instructions</h3>
+<h3 id="instructions">Instructions</h3>
 <ul>
 <li><em>IMPORTANT:</em> This demo currently requires a build from github with OSPRAY_USE_IMAGE_MAGICK=ON, USE_IMAGEMAGICK=ON.</li>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/crytek-sponza.tgz">crytek-sponza.tgz</a> and <a href="http://www.pauldebevec.com/Probes/" title="Light Probe Images">light probes</a> in pfm-format.</li>
@@ -77,28 +63,42 @@
 <h2 id="san-miguel">San-Miguel</h2>
 <p><a href="demos/san-miguel.jpg"><img src="demos/san-miguel_small.jpg" /></a></p>
 <p><em>Model courtesy Carson Brownlee, Morgan McGuire, Guillermo M. Leal Llaguno</em></p>
-<h3 id="demo-highlights-2">Demo Highlights</h3>
+<h3 id="demo-highlights-1">Demo Highlights</h3>
 <ul>
 <li>A quaint cafe in San Miguel’s historic district. This is a common scene for showcasing global illumination. (Model from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
 </ul>
-<h3 id="instructions-2">Instructions</h3>
+<h3 id="instructions-1">Instructions</h3>
 <ul>
 <li><em>IMPORTANT:</em> This demo currently requires a build from github with OSPRAY_USE_IMAGE_MAGICK=ON, USE_IMAGEMAGICK=ON.</li>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/san-miguel.tgz">san-miguel.tgz</a> and <a href="http://www.pauldebevec.com/Probes/" title="Light Probe Images">light probes</a> in pfm-format.</li>
-<li>Run via<br /> <code>./ospGlutViewer ./san-miguel/san-miguel.obj -r pt  --max-depth 15 --sun-int 50 -vp -2.198506 3.497189 23.826025 -vu 0.000000 1.000000 0.000000 -vi -2.241950 2.781175 21.689358 --hdri-light 20 lightProbes/rnl_probe.pfm --sun-dir .1 -1 -.2</code></li>
+<li>Run via<br /> <code>./ospGlutViewer san-miguel/sanMiguel.obj -r pt  --max-depth 15 --sun-int 50 -vp -2.198506 3.497189 23.826025 -vu 0.000000 1.000000 0.000000 -vi -2.241950 2.781175 21.689358 --hdri-light 20 lightProbes/rnl_probe.pfm --sun-dir .1 -1 -.2</code></li>
 </ul>
 <h2 id="sibenik-cathedral">Sibenik Cathedral</h2>
 <p><a href="demos/sibenik.jpg"><img src="demos/sibenik_small.jpg" /></a></p>
 <p><em>Model courtesy Morgan McGuire, Kenzie Lamar, Aleksander Stompel</em></p>
-<h3 id="demo-highlights-3">Demo Highlights</h3>
+<h3 id="demo-highlights-2">Demo Highlights</h3>
 <ul>
 <li>A large cathedral model commonly used for showcasing global illumination. (Original model from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
 </ul>
-<h3 id="instructions-3">Instructions</h3>
+<h3 id="instructions-2">Instructions</h3>
 <ul>
 <li><em>IMPORTANT:</em> This demo currently requires a build from github with OSPRAY_USE_IMAGE_MAGICK=ON, USE_IMAGEMAGICK=ON.</li>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/sibenik.tgz">sibenik.tgz</a> and <a href="http://www.pauldebevec.com/Probes/" title="Light Probe Images">light probes</a> in pfm-format.</li>
 <li>Run via<br /> <code>./ospGlutViewer sibenik.obj --sun-dir .4 -.5 1 --renderer pt --sun-int 20 --hdri-light 1 lightProbes/rnl_probe.pfm -vp -17.734447 -13.788272 3.443677 -vu 0.000000 1.000000 0.000000 -vi -2.789550 -10.993323 0.331822</code></li>
+</ul>
+<h2 id="animated-woody">Animated Woody</h2>
+<p><a href="demos/sponza_animated.jpg"><img src="demos/sponza_animated_small.jpg" /></a></p>
+<p><em>Model courtesy Carson Brownlee, Ingo Wald, Morgan McGuire, Crytek</em></p>
+<h3 id="demo-highlights-3">Demo Highlights</h3>
+<ul>
+<li>Animated Wooden Doll walking in the Sponza model (from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
+</ul>
+<h3 id="instructions-3">Instructions</h3>
+<ul>
+<li><em>IMPORTANT:</em> This demo currently requires a build off of the latest github devel, the latest Embree (OSPRAY_USE_EXTERNAL_EMBREE=ON), OSPRAY_USE_IMAGE_MAGICK=ON, USE_IMAGEMAGICK=ON.</li>
+<li>Download <a href="http://www.sdvis.org/ospray/download/demos/crytek-sponza.tgz">crytek-sponza.tgz</a> and <a href="http://www.sdvis.org/ospray/download/demos/wooddoll.tgz">wooddoll.tgz</a>.</li>
+<li>Run via<br /> <code>./ospGlutViewer crytek-sponza/sponza.obj --sun-dir -.3 -1 -.04 --renderer scivis --sun-int 3 -vp 667.492554 186.974228 76.008301 -vu 0.000000 1.000000 0.000000 -vi 84.557503 188.199417 -38.148270 --translate 250 -11 0 --scale 300 300 300 --lockFirstFrame wooddoll/wooddoll*.obj -ao 0 --ambient .85 .9 1 .3</code></li>
+<li>Controls: +/- increase and decrease animation speed. Space bar pauses.</li>
 </ul>
 <h2 id="magnetic-reconnection-isosurface">“Magnetic Reconnection” IsoSurface</h2>
 <p><a href="demos/MagneticReconnection/MagneticReconnection-1k-twoIsos-45Mtris.png"><img src="demos/MagneticReconnection/MagneticReconnection-1k-twoIsos-45Mtris-small.jpg" /></a></p>
