@@ -251,6 +251,8 @@ br { clear:both; }
 div.feature {
     display:inline-block;
     width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -260,7 +262,8 @@ div.feature a {
 div.feature img {
     float: left;
     display:inline-block;
-    width: 400px;
+    width: 360px;
+    height: 260px;
     padding:0; 
     box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
 }
@@ -273,11 +276,10 @@ div.feature img {
     margin-left: 20px;
     margin-right: 20px;
     display:inline-block;
-    max-width: 574px;
+    max-width: 544px;
     color: #666;
-    font-size: 22px;
-    letter-spacing: 0em;
-    font-weight: 300;
+    font-size: 18px;
+    font-weight: 200;
 }
 
 div.feature p {
@@ -286,8 +288,8 @@ div.feature p {
 
 div.feature h2 {
     border: 0;
-    color:#333;
-    font-size: 42px;
+    color:#555;
+    font-size: 36px;
 }
 
 .fadein {
