@@ -4,10 +4,8 @@ body {
     letter-spacing: normal;
     color:#373737;
     background: #f2f2f2;
-    //font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-rendering: optimizeLegibility;
-    //font-weight: 200;
     font-style: normal;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -19,8 +17,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px 0;
     font-weight: 700;
     color: #0071C5;
-    //font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
-    //letter-spacing: -1px;
     letter-spacing: normal;
     clear: both;
 }
@@ -237,7 +233,6 @@ br { clear:both; }
   color: #333;
   font-size: 60px;
   font-weight: 300;
-  //font-weight: bold;
   text-align: center;
   border: 0; padding: 0; margin: 0;
   border: 0;
@@ -265,8 +260,7 @@ div.feature a {
 div.feature img {
     float: left;
     display:inline-block;
-    width: 380px;
-    height: 280px;
+    width: 400px;
     padding:0; 
     box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
 }
@@ -304,8 +298,10 @@ div.feature h2 {
     margin-top: 0px;
     padding: 0;
     position: relative;
-    height: 600px;
+    padding-bottom: 58.59375%; /* 600/1024 */
     max-width: 1000px;
+}
+#f1 {
     box-shadow: 4px 4px 18px -5px rgba(0,0,0,0.86);
 }
 .fadein img {
@@ -326,21 +322,21 @@ div.feature h2 {
   margin-bottom: 150px;
 }
 
-#f2 {
-    animation: fade 40s 1;
+.fade {
+    animation: fade 30s 1;
 }
 @keyframes fade {
-     0% {opacity: 0;}
-    5% {opacity: 0;}
-    30% {opacity: 1;}
-    35% {opacity: 1;}
-    45% {opacity: 0;}
-    50% {opacity: 0;}
-    70% {opacity: 1;}
-    75% {opacity: 1;}
-    85% {opacity: 0;}
-    90% {opacity: 0;}
-   100% {opacity: 1;}
+      0% {opacity: 0;}
+      5% {opacity: 0;}
+     20% {opacity: 1;}
+     25% {opacity: 1;}
+     45% {opacity: 0;}
+     50% {opacity: 0;}
+     60% {opacity: 1;}
+     65% {opacity: 1;}
+     75% {opacity: 0;}
+     80% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
 hr {
