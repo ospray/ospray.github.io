@@ -162,13 +162,36 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.2.0">Changes in v1.2.0:</h3>
+<ul>
+<li>Added support for volumes with voxelType <code>short</code> (16-bit signed integers). Applications need to recompile, because <code>OSPDataType</code> has been re-enumerated</li>
+<li>Removed SciVis renderer parameter <code>aoWeight</code>, the intensity (and now color as well) of AO is controlled via “<code>ambient</code>” lights. If <code>aoSamples</code> is zero (the default) then ambient lights cause ambient illumination (without occlusion)</li>
+<li>New SciVis renderer parameter <code>aoTransparencyEnabled</code>, controlling whether object transparency is respected when computing ambient occlusion (disabled by default, as it is considerable slower)</li>
+<li>Implement normal mapping for SciVis renderer</li>
+<li>Support of emissive (and illuminating) geometries in the path tracer via new material “<code>Luminous</code>”</li>
+<li>Lights can optionally made invisible by using the new parameter <code>isVisible</code> (only relevant for path tracer)</li>
+<li>OSPRay Devices are now extendable through modules and the SDK.
+<ul>
+<li>Devices can be created and set current, creating an alternative method for initializing the API</li>
+<li>New API functions for committing parameters on Devices</li>
+</ul></li>
+<li>Removed support for the first generation Intel® Xeon Phi™ coprocessor (codename Knights Corner)</li>
+<li>Other minor improvements, updates, and bugfixes:
+<ul>
+<li>Updated Embree required version to v2.13.0 for added features and performance</li>
+<li>New API function <code>ospDeviceSetErrorMsgFunc()</code> to specify a callback for handling message outputs from OSPRay</li>
+<li>Add ability to remove user set parameter values with new <code>ospRemoveParam()</code> API function</li>
+<li>The MPI device is now provided via a module, removing the need for having separately compiled versions of OSPRay with and without MPI</li>
+<li>OSPRay build dependencies now only get installed if <code>OSPRAY_INSTALL_DEPENDENCIES</code> CMake variable is enabled</li>
+</ul></li>
+</ul>
 <h3 id="changes-in-v1.1.2">Changes in v1.1.2:</h3>
 <ul>
 <li>Various bugfixes related to normalization, epsilons and debug messages</li>
 </ul>
 <h3 id="changes-in-v1.1.1">Changes in v1.1.1:</h3>
 <ul>
-<li>Fixed support of first generation Intel® Xeon Phi™ coprocessor (codename Knights Corner) and the COI device</li>
+<li>Fixed support of first generation Intel Xeon Phi coprocessor (codename Knights Corner) and the COI device</li>
 <li>Fix normalization bug that caused rendering artifacts</li>
 </ul>
 <h3 id="changes-in-v1.1.0">Changes in v1.1.0:</h3>
@@ -186,7 +209,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Single shading point option for accelerated shading</li>
 </ul></li>
 </ul></li>
-<li>Add preliminary support for adaptive accumulation in the MPI device</li>
+<li>Added preliminary support for adaptive accumulation in the MPI device</li>
 <li>Camera specific features
 <ul>
 <li>Initial support for stereo rendering with the perspective camera</li>
@@ -283,7 +306,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>If the renderer parameter <code>varianceThreshold</code> is set, progressive refinement concentrates on regions of the image with a variance higher than this threshold</li>
 </ul></li>
 <li>Added support for volumes with voxelType <code>ushort</code> (16-bit unsigned integers)</li>
-<li><code>OSPTexture2D</code> now supports sRGB formats – actually most images are stored in sRGB. As a consequence the API call <code>ospNewTexture2D()</code> needed to change to accept the new <code>OSPTextureFormat</code> parameter.</li>
+<li><code>OSPTexture2D</code> now supports sRGB formats – actually most images are stored in sRGB. As a consequence the API call <code>ospNewTexture2D()</code> needed to change to accept the new <code>OSPTextureFormat</code> parameter</li>
 <li>Similarly, OSPRay’s framebuffer types now also distinguishes between linear and sRGB 8-bit formats. The new types are <code>OSP_FB_NONE</code>, <code>OSP_FB_RGBA8</code>, <code>OSP_FB_SRGBA</code>, and <code>OSP_FB_RGBA32F</code></li>
 <li>Changed “scivis” renderer parameter defaults
 <ul>
