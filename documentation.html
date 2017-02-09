@@ -84,14 +84,15 @@ div.sourceCode { overflow-x: initial; }
       <div id="content">
 
 <h1 id="documentation">Documentation</h1>
-<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme_devel.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme_devel.pdf" title="OSPRay Documentation">pdf document</a> (2.6MB).</p>
+<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">pdf document</a> (2.6MB).</p>
 <p>For a deeper explanation of the concepts, design, features and performance of OSPRay also have a look at the IEEE Vis 2016 paper “<a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper.pdf">OSPRay – A CPU Ray Tracing Framework for Scientific Visualization</a>” (49MB, or get the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper_small.pdf">smaller version</a> 1.8MB). Also available are the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_talk.pdf">slides of the talk</a> (5.2MB).</p>
 <h1 id="ospray-api">OSPRay API</h1>
 <p>To access the OSPRay API you first need to include the OSPRay header</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&quot;ospray/ospray.h&quot;</span></code></pre></div>
 <p>where the API is compatible with C99 and C++.</p>
-<p>In order to use the API, OSPRay must initialized with a “device”. A device is the object which implements the API. Creating and initializing a device can be done in either of two ways: command line arguments or manually instantiating a device.</p>
-<h3 id="initialization-via-command-line-arguments">Initialization via command line arguments</h3>
+<h2 id="initialization">Initialization</h2>
+<p>In order to use the API, OSPRay must be initialized with a “device”. A device is the object which implements the API. Creating and initializing a device can be done in either of two ways: command line arguments or manually instantiating a device.</p>
+<h3 id="command-line-arguments">Command Line Arguments</h3>
 <p>The first is to do so by giving OSPRay the command line from <code>main()</code> by calling</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> ospInit(<span class="dt">int</span> *argc, <span class="at">const</span> <span class="dt">char</span> **argv);</code></pre></div>
 <p>OSPRay parses (and removes) its known command line parameters from your application’s <code>main</code> function. For an example see the <a href="documentation.html#tutorial">tutorial</a>. The following parameters (which are prefixed by convention with “<code>--osp:</code>”) are understood:</p>
@@ -142,7 +143,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<h3 id="initialization-via-manual-device-instantiation">Initialization via manual device instantiation</h3>
+<h3 id="manual-device-instantiation">Manual Device Instantiation</h3>
 <p>The second method of initialization is to explicitly create the device yourself, and possibly set parameters. This method looks almost identical to how other objects are created and used by OSPRay (described in later sections). The first step is to create the device with</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">OSPDevice ospCreateDevice(<span class="at">const</span> <span class="dt">char</span> *type);</code></pre></div>
 <p>where the <code>type</code> string maps to a specific device implementation. OSPRay always provides the “<code>default</code>” device, which maps to a local CPU rendering device. If it is enabled in the build, you can also use “<code>mpi</code>” to access the MPI multi-node rendering device. Once a device is created, you can call</p>
@@ -185,7 +186,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Users can change parameters on the device after initialization (from either method above), by calling</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">OSPDevice ospGetCurrentDevice();</code></pre></div>
 <p>This function returns the handle to the device currently used to respond to OSPRay API calls, where users can set/change parameters and recommit the device. If changes are made to the device that is already set as the current device, it does not need to be set as current again.</p>
-<h3 id="useful-environment-variables">Useful environment variables</h3>
+<h3 id="environment-variables">Environment Variables</h3>
 <p>Finally, OSPRay’s generic device parameters can be overridden via environment variables for easy changes to OSPRay’s behavior without needing to change the application (variables are prefixed by convention with “<code>OSPRAY_</code>”):</p>
 <table>
 <caption>Environment variables interpreted by OSPRay.</caption>
@@ -214,11 +215,11 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<h3 id="handling-error-and-status-messages-from-ospray">Handling error and status messages from OSPRay</h3>
+<h3 id="handling-error-and-status-messages-from-ospray">Handling Error and Status Messages from OSPRay</h3>
 <p>Applications may be interested in messages which OSPRay emits, whether for debugging or logging events. Applications can call</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> ospDeviceSetErrorMsgFunc(OSPDevice, OSPErrorMsgFunc callback);</code></pre></div>
 <p>in order to set the callback OSPRay will use to emit error messages. By default, OSPRay uses a callback which does nothing, so any output desired by an application will require that a callback be provided. Note that callbacks for C++ std::cout and std::cerr can be alternatively set through ospInit() or OSPRAY_LOG_OUTPUT environment variable.</p>
-<h3 id="loading-ospray-extensions-at-runtime">Loading OSPRay extensions at runtime</h3>
+<h3 id="loading-ospray-extensions-at-runtime">Loading OSPRay Extensions at Runtime</h3>
 <p>OSPRay’s functionality can be extended via plugins, which are implemented in shared libraries. To load plugin <code>name</code> from <code>libospray_module_&lt;name&gt;.so</code> (on Linux and Mac OS X) or <code>ospray_module_&lt;name&gt;.dll</code> (on Windows) use</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int32_t</span> ospLoadModule(<span class="at">const</span> <span class="dt">char</span> *name);</code></pre></div>
 <p>Modules are searched in OS-dependent paths, which include the application directory. <code>ospLoadModule</code> returns <code>0</code> if the plugin could be loaded and an error code <code>&gt; 0</code> otherwise.</p>
@@ -426,12 +427,19 @@ div.sourceCode { overflow-x: initial; }
                             <span class="at">const</span> vec3i &amp;regionSize);</code></pre></div>
 <p>The voxel data pointed to by <code>source</code> is copied into the given volume starting at position <code>regionCoords</code>, must be of size <code>regionSize</code> and be placed in memory in XYZ order. Note that OSPRay distinguishes between volume data and volume parameters. This function must be called only after all volume parameters (in particular <code>dimensions</code> and <code>voxelType</code>, see below) have been set and <em>before</em> <code>ospCommit(volume)</code> is called. Memory for the volume is allocated on the first call to this function. If allocation is unsuccessful or the region size is invalid, the return value is <code>0</code>, and non-zero otherwise.</p>
 <p>The common parameters understood by both structured volume variants are summarized in the table below. If <code>voxelRange</code> is not provided for a volume OSPRay will compute it based on the voxel data, which may result in slower data updates.</p>
-<table>
+<table style="width:98%;">
 <caption>Parameters to configure a structured volume.</caption>
+<colgroup>
+<col width="8%" />
+<col width="29%" />
+<col width="16%" />
+<col width="43%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Type</th>
 <th align="left">Name</th>
+<th align="right">Default</th>
 <th align="left">Description</th>
 </tr>
 </thead>
@@ -439,97 +447,116 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td align="left">vec3i</td>
 <td align="left">dimensions</td>
+<td align="right"></td>
 <td align="left">number of voxels in each dimension <span class="math inline">(<em>x</em>, <em>y</em>, <em>z</em>)</span></td>
 </tr>
 <tr class="even">
 <td align="left">string</td>
 <td align="left">voxelType</td>
+<td align="right"></td>
 <td align="left">data type of each voxel, currently supported are:</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
+<td align="right"></td>
 <td align="left">“uchar” (8 bit unsigned integer)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"></td>
+<td align="right"></td>
 <td align="left">“ushort” (16 bit unsigned integer)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
+<td align="right"></td>
 <td align="left">“float” (32 bit single precision floating point)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"></td>
+<td align="right"></td>
 <td align="left">“double” (64 bit double precision floating point)</td>
 </tr>
 <tr class="odd">
 <td align="left">vec2f</td>
 <td align="left">voxelRange</td>
+<td align="right"></td>
 <td align="left">minimum and maximum of the scalar values</td>
 </tr>
 <tr class="even">
 <td align="left">vec3f</td>
 <td align="left">gridOrigin</td>
-<td align="left">origin of the grid in world-space, default <span class="math inline">(0, 0, 0)</span></td>
+<td align="right"><span class="math inline">(0, 0, 0)</span></td>
+<td align="left">origin of the grid in world-space</td>
 </tr>
 <tr class="odd">
 <td align="left">vec3f</td>
 <td align="left">gridSpacing</td>
-<td align="left">size of the grid cells in world-space, default <span class="math inline">(1, 1, 1)</span></td>
+<td align="right"><span class="math inline">(1, 1, 1)</span></td>
+<td align="left">size of the grid cells in world-space</td>
 </tr>
 <tr class="even">
 <td align="left">bool</td>
 <td align="left">gradientShadingEnabled</td>
-<td align="left">volume is rendered with surface shading according to normalized gradient</td>
+<td align="right">false</td>
+<td align="left">volume is rendered with surface shading wrt. to normalized gradient</td>
 </tr>
 <tr class="odd">
 <td align="left">bool</td>
 <td align="left">preIntegration</td>
-<td align="left">enable using pre-integration for transferFunction lookups</td>
+<td align="right">false</td>
+<td align="left">use pre-integration for <a href="#transfer-function">transfer function</a> lookups</td>
 </tr>
 <tr class="even">
 <td align="left">bool</td>
 <td align="left">singleShade</td>
+<td align="right">true</td>
 <td align="left">shade only at the point of maximum intensity</td>
 </tr>
 <tr class="odd">
 <td align="left">bool</td>
 <td align="left">adaptiveSampling</td>
+<td align="right">true</td>
 <td align="left">adapt ray step size based on opacity</td>
 </tr>
 <tr class="even">
 <td align="left">float</td>
 <td align="left">adaptiveScalar</td>
+<td align="right">15</td>
 <td align="left">modifier for adaptive step size</td>
 </tr>
 <tr class="odd">
 <td align="left">float</td>
 <td align="left">adaptiveMaxSamplingRate</td>
+<td align="right">2</td>
 <td align="left">maximum sampling rate for adaptive sampling</td>
 </tr>
 <tr class="even">
 <td align="left">float</td>
 <td align="left">samplingRate</td>
-<td align="left">sampling rate of the volume. This is the minumum step size for adaptive.</td>
+<td align="right">0.125</td>
+<td align="left">sampling rate of the volume (this is the minimum step size for adaptive sampling)</td>
 </tr>
 <tr class="odd">
 <td align="left">vec3f</td>
 <td align="left">specular</td>
-<td align="left">specular component for shading</td>
+<td align="right">gray 0.3</td>
+<td align="left">specular color for shading</td>
 </tr>
 <tr class="even">
 <td align="left">vec3f</td>
 <td align="left">volumeClippingBoxLower</td>
-<td align="left">clip the volume values in object coordinates</td>
+<td align="right">disabled</td>
+<td align="left">lower coordinate (in object-space) to clip the volume values</td>
 </tr>
 <tr class="odd">
 <td align="left">vec3f</td>
 <td align="left">volumeClippingBoxUpper</td>
-<td align="left">clip the volume values in object coordinates</td>
+<td align="right">disabled</td>
+<td align="left">upper coordinate (in object-space) to clip the volume values</td>
 </tr>
 </tbody>
 </table>
@@ -926,7 +953,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Note that the intensity (and color) of AO is controlled via an <a href="#ambient-light">ambient light</a>. If <code>aoSamples</code> is zero (the default) then ambient lights cause ambient illumination (without occlusion).</p>
 <p>The SciVis renderer supports depth composition with images of other renderers, for example to incorporate help geometries of a 3D UI that were rendered with OpenGL. The screen-sized <a href="#texture">texture</a> <code>maxDepthTexture</code> must have format <code>OSP_TEXTURE_R32F</code> and flag <code>OSP_TEXTURE_FILTER_NEAREST</code>. The fetched values are used to limit the distance of primary rays, thus objects of other renderers can hide objects rendered by OSPRay.</p>
-<h3 id="path-tracer">Path tracer</h3>
+<h3 id="path-tracer">Path Tracer</h3>
 <p>The path tracer supports soft shadows, indirect illumination and realistic materials. In addition to the <a href="#renderer">general parameters</a> understood by all renderers the path tracer supports the following special parameters:</p>
 <table style="width:98%;">
 <caption>Special parameters understood by the path tracer.</caption>
@@ -984,7 +1011,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="header">
 <th align="left">Type</th>
 <th align="left">Name</th>
-<th align="left">Default</th>
+<th align="right">Default</th>
 <th align="left">Description</th>
 </tr>
 </thead>
@@ -992,19 +1019,19 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td align="left">vec3f(a)</td>
 <td align="left">color</td>
-<td align="left">white</td>
+<td align="right">white</td>
 <td align="left">color of the light</td>
 </tr>
 <tr class="even">
 <td align="left">float</td>
 <td align="left">intensity</td>
-<td align="left">1</td>
+<td align="right">1</td>
 <td align="left">intensity of the light (a factor)</td>
 </tr>
 <tr class="odd">
 <td align="left">bool</td>
 <td align="left">isVisible</td>
-<td align="left">true</td>
+<td align="right">true</td>
 <td align="left">whether the light can be directly seen</td>
 </tr>
 </tbody>
