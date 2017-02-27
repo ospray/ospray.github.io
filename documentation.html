@@ -466,93 +466,99 @@ div.sourceCode { overflow-x: initial; }
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
-<td align="left">“ushort” (16 bit unsigned integer)</td>
+<td align="left">“short” (16 bit signed integer)</td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left">“ushort” (16 bit unsigned integer)</td>
+</tr>
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
 <td align="left">“float” (32 bit single precision floating point)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
 <td align="left">“double” (64 bit double precision floating point)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">vec2f</td>
 <td align="left">voxelRange</td>
 <td align="right"></td>
 <td align="left">minimum and maximum of the scalar values</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">vec3f</td>
 <td align="left">gridOrigin</td>
 <td align="right"><span class="math inline">(0, 0, 0)</span></td>
 <td align="left">origin of the grid in world-space</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">vec3f</td>
 <td align="left">gridSpacing</td>
 <td align="right"><span class="math inline">(1, 1, 1)</span></td>
 <td align="left">size of the grid cells in world-space</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">bool</td>
 <td align="left">gradientShadingEnabled</td>
 <td align="right">false</td>
 <td align="left">volume is rendered with surface shading wrt. to normalized gradient</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bool</td>
 <td align="left">preIntegration</td>
 <td align="right">false</td>
 <td align="left">use pre-integration for <a href="#transfer-function">transfer function</a> lookups</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">bool</td>
 <td align="left">singleShade</td>
 <td align="right">true</td>
 <td align="left">shade only at the point of maximum intensity</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">bool</td>
 <td align="left">adaptiveSampling</td>
 <td align="right">true</td>
 <td align="left">adapt ray step size based on opacity</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">float</td>
 <td align="left">adaptiveScalar</td>
 <td align="right">15</td>
 <td align="left">modifier for adaptive step size</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">float</td>
 <td align="left">adaptiveMaxSamplingRate</td>
 <td align="right">2</td>
 <td align="left">maximum sampling rate for adaptive sampling</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">float</td>
 <td align="left">samplingRate</td>
 <td align="right">0.125</td>
 <td align="left">sampling rate of the volume (this is the minimum step size for adaptive sampling)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">vec3f</td>
 <td align="left">specular</td>
 <td align="right">gray 0.3</td>
 <td align="left">specular color for shading</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">vec3f</td>
 <td align="left">volumeClippingBoxLower</td>
 <td align="right">disabled</td>
 <td align="left">lower coordinate (in object-space) to clip the volume values</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">vec3f</td>
 <td align="left">volumeClippingBoxUpper</td>
 <td align="right">disabled</td>
