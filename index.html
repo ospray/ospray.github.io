@@ -162,9 +162,36 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.3.0">Changes in v1.3.0:</h3>
+<ul>
+<li>New MPI distributed device to support MPI distributed applications using OSPRay collectively for “in-situ” rendering (currently in “alpha”)
+<ul>
+<li>Enabled via new <code>mpi_distributed</code> device type</li>
+<li>Currently only supports <code>raycast</code> renderer, other renderers will be supported in the future</li>
+<li>All API calls are expected to be exactly replicated (object instances and parameters) except scene data (geometries and volumes)</li>
+<li>The original MPI device is now called the <code>mpi_offload</code> device to differentiate between the two implementations</li>
+</ul></li>
+<li>Support of Intel® AVX-512 for next generation Intel® Xeon® processor (codename Skylake), thus new minimum ISPC version is 1.9.1</li>
+<li>Thread affinity of OSPRay’s tasking system can now be controlled via either device parameter <code>setAffinity</code>, or commandline parameter <code>osp:setaffinity</code>, or environment variable <code>OSPRAY_SET_AFFINITY</code></li>
+<li>Changed behavior of the background color in the SciVis renderer: <code>bgColor</code> now includes alpha and is always blended (no <code>backgroundEnabled</code> anymore). To disable the background don’t set bgColor, or set it to transparent black (0, 0, 0, 0)</li>
+<li>Geometries “<code>spheres</code>” and “<code>cylinders</code>” now support texture coordinates</li>
+<li>The GLUT- and Qt-based demo viewer applications have been replaced by an example viewer with minimal dependencies
+<ul>
+<li>Building the sample applications now requires GCC 4.9 (previously 4.8) for features used in the C++ standard library; OSPRay itself can still be built with GCC 4.8</li>
+<li>The new example viewer based on <code>ospray::sg</code> (called <code>ospExampleViewerSg</code>) is the single application we are consolidating to, <code>ospExampleViewer</code> will remain only as a deprecated viewer for compatibility with the old <code>ospGlutViewer</code> application</li>
+</ul></li>
+<li>Deprecated <code>ospCreateDevice()</code>; use <code>ospNewDevice()</code> instead</li>
+<li>Improved error handling
+<ul>
+<li>Various API functions now return an <code>OSPError</code> value</li>
+<li><code>ospDeviceSetStatusFunc</code> replaces the deprecated <code>ospDeviceSetErrorMsgFunc</code></li>
+<li>New API functions to query the last error (<code>ospDeviceGetLastErrorCode()</code> and <code>ospDeviceGetLastErrorMsg()</code>) or to register an error callback with <code>ospDeviceSetErrorFunc()</code></li>
+<li>Fixed bug where exceptions could leak to C applications</li>
+</ul></li>
+</ul>
 <h3 id="changes-in-v1.2.1">Changes in v1.2.1:</h3>
 <ul>
-<li>Various bugfixes related to MPI distributed rendering, ISPC issues on Windows, and other build related issues.</li>
+<li>Various bugfixes related to MPI distributed rendering, ISPC issues on Windows, and other build related issues</li>
 </ul>
 <h3 id="changes-in-v1.2.0">Changes in v1.2.0:</h3>
 <ul>
@@ -174,7 +201,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Implement normal mapping for SciVis renderer</li>
 <li>Support of emissive (and illuminating) geometries in the path tracer via new material “<code>Luminous</code>”</li>
 <li>Lights can optionally made invisible by using the new parameter <code>isVisible</code> (only relevant for path tracer)</li>
-<li>OSPRay Devices are now extendable through modules and the SDK.
+<li>OSPRay Devices are now extendable through modules and the SDK
 <ul>
 <li>Devices can be created and set current, creating an alternative method for initializing the API</li>
 <li>New API functions for committing parameters on Devices</li>
@@ -273,7 +300,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <ul>
 <li>Rename of <code>ospModelViewer</code> to <code>ospGlutViewer</code></li>
 <li>GLUT viewer now supports volume rendering</li>
-<li>Command mode with preliminary scripting capabilities, enabled by pressing ‘<code>:</code>’ key (not available when using Intel C++ compiler (icc))</li>
+<li>Command mode with preliminary scripting capabilities, enabled by pressing ‘<code>:</code>’ key (not available when using Intel C++ Compiler (icc))</li>
 </ul></li>
 <li>Enhanced support of sample applications on Windows</li>
 </ul></li>

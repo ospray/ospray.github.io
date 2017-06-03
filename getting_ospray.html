@@ -51,22 +51,22 @@
 <ul>
 <li>Intel® <a href="https://www.threadingbuildingblocks.org/">TBB</a> v3.0 or newer</li>
 <li><a href="https://embree.github.io/">Embree</a> ray tracing kernels v2.13 or newer</li>
-<li>OpenGL and GLUT (e.g. <a href="http://freeglut.sourceforge.net/">FreeGLUT</a>) or <a href="https://www.qt.io/">Qt4</a> v4.6 or newer to run the demo applications</li>
+<li>To run the example viewer: OpenGL</li>
 </ul>
 <p>We recommend the latest version of both TBB and Embree libraries.</p>
 <h2 id="packages">Packages</h2>
 <p>For Linux we provide OSPRay precompiled for 64 bit as RPMs or as TGZ file.</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.2.1/ospray-1.2.1.x86_64.rpm.tar.gz">ospray-1.2.1.x86_64.rpm.tar.gz</a><br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v1.2.1/ospray-1.2.1.x86_64.linux.tar.gz">ospray-1.2.1.x86_64.linux.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.3.0/ospray-1.3.0.x86_64.rpm.tar.gz">ospray-1.3.0.x86_64.rpm.tar.gz</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v1.3.0/ospray-1.3.0.x86_64.linux.tar.gz">ospray-1.3.0.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as an installer and as a TGZ file:</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.2.1/ospray-1.2.1.x86_64.dmg">ospray-1.2.1.x86_64.dmg</a><br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v1.2.1/ospray-1.2.1.x86_64.macosx.tar.gz">ospray-1.2.1.x86_64.macosx.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.3.0/ospray-1.3.0.x86_64.dmg">ospray-1.3.0.x86_64.dmg</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v1.3.0/ospray-1.3.0.x86_64.macosx.tar.gz">ospray-1.3.0.x86_64.macosx.tar.gz</a></p>
 <p>For Windows we provide an installer for precompiled 64 bit OSPRay binaries as well as ZIP files:</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.2.1/ospray-1.2.1.exe">ospray-1.2.1.exe</a><br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v1.2.1/ospray-1.2.1.windows.zip">ospray-1.2.1.windows.zip</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.3.0/ospray-1.3.0.exe">ospray-1.3.0.exe</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v1.3.0/ospray-1.3.0.windows.zip">ospray-1.3.0.windows.zip</a></p>
 <p>The source code of the latest OSPRay version can be downloaded here:</p>
-<p><a href="https://github.com/ospray/OSPRay/archive/v1.2.1.zip">ospray-1.2.1.zip</a><br />
-<a href="https://github.com/ospray/OSPRay/archive/v1.2.1.tar.gz">ospray-1.2.1.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/archive/v1.3.0.zip">ospray-1.3.0.zip</a><br />
+<a href="https://github.com/ospray/OSPRay/archive/v1.3.0.tar.gz">ospray-1.3.0.tar.gz</a></p>
 <p>You can also access <a href="https://github.com/ospray/OSPRay/releases">old OSPRay releases</a>.</p>
 <h1 id="building-ospray-from-source">Building OSPRay from Source</h1>
 <p>The latest OSPRay sources are always available at the <a href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The default <code>master</code> branch should always point to the latest tested bugfix release.</p>
@@ -75,7 +75,7 @@
 <ul>
 <li><p>You can clone the latest OSPRay sources via:</p>
 <pre><code>git clone https://github.com/ospray/ospray.git</code></pre></li>
-<li>To build OSPRay you need <a href="http://www.cmake.org">CMake</a>, any form of C++11 compiler (we recommend using GCC, but also support Clang and the <a href="https://software.intel.com/en-us/c-compilers">Intel® C++ compiler (ICC)</a>), and standard Linux development tools. To build the demo viewers, you should also have some version of OpenGL and the GL Utility Toolkit (GLUT or freeglut), as well as Qt 4.6 or higher.</li>
+<li>To build OSPRay you need <a href="http://www.cmake.org">CMake</a>, any form of C++11 compiler (we recommend using GCC, but also support Clang and the <a href="https://software.intel.com/en-us/c-compilers">Intel® C++ Compiler (icc)</a>), and standard Linux development tools. To build the example viewers, you should also have some version of OpenGL.</li>
 <li>Additionally you require a copy of the <a href="http://ispc.github.io">Intel® SPMD Program Compiler (ISPC)</a>. Please obtain a copy of the latest binary release of ISPC (currently 1.9.1) from the <a href="https://ispc.github.io/downloads.html">ISPC downloads page</a>. The build system looks for ISPC in the <code>PATH</code> and in the directory right “next to” the checked-out OSPRay sources.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Alternatively set the CMake variable <code>ISPC_EXECUTABLE</code> to the location of the ISPC compiler.</li>
 <li>Per default OSPRay uses the <a href="https://www.threadingbuildingblocks.org/">Intel® Threading Building Blocks</a> (TBB) as tasking system, which we recommend for performance and flexibility reasons. Alternatively you can set CMake variable <code>OSPRAY_TASKING_SYSTEM</code> to <code>OpenMP</code>, <code>Internal</code>, or <code>Cilk</code> (icc only).</li>
 <li><p>OSPRay also heavily uses <a href="https://embree.github.io/">Embree</a>, installing version 2.13 or newer is required. If Embree is not found by CMake its location can be hinted with the variable <code>embree_DIR</code>.</p></li>
@@ -83,16 +83,12 @@
 <p>Depending on your Linux distribution you can install these dependencies using <code>yum</code> or <code>apt-get</code>. Some of these packages might already be installed or might have slightly different names.</p>
 <p>Type the following to install the dependencies using <code>yum</code>:</p>
 <pre><code>sudo yum install cmake.x86_64
-sudo yum install tbb.x86_64 tbb-devel.x86_64
-sudo yum install freeglut.x86_64 freeglut-devel.x86_64
-sudo yum install qt-devel.x86_64</code></pre>
+sudo yum install tbb.x86_64 tbb-devel.x86_64</code></pre>
 <p>Type the following to install the dependencies using <code>apt-get</code>:</p>
 <pre><code>sudo apt-get install cmake-curses-gui
-sudo apt-get install libtbb-dev
-sudo apt-get install freeglut3-dev
-sudo apt-get install libqt4-dev</code></pre>
+sudo apt-get install libtbb-dev</code></pre>
 <p>Under Mac OS X these dependencies can be installed using <a href="http://www.macports.org/">MacPorts</a>:</p>
-<pre><code>sudo port install cmake tbb freeglut qt4</code></pre>
+<pre><code>sudo port install cmake tbb</code></pre>
 <h2 id="compiling-ospray">Compiling OSPRay</h2>
 <p>Assume the above requisites are all fulfilled, building OSPRay through CMake is easy:</p>
 <ul>
@@ -108,12 +104,12 @@ user@mymachine[~/Projects]: cd ospray/release</code></pre>
 <pre><code>user@mymachine[~/Projects/ospray/release]: ccmake ..</code></pre></li>
 <li><p>Make sure to properly set build mode and enable the components you need, etc; then type ’c’onfigure and ’g’enerate. When back on the command prompt, build it using</p>
 <pre><code>user@mymachine[~/Projects/ospray/release]: make</code></pre></li>
-<li><p>You should now have <code>libospray.so</code> as well as a set of sample viewers. You can test your version of OSPRay using any of the examples on the <a href="demos.html">OSPRay Demos and Examples</a> page.</p></li>
+<li><p>You should now have <code>libospray.so</code> as well as a set of example application. You can test your version of OSPRay using any of the examples on the <a href="demos.html">OSPRay Demos and Examples</a> page.</p></li>
 </ul>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>For example, if OSPRay is in <code>~/Projects/ospray</code>, ISPC will also be searched in <code>~/Projects/ispc-v1.9.1-linux</code> and <code>~/Projects/ispc-v1.9.0-linux</code><a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>For example, if OSPRay is in <code>~/Projects/ospray</code>, ISPC will also be searched in <code>~/Projects/ispc-v1.9.1-linux</code><a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
 
