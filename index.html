@@ -162,30 +162,6 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
-<h3 id="changes-in-v1.4.0">Changes in v1.4.0:</h3>
-<ul>
-<li>New adaptive mesh refinement (AMR) and unstructured tetrahedral volume types</li>
-<li>Dynamic load balancing is now implemented for the <code>mpi_offload</code> device</li>
-<li>Many improvements and fixes to the available path tracer materials
-<ul>
-<li>Specular lobe of OBJMaterial uses Blinn-Phong for more realistic highlights</li>
-<li>Metal accepts spectral samples of complex refraction index</li>
-<li>ThinGlass behaves consistent to Glass and can texture attenuation color</li>
-</ul></li>
-<li>Added Russian roulette termination to path tracer</li>
-<li>SciVis OBJMaterial accepts texture coordinate transformations</li>
-<li>Applications can now access depth information in MPI distributed uses of OSPRay (both <code>mpi_offload</code> and <code>mpi_distributed</code> devices)</li>
-<li>Many robustness fixes for both the <code>mpi_offload</code> and <code>mpi_distributed</code> devices through improvements to the <code>mpi_common</code> and <code>mpi_maml</code> infrastructure libraries</li>
-<li>Major sample app cleanups:
-<ul>
-<li><code>ospray_sg</code> library is the new basis for building apps, which is a scenegraph implementation</li>
-<li>Old (unused) libraries have been removed: miniSG, commandline, importer, loaders, and scripting</li>
-<li>Some removed functionality (such as scripting) may be reintroduced in the new infrastructure later, though most features have remained and have been improved</li>
-<li>Optional improved texture loading has been transitioned from ImageMagick to OpenImageIO</li>
-</ul></li>
-<li>Many cleanups, bug fixes, and improvements to <code>ospray_common</code> and other support libraries</li>
-<li>This will be the last release in which we support MSVC12 (Visual Studio 2013). Future releases will require VS2015 or newer</li>
-</ul>
 <h3 id="changes-in-v1.3.1">Changes in v1.3.1:</h3>
 <ul>
 <li>Improved robustness of OSPRay CMake find_package config
