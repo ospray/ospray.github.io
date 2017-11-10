@@ -84,7 +84,7 @@ div.sourceCode { overflow-x: initial; }
       <div id="content">
 
 <h1 id="documentation">Documentation</h1>
-<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">pdf document</a> (3.3MB).</p>
+<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">pdf document</a> (3.6MB).</p>
 <p>For a deeper explanation of the concepts, design, features and performance of OSPRay also have a look at the IEEE Vis 2016 paper “<a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper.pdf">OSPRay – A CPU Ray Tracing Framework for Scientific Visualization</a>” (49MB, or get the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper_small.pdf">smaller version</a> 1.8MB). Also available are the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_talk.pdf">slides of the talk</a> (5.2MB).</p>
 <h1 id="ospray-api">OSPRay API</h1>
 <p>To access the OSPRay API you first need to include the OSPRay header</p>
@@ -609,7 +609,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="header">
 <th align="left">Type</th>
 <th align="left">Name</th>
-<th align="left">Default</th>
+<th align="right">Default</th>
 <th align="left">Description</th>
 </tr>
 </thead>
@@ -617,55 +617,55 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td align="left">vec3i</td>
 <td align="left">dimensions</td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">number of voxels in each dimension <span class="math inline">(<em>x</em>, <em>y</em>, <em>z</em>)</span></td>
 </tr>
 <tr class="even">
 <td align="left">string</td>
 <td align="left">voxelType</td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">data type of each voxel, currently supported are:</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">“uchar” (8 bit unsigned integer)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">“short” (16 bit signed integer)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">“ushort” (16 bit unsigned integer)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">“float” (32 bit single precision floating point)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">“double” (64 bit double precision floating point)</td>
 </tr>
 <tr class="even">
 <td align="left">vec3f</td>
 <td align="left">gridOrigin</td>
-<td align="left"><span class="math inline">(0, 0, 0)</span></td>
+<td align="right"><span class="math inline">(0, 0, 0)</span></td>
 <td align="left">origin of the grid in world-space</td>
 </tr>
 <tr class="odd">
 <td align="left">vec3f</td>
 <td align="left">gridSpacing</td>
-<td align="left"><span class="math inline">(1, 1, 1)</span></td>
+<td align="right"><span class="math inline">(1, 1, 1)</span></td>
 <td align="left">size of the grid cells in world-space</td>
 </tr>
 </tbody>
@@ -692,7 +692,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="header">
 <th align="left">Type</th>
 <th align="left">Name</th>
-<th align="left">Default</th>
+<th align="right">Default</th>
 <th align="left">Description</th>
 </tr>
 </thead>
@@ -700,31 +700,31 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td align="left">vec3f</td>
 <td align="left">gridOrigin</td>
-<td align="left"><span class="math inline">(0, 0, 0)</span></td>
+<td align="right"><span class="math inline">(0, 0, 0)</span></td>
 <td align="left">origin of the grid in world-space</td>
 </tr>
 <tr class="even">
 <td align="left">vec3f</td>
 <td align="left">gridSpacing</td>
-<td align="left"><span class="math inline">(1, 1, 1)</span></td>
+<td align="right"><span class="math inline">(1, 1, 1)</span></td>
 <td align="left">size of the grid cells in world-space</td>
 </tr>
 <tr class="odd">
 <td align="left">string</td>
 <td align="left">amrMethod</td>
-<td align="left">current</td>
+<td align="right">current</td>
 <td align="left">sampling method; valid values are “finest”, “current”, or “octant”</td>
 </tr>
 <tr class="even">
 <td align="left">OSPData</td>
 <td align="left">brickInfo</td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">array of info defining each brick</td>
 </tr>
 <tr class="odd">
 <td align="left">OSPData</td>
 <td align="left">brickData</td>
-<td align="left"></td>
+<td align="right"></td>
 <td align="left">array of handles to per-brick voxel data</td>
 </tr>
 </tbody>
@@ -732,7 +732,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Lastly, note that the <code>gridOrigin</code> and <code>gridSpacing</code> parameters act just like the structured volume equivalent, but they only modify the root (coarsest level) of refinement.</p>
 <h3 id="unstructured-tetrahedral-volumes">Unstructured Tetrahedral Volumes</h3>
 <p>Unstructured tetrahedral volumes are defined by three arrays: vertices, corresponding field values, and tetrahedra indices. A tetrahedral volume type is created by passing the type string “<code>tetrahedral_volume</code>” to <code>ospNewVolume</code>.</p>
-<p>Similar to <a href="#triangle-mesh">triangle mesh</a>, each tetrahedra is formed by a group of indices into the vertices. For each vertex, the corresponding (by array index) data value will be used for sampling when rendering. Note that the index order for each tetrahedra does not matter, as OSPRay internally calculates vertex normals to ensure proper sampling and interpolation.</p>
+<p>Similar to <a href="#triangle-mesh">triangle mesh</a>, each tetrahedron is formed by a group of indices into the vertices. For each vertex, the corresponding (by array index) data value will be used for sampling when rendering. Note that the index order for each tetrahedron does not matter, as OSPRay internally calculates vertex normals to ensure proper sampling and interpolation.</p>
 <table>
 <caption>Additional configuration parameters for tetrahedral volumes.</caption>
 <thead>
@@ -1537,6 +1537,18 @@ div.sourceCode { overflow-x: initial; }
 <td align="left"><a href="#data">data</a> array of spectral samples of complex refractive index, each entry in the form (wavelength, eta, k), ordered by wavelength (which is in nm)</td>
 </tr>
 <tr class="even">
+<td align="left">vec3f</td>
+<td align="left">eta</td>
+<td align="right"></td>
+<td align="left">RGB complex refractive index, real part</td>
+</tr>
+<tr class="odd">
+<td align="left">vec3f</td>
+<td align="left">k</td>
+<td align="right"></td>
+<td align="left">RGB complex refractive index, imaginary part</td>
+</tr>
+<tr class="even">
 <td align="left">float</td>
 <td align="left">roughness</td>
 <td align="right">0.1</td>
@@ -1544,11 +1556,86 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The main appearence (mostly the color) of the Metal material is controled by the physical parameters <code>eta</code> and <code>k</code>, the wavelength-dependent, complex index of refraction. These coefficients are quite counterintuitive but can be found in <a href="https://refractiveindex.info/">published measurements</a>.</p>
+<p>The main appearance (mostly the color) of the Metal material is controlled by the physical parameters <code>eta</code> and <code>k</code>, the wavelength-dependent, complex index of refraction. These coefficients are quite counterintuitive but can be found in <a href="https://refractiveindex.info/">published measurements</a>. For accuracy the index of refraction can be given as an array of spectral samples in <code>ior</code>, each sample a triplet of wavelength (in nm), eta, and k, ordered monotonically increasing by wavelength; OSPRay will then calculate the Fresnel in the spectral domain. Alternatively, <code>eta</code> and <code>k</code> can also be specified as approximated RGB coefficients; some examples are given in below table.</p>
+<table>
+<caption>Index of refraction of selected metals as approximated RGB coefficients, based on data from https://refractiveindex.info/.</caption>
+<thead>
+<tr class="header">
+<th align="left">Metal</th>
+<th align="center">eta</th>
+<th align="center">k</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ag, Silver</td>
+<td align="center">(0.051, 0.043, 0.041)</td>
+<td align="center">(5.3, 3.6, 2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">Al, Aluminium</td>
+<td align="center">(1.5, 0.98, 0.6)</td>
+<td align="center">(7.6, 6.6, 5.4)</td>
+</tr>
+<tr class="odd">
+<td align="left">Au, Gold</td>
+<td align="center">(0.07, 0.37, 1.5)</td>
+<td align="center">(3.7, 2.3, 1.7)</td>
+</tr>
+<tr class="even">
+<td align="left">Cr, Chromium</td>
+<td align="center">(3.2, 3.1, 2.3)</td>
+<td align="center">(3.3, 3.3, 3.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">Cu, Copper</td>
+<td align="center">(0.1, 0.8, 1.1)</td>
+<td align="center">(3.5, 2.5, 2.4)</td>
+</tr>
+</tbody>
+</table>
 <p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> (<a href="#texture-transformations">texture transformations</a> are supported as well) to create interesting edging effects.</p>
 <div class="figure">
 <img src="images/material_Metal.jpg" alt="Rendering of golden Metal material with textured roughness." style="width:60.0%" />
 <p class="caption">Rendering of golden Metal material with textured roughness.</p>
+</div>
+<h4 id="alloy">Alloy</h4>
+<p>The <a href="#path-tracer">path tracer</a> offers an alloy material, which behaves similar to <a href="#metal">Metal</a>, but allows for more intuitive and flexible control of the color. To create an Alloy material pass the type string “<code>Alloy</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
+<table>
+<caption>Parameters of the Alloy material.</caption>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="right">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">vec3f</td>
+<td align="left">color</td>
+<td align="right">white 0.9</td>
+<td align="left">reflectivity at normal incidence (0 degree)</td>
+</tr>
+<tr class="even">
+<td align="left">vec3f</td>
+<td align="left">edgeColor</td>
+<td align="right">white</td>
+<td align="left">reflectivity at grazing angle (90 degree)</td>
+</tr>
+<tr class="odd">
+<td align="left">float</td>
+<td align="left">roughness</td>
+<td align="right">0.1</td>
+<td align="left">roughness in [0–1], 0 is perfect mirror</td>
+</tr>
+</tbody>
+</table>
+<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; <a href="#texture-transformations">texture transformations</a> are supported as well.</p>
+<div class="figure">
+<img src="images/material_Alloy.jpg" alt="Rendering of a fictional Alloy material with textured color." style="width:60.0%" />
+<p class="caption">Rendering of a fictional Alloy material with textured color.</p>
 </div>
 <h4 id="glass">Glass</h4>
 <p>The <a href="#path-tracer">path tracer</a> offers a realistic a glass material, supporting refraction and volumetric attenuation (i.e. the transparency color varies with the geometric thickness). To create a Glass material pass the type string “<code>Glass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
@@ -1589,7 +1676,7 @@ div.sourceCode { overflow-x: initial; }
 <p class="caption">Rendering of a Glass material with orange attenuation.</p>
 </div>
 <h4 id="thinglass">ThinGlass</h4>
-<p>The <a href="#path-tracer">path tracer</a> offers a thin glass material useful for objects with just a single surface, most prominently windows. It models a very thin, transparent slab, i.e. it behaves as if a second, virtual surface is parallel to the real geometric surface. The implementation accounts for multiple internal reflections between the interfaces (including attenuation), but neglects parallaxe effects due to its (virtual) thickness. To create a such a thin glass material pass the type string “<code>ThinGlass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
+<p>The <a href="#path-tracer">path tracer</a> offers a thin glass material useful for objects with just a single surface, most prominently windows. It models a very thin, transparent slab, i.e. it behaves as if a second, virtual surface is parallel to the real geometric surface. The implementation accounts for multiple internal reflections between the interfaces (including attenuation), but neglects parallax effects due to its (virtual) thickness. To create a such a thin glass material pass the type string “<code>ThinGlass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
 <table>
 <caption>Parameters of the ThinGlass material.</caption>
 <thead>
@@ -1627,7 +1714,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> (<a href="#texture-transformations">texture transformations</a> are supported as well). The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearence.</p>
+<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> (<a href="#texture-transformations">texture transformations</a> are supported as well). The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
 <div class="figure">
 <img src="images/material_ThinGlass.jpg" alt="Rendering of a ThinGlass material with red attenuation." style="width:60.0%" />
 <p class="caption">Rendering of a ThinGlass material with red attenuation.</p>
@@ -1939,7 +2026,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td align="left">OSP_FB_VARIANCE</td>
-<td align="left">estimate of the current variance, see <a href="#rendering">rendering</a></td>
+<td align="left">estimate of the current variance if OSP_FB_ACCUM is also present, see <a href="#rendering">rendering</a></td>
 </tr>
 </tbody>
 </table>

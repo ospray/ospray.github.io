@@ -162,6 +162,23 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.4.1">Changes in v1.4.1:</h3>
+<ul>
+<li>Several cleanups and bug fixes
+<ul>
+<li>Improved precision of ray intersection with streamlines, spheres, and cylinder geometries</li>
+<li>Fixed address overflow in framebuffer, in practice image size is now limited only by available memory</li>
+<li>Fixed several deadlocks and race conditions</li>
+<li>Fix shadow computation in SciVis renderer, objects behind light sources do not occlude anymore</li>
+<li>No more image jittering with MPI rendering when no accumulation buffer is used</li>
+</ul></li>
+<li>Improved path tracer materials
+<ul>
+<li>Also support RGB <code>eta</code>/<code>k</code> for Metal</li>
+<li>Added Alloy material, a “metal” with textured color</li>
+</ul></li>
+<li>Minimum required Embree version is now v2.15</li>
+</ul>
 <h3 id="changes-in-v1.4.0">Changes in v1.4.0:</h3>
 <ul>
 <li>New adaptive mesh refinement (AMR) and unstructured tetrahedral volume types</li>
@@ -188,7 +205,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </ul>
 <h3 id="changes-in-v1.3.1">Changes in v1.3.1:</h3>
 <ul>
-<li>Improved robustness of OSPRay CMake find_package config
+<li>Improved robustness of OSPRay CMake <code>find_package</code> config
 <ul>
 <li>Fixed bugs related to CMake configuration when using the OSPRay SDK from an install</li>
 </ul></li>
@@ -243,7 +260,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <ul>
 <li>Updated Embree required version to v2.13.0 for added features and performance</li>
 <li>New API function <code>ospDeviceSetErrorMsgFunc()</code> to specify a callback for handling message outputs from OSPRay</li>
-<li>Add ability to remove user set parameter values with new <code>ospRemoveParam()</code> API function</li>
+<li>Added ability to remove user set parameter values with new <code>ospRemoveParam()</code> API function</li>
 <li>The MPI device is now provided via a module, removing the need for having separately compiled versions of OSPRay with and without MPI</li>
 <li>OSPRay build dependencies now only get installed if <code>OSPRAY_INSTALL_DEPENDENCIES</code> CMake variable is enabled</li>
 </ul></li>
