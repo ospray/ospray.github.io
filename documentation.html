@@ -1188,7 +1188,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Per default the background of the rendered image will be transparent black, i.e. the alpha channel holds the opacity of the rendered objects. This facilitates transparency-aware blending of the image with an arbitrary background image by the application. The parameter <code>bgColor</code> can be used to already blend with a constant background color (and alpha) during rendering.</p>
 <p>The SciVis renderer supports depth composition with images of other renderers, for example to incorporate help geometries of a 3D UI that were rendered with OpenGL. The screen-sized <a href="#texture">texture</a> <code>maxDepthTexture</code> must have format <code>OSP_TEXTURE_R32F</code> and flag <code>OSP_TEXTURE_FILTER_NEAREST</code>. The fetched values are used to limit the distance of primary rays, thus objects of other renderers can hide objects rendered by OSPRay.</p>
 <h3 id="path-tracer">Path Tracer</h3>
-<p>The path tracer supports soft shadows, indirect illumination and realistic materials. In addition to the <a href="#renderer">general parameters</a> understood by all renderers the path tracer supports the following special parameters:</p>
+<p>The path tracer supports soft shadows, indirect illumination and realistic materials. This renderer is created by passing the type string “<code>pathtracer</code>” to <code>ospNewRenderer</code>. In addition to the <a href="#renderer">general parameters</a> understood by all renderers the path tracer supports the following special parameters:</p>
 <table style="width:99%;">
 <caption>Special parameters understood by the path tracer.</caption>
 <colgroup>
@@ -1226,6 +1226,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
+<p>The path tracer requires that <a href="#materials">materials</a> are assigned to <a href="#geometries">geometries</a>, otherwise surfaces are treated as completely black.</p>
 <h3 id="model">Model</h3>
 <p>Models are a container of scene data. They can hold the different <a href="#geometries">geometries</a> and <a href="#volumes">volumes</a> as well as references to (and <a href="#instances">instances</a> of) other models. A model is associated with a single logical acceleration structure. To create an (empty) model call</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">OSPModel ospNewModel();</code></pre></div>
@@ -2110,10 +2111,11 @@ div.sourceCode { overflow-x: initial; }
 <p>Applications using the new distributed device should initialize OSPRay by creating (and setting current) an “<code>mpi_distributed</code>” device or pass <code>&quot;--osp:mpi-distributed&quot;</code> as a command line argument to <code>ospInit()</code>. Note that due to the semantic differences the distributed device gives the OSPRay API, it is not expected for applications which can already use the offload device to correctly use the distributed device without changes to the application.</p>
 <h1 id="examples">Examples</h1>
 <h2 id="tutorial">Tutorial</h2>
-<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.cpp</code><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. On Linux build it in the build directory with</p>
-<pre><code>g++ ../apps/ospTutorial.cpp -I ../ospray/include -I .. ./libospray.so -Wl,-rpath,. -o ospTutorial</code></pre>
-<p>On Windows build it in the build_directory\$Configuration with</p>
-<pre><code>cl ..\..\apps\ospTutorial.cpp /EHsc -I ..\..\ospray\include -I ..\.. -I ..\..\components ospray.lib</code></pre>
+<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.c</code><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. On Linux build it in the build directory with</p>
+<pre><code>gcc -std=c99 ../apps/ospTutorial.c -I ../ospray/include -I .. \
+./libospray.so -Wl,-rpath,. -o ospTutorial</code></pre>
+<p>On Windows build it in the “build_directory\$Configuration” with</p>
+<pre><code>cl ..\..\apps\ospTutorial.c -I ..\..\ospray\include -I ..\.. ospray.lib</code></pre>
 <p>Running <code>ospTutorial</code> will create two images of two triangles, rendered with the Scientific Visualization renderer with full Ambient Occlusion. The first image <code>firstFrame.ppm</code> shows the result after one call to <code>ospRenderFrame</code> – jagged edges and noise in the shadow can be seen. Calling <code>ospRenderFrame</code> multiple times enables progressive refinement, resulting in antialiased edges and converged shadows, shown after ten frames in the second image <code>accumulatedFrames.ppm</code>.</p>
 <div class="figure">
 <img src="images/tutorial_firstframe.png" alt="First frame." />
@@ -2154,7 +2156,7 @@ div.sourceCode { overflow-x: initial; }
 <li id="fn2"><p>actually a parallelogram<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>This is currently not implemented, i.e. all channels of the framebuffer are always updated.<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>A C99 version is available at <code>apps/ospTutorial.c</code>.<a href="#fnref5">↩</a></p></li>
+<li id="fn5"><p>A C++ version that uses the C++ conveniance wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/ospTutorial.cpp</code>.<a href="#fnref5">↩</a></p></li>
 </ol>
 </div>
 
