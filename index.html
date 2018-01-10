@@ -162,6 +162,15 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.4.3">Changes in v1.4.3:</h3>
+<ul>
+<li>Several bug fixes
+<ul>
+<li>Fixed potential issue with static initialization order</li>
+<li>Correct compiler flags for Debug config</li>
+<li>Spheres <code>postIntersect</code> shading is now 64-bit safer</li>
+</ul></li>
+</ul>
 <h3 id="changes-in-v1.4.2">Changes in v1.4.2:</h3>
 <ul>
 <li>Several cleanups and bug fixes
@@ -205,7 +214,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>SciVis OBJMaterial accepts texture coordinate transformations</li>
 <li>Applications can now access depth information in MPI distributed uses of OSPRay (both <code>mpi_offload</code> and <code>mpi_distributed</code> devices)</li>
 <li>Many robustness fixes for both the <code>mpi_offload</code> and <code>mpi_distributed</code> devices through improvements to the <code>mpi_common</code> and <code>mpi_maml</code> infrastructure libraries</li>
-<li>Major sample app cleanups:
+<li>Major sample app cleanups
 <ul>
 <li><code>ospray_sg</code> library is the new basis for building apps, which is a scenegraph implementation</li>
 <li>Old (unused) libraries have been removed: miniSG, commandline, importer, loaders, and scripting</li>
@@ -252,7 +261,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </ul>
 <h3 id="changes-in-v1.2.1">Changes in v1.2.1:</h3>
 <ul>
-<li>Various bugfixes related to MPI distributed rendering, ISPC issues on Windows, and other build related issues</li>
+<li>Various bug fixes related to MPI distributed rendering, ISPC issues on Windows, and other build related issues</li>
 </ul>
 <h3 id="changes-in-v1.2.0">Changes in v1.2.0:</h3>
 <ul>
@@ -268,7 +277,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>New API functions for committing parameters on Devices</li>
 </ul></li>
 <li>Removed support for the first generation Intel® Xeon Phi™ coprocessor (codename Knights Corner)</li>
-<li>Other minor improvements, updates, and bugfixes:
+<li>Other minor improvements, updates, and bug fixes
 <ul>
 <li>Updated Embree required version to v2.13.0 for added features and performance</li>
 <li>New API function <code>ospDeviceSetErrorMsgFunc()</code> to specify a callback for handling message outputs from OSPRay</li>
@@ -279,7 +288,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </ul>
 <h3 id="changes-in-v1.1.2">Changes in v1.1.2:</h3>
 <ul>
-<li>Various bugfixes related to normalization, epsilons and debug messages</li>
+<li>Various bug fixes related to normalization, epsilons and debug messages</li>
 </ul>
 <h3 id="changes-in-v1.1.1">Changes in v1.1.1:</h3>
 <ul>
@@ -373,7 +382,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Enhanced error messages when <code>ospLoadModule()</code> fails</li>
 <li>Added <code>OSP_FB_RGBA32F</code> support in the <code>DistributedFrameBuffer</code></li>
 <li>Updated Glass shader in the path tracer</li>
-<li>Many miscellaneous cleanups, bugfixes, and improvements</li>
+<li>Many miscellaneous cleanups, bug fixes, and improvements</li>
 </ul>
 <h3 id="changes-in-v0.10.1">Changes in v0.10.1:</h3>
 <ul>
@@ -411,7 +420,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li><code>ospray.h</code> header is now C99 compatible</li>
 </ul></li>
 <li>Removed loaders module, functionality remains inside of <code>ospVolumeViewer</code></li>
-<li>Many miscellaneous cleanups, bugfixes, and improvements:
+<li>Many miscellaneous cleanups, bug fixes, and improvements
 <ul>
 <li>Fixed data distributed volume rendering bugs when using less blocks than workers</li>
 <li>Fixes to CMake <code>find_package()</code> config</li>
@@ -431,11 +440,11 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Added support for HDRI lighting in path tracer</li>
 <li>Added <code>ospRemoveVolume()</code> API call</li>
 <li>Added ability to render a subsection of the full view into the entire framebuffer in the perspective camera</li>
-<li>Many miscellaneous cleanups, bugfixes, and improvements:
+<li>Many miscellaneous cleanups, bug fixes, and improvements
 <ul>
 <li>The depthbuffer is now correctly populated by in the “scivis” renderer</li>
 <li>Updated default renderer to be “ao1” in ospModelViewer</li>
-<li>Trianglemesh postIntersect shading is now 64-bit safe</li>
+<li>Trianglemesh <code>postIntersect</code> shading is now 64-bit safe</li>
 <li>Texture2D has been reworked, with many improvements and bug fixes</li>
 <li>Fixed bug where MPI device would freeze while rendering frames with Intel TBB</li>
 <li>Updates to CMake with better error messages when Intel TBB is missing</li>
@@ -470,7 +479,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Transparent shadows</li>
 <li>Normal mapping (OBJ material)</li>
 </ul></li>
-<li>Volume rendering enhancements:
+<li>Volume rendering enhancements
 <ul>
 <li>Expanded material support</li>
 <li>Support for multiple lights</li>
@@ -517,7 +526,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Incorporated early version of a new Qt-based viewer to eventually unify (and replace) the existing simpler GLUT-based viewers</li>
 <li>Added new path tracing renderer (<code>ospray/render/pathtracer</code>),</li>
 <li>roughly based on the Embree sample path tracer</li>
-<li>Added new features to the volume renderer:
+<li>Added new features to the volume renderer
 <ul>
 <li>Gradient shading (lighting)</li>
 <li>Implicit isosurfacing</li>
