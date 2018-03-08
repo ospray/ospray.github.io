@@ -162,6 +162,38 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.5.0">Changes in v1.5.0:</h3>
+<ul>
+<li>TetrahedralVolume now generalized to take both tet and hex data, now called <code>UnstructuredVolume</code></li>
+<li>New function for creating materials (<code>ospNewMaterial2</code>) which takes the renderer type string, not a renderer instance (the old version is now deprecated)</li>
+<li>New <code>tonemapper</code> PixelOp for tone mapping final frames</li>
+<li>Streamlines now support per-vertex radii and smooth interpolation</li>
+<li><code>ospray_sg</code> headers are now installed alongside the SDK</li>
+<li>Core OSPRay ispc device now implemented as a module
+<ul>
+<li>Devices which implement the public API are no longer required to link the dependencies to core OSPRay (e.g. Embree v2.x)</li>
+<li>By default, <code>ospInit</code> will load the ispc module if a device was not created via <code>--osp:mpi</code> or <code>--osp:device:[name]</code></li>
+</ul></li>
+<li>MPI devices can now accept an existing world communicator instead of always creating their own</li>
+<li>Added ability to control ISPC specific optimization flags via CMake options
+<ul>
+<li>See the various <code>ISPC_FLAGS_*</code> variables to control which flags get used</li>
+</ul></li>
+<li>Enhancements to sample applications
+<ul>
+<li><code>ospray_sg</code> (and thus <code>ospExampleViewer</code>/<code>ospBenchmark</code>) can now be extended with new scene data importers via modules or the SDK</li>
+<li>Updated ospTutorial examples to properly call ospRelease()</li>
+<li>New options in the ospExampleViewer GUI to showcase new features
+<ul>
+<li>SRGB frame buffers, tone mapping, etc.</li>
+</ul></li>
+</ul></li>
+<li>General bug fixes
+<ul>
+<li>Fixes to geometries with multiple emissive materials</li>
+<li>Improvements to precision of ray-sphere intersections</li>
+</ul></li>
+</ul>
 <h3 id="changes-in-v1.4.3">Changes in v1.4.3:</h3>
 <ul>
 <li>Several bug fixes
