@@ -104,7 +104,7 @@ div.sourceCode { overflow-x: initial; }
       <div id="content">
 
 <h1 id="documentation">Documentation</h1>
-<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">pdf document</a>.</p>
+<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme_devel.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme_devel.pdf" title="OSPRay Documentation">pdf document</a>.</p>
 <p>For a deeper explanation of the concepts, design, features and performance of OSPRay also have a look at the IEEE Vis 2016 paper “<a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper.pdf">OSPRay – A CPU Ray Tracing Framework for Scientific Visualization</a>” (49MB, or get the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper_small.pdf">smaller version</a> 1.8MB). Also available are the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_talk.pdf">slides of the talk</a> (5.2MB).</p>
 <h1 id="ospray-api">OSPRay API</h1>
 <p>To access the OSPRay API you first need to include the OSPRay header</p>
@@ -807,7 +807,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Field values can be specified per-vertex (<code>field</code>) or per-cell (<code>cellField</code>). If both values are set, <code>cellField</code> takes precedence.</p>
 <p>Similar to <a href="#triangle-mesh">triangle mesh</a>, each tetrahedron is formed by a group of indices into the vertices. For each vertex, the corresponding (by array index) data value will be used for sampling when rendering. Note that the index order for each tetrahedron does not matter, as OSPRay internally calculates vertex normals to ensure proper sampling and interpolation.</p>
 <p>For wedge cells, each wedge is formed by a group of six indices into the vertices and data value. Vertex ordering is the same as <code>VTK_WEDGE</code> - three bottom vertices counterclockwise, then top three counterclockwise.</p>
-<p>For hexahedral cells, each hexahedron is formed by a group of eight indices into the vertics and data value. Vertex ordering is the same as <code>VTK_HEXAHEDRON</code> – four bottom vertices counterclockwise, then top four counterclockwise.</p>
+<p>For hexahedral cells, each hexahedron is formed by a group of eight indices into the vertices and data value. Vertex ordering is the same as <code>VTK_HEXAHEDRON</code> – four bottom vertices counterclockwise, then top four counterclockwise.</p>
 <table style="width:98%;">
 <caption>Additional configuration parameters for unstructured volumes.</caption>
 <colgroup>
@@ -938,7 +938,47 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The <code>vertex</code> and <code>index</code> arrays are mandatory to creat a valid triangle mesh.</p>
+<p>The <code>vertex</code> and <code>index</code> arrays are mandatory to create a valid triangle mesh.</p>
+<h3 id="quad-mesh">Quad Mesh</h3>
+<p>A mesh consisting of quads is created by calling <code>ospNewGeometry</code> with type string “<code>quads</code>”. Once created, a quad mesh recognizes the following parameters:</p>
+<table>
+<caption>Parameters defining a quad mesh geometry.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">vec3f(a)[]</td>
+<td style="text-align: left;">vertex</td>
+<td style="text-align: left;"><a href="#data">data</a> array of vertex positions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec3f(a)[]</td>
+<td style="text-align: left;">vertex.normal</td>
+<td style="text-align: left;"><a href="#data">data</a> array of vertex normals</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec4f[] / vec3fa[]</td>
+<td style="text-align: left;">vertex.color</td>
+<td style="text-align: left;"><a href="#data">data</a> array of vertex colors (RGBA/RGB)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec2f[]</td>
+<td style="text-align: left;">vertex.texcoord</td>
+<td style="text-align: left;"><a href="#data">data</a> array of vertex texture coordinates</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec4i[]</td>
+<td style="text-align: left;">index</td>
+<td style="text-align: left;"><a href="#data">data</a> array of quad indices (into the vertex array(s))</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>vertex</code> and <code>index</code> arrays are mandatory to create a valid quad mesh. A quad is internally handled as a pair of two triangles, thus mixing triangles and quad is supported by encoding a triangle as a quad with the last two vertex indices being identical (<code>w=z</code>).</p>
 <h3 id="spheres">Spheres</h3>
 <p>A geometry consisting of individual spheres, each of which can have an own radius, is created by calling <code>ospNewGeometry</code> with type string “<code>spheres</code>”. The spheres will not be tessellated but rendered procedurally and are thus perfectly round. To allow a variety of sphere representations in the application this geometry allows a flexible way of specifying the data of center position and radius within a <a href="#data">data</a> array:</p>
 <table style="width:98%;">
@@ -1146,7 +1186,7 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <p>Each streamline is specified by a set of (aligned) control points in <code>vertex</code>. If <code>smooth</code> is disabled and a constant <code>radius</code> is used for all streamlines then all vertices belonging to to the same logical streamline are connected via <a href="#cylinders">cylinders</a>, with additional <a href="#spheres">spheres</a> at each vertex to create a continuous, closed surface. Otherwise, streamlines are represented as Bézier curves, smoothly interpolating the vertices. This mode supports per-vertex varying radii (either given in <code>vertex.radius</code>, or in the 4th component of a <em>vec4f</em> <code>vertex</code>), but is slower and consumes more memory. Also, the radius needs to be smaller than the curvature radius of the Bézier curve at each location on the curve.</p>
-<p>A streamlines geometry can contain multiple disjoint streamlines, each streamline is specified as a list of linear segments (or links) referenced via <code>index</code>: each entry <code>e</code> of the <code>index</code> array points the first vertex of a link (<code>vertex[index[e]]</code>) and the second vertex of the link is implicitly the directly following one (<code>vertex[index[e]+1]</code>). For example, two streamlines of vertices <code>(A-B-C-D)</code> and <code>(E-F-G)</code>, respectively, would internally correspond to five links (<code>A-B</code>, <code>B-C</code>, <code>C-D</code>, <code>E-F</code>, and <code>F-G</code>), and would be specified via an array of vertices <code>[A,B,C,D,E,F,G]</code>, plus an array of link indices <code>[0,1,2,4,5]</code>.</p>
+<p>A streamlines geometry can contain multiple disjoint streamlines, each streamline is specified as a list of segments (or links) referenced via <code>index</code>: each entry <code>e</code> of the <code>index</code> array points the first vertex of a link (<code>vertex[index[e]]</code>) and the second vertex of the link is implicitly the directly following one (<code>vertex[index[e]+1]</code>). For example, two streamlines of vertices <code>(A-B-C-D)</code> and <code>(E-F-G)</code>, respectively, would internally correspond to five links (<code>A-B</code>, <code>B-C</code>, <code>C-D</code>, <code>E-F</code>, and <code>F-G</code>), and would be specified via an array of vertices <code>[A,B,C,D,E,F,G]</code>, plus an array of link indices <code>[0,1,2,4,5]</code>.</p>
 <h3 id="isosurfaces">Isosurfaces</h3>
 <p>OSPRay can directly render multiple isosurfaces of a volume without first tessellating them. To do so create an isosurfaces geometry by calling <code>ospNewGeometry</code> with type string “<code>isosurfaces</code>”. Each isosurface will be colored according to the provided volume’s <a href="#transfer-function">transfer function</a>.</p>
 <table>
@@ -1385,7 +1425,7 @@ div.sourceCode { overflow-x: initial; }
 <p>An existing geometry or volume can be removed from a model with</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="dt">void</span> ospRemoveGeometry(OSPModel, OSPGeometry);</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2"><span class="dt">void</span> ospRemoveVolume(OSPModel, OSPVolume);</a></code></pre></div>
-<p>Finally, Models can be configured with parameters for making various feature/performance tradeoffs:</p>
+<p>Finally, Models can be configured with parameters for making various feature/performance trade-offs:</p>
 <table style="width:97%;">
 <caption>Parameters understood by Models</caption>
 <colgroup>
@@ -1405,7 +1445,7 @@ div.sourceCode { overflow-x: initial; }
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">bool</td>
-<td style="text-align: left;">dyanmicScene</td>
+<td style="text-align: left;">dynamicScene</td>
 <td style="text-align: right;">false</td>
 <td style="text-align: left;">use RTC_SCENE_DYNAMIC flag (faster BVH build, slower ray traversal), otherwise uses RTC_SCENE_STATIC flag (faster ray traversal, slightly slower BVH build)</td>
 </tr>
@@ -1738,19 +1778,19 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">metallic</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">mix between dielectric (diffuse and/or specular) and metallic (specular only with complex IOR) in [0-1]</td>
+<td style="text-align: left;">mix between dielectric (diffuse and/or specular) and metallic (specular only with complex IOR) in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">diffuse</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">diffuse reflection weight in [0-1]</td>
+<td style="text-align: left;">diffuse reflection weight in [0–1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">specular</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">specular reflection/transmission weight in [0-1]</td>
+<td style="text-align: left;">specular reflection/transmission weight in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1762,7 +1802,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">transmission</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">specular transmission weight in [0-1]</td>
+<td style="text-align: left;">specular transmission weight in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f</td>
@@ -1786,13 +1826,13 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">anisotropy</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">amount of specular anisotropy in [0-1]</td>
+<td style="text-align: left;">amount of specular anisotropy in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rotation</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">rotation of the direction of anisotropy in [0-1], 1 is going full circle</td>
+<td style="text-align: left;">rotation of the direction of anisotropy in [0–1], 1 is going full circle</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
@@ -1816,13 +1856,13 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">backlight</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">amount of diffuse transmission (thin only) in [0-2], 1 is 50% reflection and 50% transmission, 2 is transmission only</td>
+<td style="text-align: left;">amount of diffuse transmission (thin only) in [0–2], 1 is 50% reflection and 50% transmission, 2 is transmission only</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coat</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">clear coat layer weight in [0-1]</td>
+<td style="text-align: left;">clear coat layer weight in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1846,7 +1886,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coatRoughness</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">clear coat roughness in [0-1], 0 is perfectly smooth</td>
+<td style="text-align: left;">clear coat roughness in [0–1], 0 is perfectly smooth</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1858,7 +1898,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">sheen</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">sheen layer weight in [0-1]</td>
+<td style="text-align: left;">sheen layer weight in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f</td>
@@ -1870,7 +1910,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">sheenRoughness</td>
 <td style="text-align: right;">0.2</td>
-<td style="text-align: left;">sheen roughness in [0-1], 0 is perfectly smooth</td>
+<td style="text-align: left;">sheen roughness in [0–1], 0 is perfectly smooth</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1925,7 +1965,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">flakeDensity</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">density of metallic flakes in [0-1], 0 disables flakes, 1 fully covers the surface with flakes</td>
+<td style="text-align: left;">density of metallic flakes in [0–1], 0 disables flakes, 1 fully covers the surface with flakes</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
@@ -1937,25 +1977,25 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">flakeSpread</td>
 <td style="text-align: right;">0.3</td>
-<td style="text-align: left;">flake spread in [0-1]</td>
+<td style="text-align: left;">flake spread in [0–1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">flakeJitter</td>
 <td style="text-align: right;">0.75</td>
-<td style="text-align: left;">flake randomness in [0-1]</td>
+<td style="text-align: left;">flake randomness in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">flakeRoughness</td>
 <td style="text-align: right;">0.3</td>
-<td style="text-align: left;">flake roughness in [0-1], 0 is perfectly smooth</td>
+<td style="text-align: left;">flake roughness in [0–1], 0 is perfectly smooth</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coat</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">clear coat layer weight in [0-1]</td>
+<td style="text-align: left;">clear coat layer weight in [0–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1979,7 +2019,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coatRoughness</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">clear coat roughness in [0-1], 0 is perfectly smooth</td>
+<td style="text-align: left;">clear coat roughness in [0–1], 0 is perfectly smooth</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -2607,13 +2647,13 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">contrast</td>
 <td style="text-align: left;">1.6773</td>
-<td style="text-align: left;">contrast (toe of the curve); typically is in [1-2]</td>
+<td style="text-align: left;">contrast (toe of the curve); typically is in [1–2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">shoulder</td>
 <td style="text-align: left;">0.9714</td>
-<td style="text-align: left;">highlight compression (shoulder of the curve); typically is in [0.9-1]</td>
+<td style="text-align: left;">highlight compression (shoulder of the curve); typically is in [0.9–1]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
