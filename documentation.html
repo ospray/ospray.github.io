@@ -7,7 +7,7 @@
     <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -20,13 +20,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -104,7 +102,7 @@ div.sourceCode { overflow-x: initial; }
       <div id="content">
 
 <h1 id="documentation">Documentation</h1>
-<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme_devel.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme_devel.pdf" title="OSPRay Documentation">pdf document</a>.</p>
+<p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">pdf document</a>.</p>
 <p>For a deeper explanation of the concepts, design, features and performance of OSPRay also have a look at the IEEE Vis 2016 paper “<a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper.pdf">OSPRay – A CPU Ray Tracing Framework for Scientific Visualization</a>” (49MB, or get the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_paper_small.pdf">smaller version</a> 1.8MB). Also available are the <a href="http://www.sdvis.org/ospray/download/talks/IEEEVis2016_OSPRay_talk.pdf">slides of the talk</a> (5.2MB).</p>
 <h1 id="ospray-api">OSPRay API</h1>
 <p>To access the OSPRay API you first need to include the OSPRay header</p>
@@ -350,7 +348,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The commit semantic allow for batching up multiple small changes, and specifies exactly when changes to objects will occur. This is important to ensure performance and consistency for devices crossing a PCI bus, or across a network. In our MPI implementation, for example, we can easily guarantee consistency among different nodes by MPI barrier’ing on every commit.</p>
 <p>Note that OSPRay uses reference counting to manage the lifetime of all objects, so one cannot explicitly “delete” any object. Instead, to indicate that the application does not need and does not access the given object anymore, call</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="dt">void</span> ospRelease(OSPObject);</a></code></pre></div>
-<p>This decreases its reference count and if the count reaches <code>0</code> the object will automatically get deleted.</p>
+<p>This decreases its reference count and if the count reaches <code>0</code> the object will automatically get deleted. Passing <code>NULL</code> is not an error.</p>
 <h3 id="parameters">Parameters</h3>
 <p>Parameters allow to configure the behavior of and to pass data to objects. However, objects do <em>not</em> have an explicit interface for reasons of high flexibility and a more stable compile-time API. Instead, parameters are passed separately to objects in an arbitrary order, and unknown parameters will simply be ignored. The following functions allow adding various types of parameters with name <code>id</code> to a given object:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co">// add a C-string (zero-terminated char *) parameter</span></a>
@@ -538,13 +536,13 @@ div.sourceCode { overflow-x: initial; }
 <div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb22-1" data-line-number="1">OSPVolume ospNewVolume(<span class="at">const</span> <span class="dt">char</span> *type);</a></code></pre></div>
 <p>The call returns <code>NULL</code> if that type of volume is not known by OSPRay, or else an <code>OSPVolume</code> handle.</p>
 <p>The common parameters understood by all volume variants are summarized in the table below.</p>
-<table style="width:97%;">
+<table style="width:98%;">
 <caption>Configuration parameters shared by all volume types.</caption>
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 32%" />
-<col style="width: 13%" />
-<col style="width: 40%" />
+<col style="width: 23%" />
+<col style="width: 27%" />
+<col style="width: 11%" />
+<col style="width: 34%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -556,66 +554,72 @@ div.sourceCode { overflow-x: initial; }
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">OSPTransferFunction</td>
+<td style="text-align: left;">transferFunction</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><a href="#transfer-function">transfer function</a> to use</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">vec2f</td>
 <td style="text-align: left;">voxelRange</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;">minimum and maximum of the scalar values</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">gradientShadingEnabled</td>
 <td style="text-align: right;">false</td>
 <td style="text-align: left;">volume is rendered with surface shading wrt. to normalized gradient</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">preIntegration</td>
 <td style="text-align: right;">false</td>
 <td style="text-align: left;">use pre-integration for <a href="#transfer-function">transfer function</a> lookups</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">singleShade</td>
 <td style="text-align: right;">true</td>
 <td style="text-align: left;">shade only at the point of maximum intensity</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">adaptiveSampling</td>
 <td style="text-align: right;">true</td>
 <td style="text-align: left;">adapt ray step size based on opacity</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">adaptiveScalar</td>
 <td style="text-align: right;">15</td>
 <td style="text-align: left;">modifier for adaptive step size</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">adaptiveMaxSamplingRate</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">maximum sampling rate for adaptive sampling</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">samplingRate</td>
 <td style="text-align: right;">0.125</td>
 <td style="text-align: left;">sampling rate of the volume (this is the minimum step size for adaptive sampling)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vec3f</td>
 <td style="text-align: left;">specular</td>
 <td style="text-align: right;">gray 0.3</td>
 <td style="text-align: left;">specular color for shading</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec3f</td>
 <td style="text-align: left;">volumeClippingBoxLower</td>
 <td style="text-align: right;">disabled</td>
 <td style="text-align: left;">lower coordinate (in object-space) to clip the volume values</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vec3f</td>
 <td style="text-align: left;">volumeClippingBoxUpper</td>
 <td style="text-align: right;">disabled</td>
@@ -1187,6 +1191,56 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Each streamline is specified by a set of (aligned) control points in <code>vertex</code>. If <code>smooth</code> is disabled and a constant <code>radius</code> is used for all streamlines then all vertices belonging to to the same logical streamline are connected via <a href="#cylinders">cylinders</a>, with additional <a href="#spheres">spheres</a> at each vertex to create a continuous, closed surface. Otherwise, streamlines are represented as Bézier curves, smoothly interpolating the vertices. This mode supports per-vertex varying radii (either given in <code>vertex.radius</code>, or in the 4th component of a <em>vec4f</em> <code>vertex</code>), but is slower and consumes more memory. Also, the radius needs to be smaller than the curvature radius of the Bézier curve at each location on the curve.</p>
 <p>A streamlines geometry can contain multiple disjoint streamlines, each streamline is specified as a list of segments (or links) referenced via <code>index</code>: each entry <code>e</code> of the <code>index</code> array points the first vertex of a link (<code>vertex[index[e]]</code>) and the second vertex of the link is implicitly the directly following one (<code>vertex[index[e]+1]</code>). For example, two streamlines of vertices <code>(A-B-C-D)</code> and <code>(E-F-G)</code>, respectively, would internally correspond to five links (<code>A-B</code>, <code>B-C</code>, <code>C-D</code>, <code>E-F</code>, and <code>F-G</code>), and would be specified via an array of vertices <code>[A,B,C,D,E,F,G]</code>, plus an array of link indices <code>[0,1,2,4,5]</code>.</p>
+<h3 id="curves">Curves</h3>
+<p>A geometry consisting of multiple curves is created by calling <code>ospNewGeometry</code> with type string “<code>curves</code>”. The parameters defining this geometry are listed in the table below.</p>
+<table style="width:97%;">
+<caption>Parameters defining a curves geometry.</caption>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">curveType</td>
+<td style="text-align: left;">“flat” (ray oriented), “round” (circular cross section), “ribbon” (normal oriented flat curve)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">curveBasis</td>
+<td style="text-align: left;">“linear”, “bezier”, “bspline”, “hermite”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec4f[]</td>
+<td style="text-align: left;">vertex</td>
+<td style="text-align: left;"><a href="#data">data</a> array of vertex position and radius</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">int32[]</td>
+<td style="text-align: left;">index</td>
+<td style="text-align: left;"><a href="#data">data</a> array of indices to the first vertex or tangent of a curve segment</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec3f[]</td>
+<td style="text-align: left;">vertex.normal</td>
+<td style="text-align: left;"><a href="#data">data</a> array of curve normals (only for “ribbon” curves)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec3f[]</td>
+<td style="text-align: left;">vertex.tangent</td>
+<td style="text-align: left;"><a href="#data">data</a> array of curve tangents (only for “hermite” curves)</td>
+</tr>
+</tbody>
+</table>
+<p>See Embree documentation for discussion of curve types and data formatting.</p>
 <h3 id="isosurfaces">Isosurfaces</h3>
 <p>OSPRay can directly render multiple isosurfaces of a volume without first tessellating them. To do so create an isosurfaces geometry by calling <code>ospNewGeometry</code> with type string “<code>isosurfaces</code>”. Each isosurface will be colored according to the provided volume’s <a href="#transfer-function">transfer function</a>.</p>
 <table>
@@ -1312,11 +1366,11 @@ div.sourceCode { overflow-x: initial; }
 <p>OSPRay’s renderers support a feature called adaptive accumulation, which accelerates progressive <a href="#rendering">rendering</a> by stopping the rendering and refinement of image regions that have an estimated variance below the <code>varianceThreshold</code>. This feature requires a <a href="#framebuffer">framebuffer</a> with an <code>OSP_FB_VARIANCE</code> channel.</p>
 <h3 id="scivis-renderer">SciVis Renderer</h3>
 <p>The SciVis renderer is a fast ray tracer for scientific visualization which supports volume rendering and ambient occlusion (AO). It is created by passing the type string “<code>scivis</code>” or “<code>raytracer</code>” to <code>ospNewRenderer</code>. In addition to the <a href="#renderer">general parameters</a> understood by all renderers the SciVis renderer supports the following special parameters:</p>
-<table style="width:98%;">
+<table style="width:97%;">
 <caption>Special parameters understood by the SciVis renderer.</caption>
 <colgroup>
-<col style="width: 18%" />
-<col style="width: 29%" />
+<col style="width: 16%" />
+<col style="width: 30%" />
 <col style="width: 17%" />
 <col style="width: 32%" />
 </colgroup>
@@ -1366,10 +1420,10 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">background color and alpha (RGBA)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">OSPTexture2D</td>
+<td style="text-align: left;">OSPTexture</td>
 <td style="text-align: left;">maxDepthTexture</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;">screen-sized float <a href="#texture">texture</a> with maximum far distance per pixel</td>
+<td style="text-align: left;">screen-sized float <a href="#texture">texture</a> with maximum far distance per pixel (use texture type ‘texture2d’)</td>
 </tr>
 </tbody>
 </table>
@@ -1381,10 +1435,10 @@ div.sourceCode { overflow-x: initial; }
 <table style="width:97%;">
 <caption>Special parameters understood by the path tracer.</caption>
 <colgroup>
-<col style="width: 18%" />
-<col style="width: 22%" />
+<col style="width: 16%" />
+<col style="width: 23%" />
 <col style="width: 12%" />
-<col style="width: 43%" />
+<col style="width: 44%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1408,7 +1462,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">samples are clamped to this value before they are accumulated into the framebuffer</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">OSPTexture2D</td>
+<td style="text-align: left;">OSPTexture</td>
 <td style="text-align: left;">backplate</td>
 <td style="text-align: right;">NULL</td>
 <td style="text-align: left;"><a href="#texture">texture</a> image used as background, replacing visible lights in infinity (e.g. the <a href="#hdri-light">HDRI light</a>)</td>
@@ -1464,8 +1518,8 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <h3 id="lights">Lights</h3>
-<p>To let the given <code>renderer</code> create a new light source of given type <code>type</code> use</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb32-1" data-line-number="1">OSPLight ospNewLight(OSPRenderer renderer, <span class="at">const</span> <span class="dt">char</span> *type);</a></code></pre></div>
+<p>To create a new light source of given type <code>type</code> use</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb32-1" data-line-number="1">OSPLight ospNewLight3(<span class="at">const</span> <span class="dt">char</span> *type);</a></code></pre></div>
 <p>The call returns <code>NULL</code> if that type of light is not known by the renderer, or else an <code>OSPLight</code> handle to the created light source. All light sources<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> accept the following parameters:</p>
 <table>
 <caption>Parameters accepted by the all lights.</caption>
@@ -1500,7 +1554,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>The following light types are supported by most OSPRay renderers.</p>
 <h4 id="directional-light-distant-light">Directional Light / Distant Light</h4>
-<p>The distant light (or traditionally the directional light) is thought to be very far away (outside of the scene), thus its light arrives (almost) as parallel rays. It is created by passing the type string “<code>distant</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the distant light supports the following special parameters:</p>
+<p>The distant light (or traditionally the directional light) is thought to be very far away (outside of the scene), thus its light arrives (almost) as parallel rays. It is created by passing the type string “<code>distant</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the distant light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the distant light.</caption>
 <thead>
@@ -1525,7 +1579,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Setting the angular diameter to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>). For instance, the apparent size of the sun is about 0.53°.</p>
 <h4 id="point-light-sphere-light">Point Light / Sphere Light</h4>
-<p>The sphere light (or the special case point light) is a light emitting uniformly in all directions. It is created by passing the type string “<code>sphere</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the sphere light supports the following special parameters:</p>
+<p>The sphere light (or the special case point light) is a light emitting uniformly in all directions. It is created by passing the type string “<code>sphere</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the sphere light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the sphere light.</caption>
 <thead>
@@ -1550,7 +1604,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>).</p>
 <h4 id="spot-light">Spot Light</h4>
-<p>The spot light is a light emitting into a cone of directions. It is created by passing the type string “<code>spot</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the spot light supports the special parameters listed in the table.</p>
+<p>The spot light is a light emitting into a cone of directions. It is created by passing the type string “<code>spot</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the spot light supports the special parameters listed in the table.</p>
 <table style="width:97%;">
 <caption>Special parameters accepted by the spot light.</caption>
 <colgroup>
@@ -1598,7 +1652,7 @@ div.sourceCode { overflow-x: initial; }
 </figure>
 <p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>).</p>
 <h4 id="quad-light">Quad Light</h4>
-<p>The quad<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the spot light supports the following special parameters:</p>
+<p>The quad<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the spot light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the quad light.</caption>
 <thead>
@@ -1631,13 +1685,13 @@ div.sourceCode { overflow-x: initial; }
 </figure>
 <p>The emission side is determined by the cross product of <code>edge1</code>×<code>edge2</code>. Note that only renderers that use stochastic sampling (like the path tracer) will compute soft shadows from the quad light. Other renderers will just sample the center of the quad light, which results in hard shadows.</p>
 <h4 id="hdri-light">HDRI Light</h4>
-<p>The HDRI light is a textured light source surrounding the scene and illuminating it from infinity. It is created by passing the type string “<code>hdri</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">parameter <code>intensity</code></a> the HDRI light supports the following special parameters:</p>
+<p>The HDRI light is a textured light source surrounding the scene and illuminating it from infinity. It is created by passing the type string “<code>hdri</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">parameter <code>intensity</code></a> the HDRI light supports the following special parameters:</p>
 <table style="width:97%;">
 <caption>Special parameters accepted by the HDRI light.</caption>
 <colgroup>
-<col style="width: 20%" />
+<col style="width: 17%" />
 <col style="width: 9%" />
-<col style="width: 68%" />
+<col style="width: 69%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1658,7 +1712,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">direction to which the center of the texture will be mapped to (analog to <a href="#panoramic-camera">panoramic camera</a>)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">OSPTexture2D</td>
+<td style="text-align: left;">OSPTexture</td>
 <td style="text-align: left;">map</td>
 <td style="text-align: left;">environment map in latitude / longitude format</td>
 </tr>
@@ -1669,7 +1723,7 @@ div.sourceCode { overflow-x: initial; }
 </figure>
 <p>Note that the currently only the <a href="#path-tracer">path tracer</a> supports the HDRI light.</p>
 <h4 id="ambient-light">Ambient Light</h4>
-<p>The ambient light surrounds the scene and illuminates it from infinity with constant radiance (determined by combining the <a href="#lights">parameters <code>color</code> and <code>intensity</code></a>). It is created by passing the type string “<code>ambient</code>” to <code>ospNewLight</code>.</p>
+<p>The ambient light surrounds the scene and illuminates it from infinity with constant radiance (determined by combining the <a href="#lights">parameters <code>color</code> and <code>intensity</code></a>). It is created by passing the type string “<code>ambient</code>” to <code>ospNewLight3</code>.</p>
 <p>Note that the <a href="#scivis-renderer">SciVis renderer</a> uses ambient lights to control the color and intensity of the computed ambient occlusion (AO).</p>
 <h4 id="emissive-objects">Emissive Objects</h4>
 <p>The <a href="#path-tracer">path tracer</a> will consider illumination by <a href="#geometries">geometries</a> which have a light emitting material assigned (for example the <a href="#luminous">Luminous</a> material).</p>
@@ -1722,7 +1776,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">transparency filter color</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">OSPTexture2D</td>
+<td style="text-align: left;">OSPTexture</td>
 <td style="text-align: left;">map_Bump</td>
 <td style="text-align: right;">NULL</td>
 <td style="text-align: left;">normal map</td>
@@ -1739,7 +1793,7 @@ div.sourceCode { overflow-x: initial; }
 <figure>
 <img src="images/normalmap_frustum.png" alt="Normal map representing an exalted square pyramidal frustum." style="width:60.0%" /><figcaption>Normal map representing an exalted square pyramidal frustum.</figcaption>
 </figure>
-<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g. a <a href="#triangle-mesh">triangle mesh</a> with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support <a href="#texture-transformations">texture transformations</a>.</p>
+<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g. a <a href="#triangle-mesh">triangle mesh</a> with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support [texture transformations].</p>
 <figure>
 <img src="images/material_OBJ.jpg" alt="Rendering of a OBJ material with wood textures." style="width:60.0%" /><figcaption>Rendering of a OBJ material with wood textures.</figcaption>
 </figure>
@@ -1838,73 +1892,85 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">normal</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">normal map/scale</td>
+<td style="text-align: left;">default normal map/scale for all layers</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">baseNormal</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">base normal map/scale (overrides default normal)</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">thin</td>
 <td style="text-align: right;">false</td>
 <td style="text-align: left;">flag specifying whether the material is thin or solid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">thickness</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">thickness of the material (thin only), affects the amount of color attenuation due to specular transmission</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">backlight</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">amount of diffuse transmission (thin only) in [0–2], 1 is 50% reflection and 50% transmission, 2 is transmission only</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coat</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">clear coat layer weight in [0–1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coatIor</td>
 <td style="text-align: right;">1.5</td>
 <td style="text-align: left;">clear coat index of refraction</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vec3f</td>
 <td style="text-align: left;">coatColor</td>
 <td style="text-align: right;">white</td>
 <td style="text-align: left;">clear coat color tint</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coatThickness</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">clear coat thickness, affects the amount of color attenuation</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coatRoughness</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">clear coat roughness in [0–1], 0 is perfectly smooth</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">coatNormal</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">clear coat normal map/scale</td>
+<td style="text-align: left;">clear coat normal map/scale (overrides default normal)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">sheen</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">sheen layer weight in [0–1]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec3f</td>
 <td style="text-align: left;">sheenColor</td>
 <td style="text-align: right;">white</td>
 <td style="text-align: left;">sheen color tint</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">sheenTint</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">how much sheen is tinted from sheenColor towards baseColor</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
@@ -1920,7 +1986,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); <a href="#texture-transformations">texture transformations</a> are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); [texture transformations] are supported as well.</p>
 <figure>
 <img src="images/material_Principled.jpg" alt="Rendering of a Principled coated brushed metal material with textured anisotropic rotation and a dust layer (sheen) on top." style="width:60.0%" /><figcaption>Rendering of a Principled coated brushed metal material with textured anisotropic rotation and a dust layer (sheen) on top.</figcaption>
 </figure>
@@ -2041,7 +2107,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); <a href="#texture-transformations">texture transformations</a> are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); [texture transformations] are supported as well.</p>
 <figure>
 <img src="images/material_CarPaint.jpg" alt="Rendering of a pearlescent CarPaint material." style="width:60.0%" /><figcaption>Rendering of a pearlescent CarPaint material.</figcaption>
 </figure>
@@ -2128,7 +2194,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> (<a href="#texture-transformations">texture transformations</a> are supported as well) to create interesting edging effects.</p>
+<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> ([texture transformations] are supported as well) to create interesting edging effects.</p>
 <figure>
 <img src="images/material_Metal.jpg" alt="Rendering of golden Metal material with textured roughness." style="width:60.0%" /><figcaption>Rendering of golden Metal material with textured roughness.</figcaption>
 </figure>
@@ -2165,7 +2231,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; <a href="#texture-transformations">texture transformations</a> are supported as well.</p>
+<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; [texture transformations] are supported as well.</p>
 <figure>
 <img src="images/material_Alloy.jpg" alt="Rendering of a fictional Alloy material with textured color." style="width:60.0%" /><figcaption>Rendering of a fictional Alloy material with textured color.</figcaption>
 </figure>
@@ -2245,7 +2311,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> (<a href="#texture-transformations">texture transformations</a> are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
+<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> ([texture transformations] are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
 <figure>
 <img src="images/material_ThinGlass.jpg" alt="Rendering of a ThinGlass material with red attenuation." style="width:60.0%" /><figcaption>Rendering of a ThinGlass material with red attenuation.</figcaption>
 </figure>
@@ -2297,7 +2363,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports <a href="#texture-transformations">texture transformations</a>. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
+<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports [texture transformations]. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
 <figure>
 <img src="images/material_MetallicPaint.jpg" alt="Rendering of a MetallicPaint material." style="width:60.0%" /><figcaption>Rendering of a MetallicPaint material.</figcaption>
 </figure>
@@ -2307,14 +2373,62 @@ div.sourceCode { overflow-x: initial; }
 <img src="images/material_Luminous.jpg" alt="Rendering of a yellow Luminous material." style="width:60.0%" /><figcaption>Rendering of a yellow Luminous material.</figcaption>
 </figure>
 <h3 id="texture">Texture</h3>
-<p>To create a new 2D texture of size <code>size</code> (in pixels) and with the given format and flags use</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb35-1" data-line-number="1">OSPTexture2D ospNewTexture2D(<span class="at">const</span> vec2i &amp;size,</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">                             <span class="at">const</span> OSPTextureFormat,</a>
-<a class="sourceLine" id="cb35-3" data-line-number="3">                             <span class="dt">void</span> *source = NULL,</a>
-<a class="sourceLine" id="cb35-4" data-line-number="4">                             <span class="at">const</span> <span class="dt">uint32_t</span> textureCreationFlags = <span class="dv">0</span>);</a></code></pre></div>
-<p>The call returns <code>NULL</code> if the texture could not be created with the given parameters, or else an <code>OSPTexture2D</code> handle to the created texture. The supported texture formats are:</p>
+<p>OSPRay currently implements two texture types (<code>texture2d</code> and <code>volume</code>) and is open for extension to other types by applications. More types may be added in future releases.</p>
+<p>To create a new texture use</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb35-1" data-line-number="1">OSPTexture ospNewTexture(<span class="at">const</span> <span class="dt">char</span> *type);</a></code></pre></div>
+<p>The call returns <code>NULL</code> if the texture could not be created with the given parameters, or else an <code>OSPTexture</code> handle to the created texture.</p>
+<h4 id="texture2d">Texture2D</h4>
+<p>The <code>texture2D</code> texture type implements an image-based texture, where its parameters are as follows</p>
 <table>
-<caption>Supported texture formats by <code>ospNewTexture2D</code>, i.e. valid constants of type <code>OSPTextureFormat</code>.</caption>
+<caption>Parameters of <code>texture2D</code> texture type</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">vec2f</td>
+<td style="text-align: left;">size</td>
+<td style="text-align: left;">size of the textures</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;"><code>OSPTextureFormat</code> for the texture</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">flags</td>
+<td style="text-align: left;">special attribute flags for this</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">texture, currently only responds</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">to <code>OSP_TEXTURE_FILTER_NEAREST</code> or</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">no flags</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSPData</td>
+<td style="text-align: left;">data</td>
+<td style="text-align: left;">the actual texel data</td>
+</tr>
+</tbody>
+</table>
+<p>The supported texture formats for <code>texture2d</code> are:</p>
+<table>
+<caption>Supported texture formats by <code>texture2D</code>, i.e. valid constants of type <code>OSPTextureFormat</code>.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Name</th>
@@ -2356,8 +2470,27 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The texel data addressed by <code>source</code> starts with the texels in the lower left corner of the texture image, like in OpenGL. Similar to <a href="#data">data</a> buffers the texel data can be shared by the application by specifying the <code>OSP_TEXTURE_SHARED_BUFFER</code> flag. Per default a texture fetch is filtered by performing bi-linear interpolation of the nearest 2×2 texels; if instead fetching only the nearest texel is desired (i.e. no filtering) then pass the <code>OSP_TEXTURE_FILTER_NEAREST</code> flag. Both texture creating flags can be combined with a bitwise OR.</p>
-<h3 id="texture-transformations">Texture Transformations</h3>
+<p>The texel data addressed by <code>source</code> starts with the texels in the lower left corner of the texture image, like in OpenGL. Per default a texture fetch is filtered by performing bi-linear interpolation of the nearest 2×2 texels; if instead fetching only the nearest texel is desired ( i.e. no filtering) then pass the <code>OSP_TEXTURE_FILTER_NEAREST</code> flag.</p>
+<h4 id="texturevolume">TextureVolume</h4>
+<p>The <code>volume</code> texture type implements texture lookups based on 3D world coordinates of the surface hit point on the associated geometry. If the given hit point is within the attached volume, the volume is sampled and classified with the transfer function attached to the volume. This implements the ability to visualize volume values (as colored by its transfer function) on arbitrary surfaces inside the volume (as opposed to an isosurface showing a particular value in the volume). Its parameters are as follows</p>
+<table>
+<caption>Parameters of <code>volume</code> texture type</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OSPVolume</td>
+<td style="text-align: left;">volume</td>
+<td style="text-align: left;">volume used to generate color lookups</td>
+</tr>
+</tbody>
+</table>
+<h3 id="texture2d-transformations">Texture2D Transformations</h3>
 <p>All materials with textures also offer to manipulate the placement of these textures with the help of texture transformations. If so, this convention shall be used. The following parameters (prefixed with “<code>texture_name.</code>”) are combined into one transformation matrix:</p>
 <table>
 <caption>Parameters to define texture coordinate transformations.</caption>
@@ -2581,7 +2714,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>The parameter <code>frameBufferChannels</code> specifies which channels the framebuffer holds, and can be combined together by bitwise OR from the values of <code>OSPFrameBufferChannel</code> listed in the table below.</p>
 <table>
-<caption>Framebuffer channels constants (of type <code>OSPFrameBufferChannel</code>), naming optional information the framebuffer can store. These values can be combined by bitwise OR when passed to <code>ospNewFrameBuffer</code> or <code>ospClearFrameBuffer</code>.</caption>
+<caption>Framebuffer channels constants (of type <code>OSPFrameBufferChannel</code>), naming optional information the framebuffer can store. These values can be combined by bitwise OR when passed to <code>ospNewFrameBuffer</code> or <code>ospFrameBufferClear</code>.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Name</th>
@@ -2603,7 +2736,15 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_FB_VARIANCE</td>
-<td style="text-align: left;">estimate of the current variance if OSP_FB_ACCUM is also present, see <a href="#rendering">rendering</a></td>
+<td style="text-align: left;">for estimation of the current noise level if OSP_FB_ACCUM is also present, see <a href="#rendering">rendering</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_FB_NORMAL</td>
+<td style="text-align: left;">accumulated screen-space normal of the first hit, as vec3f</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSP_FB_ALBEDO</td>
+<td style="text-align: left;">accumulated material albedo (color without illumination) at the first hit, as vec3f</td>
 </tr>
 </tbody>
 </table>
@@ -2612,19 +2753,19 @@ div.sourceCode { overflow-x: initial; }
 <p>The application can map the given channel of a framebuffer – and thus access the stored pixel information – via</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="at">const</span> <span class="dt">void</span> *ospMapFrameBuffer(OSPFrameBuffer,</a>
 <a class="sourceLine" id="cb40-2" data-line-number="2">                              <span class="at">const</span> OSPFrameBufferChannel = OSP_FB_COLOR);</a></code></pre></div>
-<p>Note that only <code>OSP_FB_COLOR</code> or <code>OSP_FB_DEPTH</code> can be mapped. The origin of the screen coordinate system in OSPRay is the lower left corner (as in OpenGL), thus the first pixel addressed by the returned pointer is the lower left pixel of the image.</p>
+<p>Note that <code>OSP_FB_ACCUM</code> or <code>OSP_FB_VARIANCE</code> cannot be mapped. The origin of the screen coordinate system in OSPRay is the lower left corner (as in OpenGL), thus the first pixel addressed by the returned pointer is the lower left pixel of the image.</p>
 <p>A previously mapped channel of a framebuffer can be unmapped by passing the received pointer <code>mapped</code> to</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="dt">void</span> ospUnmapFrameBuffer(<span class="at">const</span> <span class="dt">void</span> *mapped, OSPFrameBuffer);</a></code></pre></div>
 <p>The individual channels of a framebuffer can be cleared with</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="dt">void</span> ospFrameBufferClear(OSPFrameBuffer, <span class="at">const</span> <span class="dt">uint32_t</span> frameBufferChannels);</a></code></pre></div>
-<p>When selected, <code>OSP_FB_COLOR</code> will clear the color buffer to black <code>(0, 0, 0, 0)</code>, <code>OSP_FB_DEPTH</code> will clear the depth buffer to <code>inf</code>, <code>OSP_FB_ACCUM</code> will clear the accumulation buffer to black, resets the accumulation counter <code>accumID</code> and also clears the variance buffer (if present) to <code>inf</code>.</p>
+<p>When selected, <code>OSP_FB_COLOR</code> will clear the color buffer to black <code>(0, 0, 0, 0)</code>, <code>OSP_FB_DEPTH</code> will clear the depth buffer to <code>inf</code>. <code>OSP_FB_ACCUM</code> will clear <em>all</em> accumulating buffers (<code>OSP_FB_VARIANCE</code>, <code>OSP_FB_NORMAL</code>, and <code>OSP_FB_ALBEDO</code>, if present) and resets the accumulation counter <code>accumID</code>.</p>
 <h3 id="pixel-operation" class="unnumbered">Pixel Operation</h3>
 <p>Pixel operations are functions that are applied to every pixel that gets written into a framebuffer. Examples include post-processing, filtering, blending, tone mapping, or sending tiles to a display wall. To create a new pixel operation of given type <code>type</code> use</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb43-1" data-line-number="1">OSPPixelOp ospNewPixelOp(<span class="at">const</span> <span class="dt">char</span> *type);</a></code></pre></div>
 <p>The call returns <code>NULL</code> if that type is not known, or else an <code>OSPPixelOp</code> handle to the created pixel operation.</p>
 <p>To set a pixel operation to the given framebuffer use</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="dt">void</span> ospSetPixelOp(OSPFrameBuffer, OSPPixelOp);</a></code></pre></div>
-<h4 id="tone-mapper">Tone Mapper</h4>
+<h4 id="tone-mapper" class="unnumbered">Tone Mapper</h4>
 <p>The tone mapper is a pixel operation which implements a generic filmic tone mapping operator. Using the default parameters it approximates the Academy Color Encoding System (ACES). The tone mapper is created by passing the type string “<code>tonemapper</code>” to <code>ospNewPixelOp</code>. The tone mapping curve can be customized using the parameters listed in the table below.</p>
 <table style="width:97%;">
 <caption>Parameters accepted by the tone mapper.</caption>
@@ -2722,6 +2863,13 @@ div.sourceCode { overflow-x: initial; }
 <div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="dt">float</span> ospRenderFrame(OSPFrameBuffer, OSPRenderer,</a>
 <a class="sourceLine" id="cb45-2" data-line-number="2">                     <span class="at">const</span> <span class="dt">uint32_t</span> frameBufferChannels = OSP_FB_COLOR);</a></code></pre></div>
 <p>The third parameter specifies what channel(s) of the framebuffer is written to<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. What to render and how to render it depends on the renderer’s parameters. If the framebuffer supports accumulation (i.e. it was created with <code>OSP_FB_ACCUM</code>) then successive calls to <code>ospRenderFrame</code> will progressively refine the rendered image. If additionally the framebuffer has an <code>OSP_FB_VARIANCE</code> channel then <code>ospRenderFrame</code> returns an estimate of the current variance of the rendered image, otherwise <code>inf</code> is returned. The estimated variance can be used by the application as a quality indicator and thus to decide whether to stop or to continue progressive rendering.</p>
+<h3 id="progress-and-cancel" class="unnumbered">Progress and Cancel</h3>
+<p>To be informed about the progress of rendering the current frame the application can register a callback function of type</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">typedef</span> <span class="dt">int</span> (*OSPProgressFunc)(<span class="dt">void</span>* userPtr, <span class="at">const</span> <span class="dt">float</span> progress);</a></code></pre></div>
+<p>via</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="dt">void</span> ospSetProgressFunc(OSPProgressFunc, <span class="dt">void</span>* userPtr);</a></code></pre></div>
+<p>The provided user pointer <code>userPtr</code> is passed as first argument to the callback function<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and the reported progress is in (0–1]. If the callback function returns zero than the application requests to cancel rendering, i.e. the current <code>ospRenderFrame</code> will return at the first opportunity and the content of the frambuffer will be undefined. Therefore, better clear the framebuffer with <code>ospFrameBufferClear</code> then before a subsequent call of <code>ospRenderFrame</code>.</p>
+<p>Passing <code>NULL</code> as <code>OSPProgressFunc</code> function pointer disables the progress callback.</p>
 <h1 id="parallel-rendering-with-mpi">Parallel Rendering with MPI</h1>
 <p>OSPRay has the ability to scale to multiple nodes in a cluster via MPI. This enables applications to take advantage of larger compute and memory resources when available.</p>
 <h2 id="prerequisites-for-mpi-mode">Prerequisites for MPI Mode</h2>
@@ -2861,65 +3009,65 @@ div.sourceCode { overflow-x: initial; }
 <p>The scenegraph nodes closely follow the dependencies of existing OSPRay API internals, ie a sg::Renderer has a “model” child, which in turn has a “TriangleMesh”, which in turn has a child named “vertex” similar to how you may set the “vertex” parameter on the osp::TriangleMesh which in turn is added to an OSPModel object which is set as the model on the OSPRenderer. The scenegraph is a supserset of OSPRay functionality so there isn’t a direct 1:1 mapping between the scenegraph hierarchy in all cases, however it is kept as close as possible. This makes the scene graph viewer in ospExampleViewer a great way to understand OSPRay state.</p>
 <h2 id="hierarchy-structure">Hierarchy Structure</h2>
 <p>The root of the scenegraph is based on sg::Renderer. The scenegraph can be created by</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">auto</span> renderer = sg::createNode(<span class="st">&quot;renderer&quot;</span>, <span class="st">&quot;Renderer&quot;</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">auto</span> renderer = sg::createNode(<span class="st">&quot;renderer&quot;</span>, <span class="st">&quot;Renderer&quot;</span>);</a></code></pre></div>
 <p>which automatically creates child nodes for necessary OSPRay state. To update and commit all state and render a single function is provided which can be called with:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb50-1" data-line-number="1">renderer.renderFrame(renderer[<span class="st">&quot;frameBuffer&quot;</span>].nodeAs&lt;sg::FrameBuffer&gt;);</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb52-1" data-line-number="1">renderer.renderFrame(renderer[<span class="st">&quot;frameBuffer&quot;</span>].nodeAs&lt;sg::FrameBuffer&gt;);</a></code></pre></div>
 <p>Values can be set using:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb51-1" data-line-number="1">renderer[<span class="st">&quot;spp&quot;</span>] = <span class="dv">16</span>;</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb53-1" data-line-number="1">renderer[<span class="st">&quot;spp&quot;</span>] = <span class="dv">16</span>;</a></code></pre></div>
 <p>The explore the full set of nodes, simply launch the exampleViewer and traverse through the GUI representation of all scenegraph nodes.</p>
 <h2 id="traversals">Traversals</h2>
 <p>The scenegraph contains a set of builtin traversals as well as modular visitor functors for implementing custom passes over the scenegraph. The required traversals are handled for you by default within the renderFrame function on the renderer. For any given node there are two phases to a traversal operation, pre and post traversal of the nodes children. preTraversal initializes node state and objects and sets the current traversal context with appropriate state. For instance, sg::Model will create a new OSPModel object, set its value to that object, and set sg::RenderContext.currentOSPModel to its own value. After preTraversal is finished, the children of sg::Model are processed in a similar fashion and now use the modified context. In postTraversal, sg::Model will commit the changes that its children have potentially set and it will pop its modifications from the current context. This behavior is replicated for every scenegraph node and enables children to act on parent state without specific implementations from the parent node. An example of this are the sg::NodeParam nodes which are containers for values to be set on OSPObjects, such as a float value. This is put on the scenegraph with a call to:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb52-1" data-line-number="1">renderer[<span class="st">&quot;lights&quot;</span>][<span class="st">&quot;sun&quot;</span>].createChild(<span class="st">&quot;intensity&quot;</span>, <span class="st">&quot;float&quot;</span>, <span class="fl">0.3f</span>);</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb54-1" data-line-number="1">renderer[<span class="st">&quot;lights&quot;</span>][<span class="st">&quot;sun&quot;</span>].createChild(<span class="st">&quot;intensity&quot;</span>, <span class="st">&quot;float&quot;</span>, <span class="fl">0.3f</span>);</a></code></pre></div>
 <p>This call accesses the child named “lights” on the renderer, and in turn the child named “sun”. This child then gets its own child of a newly created node with the name “intensity” of type “float” with a value of 0.3f. When committed, this node will call ospSet1f with the node value on the current OSPObject on the context which is set by the parent. If you were to create a custom light called “MyLight” and had a float parameter called “flickerFreq”, a similar line would be used without requiring any additional changes in the scenegraph internals beyond registering the new light class. Known parameters such as floats will also show up in the exampleViewerGUI without requiring any additional code beyond adding them to the scenegraph and the internal implementation in OSPRay.</p>
 <p>The base passes required to utilize the scenegraph include verification, commit, and render traversals. Every node in the scenegraph has a valid state which needs to be set before operating on the node. Nodes may have custom qualifications for validity, but by default they are set through valid_ flags on the scenegraph Node for things like whitelists and range checks. Once verified, Commit traverses the scenegraph and commits scenegraph state to OSPRay. Commits are timestamped, so re-committing will only have any affect if a dependent child has been modified requiring a new commit. Because of this, each node does not have to track if it is valid or if anything in the scene has been modified, as commit will only be called on that node if those are already true. By default invalid nodes with throw exceptions, however this can be turned off which enables the program to keep running. In the exampleViewer GUI, invalid nodes will be marked in red but the previously committed state will keep rendering until the invalid state is corrected.</p>
 <p>For examples of implementing custom traversals, see the sg/visitors folder. Here is an example of a visitor that collects all nodes with a given name:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">struct</span> GatherNodesByName : <span class="kw">public</span> Visitor</a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">{</a>
-<a class="sourceLine" id="cb53-3" data-line-number="3">  GatherNodesByName(<span class="at">const</span> <span class="bu">std::</span>string &amp;_name);</a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5">  <span class="dt">bool</span> <span class="kw">operator</span>()(Node &amp;node, TraversalContext &amp;ctx) <span class="kw">override</span>;</a>
-<a class="sourceLine" id="cb53-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb53-7" data-line-number="7">  <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;Node&gt;&gt; results();</a>
-<a class="sourceLine" id="cb53-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb53-9" data-line-number="9"><span class="kw">private</span>:</a>
-<a class="sourceLine" id="cb53-10" data-line-number="10">  <span class="bu">std::</span>string name;</a>
-<a class="sourceLine" id="cb53-11" data-line-number="11">  <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;Node&gt;&gt; nodes;</a>
-<a class="sourceLine" id="cb53-12" data-line-number="12">};</a>
-<a class="sourceLine" id="cb53-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb53-14" data-line-number="14"><span class="co">// Inlined definitions ////////////////////////////////////////////////////</span></a>
-<a class="sourceLine" id="cb53-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb53-16" data-line-number="16"><span class="kw">inline</span> GatherNodesByName::GatherNodesByName(<span class="at">const</span> <span class="bu">std::</span>string &amp;_name)</a>
-<a class="sourceLine" id="cb53-17" data-line-number="17">    : name(_name)</a>
-<a class="sourceLine" id="cb53-18" data-line-number="18">{</a>
-<a class="sourceLine" id="cb53-19" data-line-number="19">}</a>
-<a class="sourceLine" id="cb53-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb53-21" data-line-number="21"><span class="kw">inline</span> <span class="dt">bool</span> GatherNodesByName::<span class="kw">operator</span>()(Node &amp;node, TraversalContext &amp;)</a>
-<a class="sourceLine" id="cb53-22" data-line-number="22">{</a>
-<a class="sourceLine" id="cb53-23" data-line-number="23">  <span class="cf">if</span> (utility::longestBeginningMatch(node.name(), <span class="kw">this</span>-&gt;name) == <span class="kw">this</span>-&gt;name) {</a>
-<a class="sourceLine" id="cb53-24" data-line-number="24">    <span class="kw">auto</span> itr = <span class="bu">std::</span>find_if(</a>
-<a class="sourceLine" id="cb53-25" data-line-number="25">      nodes.begin(),</a>
-<a class="sourceLine" id="cb53-26" data-line-number="26">      nodes.end(),</a>
-<a class="sourceLine" id="cb53-27" data-line-number="27">      [&amp;](<span class="at">const</span> <span class="bu">std::</span>shared_ptr&lt;Node&gt; &amp;nodeInList) {</a>
-<a class="sourceLine" id="cb53-28" data-line-number="28">        <span class="cf">return</span> nodeInList.get() == &amp;node;</a>
-<a class="sourceLine" id="cb53-29" data-line-number="29">      }</a>
-<a class="sourceLine" id="cb53-30" data-line-number="30">    );</a>
-<a class="sourceLine" id="cb53-31" data-line-number="31"></a>
-<a class="sourceLine" id="cb53-32" data-line-number="32">    <span class="cf">if</span> (itr == nodes.end())</a>
-<a class="sourceLine" id="cb53-33" data-line-number="33">      nodes.push_back(node.shared_from_this());</a>
-<a class="sourceLine" id="cb53-34" data-line-number="34">  }</a>
-<a class="sourceLine" id="cb53-35" data-line-number="35"></a>
-<a class="sourceLine" id="cb53-36" data-line-number="36">  <span class="cf">return</span> <span class="kw">true</span>;</a>
-<a class="sourceLine" id="cb53-37" data-line-number="37">}</a>
-<a class="sourceLine" id="cb53-38" data-line-number="38"></a>
-<a class="sourceLine" id="cb53-39" data-line-number="39"><span class="kw">inline</span> <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;Node&gt;&gt; GatherNodesByName::results()</a>
-<a class="sourceLine" id="cb53-40" data-line-number="40">{</a>
-<a class="sourceLine" id="cb53-41" data-line-number="41">  <span class="cf">return</span> nodes;<span class="co">// </span><span class="al">TODO</span><span class="co">: should this be a move (i.e. reader &#39;consumes&#39;)?</span></a>
-<a class="sourceLine" id="cb53-42" data-line-number="42">}</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">struct</span> GatherNodesByName : <span class="kw">public</span> Visitor</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">  GatherNodesByName(<span class="at">const</span> <span class="bu">std::</span>string &amp;_name);</a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5">  <span class="dt">bool</span> <span class="kw">operator</span>()(Node &amp;node, TraversalContext &amp;ctx) <span class="kw">override</span>;</a>
+<a class="sourceLine" id="cb55-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb55-7" data-line-number="7">  <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;Node&gt;&gt; results();</a>
+<a class="sourceLine" id="cb55-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb55-9" data-line-number="9"><span class="kw">private</span>:</a>
+<a class="sourceLine" id="cb55-10" data-line-number="10">  <span class="bu">std::</span>string name;</a>
+<a class="sourceLine" id="cb55-11" data-line-number="11">  <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;Node&gt;&gt; nodes;</a>
+<a class="sourceLine" id="cb55-12" data-line-number="12">};</a>
+<a class="sourceLine" id="cb55-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb55-14" data-line-number="14"><span class="co">// Inlined definitions ////////////////////////////////////////////////////</span></a>
+<a class="sourceLine" id="cb55-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb55-16" data-line-number="16"><span class="kw">inline</span> GatherNodesByName::GatherNodesByName(<span class="at">const</span> <span class="bu">std::</span>string &amp;_name)</a>
+<a class="sourceLine" id="cb55-17" data-line-number="17">    : name(_name)</a>
+<a class="sourceLine" id="cb55-18" data-line-number="18">{</a>
+<a class="sourceLine" id="cb55-19" data-line-number="19">}</a>
+<a class="sourceLine" id="cb55-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb55-21" data-line-number="21"><span class="kw">inline</span> <span class="dt">bool</span> GatherNodesByName::<span class="kw">operator</span>()(Node &amp;node, TraversalContext &amp;)</a>
+<a class="sourceLine" id="cb55-22" data-line-number="22">{</a>
+<a class="sourceLine" id="cb55-23" data-line-number="23">  <span class="cf">if</span> (utility::longestBeginningMatch(node.name(), <span class="kw">this</span>-&gt;name) == <span class="kw">this</span>-&gt;name) {</a>
+<a class="sourceLine" id="cb55-24" data-line-number="24">    <span class="kw">auto</span> itr = <span class="bu">std::</span>find_if(</a>
+<a class="sourceLine" id="cb55-25" data-line-number="25">      nodes.begin(),</a>
+<a class="sourceLine" id="cb55-26" data-line-number="26">      nodes.end(),</a>
+<a class="sourceLine" id="cb55-27" data-line-number="27">      [&amp;](<span class="at">const</span> <span class="bu">std::</span>shared_ptr&lt;Node&gt; &amp;nodeInList) {</a>
+<a class="sourceLine" id="cb55-28" data-line-number="28">        <span class="cf">return</span> nodeInList.get() == &amp;node;</a>
+<a class="sourceLine" id="cb55-29" data-line-number="29">      }</a>
+<a class="sourceLine" id="cb55-30" data-line-number="30">    );</a>
+<a class="sourceLine" id="cb55-31" data-line-number="31"></a>
+<a class="sourceLine" id="cb55-32" data-line-number="32">    <span class="cf">if</span> (itr == nodes.end())</a>
+<a class="sourceLine" id="cb55-33" data-line-number="33">      nodes.push_back(node.shared_from_this());</a>
+<a class="sourceLine" id="cb55-34" data-line-number="34">  }</a>
+<a class="sourceLine" id="cb55-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb55-36" data-line-number="36">  <span class="cf">return</span> <span class="kw">true</span>;</a>
+<a class="sourceLine" id="cb55-37" data-line-number="37">}</a>
+<a class="sourceLine" id="cb55-38" data-line-number="38"></a>
+<a class="sourceLine" id="cb55-39" data-line-number="39"><span class="kw">inline</span> <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>shared_ptr&lt;Node&gt;&gt; GatherNodesByName::results()</a>
+<a class="sourceLine" id="cb55-40" data-line-number="40">{</a>
+<a class="sourceLine" id="cb55-41" data-line-number="41">  <span class="cf">return</span> nodes;<span class="co">// </span><span class="al">TODO</span><span class="co">: should this be a move (i.e. reader &#39;consumes&#39;)?</span></a>
+<a class="sourceLine" id="cb55-42" data-line-number="42">}</a></code></pre></div>
 <h2 id="thread-safety">Thread Safety</h2>
 <p>The scenegraph is only thread safe for accessing and setting values on nodes. More advanced operations like adding or removing nodes are not thread safe. At some point we hope to add transactions to handle these, but for now the scenegraph nodes must be added/removed on the same thread that is committing and rendering.</p>
 <h1 id="examples">Examples</h1>
 <h2 id="tutorial">Tutorial</h2>
-<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.c</code><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. On Linux build it in the build directory with</p>
+<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.c</code><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. On Linux build it in the build directory with</p>
 <pre><code>gcc -std=c99 ../apps/ospTutorial.c -I ../ospray/include -I .. \
 ./libospray.so -Wl,-rpath,. -o ospTutorial</code></pre>
 <p>On Windows build it in the “build_directory\$Configuration” with</p>
@@ -2980,7 +3128,8 @@ div.sourceCode { overflow-x: initial; }
 <li id="fn2"><p>actually a parallelogram<a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures<a href="#fnref3" class="footnote-back">↩</a></p></li>
 <li id="fn4"><p>This is currently not implemented, i.e. all channels of the framebuffer are always updated.<a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/ospTutorial.cpp</code>.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>That way applications can also register a member function of a C++ class together with the <code>this</code> pointer as <code>userPtr</code>.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/ospTutorial.cpp</code>.<a href="#fnref6" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 

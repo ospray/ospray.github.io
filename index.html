@@ -154,6 +154,20 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.7.0">Changes in v1.7.0:</h3>
+<ul>
+<li>Generalized texture interface to support more than classic 2D image textures, thus <code>OSPTexture2D</code> and <code>ospNewTexture2D</code> are now deprecated, use the new API call <code>ospNewTexture(&quot;texture2d&quot;)</code> instead
+<ul>
+<li>Added new <code>volume</code> texture type to visualize volume data on arbitrary geometry placed inside the volume</li>
+</ul></li>
+<li>Added new framebuffer channels <code>OSP_FB_NORMAL</code> and <code>OSP_FB_ALBEDO</code></li>
+<li>Applications can get information about the progress of rendering the current frame, and optionally cancel it, by registering a callback function via <code>ospSetProgressFunc()</code></li>
+<li>Lights are not tied to the renderer type, so a new function <code>ospNewLight3()</code> was introduced to implement this. Please convert all uses of <code>ospNewLight()</code> and/or <code>ospNewLight2()</code> to <code>ospNewLight3()</code></li>
+<li>Added sheenTint parameter to Principled material</li>
+<li>Added baseNormal parameter to Principled material</li>
+<li>Added low-discrepancy sampling to path tracer</li>
+<li>The <code>spp</code> parameter on the renderer no longer supports values less than 1, instead applications should render to a separate, lower resolution frame buffer during interaction to achieve the same behavior</li>
+</ul>
 <h3 id="changes-in-v1.6.1">Changes in v1.6.1:</h3>
 <ul>
 <li>Many bug fixes
