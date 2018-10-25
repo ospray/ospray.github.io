@@ -150,10 +150,15 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
 <p>OSPRay internally builds on top of <a href="https://embree.github.io/">Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel® SPMD Program Compiler)</a>, and fully utilizes modern instruction sets like Intel® SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
-<p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com">ospray@googlegroups.com</a>.</p>
+<p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.7.1">Changes in v1.7.1:</h3>
+<ul>
+<li>Fixed issue where the <code>Principled</code> material would sometimes show up incorrectly as black</li>
+<li>Fixed issue where some headers were missing from install packages</li>
+</ul>
 <h3 id="changes-in-v1.7.0">Changes in v1.7.0:</h3>
 <ul>
 <li>Generalized texture interface to support more than classic 2D image textures, thus <code>OSPTexture2D</code> and <code>ospNewTexture2D</code> are now deprecated, use the new API call <code>ospNewTexture(&quot;texture2d&quot;)</code> instead
