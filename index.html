@@ -154,6 +154,11 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.7.2">Changes in v1.7.2:</h3>
+<ul>
+<li>Fix issue in <code>mpi_offload</code> device where <code>ospRelease</code> would sometimes not correctly free objects</li>
+<li>Fix issue in <code>ospray_sg</code> where structured volumes would not properly release the underlying OSPRay object handles</li>
+</ul>
 <h3 id="changes-in-v1.7.1">Changes in v1.7.1:</h3>
 <ul>
 <li>Fixed issue where the <code>Principled</code> material would sometimes show up incorrectly as black</li>

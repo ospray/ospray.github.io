@@ -1793,7 +1793,7 @@ div.sourceCode { overflow-x: initial; }
 <figure>
 <img src="images/normalmap_frustum.png" alt="Normal map representing an exalted square pyramidal frustum." style="width:60.0%" /><figcaption>Normal map representing an exalted square pyramidal frustum.</figcaption>
 </figure>
-<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g. a <a href="#triangle-mesh">triangle mesh</a> with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support <a href="#texture2d-transformations">texture transformations</a>.</p>
+<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g. a <a href="#triangle-mesh">triangle mesh</a> with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support [texture transformations].</p>
 <figure>
 <img src="images/material_OBJ.jpg" alt="Rendering of a OBJ material with wood textures." style="width:60.0%" /><figcaption>Rendering of a OBJ material with wood textures.</figcaption>
 </figure>
@@ -1986,7 +1986,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); [texture transformations] are supported as well.</p>
 <figure>
 <img src="images/material_Principled.jpg" alt="Rendering of a Principled coated brushed metal material with textured anisotropic rotation and a dust layer (sheen) on top." style="width:60.0%" /><figcaption>Rendering of a Principled coated brushed metal material with textured anisotropic rotation and a dust layer (sheen) on top.</figcaption>
 </figure>
@@ -2107,7 +2107,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); [texture transformations] are supported as well.</p>
 <figure>
 <img src="images/material_CarPaint.jpg" alt="Rendering of a pearlescent CarPaint material." style="width:60.0%" /><figcaption>Rendering of a pearlescent CarPaint material.</figcaption>
 </figure>
@@ -2194,7 +2194,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> (<a href="#texture2d-transformations">texture transformations</a> are supported as well) to create interesting edging effects.</p>
+<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> ([texture transformations] are supported as well) to create interesting edging effects.</p>
 <figure>
 <img src="images/material_Metal.jpg" alt="Rendering of golden Metal material with textured roughness." style="width:60.0%" /><figcaption>Rendering of golden Metal material with textured roughness.</figcaption>
 </figure>
@@ -2231,7 +2231,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
+<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; [texture transformations] are supported as well.</p>
 <figure>
 <img src="images/material_Alloy.jpg" alt="Rendering of a fictional Alloy material with textured color." style="width:60.0%" /><figcaption>Rendering of a fictional Alloy material with textured color.</figcaption>
 </figure>
@@ -2311,7 +2311,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> (<a href="#texture2d-transformations">texture transformations</a> are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
+<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> ([texture transformations] are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
 <figure>
 <img src="images/material_ThinGlass.jpg" alt="Rendering of a ThinGlass material with red attenuation." style="width:60.0%" /><figcaption>Rendering of a ThinGlass material with red attenuation.</figcaption>
 </figure>
@@ -2363,7 +2363,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports <a href="#texture2d-transformations">texture transformations</a>. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
+<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports [texture transformations]. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
 <figure>
 <img src="images/material_MetallicPaint.jpg" alt="Rendering of a MetallicPaint material." style="width:60.0%" /><figcaption>Rendering of a MetallicPaint material.</figcaption>
 </figure>
