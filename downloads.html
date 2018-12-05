@@ -49,13 +49,13 @@
 <p>We recommend the latest version of both TBB and Embree libraries.</p>
 <h2 id="packages">Packages</h2>
 <p>For Linux we provide OSPRay precompiled for 64 bit as RPMs or as TGZ file.</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.2/ospray-1.7.2.x86_64.rpm.tar.gz">ospray-1.7.2.x86_64.rpm.tar.gz</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.2/ospray-1.7.2.x86_64.linux.tar.gz">ospray-1.7.2.x86_64.linux.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.x86_64.rpm.tar.gz">ospray-1.7.3.x86_64.rpm.tar.gz</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.x86_64.linux.tar.gz">ospray-1.7.3.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as an installer and as a TGZ file:</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.2/ospray-1.7.2.x86_64.dmg">ospray-1.7.2.x86_64.dmg</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.2/ospray-1.7.2.x86_64.macosx.tar.gz">ospray-1.7.2.x86_64.macosx.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.x86_64.dmg">ospray-1.7.3.x86_64.dmg</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.x86_64.macosx.tar.gz">ospray-1.7.3.x86_64.macosx.tar.gz</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an MSI installer as well as a ZIP archive:</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.2/ospray-1.7.2.msi">ospray-1.7.2.msi</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.2/ospray-1.7.2.windows.zip">ospray-1.7.2.windows.zip</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.msi">ospray-1.7.3.msi</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.windows.zip">ospray-1.7.3.windows.zip</a></p>
 <p>The source code of the latest OSPRay version can be downloaded here:</p>
-<p><a href="https://github.com/ospray/OSPRay/archive/v1.7.2.zip">ospray-1.7.2.zip</a> <a href="https://github.com/ospray/OSPRay/archive/v1.7.2.tar.gz">ospray-1.7.2.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/archive/v1.7.3.zip">ospray-1.7.3.zip</a> <a href="https://github.com/ospray/OSPRay/archive/v1.7.3.tar.gz">ospray-1.7.3.tar.gz</a></p>
 <p>You can also access <a href="https://github.com/ospray/OSPRay/releases">old OSPRay releases</a>.</p>
 <h1 id="building-ospray-from-source">Building OSPRay from Source</h1>
 <p>The latest OSPRay sources are always available at the <a href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The default <code>master</code> branch should always point to the latest tested bugfix release.</p>
@@ -99,7 +99,7 @@ cd ospray/build</code></pre>
 <p>On Windows using the CMake GUI (<code>cmake-gui.exe</code>) is the most convenient way to configure OSPRay and to create the Visual Studio solution files:</p>
 <ul>
 <li><p>Browse to the OSPRay sources and specify a build directory (if it does not exist yet CMake will create it).</p></li>
-<li><p>Click “Configure” and select as generator the Visual Studio version you have, for Win64 (32 bit builds are not supported by OSPRay), e.g. “Visual Studio 15 2017 Win64”.</p></li>
+<li><p>Click “Configure” and select as generator the Visual Studio version you have, for Win64 (32 bit builds are not supported by OSPRay), e.g. “Visual Studio 15 2017 Win64”.</p></li>
 <li><p>If the configuration fails because some dependencies could not be found then follow the instructions given in the error message, e.g. set the variable <code>embree_DIR</code> to the folder where Embree was installed.</p></li>
 <li><p>Optionally change the default build options, and then click “Generate” to create the solution and project files in the build directory.</p></li>
 <li><p>Open the generated <code>OSPRay.sln</code> in Visual Studio, select the build configuration and compile the project.</p></li>

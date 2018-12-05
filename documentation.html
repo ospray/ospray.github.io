@@ -173,7 +173,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>--osp:device:&lt;name&gt;</code></td>
-<td style="text-align: left;">use <code>name</code> as the type of device for OSPRay to create; e.g. <code>--osp:device:default</code> gives you the default local device; Note if the device to be used is defined in a module, remember to pass <code>--osp:module:&lt;name&gt;</code> first</td>
+<td style="text-align: left;">use <code>name</code> as the type of device for OSPRay to create; e.g. <code>--osp:device:default</code> gives you the default local device; Note if the device to be used is defined in a module, remember to pass <code>--osp:module:&lt;name&gt;</code> first</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>--osp:setaffinity &lt;n&gt;</code></td>
@@ -2470,7 +2470,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The texel data addressed by <code>source</code> starts with the texels in the lower left corner of the texture image, like in OpenGL. Per default a texture fetch is filtered by performing bi-linear interpolation of the nearest 2×2 texels; if instead fetching only the nearest texel is desired ( i.e. no filtering) then pass the <code>OSP_TEXTURE_FILTER_NEAREST</code> flag.</p>
+<p>The texel data addressed by <code>source</code> starts with the texels in the lower left corner of the texture image, like in OpenGL. Per default a texture fetch is filtered by performing bi-linear interpolation of the nearest 2×2 texels; if instead fetching only the nearest texel is desired (i.e. no filtering) then pass the <code>OSP_TEXTURE_FILTER_NEAREST</code> flag.</p>
 <h4 id="texturevolume">TextureVolume</h4>
 <p>The <code>volume</code> texture type implements texture lookups based on 3D world coordinates of the surface hit point on the associated geometry. If the given hit point is within the attached volume, the volume is sampled and classified with the transfer function attached to the volume. This implements the ability to visualize volume values (as colored by its transfer function) on arbitrary surfaces inside the volume (as opposed to an isosurface showing a particular value in the volume). Its parameters are as follows</p>
 <table>
@@ -2728,7 +2728,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_FB_DEPTH</td>
-<td style="text-align: left;">euclidean distance to the camera (<em>not</em> to the image plane), as linear 32 bit float</td>
+<td style="text-align: left;">euclidean distance to the camera (_not_ to the image plane), as linear 32 bit float</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_FB_ACCUM</td>

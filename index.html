@@ -154,6 +154,12 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.7.3">Changes in v1.7.3:</h3>
+<ul>
+<li>Make sure a “<code>default</code>” device can always be created</li>
+<li>Fix <code>ospNewTexture2D</code> (completely implementing old behaviour)</li>
+<li>Cleanup any shared object handles from the OS created from <code>ospLoadModule()</code></li>
+</ul>
 <h3 id="changes-in-v1.7.2">Changes in v1.7.2:</h3>
 <ul>
 <li>Fix issue in <code>mpi_offload</code> device where <code>ospRelease</code> would sometimes not correctly free objects</li>
