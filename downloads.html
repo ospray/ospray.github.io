@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-    <title>OSPRay Download</title>
+    <title>Intel OSPRay Download</title>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
   </head>
 
@@ -12,7 +12,7 @@
         <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
-        OSPRay
+        Intel<sup>®</sup> OSPRay
               <div id="header-subtitle">
         A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
       </div>
@@ -53,7 +53,7 @@
 <p>For Mac OS X we provide OSPRay as an installer and as a TGZ file:</p>
 <p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.x86_64.dmg">ospray-1.7.3.x86_64.dmg</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.x86_64.macosx.tar.gz">ospray-1.7.3.x86_64.macosx.tar.gz</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an MSI installer as well as a ZIP archive:</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.msi">ospray-1.7.3.msi</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.windows.zip">ospray-1.7.3.windows.zip</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.msi">ospray-1.7.3.msi</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.7.3/ospray-1.7.3.windows.zip">ospray-1.7.3.windows.zip</a> You may need to additionally install the <a href="https://www.microsoft.com/download/details.aspx?id=53840">x64 Microsoft<sup>*</sup> Visual C++<sup>*</sup> 2015 Redistributable</a>.</p>
 <p>The source code of the latest OSPRay version can be downloaded here:</p>
 <p><a href="https://github.com/ospray/OSPRay/archive/v1.7.3.zip">ospray-1.7.3.zip</a> <a href="https://github.com/ospray/OSPRay/archive/v1.7.3.tar.gz">ospray-1.7.3.tar.gz</a></p>
 <p>You can also access <a href="https://github.com/ospray/OSPRay/releases">old OSPRay releases</a>.</p>
@@ -79,7 +79,7 @@ sudo apt-get install libtbb-dev</code></pre>
 <p>Under Mac OS X these dependencies can be installed using <a href="http://www.macports.org/">MacPorts</a>:</p>
 <pre><code>sudo port install cmake tbb</code></pre>
 <p>Under Windows please directly use the appropriate installers for <a href="https://cmake.org/download/">CMake</a>, <a href="https://github.com/01org/tbb/releases">TBB</a>, <a href="https://ispc.github.io/downloads.html">ISPC</a> (for your Visual Studio version) and <a href="https://github.com/embree/embree/releases/">Embree</a>.</p>
-<h2 id="compiling-ospray-on-linux-and-mac-osx">Compiling OSPRay on Linux and Mac OS X</h2>
+<h2 id="compiling-ospray-on-linux-and-mac-os-x">Compiling OSPRay on Linux and Mac OS X</h2>
 <p>Assume the above requisites are all fulfilled, building OSPRay through CMake is easy:</p>
 <ul>
 <li><p>Create a build directory, and go into it</p>
@@ -99,7 +99,7 @@ cd ospray/build</code></pre>
 <p>On Windows using the CMake GUI (<code>cmake-gui.exe</code>) is the most convenient way to configure OSPRay and to create the Visual Studio solution files:</p>
 <ul>
 <li><p>Browse to the OSPRay sources and specify a build directory (if it does not exist yet CMake will create it).</p></li>
-<li><p>Click “Configure” and select as generator the Visual Studio version you have, for Win64 (32 bit builds are not supported by OSPRay), e.g. “Visual Studio 15 2017 Win64”.</p></li>
+<li><p>Click “Configure” and select as generator the Visual Studio version you have (OSPRay needs Visual Studio 14 2015 or newer), for Win64 (32 bit builds are not supported by OSPRay), e.g. “Visual Studio 15 2017 Win64”.</p></li>
 <li><p>If the configuration fails because some dependencies could not be found then follow the instructions given in the error message, e.g. set the variable <code>embree_DIR</code> to the folder where Embree was installed.</p></li>
 <li><p>Optionally change the default build options, and then click “Generate” to create the solution and project files in the build directory.</p></li>
 <li><p>Open the generated <code>OSPRay.sln</code> in Visual Studio, select the build configuration and compile the project.</p></li>
@@ -124,7 +124,7 @@ cmake --build . --config Release</code></pre>
     </div>
 
       <div id="footer">
-        © 2013–2018 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2019 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>

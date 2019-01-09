@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-    <title>OSPRay</title>
+    <title>Intel OSPRay</title>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
   </head>
 
@@ -12,7 +12,7 @@
         <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
-        OSPRay
+        Intel<sup>®</sup> OSPRay
               <div id="header-subtitle">
         A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
       </div>
@@ -39,7 +39,7 @@
 
 <div class="title">
 <h1>
-OSPRay
+Intel<sup>®</sup> OSPRay
 </h1>
 <h2>
 A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
@@ -146,9 +146,9 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <hr>
 </div>
 <h1 id="ospray-overview">OSPRay Overview</h1>
-<p>OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel® Architecture CPUs. OSPRay is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
+<p>Intel® OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel Rendering Framework</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
-<p>OSPRay internally builds on top of <a href="https://embree.github.io/">Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel® SPMD Program Compiler)</a>, and fully utilizes modern instruction sets like Intel® SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
+<p>OSPRay internally builds on top of <a href="https://embree.github.io/">Intel Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel SPMD Program Compiler)</a>, and fully utilizes modern instruction sets like Intel SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
@@ -172,7 +172,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </ul>
 <h3 id="changes-in-v1.7.0">Changes in v1.7.0:</h3>
 <ul>
-<li>Generalized texture interface to support more than classic 2D image textures, thus <code>OSPTexture2D</code> and <code>ospNewTexture2D</code> are now deprecated, use the new API call <code>ospNewTexture(&quot;texture2d&quot;)</code> instead
+<li>Generalized texture interface to support more than classic 2D image textures, thus <code>OSPTexture2D</code> and <code>ospNewTexture2D</code> are now deprecated, use the new API call <code>ospNewTexture("texture2d")</code> instead
 <ul>
 <li>Added new <code>volume</code> texture type to visualize volume data on arbitrary geometry placed inside the volume</li>
 </ul></li>
@@ -198,7 +198,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <ul>
 <li>Updated ispc device to use Embree3 (minimum required Embree version is 3.1)</li>
 <li>Added new <code>ospShutdown()</code> API function to aid in correctness and determinism of OSPRay API cleanup</li>
-<li>Added “<code>Principled</code>” and &quot;<code>CarPaint&quot;</code> materials to the path tracer</li>
+<li>Added “<code>Principled</code>” and "<code>CarPaint"</code> materials to the path tracer</li>
 <li>Improved flexibility of the tone mapper</li>
 <li>Improvements to unstructured volume
 <ul>
@@ -579,7 +579,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Added panoramic and orthographic camera types</li>
 <li>Proper CMake-based installation of OSPRay and CMake <code>find_package()</code> support for use in external projects</li>
 <li>Experimental Windows support</li>
-<li>Deprecated <code>ospNewTriangleMesh()</code>; use <code>ospNewGeometry(&quot;triangles&quot;)</code> instead</li>
+<li>Deprecated <code>ospNewTriangleMesh()</code>; use <code>ospNewGeometry("triangles")</code> instead</li>
 <li>Bug fixes and cleanups throughout the codebase</li>
 </ul>
 <h3 id="changes-in-v0.8.2">Changes in v0.8.2:</h3>
@@ -639,7 +639,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
     </div>
 
       <div id="footer">
-        © 2013–2018 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2019 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-    <title>OSPRay Documentation</title>
+    <title>Intel OSPRay Documentation</title>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
     <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
@@ -76,7 +76,7 @@ div.sourceCode { overflow-x: initial; }
         <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
-        OSPRay
+        Intel<sup>®</sup> OSPRay
               <div id="header-subtitle">
         A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
       </div>
@@ -521,7 +521,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_FLOAT3A</td>
-<td style="text-align: left;">… and aligned 3-element vector</td>
+<td style="text-align: left;">… and 3-element vector with padding (same size as an OSP_FLOAT4)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_DOUBLE</td>
@@ -630,12 +630,12 @@ div.sourceCode { overflow-x: initial; }
 <p>Note that if <code>voxelRange</code> is not provided for a volume then OSPRay will compute it based on the voxel data, which may result in slower data updates.</p>
 <h3 id="structured-volume">Structured Volume</h3>
 <p>Structured volumes only need to store the values of the samples, because their addresses in memory can be easily computed from a 3D position. A common type of structured volumes are regular grids. OSPRay supports two variants that differ in how the volumetric data for the regular grids is specified.</p>
-<p>The first variant shares the voxel data with the application. Such a volume type is created by passing the type string “<code>shared_structured_volume</code>” to <code>ospNewVolume</code>. The voxel data is laid out in memory in XYZ order and provided to the volume via a <a href="#data">data</a> buffer parameter named “<code>voxelData</code>”.</p>
+<p>The first variant shares the voxel data with the application. Such a volume type is created by passing the type string “<code>shared_structured_volume</code>” to <code>ospNewVolume</code>. The voxel data is laid out in memory in xyz-order<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and provided to the volume via a <a href="#data">data</a> buffer parameter named “<code>voxelData</code>”.</p>
 <p>The second regular grid variant is optimized for rendering performance: data locality in memory is increased by arranging the voxel data in smaller blocks. This volume type is created by passing the type string “<code>block_bricked_volume</code>” to <code>ospNewVolume</code>. Because of this rearrangement of voxel data it cannot be shared the with the application anymore, but has to be transferred to OSPRay via</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb23-1" title="1">OSPError ospSetRegion(OSPVolume, <span class="dt">void</span> *source,</a>
 <a class="sourceLine" id="cb23-2" title="2">                      <span class="at">const</span> vec3i &amp;regionCoords,</a>
 <a class="sourceLine" id="cb23-3" title="3">                      <span class="at">const</span> vec3i &amp;regionSize);</a></code></pre></div>
-<p>The voxel data pointed to by <code>source</code> is copied into the given volume starting at position <code>regionCoords</code>, must be of size <code>regionSize</code> and be placed in memory in XYZ order. Note that OSPRay distinguishes between volume data and volume parameters. This function must be called only after all volume parameters (in particular <code>dimensions</code> and <code>voxelType</code>, see below) have been set and <em>before</em> <code>ospCommit(volume)</code> is called. If necessary then memory for the volume is allocated on the first call to this function.</p>
+<p>The voxel data pointed to by <code>source</code> is copied into the given volume starting at position <code>regionCoords</code>, must be of size <code>regionSize</code> and be placed in memory in xyz-order. Note that OSPRay distinguishes between volume data and volume parameters. This function must be called only after all volume parameters (in particular <code>dimensions</code> and <code>voxelType</code>, see below) have been set and <em>before</em> <code>ospCommit(volume)</code> is called. If necessary then memory for the volume is allocated on the first call to this function.</p>
 <p>The common parameters understood by both structured volume variants are summarized in the table below.</p>
 <table style="width:97%;">
 <caption>Additional configuration parameters for structured volumes.</caption>
@@ -810,8 +810,8 @@ div.sourceCode { overflow-x: initial; }
 <p>Unstructured volumes can contain tetrahedral, wedge, or hexahedral cell types, and are defined by three arrays: vertices, corresponding field values, and eight indices per cell (first four are -1 for tetrahedral cells, first two are -2 for wedge cells). An unstructured volume type is created by passing the type string “<code>unstructured_volume</code>” to <code>ospNewVolume</code>.</p>
 <p>Field values can be specified per-vertex (<code>field</code>) or per-cell (<code>cellField</code>). If both values are set, <code>cellField</code> takes precedence.</p>
 <p>Similar to <a href="#triangle-mesh">triangle mesh</a>, each tetrahedron is formed by a group of indices into the vertices. For each vertex, the corresponding (by array index) data value will be used for sampling when rendering. Note that the index order for each tetrahedron does not matter, as OSPRay internally calculates vertex normals to ensure proper sampling and interpolation.</p>
-<p>For wedge cells, each wedge is formed by a group of six indices into the vertices and data value. Vertex ordering is the same as <code>VTK_WEDGE</code> - three bottom vertices counterclockwise, then top three counterclockwise.</p>
-<p>For hexahedral cells, each hexahedron is formed by a group of eight indices into the vertices and data value. Vertex ordering is the same as <code>VTK_HEXAHEDRON</code> – four bottom vertices counterclockwise, then top four counterclockwise.</p>
+<p>For wedge cells, each wedge is formed by a group of six indices into the vertices and data value. Vertex ordering is the same as <code>VTK_WEDGE</code>: three bottom vertices counterclockwise, then top three counterclockwise.</p>
+<p>For hexahedral cells, each hexahedron is formed by a group of eight indices into the vertices and data value. Vertex ordering is the same as <code>VTK_HEXAHEDRON</code>: four bottom vertices counterclockwise, then top four counterclockwise.</p>
 <table style="width:98%;">
 <caption>Additional configuration parameters for unstructured volumes.</caption>
 <colgroup>
@@ -1427,7 +1427,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>Note that the intensity (and color) of AO is controlled via an <a href="#ambient-light">ambient light</a>. If <code>aoSamples</code> is zero (the default) then ambient lights cause ambient illumination (without occlusion).</p>
+<p>Note that the intensity (and color) of AO is deduced from an <a href="#ambient-light">ambient light</a> in the <code>lights</code> array.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> If <code>aoSamples</code> is zero (the default) then ambient lights cause ambient illumination (without occlusion).</p>
 <p>Per default the background of the rendered image will be transparent black, i.e. the alpha channel holds the opacity of the rendered objects. This facilitates transparency-aware blending of the image with an arbitrary background image by the application. The parameter <code>bgColor</code> can be used to already blend with a constant background color (and alpha) during rendering.</p>
 <p>The SciVis renderer supports depth composition with images of other renderers, for example to incorporate help geometries of a 3D UI that were rendered with OpenGL. The screen-sized <a href="#texture">texture</a> <code>maxDepthTexture</code> must have format <code>OSP_TEXTURE_R32F</code> and flag <code>OSP_TEXTURE_FILTER_NEAREST</code>. The fetched values are used to limit the distance of primary rays, thus objects of other renderers can hide objects rendered by OSPRay.</p>
 <h3 id="path-tracer">Path Tracer</h3>
@@ -1520,9 +1520,9 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="lights">Lights</h3>
 <p>To create a new light source of given type <code>type</code> use</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb32-1" title="1">OSPLight ospNewLight3(<span class="at">const</span> <span class="dt">char</span> *type);</a></code></pre></div>
-<p>The call returns <code>NULL</code> if that type of light is not known by the renderer, or else an <code>OSPLight</code> handle to the created light source. All light sources<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> accept the following parameters:</p>
+<p>The call returns <code>NULL</code> if that type of light is not known by the renderer, or else an <code>OSPLight</code> handle to the created light source. All light sources<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> accept the following parameters:</p>
 <table>
-<caption>Parameters accepted by the all lights.</caption>
+<caption>Parameters accepted by all lights.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Type</th>
@@ -1648,11 +1648,11 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <figure>
-<img src="images/spot_light.png" alt="Angles used by SpotLight." /><figcaption>Angles used by SpotLight.</figcaption>
+<img src="images/spot_light.png" alt="Angles used by the spot light." /><figcaption>Angles used by the spot light.</figcaption>
 </figure>
 <p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>).</p>
 <h4 id="quad-light">Quad Light</h4>
-<p>The quad<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the spot light supports the following special parameters:</p>
+<p>The quad<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the quad light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the quad light.</caption>
 <thead>
@@ -1681,7 +1681,7 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <figure>
-<img src="images/quad_light.png" alt="Defining a Quad Light." /><figcaption>Defining a Quad Light.</figcaption>
+<img src="images/quad_light.png" alt="Defining a quad light which emits towards the reader." /><figcaption>Defining a quad light which emits towards the reader.</figcaption>
 </figure>
 <p>The emission side is determined by the cross product of <code>edge1</code>×<code>edge2</code>. Note that only renderers that use stochastic sampling (like the path tracer) will compute soft shadows from the quad light. Other renderers will just sample the center of the quad light, which results in hard shadows.</p>
 <h4 id="hdri-light">HDRI Light</h4>
@@ -1785,15 +1785,15 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>In particular when using the path tracer it is important to adhere to the principle of energy conservation, i.e. that the amount of light reflected by a surface is not larger than the light arriving. Therefore the path tracer issues a warning and renormalizes the color parameters if the sum of <code>Kd</code>, <code>Ks</code>, and <code>Tf</code> is larger than one in any color channel. Similarly important to mention is that almost all materials of the real world reflect at most only about 80% of the incoming light. So even for a white sheet of paper or white wall paint do better not set <code>Kd</code> larger than 0.8; otherwise rendering times are unnecessary long and the contrast in the final images is low (for example, the corners of a white room would hardly be discernible, as can be seen in the figure below).</p>
 <figure>
-<img src="images/diffuse_rooms.png" alt="Comparison of diffuse rooms with 100% reflecting white paint (left) and realistic 80% reflecting white paint (right), which leads to in higher overall contrast. Note that exposure has been adjusted to achieve similar brightness levels." style="width:80.0%" /><figcaption>Comparison of diffuse rooms with 100% reflecting white paint (left) and realistic 80% reflecting white paint (right), which leads to in higher overall contrast. Note that exposure has been adjusted to achieve similar brightness levels.</figcaption>
+<img src="images/diffuse_rooms.png" alt="Comparison of diffuse rooms with 100% reflecting white paint (left) and realistic 80% reflecting white paint (right), which leads to higher overall contrast. Note that exposure has been adjusted to achieve similar brightness levels." style="width:80.0%" /><figcaption>Comparison of diffuse rooms with 100% reflecting white paint (left) and realistic 80% reflecting white paint (right), which leads to higher overall contrast. Note that exposure has been adjusted to achieve similar brightness levels.</figcaption>
 </figure>
 <p>If present, the color component of <a href="#geometries">geometries</a> is also used for the diffuse color <code>Kd</code> and the alpha component is also used for the opacity <code>d</code>.</p>
 <p>Note that currently only the path tracer implements colored transparency with <code>Tf</code>.</p>
-<p>Normal mapping can simulate small geometric features via the texture <code>map_Bump</code>. The normals <span class="math inline"><em>n</em></span> in the normal map are wrt. the local tangential shading coordinate system and are encoded as <span class="math inline">½(<em>n</em> + 1)</span>, thus a texel <span class="math inline">(0.5, 0.5, 1)</span><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> represents the unperturbed shading normal <span class="math inline">(0, 0, 1)</span>. Because of this encoding an sRGB gamma <a href="#texture">texture</a> format is ignored and normals are always fetched as linear from a normal map. Note that the orientation of normal maps is important for a visually consistent look: by convention OSPRay uses a coordinate system with the origin in the lower left corner; thus a convexity will look green towards the top of the texture image (see also the example image of a normal map). If this is not the case flip the normal map vertically or invert its green channel.</p>
+<p>Normal mapping can simulate small geometric features via the texture <code>map_Bump</code>. The normals <span class="math inline"><em>n</em></span> in the normal map are wrt. the local tangential shading coordinate system and are encoded as <span class="math inline">½(<em>n</em> + 1)</span>, thus a texel <span class="math inline">(0.5, 0.5, 1)</span><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> represents the unperturbed shading normal <span class="math inline">(0, 0, 1)</span>. Because of this encoding an sRGB gamma <a href="#texture">texture</a> format is ignored and normals are always fetched as linear from a normal map. Note that the orientation of normal maps is important for a visually consistent look: by convention OSPRay uses a coordinate system with the origin in the lower left corner; thus a convexity will look green towards the top of the texture image (see also the example image of a normal map). If this is not the case flip the normal map vertically or invert its green channel.</p>
 <figure>
 <img src="images/normalmap_frustum.png" alt="Normal map representing an exalted square pyramidal frustum." style="width:60.0%" /><figcaption>Normal map representing an exalted square pyramidal frustum.</figcaption>
 </figure>
-<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g. a <a href="#triangle-mesh">triangle mesh</a> with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support [texture transformations].</p>
+<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g. a <a href="#triangle-mesh">triangle mesh</a> with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support <a href="#texture2d-transformations">texture transformations</a>.</p>
 <figure>
 <img src="images/material_OBJ.jpg" alt="Rendering of a OBJ material with wood textures." style="width:60.0%" /><figcaption>Rendering of a OBJ material with wood textures.</figcaption>
 </figure>
@@ -1986,7 +1986,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); [texture transformations] are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
 <figure>
 <img src="images/material_Principled.jpg" alt="Rendering of a Principled coated brushed metal material with textured anisotropic rotation and a dust layer (sheen) on top." style="width:60.0%" /><figcaption>Rendering of a Principled coated brushed metal material with textured anisotropic rotation and a dust layer (sheen) on top.</figcaption>
 </figure>
@@ -2107,7 +2107,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); [texture transformations] are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, suffixed with “<code>Map</code>” (e.g., “<code>baseColorMap</code>”); <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
 <figure>
 <img src="images/material_CarPaint.jpg" alt="Rendering of a pearlescent CarPaint material." style="width:60.0%" /><figcaption>Rendering of a pearlescent CarPaint material.</figcaption>
 </figure>
@@ -2194,7 +2194,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> ([texture transformations] are supported as well) to create interesting edging effects.</p>
+<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> (<a href="#texture2d-transformations">texture transformations</a> are supported as well) to create interesting edging effects.</p>
 <figure>
 <img src="images/material_Metal.jpg" alt="Rendering of golden Metal material with textured roughness." style="width:60.0%" /><figcaption>Rendering of golden Metal material with textured roughness.</figcaption>
 </figure>
@@ -2231,7 +2231,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; [texture transformations] are supported as well.</p>
+<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
 <figure>
 <img src="images/material_Alloy.jpg" alt="Rendering of a fictional Alloy material with textured color." style="width:60.0%" /><figcaption>Rendering of a fictional Alloy material with textured color.</figcaption>
 </figure>
@@ -2311,7 +2311,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> ([texture transformations] are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
+<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> (<a href="#texture2d-transformations">texture transformations</a> are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
 <figure>
 <img src="images/material_ThinGlass.jpg" alt="Rendering of a ThinGlass material with red attenuation." style="width:60.0%" /><figcaption>Rendering of a ThinGlass material with red attenuation.</figcaption>
 </figure>
@@ -2363,7 +2363,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports [texture transformations]. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
+<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports <a href="#texture2d-transformations">texture transformations</a>. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
 <figure>
 <img src="images/material_MetallicPaint.jpg" alt="Rendering of a MetallicPaint material." style="width:60.0%" /><figcaption>Rendering of a MetallicPaint material.</figcaption>
 </figure>
@@ -2390,7 +2390,7 @@ div.sourceCode { overflow-x: initial; }
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">vec2f</td>
+<td style="text-align: left;">vec2i</td>
 <td style="text-align: left;">size</td>
 <td style="text-align: left;">size of the textures</td>
 </tr>
@@ -2597,7 +2597,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">aspect</td>
-<td style="text-align: left;">ratio of width by height of the frame</td>
+<td style="text-align: left;">ratio of width by height of the frame (and image region)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
@@ -2626,7 +2626,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>Note that when setting the <code>aspect</code> ratio a non-default image region (using <code>imageStart</code> &amp; <code>imageEnd</code>) needs to be regarded.</p>
+<p>Note that when computing the <code>aspect</code> ratio a potentially set image region (using <code>imageStart</code> &amp; <code>imageEnd</code>) needs to be regarded as well.</p>
 <p>In architectural photography it is often desired for aesthetic reasons to display the vertical edges of buildings or walls vertically in the image as well, regardless of how the camera is tilted. Enabling the <code>architectural</code> mode achieves this by internally leveling the camera parallel to the ground (based on the <code>up</code> direction) and then shifting the lens such that the objects in direction <code>dir</code> are centered in the image. If finer control of the lens shift is needed use <code>imageStart</code> &amp; <code>imageEnd</code>. Because the camera is now effectively leveled its image plane and thus the plane of focus is oriented parallel to the front of buildings, the whole façade appears sharp, as can be seen in the example images below.</p>
 <figure>
 <img src="images/camera_perspective.jpg" alt="Example image created with the perspective camera, featuring depth of field." style="width:60.0%" /><figcaption>Example image created with the perspective camera, featuring depth of field.</figcaption>
@@ -2728,7 +2728,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_FB_DEPTH</td>
-<td style="text-align: left;">euclidean distance to the camera (_not_ to the image plane), as linear 32 bit float</td>
+<td style="text-align: left;">euclidean distance to the camera (<em>not</em> to the image plane), as linear 32 bit float</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_FB_ACCUM</td>
@@ -2862,18 +2862,18 @@ div.sourceCode { overflow-x: initial; }
 <p>To render a frame into the given framebuffer with the given renderer use</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb45-1" title="1"><span class="dt">float</span> ospRenderFrame(OSPFrameBuffer, OSPRenderer,</a>
 <a class="sourceLine" id="cb45-2" title="2">                     <span class="at">const</span> <span class="dt">uint32_t</span> frameBufferChannels = OSP_FB_COLOR);</a></code></pre></div>
-<p>The third parameter specifies what channel(s) of the framebuffer is written to<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. What to render and how to render it depends on the renderer’s parameters. If the framebuffer supports accumulation (i.e. it was created with <code>OSP_FB_ACCUM</code>) then successive calls to <code>ospRenderFrame</code> will progressively refine the rendered image. If additionally the framebuffer has an <code>OSP_FB_VARIANCE</code> channel then <code>ospRenderFrame</code> returns an estimate of the current variance of the rendered image, otherwise <code>inf</code> is returned. The estimated variance can be used by the application as a quality indicator and thus to decide whether to stop or to continue progressive rendering.</p>
+<p>The third parameter specifies what channel(s) of the framebuffer is written to<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. What to render and how to render it depends on the renderer’s parameters. If the framebuffer supports accumulation (i.e. it was created with <code>OSP_FB_ACCUM</code>) then successive calls to <code>ospRenderFrame</code> will progressively refine the rendered image. If additionally the framebuffer has an <code>OSP_FB_VARIANCE</code> channel then <code>ospRenderFrame</code> returns an estimate of the current variance of the rendered image, otherwise <code>inf</code> is returned. The estimated variance can be used by the application as a quality indicator and thus to decide whether to stop or to continue progressive rendering.</p>
 <h3 id="progress-and-cancel" class="unnumbered">Progress and Cancel</h3>
 <p>To be informed about the progress of rendering the current frame the application can register a callback function of type</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb46-1" title="1"><span class="kw">typedef</span> <span class="dt">int</span> (*OSPProgressFunc)(<span class="dt">void</span>* userPtr, <span class="at">const</span> <span class="dt">float</span> progress);</a></code></pre></div>
 <p>via</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb47-1" title="1"><span class="dt">void</span> ospSetProgressFunc(OSPProgressFunc, <span class="dt">void</span>* userPtr);</a></code></pre></div>
-<p>The provided user pointer <code>userPtr</code> is passed as first argument to the callback function<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and the reported progress is in (0–1]. If the callback function returns zero than the application requests to cancel rendering, i.e. the current <code>ospRenderFrame</code> will return at the first opportunity and the content of the frambuffer will be undefined. Therefore, better clear the framebuffer with <code>ospFrameBufferClear</code> then before a subsequent call of <code>ospRenderFrame</code>.</p>
+<p>The provided user pointer <code>userPtr</code> is passed as first argument to the callback function<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> and the reported progress is in (0–1]. If the callback function returns zero than the application requests to cancel rendering, i.e. the current <code>ospRenderFrame</code> will return at the first opportunity and the content of the frambuffer will be undefined. Therefore, better clear the framebuffer with <code>ospFrameBufferClear</code> then before a subsequent call of <code>ospRenderFrame</code>.</p>
 <p>Passing <code>NULL</code> as <code>OSPProgressFunc</code> function pointer disables the progress callback.</p>
 <h1 id="parallel-rendering-with-mpi">Parallel Rendering with MPI</h1>
 <p>OSPRay has the ability to scale to multiple nodes in a cluster via MPI. This enables applications to take advantage of larger compute and memory resources when available.</p>
 <h2 id="prerequisites-for-mpi-mode">Prerequisites for MPI Mode</h2>
-<p>In addition to the standard build requirements of OSPRay, you must have the following items available in your environment in order to build&amp;run OSPRay in MPI mode:</p>
+<p>In addition to the standard build requirements of OSPRay, you must have the following items available in your environment in order to build &amp; run OSPRay in MPI mode:</p>
 <ul>
 <li>An MPI enabled multi-node environment, such as an HPC cluster</li>
 <li>An MPI implementation you can build against (i.e. Intel MPI, MVAPICH2, etc…)</li>
@@ -2890,7 +2890,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The “offload” rendering mode is where a single (not-distributed) calling application treats the OSPRay API the same as with local rendering. However, OSPRay uses multiple MPI connected nodes to evenly distribute frame rendering work, where each node contains a full copy of all scene data. This method is most effective for scenes which can fit into memory, but are very expensive to render: for example, path tracing with many samples-per-pixel is very compute heavy, making it a good situation to use the offload feature. This can be done with any application which already uses OSPRay for local rendering without the need for any code changes.</p>
 <p>When doing MPI offload rendering, applications can optionally enable dynamic load balancing, which can be beneficial in certain contexts. This load balancing refers to the distribution of tile rendering work across nodes: thread-level load balancing on each node is still dynamic with the thread tasking system. The options for enabling/controlling the dynamic load balacing features on the <code>mpi_offload</code> device are found in the table below, which can be changed while the application is running. Please note that these options will likely only pay off for scenes which have heavy rendering load (e.g. path tracing a non-trivial scene) and have a lot of variance in how expensive each tile is to render.</p>
 <table>
-<caption>Parameters specific to the <code>mpi_offload</code> device</caption>
+<caption>Parameters specific to the <code>mpi_offload</code> device.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Type</th>
@@ -2940,7 +2940,7 @@ div.sourceCode { overflow-x: initial; }
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><code>void*</code></td>
+<td style="text-align: left;">void*</td>
 <td style="text-align: left;">worldCommunicator</td>
 <td style="text-align: left;">A pointer to the <code>MPI_Comm</code> which should be used as OSPRay’s world communicator. This will set how many ranks OSPRay should expect to participate in rendering. The default is <code>MPI_COMM_WORLD</code> where all ranks are expected to participate in rendering.</td>
 </tr>
@@ -3067,7 +3067,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The scenegraph is only thread safe for accessing and setting values on nodes. More advanced operations like adding or removing nodes are not thread safe. At some point we hope to add transactions to handle these, but for now the scenegraph nodes must be added/removed on the same thread that is committing and rendering.</p>
 <h1 id="examples">Examples</h1>
 <h2 id="tutorial">Tutorial</h2>
-<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.c</code><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. On Linux build it in the build directory with</p>
+<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.c</code><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>. On Linux build it in the build directory with</p>
 <pre><code>gcc -std=c99 ../apps/ospTutorial.c -I ../ospray/include -I .. \
 ./libospray.so -Wl,-rpath,. -o ospTutorial</code></pre>
 <p>On Windows build it in the “build_directory\$Configuration” with</p>
@@ -3124,12 +3124,14 @@ div.sourceCode { overflow-x: initial; }
 <section class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The <a href="#hdri-light">HDRI Light</a> is an exception, it knows about <code>intensity</code>, but not about <code>color</code>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>actually a parallelogram<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>This is currently not implemented, i.e. all channels of the framebuffer are always updated.<a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>That way applications can also register a member function of a C++ class together with the <code>this</code> pointer as <code>userPtr</code>.<a href="#fnref5" class="footnote-back">↩</a></p></li>
-<li id="fn6"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/ospTutorial.cpp</code>.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>For consecutive memory addresses the x-index of the corresponding voxel changes the quickest.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>If there are multiple ambient lights then their contribution is added<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>The <a href="#hdri-light">HDRI light</a> is an exception, it knows about <code>intensity</code>, but not about <code>color</code>.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>actually a parallelogram<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>This is currently not implemented, i.e. all channels of the framebuffer are always updated.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>That way applications can also register a member function of a C++ class together with the <code>this</code> pointer as <code>userPtr</code>.<a href="#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/ospTutorial.cpp</code>.<a href="#fnref8" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 
@@ -3137,7 +3139,7 @@ div.sourceCode { overflow-x: initial; }
     </div>
 
       <div id="footer">
-        © 2013–2018 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2019 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>
