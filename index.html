@@ -70,7 +70,7 @@ el.addEventListener("click", function(e) {
 Interactive CPU Rendering
 </h2>
 <p>
-OSPRay features interactive CPU rendering capabilities geared towards Scientific Visualization applications. Advanced shading effects such as Ambient Occlusion, shadows, and transparency can be rendered interactively, enabling new insights into data exploration.
+OSPRay features interactive CPU rendering capabilities geared toward Scientific Visualization applications. Advanced shading effects such as Ambient Occlusion, shadows, and transparency can be rendered interactively, enabling new insights into data exploration.
 </p>
 </div>
 </div>
@@ -103,7 +103,7 @@ OSPRay supports high-fidelity interactive direct volume rendering with a number 
 MPI Distributed
 </h2>
 <p>
-Run on large scale distributed-memory systems with a high-performance MPI backend. Shown is a 450GB direct numerical simulation dataset running interactively at TACC’s Maverick cluster.
+Run on large scale distributed-memory systems with a high-performance MPI backend. Shown is a 450GB direct numerical simulation data set running interactively at TACC’s Maverick cluster.
 </p>
 </div>
 </div>
@@ -148,22 +148,48 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <h1 id="ospray-overview">OSPRay Overview</h1>
 <p>Intel® OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel Rendering Framework</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
-<p>OSPRay internally builds on top of <a href="https://embree.github.io/">Intel Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel SPMD Program Compiler)</a>, and fully utilizes modern instruction sets like Intel SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
+<p>OSPRay internally builds on top of <a href="https://embree.github.io/">Intel Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel SPMD Program Compiler)</a>, and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.8.0">Changes in v1.8.0:</h3>
+<ul>
+<li>This will be the last minor revision of OSPRay. Future development effort in the <code>devel</code> branch will be dedicated to v2.0 API changes and may break existing v1.x applications.
+<ul>
+<li>This will also be the last version of OSPRay to include <code>ospray_sg</code> and the Example Viewer. Users which depend on these should instead use the separate OSPRay Studio project, where <code>ospray_sg</code> will be migrated.</li>
+<li>We will continue to support patch releases of v1.8.x in case of any reported bugs</li>
+</ul></li>
+<li>Refactored CMake to use newer CMake concepts
+<ul>
+<li>All targets are now exported in OSPRay installs and can be consumed by client projects with associated includes, libraries, and definitions</li>
+<li>OSPRay now requires CMake v3.1 to build</li>
+<li>See documentation for more details</li>
+</ul></li>
+<li>Added new minimal tutorial apps to replace the more complex Example Viewer</li>
+<li>Added new “<code>subdivision</code>” geometry type to support subdivision surfaces</li>
+<li>Added support for texture formats <code>L8</code>, <code>LA8</code> (gamma-encoded luminance), and <code>RA8</code> (linear two component). Note that the enum <code>OSP_TEXTURE_FORMAT_INVALID</code> changed its value, thus recompilation may be necessary.</li>
+<li>Automatic epsilon handling, which removes the “<code>epsilon</code>” parameter on all renderers</li>
+<li>Normals in framebuffer channel <code>OSP_FB_NORMAL</code> are now in world-space</li>
+<li>Added support for Intel® Open Image Denoise to the Example Viewer
+<ul>
+<li>This same integration will soon be ported to OSPRay Studio</li>
+</ul></li>
+<li>Fixed artifacts for scaled instances of spheres, cylinders and streamlines</li>
+<li>Improvements to precision of intersections with cylinders and streamlines</li>
+<li>Fixed Quadlight: the emitting side is now indeed in direction <code>edge1</code>×<code>edge2</code></li>
+</ul>
 <h3 id="changes-in-v1.7.3">Changes in v1.7.3:</h3>
 <ul>
 <li>Make sure a “<code>default</code>” device can always be created</li>
-<li>Fix <code>ospNewTexture2D</code> (completely implementing old behaviour)</li>
+<li>Fixed <code>ospNewTexture2D</code> (completely implementing old behavior)</li>
 <li>Cleanup any shared object handles from the OS created from <code>ospLoadModule()</code></li>
 </ul>
 <h3 id="changes-in-v1.7.2">Changes in v1.7.2:</h3>
 <ul>
-<li>Fix issue in <code>mpi_offload</code> device where <code>ospRelease</code> would sometimes not correctly free objects</li>
-<li>Fix issue in <code>ospray_sg</code> where structured volumes would not properly release the underlying OSPRay object handles</li>
+<li>Fixed issue in <code>mpi_offload</code> device where <code>ospRelease</code> would sometimes not correctly free objects</li>
+<li>Fixed issue in <code>ospray_sg</code> where structured volumes would not properly release the underlying OSPRay object handles</li>
 </ul>
 <h3 id="changes-in-v1.7.1">Changes in v1.7.1:</h3>
 <ul>
@@ -182,7 +208,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Added sheenTint parameter to Principled material</li>
 <li>Added baseNormal parameter to Principled material</li>
 <li>Added low-discrepancy sampling to path tracer</li>
-<li>The <code>spp</code> parameter on the renderer no longer supports values less than 1, instead applications should render to a separate, lower resolution frame buffer during interaction to achieve the same behavior</li>
+<li>The <code>spp</code> parameter on the renderer no longer supports values less than 1, instead applications should render to a separate, lower resolution framebuffer during interaction to achieve the same behavior</li>
 </ul>
 <h3 id="changes-in-v1.6.1">Changes in v1.6.1:</h3>
 <ul>
@@ -212,7 +238,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Fixed support for color strides which were not multiples of <code>sizeof(float)</code></li>
 <li>Added support for RGBA8 color format to spheres, which can be set by specifying the “<code>color_format</code>” parameter as <code>OSP_UCHAR4</code>, or passing the “<code>color</code>” array through an <code>OSPData</code> of type <code>OSP_UCHAR4</code>.</li>
 <li>Added ability to configure Embree scene flags via <code>OSPModel</code> parameters</li>
-<li><code>ospFreeFrameBuffer()</code> has been deprecated in favor of using <code>ospRelease()</code> to free frame buffer handles</li>
+<li><code>ospFreeFrameBuffer()</code> has been deprecated in favor of using <code>ospRelease()</code> to free framebuffer handles</li>
 <li>Fixed memory leak caused by incorrect parameter reference counts in ispc device</li>
 <li>Fixed occasional crashes in the <code>mpi_offload</code> device on shutdown</li>
 <li>Various improvements to sample apps and <code>ospray_sg</code>
@@ -230,7 +256,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li><code>ospray_sg</code> headers are now installed alongside the SDK</li>
 <li>Core OSPRay ispc device now implemented as a module
 <ul>
-<li>Devices which implement the public API are no longer required to link the dependencies to core OSPRay (e.g. Embree v2.x)</li>
+<li>Devices which implement the public API are no longer required to link the dependencies to core OSPRay (e.g., Embree v2.x)</li>
 <li>By default, <code>ospInit()</code> will load the ispc module if a device was not created via <code>--osp:mpi</code> or <code>--osp:device:[name]</code></li>
 </ul></li>
 <li>MPI devices can now accept an existing world communicator instead of always creating their own</li>
@@ -239,7 +265,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <ul>
 <li><code>ospray_sg</code> (and thus <code>ospExampleViewer</code>/<code>ospBenchmark</code>) can now be extended with new scene data importers via modules or the SDK</li>
 <li>Updated <code>ospTutorial</code> examples to properly call <code>ospRelease()</code></li>
-<li>New options in the <code>ospExampleViewer</code> GUI to showcase new features (sRGB frame buffers, tone mapping, etc.)</li>
+<li>New options in the <code>ospExampleViewer</code> GUI to showcase new features (sRGB framebuffers, tone mapping, etc.)</li>
 </ul></li>
 <li>General bug fixes
 <ul>
@@ -264,7 +290,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Fixed a crash when API logging was enabled in certain situations</li>
 <li>Fixed a crash in MPI mode when creating lights without a renderer</li>
 <li>Fixed an issue with camera lens samples not initialized when <code>spp</code> &lt;= 0</li>
-<li>Fixed an issue in ospExampleViewer when specifying multiple data files</li>
+<li>Fixed an issue in <code>ospExampleViewer</code> when specifying multiple data files</li>
 </ul></li>
 <li>The C99 tutorial is now indicated as the default; the C++ wrappers do not change the semantics of the API (memory management) so the C99 version should be considered first when learning the API</li>
 </ul>
@@ -280,7 +306,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </ul></li>
 <li>Improved path tracer materials
 <ul>
-<li>Also support RGB <code>eta</code>/<code>k</code> for Metal</li>
+<li>Additionally support RGB <code>eta</code>/<code>k</code> for Metal</li>
 <li>Added Alloy material, a “metal” with textured color</li>
 </ul></li>
 <li>Minimum required Embree version is now v2.15</li>
@@ -301,8 +327,8 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Many robustness fixes for both the <code>mpi_offload</code> and <code>mpi_distributed</code> devices through improvements to the <code>mpi_common</code> and <code>mpi_maml</code> infrastructure libraries</li>
 <li>Major sample app cleanups
 <ul>
-<li><code>ospray_sg</code> library is the new basis for building apps, which is a scenegraph implementation</li>
-<li>Old (unused) libraries have been removed: miniSG, commandline, importer, loaders, and scripting</li>
+<li><code>ospray_sg</code> library is the new basis for building apps, which is a scene graph implementation</li>
+<li>Old (unused) libraries have been removed: miniSG, command line, importer, loaders, and scripting</li>
 <li>Some removed functionality (such as scripting) may be reintroduced in the new infrastructure later, though most features have remained and have been improved</li>
 <li>Optional improved texture loading has been transitioned from ImageMagick to OpenImageIO</li>
 </ul></li>
@@ -327,8 +353,8 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>The original MPI device is now called the <code>mpi_offload</code> device to differentiate between the two implementations</li>
 </ul></li>
 <li>Support of Intel® AVX-512 for next generation Intel® Xeon® processor (codename Skylake), thus new minimum ISPC version is 1.9.1</li>
-<li>Thread affinity of OSPRay’s tasking system can now be controlled via either device parameter <code>setAffinity</code>, or commandline parameter <code>osp:setaffinity</code>, or environment variable <code>OSPRAY_SET_AFFINITY</code></li>
-<li>Changed behavior of the background color in the SciVis renderer: <code>bgColor</code> now includes alpha and is always blended (no <code>backgroundEnabled</code> anymore). To disable the background don’t set bgColor, or set it to transparent black (0, 0, 0, 0)</li>
+<li>Thread affinity of OSPRay’s tasking system can now be controlled via either device parameter <code>setAffinity</code>, or command line parameter <code>osp:setaffinity</code>, or environment variable <code>OSPRAY_SET_AFFINITY</code></li>
+<li>Changed behavior of the background color in the SciVis renderer: <code>bgColor</code> now includes alpha and is always blended (no <code>backgroundEnabled</code> anymore). To disable the background do not set <code>bgColor</code>, or set it to transparent black (0, 0, 0, 0)</li>
 <li>Geometries “<code>spheres</code>” and “<code>cylinders</code>” now support texture coordinates</li>
 <li>The GLUT- and Qt-based demo viewer applications have been replaced by an example viewer with minimal dependencies
 <ul>
@@ -387,7 +413,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Single sided lighting (enabled by default)</li>
 <li>Many new volume rendering specific features
 <ul>
-<li>Adaptive sampling to help improve the correctness of rendering high frequency volume data</li>
+<li>Adaptive sampling to help improve the correctness of rendering high-frequency volume data</li>
 <li>Pre-integration of transfer function for higher fidelity images</li>
 <li>Ambient occlusion</li>
 <li>Volumes can cast shadows</li>
@@ -545,14 +571,14 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </ul></li>
 <li>Updated Embree version to v2.7.1 with native support for Intel AVX-512 for triangle mesh surface rendering on the Intel Xeon Phi processor (codename Knights Landing)</li>
 <li>OSPRay now uses C++11 features, requiring up to date compiler and standard library versions (GCC v4.8.0)</li>
-<li>Optimization of volume sampling resulting in volume rendering speedups of up to 1.5x</li>
+<li>Optimization of volume sampling resulting in volume rendering speedups of up to 1.5×</li>
 <li>Updates to path tracer
 <ul>
 <li>Reworked material system</li>
 <li>Added texture transformations and colored transparency in OBJ material</li>
 <li>Support for alpha and depth components of framebuffer</li>
 </ul></li>
-<li>Added thinlens camera, i.e. support for depth of field</li>
+<li>Added thinlens camera, i.e., support for depth of field</li>
 <li>Tasking system has been updated to use Intel Threading Building Blocks (Intel TBB)</li>
 <li>The <code>ospGet*()</code> API calls have been deprecated and will be removed in a subsequent release</li>
 </ul>
@@ -618,10 +644,10 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Progressive refinement</li>
 <li>Support for regular grids, specified with the <code>gridOrigin</code> and <code>gridSpacing</code> parameters</li>
 <li>New <code>shared_structured_volume</code> volume type that allows voxel data to be provided by applications through a shared data buffer</li>
-<li>New API call to set subregions of volume data (<code>ospSetRegion()</code>)</li>
+<li>New API call to set (sub-)regions of volume data (<code>ospSetRegion()</code>)</li>
 </ul></li>
 <li>Added a subsampling-mode, enabled with a negative <code>spp</code> parameter; the first frame after scene changes is rendered with reduced resolution, increasing interactivity</li>
-<li>Added multi-target ISA support: OSPRay will now select the appropriate ISA at run time</li>
+<li>Added multi-target ISA support: OSPRay will now select the appropriate ISA at runtime</li>
 <li>Added support for the Stanford SEP file format to the seismic module</li>
 <li>Added <code>--osp:numthreads &lt;n&gt;</code> command line option to restrict the number of threads OSPRay creates</li>
 <li>Various bug fixes, cleanups and documentation updates throughout the codebase</li>
