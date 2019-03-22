@@ -154,6 +154,14 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.8.3">Changes in v1.8.3:</h3>
+<ul>
+<li>Fix bug where parameters set by <code>ospSet1b()</code> were being ignored</li>
+<li>Fix bug in box intersection tests possibly creating <code>NaN</code>s</li>
+<li>Fix issue with client applications calling <code>find_package(ospray)</code> more than once</li>
+<li>Fix bug in cylinder intersection when ray and cylinder are perpendicular</li>
+<li>Fix rare crash in path tracer / MultiBSDF</li>
+</ul>
 <h3 id="changes-in-v1.8.2">Changes in v1.8.2:</h3>
 <ul>
 <li>CMake bug fix where external users of OSPRay needed CMake newer than version 3.1</li>

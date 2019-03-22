@@ -650,7 +650,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Note that if <code>voxelRange</code> is not provided for a volume then OSPRay will compute it based on the voxel data, which may result in slower data updates.</p>
 <h3 id="structured-volume">Structured Volume</h3>
 <p>Structured volumes only need to store the values of the samples, because their addresses in memory can be easily computed from a 3D position. A common type of structured volumes are regular grids. OSPRay supports two variants that differ in how the volumetric data for the regular grids is specified.</p>
-<p>The first variant shares the voxel data with the application. Such a volume type is created by passing the type string “<code>shared_structured_volume</code>” to <code>ospNewVolume</code>. The voxel data is laid out in memory in xyz-order<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and provided to the volume via a <a href="#data">data</a> buffer parameter named “<code>voxelData</code>”.</p>
+<p>The first variant shares the voxel data with the application. Such a volume type is created by passing the type string “<code>shared_structured_volume</code>” to <code>ospNewVolume</code>. The voxel data is laid out in memory in xyz-order<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and provided to the volume via a <a href="#data">data</a> buffer parameter named “<code>voxelData</code>”.</p>
 <p>The second regular grid variant is optimized for rendering performance: data locality in memory is increased by arranging the voxel data in smaller blocks. This volume type is created by passing the type string “<code>block_bricked_volume</code>” to <code>ospNewVolume</code>. Because of this rearrangement of voxel data it cannot be shared the with the application anymore, but has to be transferred to OSPRay via</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb23-1" title="1">OSPError ospSetRegion(OSPVolume, <span class="dt">void</span> *source,</a>
 <a class="sourceLine" id="cb23-2" title="2">                      <span class="at">const</span> vec3i &amp;regionCoords,</a>
@@ -1511,7 +1511,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>Note that the intensity (and color) of AO is deduced from an <a href="#ambient-light">ambient light</a> in the <code>lights</code> array.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> If <code>aoSamples</code> is zero (the default) then ambient lights cause ambient illumination (without occlusion).</p>
+<p>Note that the intensity (and color) of AO is deduced from an <a href="#ambient-light">ambient light</a> in the <code>lights</code> array.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> If <code>aoSamples</code> is zero (the default) then ambient lights cause ambient illumination (without occlusion).</p>
 <p>Per default the background of the rendered image will be transparent black, i.e., the alpha channel holds the opacity of the rendered objects. This eases transparency-aware blending of the image with an arbitrary background image by the application. The parameter <code>bgColor</code> can be used to already blend with a constant background color (and alpha) during rendering.</p>
 <p>The SciVis renderer supports depth composition with images of other renderers, for example to incorporate help geometries of a 3D UI that were rendered with OpenGL. The screen-sized <a href="#texture">texture</a> <code>maxDepthTexture</code> must have format <code>OSP_TEXTURE_R32F</code> and flag <code>OSP_TEXTURE_FILTER_NEAREST</code>. The fetched values are used to limit the distance of primary rays, thus objects of other renderers can hide objects rendered by OSPRay.</p>
 <h3 id="path-tracer">Path Tracer</h3>
@@ -1604,7 +1604,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="lights">Lights</h3>
 <p>To create a new light source of given type <code>type</code> use</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb32-1" title="1">OSPLight ospNewLight3(<span class="at">const</span> <span class="dt">char</span> *type);</a></code></pre></div>
-<p>The call returns <code>NULL</code> if that type of light is not known by the renderer, or else an <code>OSPLight</code> handle to the created light source. All light sources<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> accept the following parameters:</p>
+<p>The call returns <code>NULL</code> if that type of light is not known by the renderer, or else an <code>OSPLight</code> handle to the created light source. All light sources<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> accept the following parameters:</p>
 <table>
 <caption>Parameters accepted by all lights.</caption>
 <thead>
@@ -1736,7 +1736,7 @@ div.sourceCode { overflow-x: initial; }
 </figure>
 <p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>).</p>
 <h4 id="quad-light">Quad Light</h4>
-<p>The quad<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half-space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the quad light supports the following special parameters:</p>
+<p>The quad<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half-space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight3</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the quad light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the quad light.</caption>
 <thead>
@@ -1873,7 +1873,7 @@ div.sourceCode { overflow-x: initial; }
 </figure>
 <p>If present, the color component of <a href="#geometries">geometries</a> is also used for the diffuse color <code>Kd</code> and the alpha component is also used for the opacity <code>d</code>.</p>
 <p>Note that currently only the path tracer implements colored transparency with <code>Tf</code>.</p>
-<p>Normal mapping can simulate small geometric features via the texture <code>map_Bump</code>. The normals <span class="math inline"><em>n</em></span> in the normal map are wrt. the local tangential shading coordinate system and are encoded as <span class="math inline">½(<em>n</em> + 1)</span>, thus a texel <span class="math inline">(0.5, 0.5, 1)</span><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> represents the unperturbed shading normal <span class="math inline">(0, 0, 1)</span>. Because of this encoding an sRGB gamma <a href="#texture">texture</a> format is ignored and normals are always fetched as linear from a normal map. Note that the orientation of normal maps is important for a visually consistent look: by convention OSPRay uses a coordinate system with the origin in the lower left corner; thus a convexity will look green toward the top of the texture image (see also the example image of a normal map). If this is not the case flip the normal map vertically or invert its green channel.</p>
+<p>Normal mapping can simulate small geometric features via the texture <code>map_Bump</code>. The normals <span class="math inline"><em>n</em></span> in the normal map are wrt. the local tangential shading coordinate system and are encoded as <span class="math inline">½(<em>n</em> + 1)</span>, thus a texel <span class="math inline">(0.5, 0.5, 1)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> represents the unperturbed shading normal <span class="math inline">(0, 0, 1)</span>. Because of this encoding an sRGB gamma <a href="#texture">texture</a> format is ignored and normals are always fetched as linear from a normal map. Note that the orientation of normal maps is important for a visually consistent look: by convention OSPRay uses a coordinate system with the origin in the lower left corner; thus a convexity will look green toward the top of the texture image (see also the example image of a normal map). If this is not the case flip the normal map vertically or invert its green channel.</p>
 <figure>
 <img src="images/normalmap_frustum.png" alt="Normal map representing an exalted square pyramidal frustum." style="width:60.0%" /><figcaption>Normal map representing an exalted square pyramidal frustum.</figcaption>
 </figure>
@@ -2958,13 +2958,13 @@ div.sourceCode { overflow-x: initial; }
 <p>To render a frame into the given framebuffer with the given renderer use</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb45-1" title="1"><span class="dt">float</span> ospRenderFrame(OSPFrameBuffer, OSPRenderer,</a>
 <a class="sourceLine" id="cb45-2" title="2">                     <span class="at">const</span> <span class="dt">uint32_t</span> frameBufferChannels = OSP_FB_COLOR);</a></code></pre></div>
-<p>The third parameter specifies what channel(s) of the framebuffer is written to<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. What to render and how to render it depends on the renderer’s parameters. If the framebuffer supports accumulation (i.e., it was created with <code>OSP_FB_ACCUM</code>) then successive calls to <code>ospRenderFrame</code> will progressively refine the rendered image. If additionally the framebuffer has an <code>OSP_FB_VARIANCE</code> channel then <code>ospRenderFrame</code> returns an estimate of the current variance of the rendered image, otherwise <code>inf</code> is returned. The estimated variance can be used by the application as a quality indicator and thus to decide whether to stop or to continue progressive rendering.</p>
+<p>The third parameter specifies what channel(s) of the framebuffer is written to<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. What to render and how to render it depends on the renderer’s parameters. If the framebuffer supports accumulation (i.e., it was created with <code>OSP_FB_ACCUM</code>) then successive calls to <code>ospRenderFrame</code> will progressively refine the rendered image. If additionally the framebuffer has an <code>OSP_FB_VARIANCE</code> channel then <code>ospRenderFrame</code> returns an estimate of the current variance of the rendered image, otherwise <code>inf</code> is returned. The estimated variance can be used by the application as a quality indicator and thus to decide whether to stop or to continue progressive rendering.</p>
 <h3 id="progress-and-cancel" class="unnumbered">Progress and Cancel</h3>
 <p>To be informed about the progress of rendering the current frame the application can register a callback function of type</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb46-1" title="1"><span class="kw">typedef</span> <span class="dt">int</span> (*OSPProgressFunc)(<span class="dt">void</span>* userPtr, <span class="at">const</span> <span class="dt">float</span> progress);</a></code></pre></div>
 <p>via</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb47-1" title="1"><span class="dt">void</span> ospSetProgressFunc(OSPProgressFunc, <span class="dt">void</span>* userPtr);</a></code></pre></div>
-<p>The provided user pointer <code>userPtr</code> is passed as first argument to the callback function<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> and the reported progress is in (0–1]. If the callback function returns zero than the application requests to cancel rendering, i.e., the current <code>ospRenderFrame</code> will return at the first opportunity and the content of the framebuffer will be undefined. Therefore, better clear the framebuffer with <code>ospFrameBufferClear</code> then before a subsequent call of <code>ospRenderFrame</code>.</p>
+<p>The provided user pointer <code>userPtr</code> is passed as first argument to the callback function<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> and the reported progress is in (0–1]. If the callback function returns zero than the application requests to cancel rendering, i.e., the current <code>ospRenderFrame</code> will return at the first opportunity and the content of the framebuffer will be undefined. Therefore, better clear the framebuffer with <code>ospFrameBufferClear</code> then before a subsequent call of <code>ospRenderFrame</code>.</p>
 <p>Passing <code>NULL</code> as <code>OSPProgressFunc</code> function pointer disables the progress callback.</p>
 <h1 id="parallel-rendering-with-mpi">Parallel Rendering with MPI</h1>
 <p>OSPRay has the ability to scale to multiple nodes in a cluster via MPI. This enables applications to take advantage of larger compute and memory resources when available.</p>
@@ -3198,7 +3198,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The scene graph is only thread safe for accessing and setting values on nodes. More advanced operations like adding or removing nodes are not thread safe. At some point we hope to add transactions to handle these, but for now the scene graph nodes must be added/removed on the same thread that is committing and rendering.</p>
 <h1 id="examples">Examples</h1>
 <h2 id="simple-tutorial">Simple Tutorial</h2>
-<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.c</code><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>. On Linux build it in the build directory with</p>
+<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/ospTutorial.c</code><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. On Linux build it in the build directory with</p>
 <pre><code>gcc -std=c99 ../apps/ospTutorial.c -I ../ospray/include -I .. \
 ./libospray.so -Wl,-rpath,. -o ospTutorial</code></pre>
 <p>On Windows build it in the “build_directory\$Configuration” with</p>
@@ -3264,17 +3264,17 @@ div.sourceCode { overflow-x: initial; }
 <p>Rank 0 will open an interactive window with GLFW and display the rendered image. When the application state needs to update (e.g., camera or transfer function changes), this information is broadcasted out to the other nodes to update their scene data.</p>
 <h2 id="demos">Demos</h2>
 <p>Several ready-to-run demos, models and data sets for OSPRay can be found at the <a href="https://www.ospray.org/demos.html">OSPRay Demos and Examples</a> page.</p>
-<section class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>For consecutive memory addresses the x-index of the corresponding voxel changes the quickest.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>If there are multiple ambient lights then their contribution is added<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>The <a href="#hdri-light">HDRI light</a> is an exception, it knows about <code>intensity</code>, but not about <code>color</code>.<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>actually a parallelogram<a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures<a href="#fnref5" class="footnote-back">↩</a></p></li>
-<li id="fn6"><p>This is currently not implemented, i.e., all channels of the framebuffer are always updated.<a href="#fnref6" class="footnote-back">↩</a></p></li>
-<li id="fn7"><p>That way applications can also register a member function of a C++ class together with the <code>this</code> pointer as <code>userPtr</code>.<a href="#fnref7" class="footnote-back">↩</a></p></li>
-<li id="fn8"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/ospTutorial.cpp</code>.<a href="#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>For consecutive memory addresses the x-index of the corresponding voxel changes the quickest.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn2" role="doc-endnote"><p>If there are multiple ambient lights then their contribution is added<a href="#fnref2" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn3" role="doc-endnote"><p>The <a href="#hdri-light">HDRI light</a> is an exception, it knows about <code>intensity</code>, but not about <code>color</code>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn4" role="doc-endnote"><p>actually a parallelogram<a href="#fnref4" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn5" role="doc-endnote"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures<a href="#fnref5" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn6" role="doc-endnote"><p>This is currently not implemented, i.e., all channels of the framebuffer are always updated.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn7" role="doc-endnote"><p>That way applications can also register a member function of a C++ class together with the <code>this</code> pointer as <code>userPtr</code>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn8" role="doc-endnote"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/ospTutorial.cpp</code>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩</a></p></li>
 </ol>
 </section>
 

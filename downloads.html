@@ -49,13 +49,13 @@
 <p>We recommend the latest version of both TBB and Embree libraries.</p>
 <h2 id="packages">Packages</h2>
 <p>For Linux we provide OSPRay precompiled for 64 bit as RPMs or as TGZ file.</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.8.2/ospray-1.8.2.x86_64.rpm.tar.gz">ospray-1.8.2.x86_64.rpm.tar.gz</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.8.2/ospray-1.8.2.x86_64.linux.tar.gz">ospray-1.8.2.x86_64.linux.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.8.3/ospray-1.8.3.x86_64.rpm.tar.gz">ospray-1.8.3.x86_64.rpm.tar.gz</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.8.3/ospray-1.8.3.x86_64.linux.tar.gz">ospray-1.8.3.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as an installer and as a TGZ file:</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.8.2/ospray-1.8.2.x86_64.dmg">ospray-1.8.2.x86_64.dmg</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.8.2/ospray-1.8.2.x86_64.macosx.tar.gz">ospray-1.8.2.x86_64.macosx.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.8.3/ospray-1.8.3.x86_64.dmg">ospray-1.8.3.x86_64.dmg</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.8.3/ospray-1.8.3.x86_64.macosx.tar.gz">ospray-1.8.3.x86_64.macosx.tar.gz</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an MSI installer as well as a ZIP archive:</p>
-<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.8.2/ospray-1.8.2.msi">ospray-1.8.2.msi</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.8.2/ospray-1.8.2.windows.zip">ospray-1.8.2.windows.zip</a> You may need to additionally install the <a href="https://www.microsoft.com/download/details.aspx?id=53840">x64 Microsoft<sup>*</sup> Visual C++<sup>*</sup> 2015 Redistributable</a>.</p>
+<p><a href="https://github.com/ospray/OSPRay/releases/download/v1.8.3/ospray-1.8.3.msi">ospray-1.8.3.msi</a> <a href="https://github.com/ospray/OSPRay/releases/download/v1.8.3/ospray-1.8.3.windows.zip">ospray-1.8.3.windows.zip</a> You may need to additionally install the <a href="https://www.microsoft.com/download/details.aspx?id=53840">x64 Microsoft<sup>*</sup> Visual C++<sup>*</sup> 2015 Redistributable</a>.</p>
 <p>The source code of the latest OSPRay version can be downloaded here:</p>
-<p><a href="https://github.com/ospray/OSPRay/archive/v1.8.2.zip">ospray-1.8.2.zip</a> <a href="https://github.com/ospray/OSPRay/archive/v1.8.2.tar.gz">ospray-1.8.2.tar.gz</a></p>
+<p><a href="https://github.com/ospray/OSPRay/archive/v1.8.3.zip">ospray-1.8.3.zip</a> <a href="https://github.com/ospray/OSPRay/archive/v1.8.3.tar.gz">ospray-1.8.3.tar.gz</a></p>
 <p>You can also access <a href="https://github.com/ospray/OSPRay/releases">old OSPRay releases</a>.</p>
 <h1 id="building-ospray-from-source">Building OSPRay from Source</h1>
 <p>The latest OSPRay sources are always available at the <a href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The default <code>master</code> branch should always point to the latest tested bugfix release.</p>
@@ -64,10 +64,10 @@
 <ul>
 <li><p>You can clone the latest OSPRay sources via:</p>
 <pre><code>git clone https://github.com/ospray/ospray.git</code></pre></li>
-<li>To build OSPRay you need <a href="http://www.cmake.org">CMake</a>, any form of C++11 compiler (we recommend using GCC, but also support Clang and the <a href="https://software.intel.com/en-us/c-compilers">Intel® C++ Compiler (icc)</a>), and standard Linux development tools. To build the example viewers, you should also have some version of OpenGL.</li>
-<li>Additionally you require a copy of the <a href="http://ispc.github.io">Intel® SPMD Program Compiler (ISPC)</a>, version 1.9.1 or later. Please obtain a release of ISPC from the <a href="https://ispc.github.io/downloads.html">ISPC downloads page</a>. The build system looks for ISPC in the <code>PATH</code> and in the directory right “next to” the checked-out OSPRay sources.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Alternatively set the CMake variable <code>ISPC_EXECUTABLE</code> to the location of the ISPC compiler.</li>
-<li>Per default OSPRay uses the Intel® <a href="https://www.threadingbuildingblocks.org/">Threading Building Blocks</a> (TBB) as tasking system, which we recommend for performance and flexibility reasons. Alternatively you can set CMake variable <code>OSPRAY_TASKING_SYSTEM</code> to <code>OpenMP</code>, <code>Internal</code>, or <code>Cilk</code> (icc only).</li>
-<li>OSPRay also heavily uses Intel <a href="https://embree.github.io/">Embree</a>, installing version 3.2 or newer is required. If Embree is not found by CMake its location can be hinted with the variable <code>embree_DIR</code>. NOTE: Windows users should use Embree v3.2.2 or later.</li>
+<li><p>To build OSPRay you need <a href="http://www.cmake.org">CMake</a>, any form of C++11 compiler (we recommend using GCC, but also support Clang and the <a href="https://software.intel.com/en-us/c-compilers">Intel® C++ Compiler (icc)</a>), and standard Linux development tools. To build the example viewers, you should also have some version of OpenGL.</p></li>
+<li><p>Additionally you require a copy of the <a href="http://ispc.github.io">Intel® SPMD Program Compiler (ISPC)</a>, version 1.9.1 or later. Please obtain a release of ISPC from the <a href="https://ispc.github.io/downloads.html">ISPC downloads page</a>. The build system looks for ISPC in the <code>PATH</code> and in the directory right “next to” the checked-out OSPRay sources.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Alternatively set the CMake variable <code>ISPC_EXECUTABLE</code> to the location of the ISPC compiler.</p></li>
+<li><p>Per default OSPRay uses the Intel® <a href="https://www.threadingbuildingblocks.org/">Threading Building Blocks</a> (TBB) as tasking system, which we recommend for performance and flexibility reasons. Alternatively you can set CMake variable <code>OSPRAY_TASKING_SYSTEM</code> to <code>OpenMP</code>, <code>Internal</code>, or <code>Cilk</code> (icc only).</p></li>
+<li><p>OSPRay also heavily uses Intel <a href="https://embree.github.io/">Embree</a>, installing version 3.2 or newer is required. If Embree is not found by CMake its location can be hinted with the variable <code>embree_DIR</code>. NOTE: Windows users should use Embree v3.2.2 or later.</p></li>
 <li><p>If available OSPRay’s [Example Viewer] can be compiled with support for Intel <a href="http://www.openimagedenoise.org/">Open Image Denoise</a> by enabling <code>OSPRAY_APPS_ENABLE_DENOISER</code>. You may need to hint the location of the library with the CMake variable <code>OpenImageDenoise_DIR</code>.</p></li>
 </ul>
 <p>Depending on your Linux distribution you can install these dependencies using <code>yum</code> or <code>apt-get</code>. Some of these packages might already be installed or might have slightly different names.</p>
@@ -117,15 +117,15 @@ cmake --build . --config Release</code></pre>
 <h1 id="finding-an-ospray-install-with-cmake">Finding an OSPRay install with CMake</h1>
 <p>Client applications using OSPRay can find it with CMake’s <code>find_package()</code> command. For example,</p>
 <pre><code>find_package(ospray 1.8.0 REQUIRED)</code></pre>
-<p>finds OSPRay via OSPRay’s configuration file <code>osprayConfig.cmake</code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Once found, the following is all that is required to use OSPRay:</p>
+<p>finds OSPRay via OSPRay’s configuration file <code>osprayConfig.cmake</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Once found, the following is all that is required to use OSPRay:</p>
 <pre><code>target_link_libraries(${client_target} ospray::ospray)</code></pre>
 <p>This will automatically propagate all required include paths, linked libraries, and compiler definitions to the client CMake target (either an executable or library).</p>
 <p>Advanced users may want to link to additional targets which are exported in OSPRay’s CMake config, which includes all installed modules. All targets built with OSPRay are exported in the <code>ospray::</code> namespace, therefore all targets locally used in the OSPRay source tree can be accessed from an install. For example, <code>ospray_common</code> can be consumed directly via the <code>ospray::ospray_common</code> target. All targets have their libraries, includes, and definitions attached to them for public consumption (please <a href="#ospray-support-and-contact">report bugs</a> if this is broken!).</p>
-<section class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>For example, if OSPRay is in <code>~/Projects/ospray</code>, ISPC will also be searched in <code>~/Projects/ispc-v1.9.2-linux</code><a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>This file is usually in <code>${install_location}/[lib|lib64]/cmake/ospray-${version}/</code>. If CMake does not find it automatically, then specify its location in variable <code>ospray_DIR</code> (either an environment variable or CMake variable).<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>For example, if OSPRay is in <code>~/Projects/ospray</code>, ISPC will also be searched in <code>~/Projects/ispc-v1.9.2-linux</code><a href="#fnref1" class="footnote-back" role="doc-backlink">↩</a></p></li>
+<li id="fn2" role="doc-endnote"><p>This file is usually in <code>${install_location}/[lib|lib64]/cmake/ospray-${version}/</code>. If CMake does not find it automatically, then specify its location in variable <code>ospray_DIR</code> (either an environment variable or CMake variable).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩</a></p></li>
 </ol>
 </section>
 
