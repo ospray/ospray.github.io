@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
     <title>Intel OSPRay Demos</title>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
+
   </head>
 
   <body>
@@ -12,10 +13,7 @@
         <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
-        Intel<sup>®</sup> OSPRay
-              <div id="header-subtitle">
-        A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
-      </div>
+        Intel<sup>&reg;</sup> OSPRay
       </div>
 
       <div id="header-navbar">
@@ -38,132 +36,46 @@
       <div id="content">
 
 <h1 id="ospray-demos">OSPRay Demos</h1>
-<p>This page serves as a repository for “ready-to-run” demos for OSPRay (currently, most demos are intended for OSPRay v1.8.4). If you do not yet have a version of OSPRay installed on your system, you can follow these instructions for <a href="https://www.ospray.org/downloads.html">getting OSPRay</a>.</p>
-<h2 id="sponza">Sponza</h2>
-<p><a href="demos/sponza.jpg"><img src="demos/sponza_small.jpg" /></a></p>
-<p><em>Model courtesy Carson Brownlee, Morgan McGuire, Crytek</em></p>
-<h3 id="demo-highlights">Demo Highlights</h3>
-<ul>
-<li>Crytek Sponza scene – a common scene for showcasing global illumination (model from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
-</ul>
-<h3 id="instructions">Instructions</h3>
-<ul>
-<li><em>IMPORTANT:</em> This demo currently requires a build from GitHub with <code>OSPRAY_SG_OPENIMAGEIO=ON</code></li>
-<li>Download <a href="http://www.sdvis.org/ospray/download/demos/crytek-sponza.tgz">crytek-sponza.tgz</a> and <a href="http://www.pauldebevec.com/Probes/rnl_probe.pfm" title="RNL Light Probe Image">light probe</a> in pfm-format.</li>
-<li>Run via<br />
-<code>./ospExampleViewer [path/to/sponza.obj] -vp 667.492554 186.974228 76.008301 -vu 0.000000 1.000000 0.000000 -vi 84.557503 188.199417 -38.148270 -r pt -sg:sun:direction=-.3,-1,.1 -sg:sun:intensity=12 --hdri-light [path/to/rnl_probe.pfm]</code></li>
-</ul>
+<p>This page serves as a repository for “ready-to-run” demos for OSPRay (currently, most demos are intended for OSPRay v1.8.5). If you do not yet have a version of OSPRay installed on your system, you can follow these instructions for <a href="https://www.ospray.org/downloads.html">getting OSPRay</a>.</p>
 <h2 id="san-miguel">San Miguel</h2>
 <p><a href="demos/san-miguel.jpg"><img src="demos/san-miguel_small.jpg" /></a></p>
 <p><em>Model courtesy Carson Brownlee, Morgan McGuire, Guillermo M. Leal Llaguno</em></p>
-<h3 id="demo-highlights-1">Demo Highlights</h3>
+<h3 id="demo-highlights">Demo Highlights</h3>
 <ul>
 <li>A quaint cafe in San Miguel’s historic district. This is a common scene for showcasing global illumination. (Model from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
 </ul>
-<h3 id="instructions-1">Instructions</h3>
+<h3 id="instructions">Instructions</h3>
 <ul>
 <li><em>IMPORTANT:</em> This demo currently requires a build from GitHub with <code>OSPRAY_SG_OPENIMAGEIO=ON</code></li>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/sanm.zip">sanm.zip</a> and <a href="http://www.pauldebevec.com/Probes/rnl_probe.pfm" title="RNL Light Probe Image">light probe</a> in pfm-format.</li>
 <li>Run via<br />
 <code>./ospExampleViewer [path/to/sanm.obj] -vp 22.958788 3.204613 2.712676 -vu 0.000000 1.000000 0.000000 -vi 12.364944 0.176316 4.009342 -sg:sun:intensity=4.0 -sg:sun:direction=0,-1,0 -sg:bounce:intensity=0.0 --hdri-light [path/to/rnl_probe.pfm] -sg:hdri:intensity=1.25 -r pt</code></li>
 </ul>
-<h2 id="sibenik-cathedral">Sibenik Cathedral</h2>
-<p><a href="demos/sibenik.jpg"><img src="demos/sibenik_small.jpg" /></a></p>
-<p><em>Model courtesy Morgan McGuire, Kenzie Lamar, Aleksander Stompel</em></p>
-<h3 id="demo-highlights-2">Demo Highlights</h3>
-<ul>
-<li>A large cathedral model commonly used for showcasing global illumination. (Original model from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
-</ul>
-<h3 id="instructions-2">Instructions</h3>
-<ul>
-<li><em>IMPORTANT:</em> This demo currently requires a build from GitHub with <code>OSPRAY_SG_OPENIMAGEIO=ON</code></li>
-<li>Download <a href="http://www.sdvis.org/ospray/download/demos/sibenik.tgz">sibenik.tgz</a> and <a href="http://www.pauldebevec.com/Probes/rnl_probe.pfm" title="RNL Light Probe Image">light probe</a> in pfm-format.</li>
-<li>Run via<br />
-<code>./ospExampleViewer sibenik.obj -vp -17.734447 -13.788272 3.443677 -vu 0.000000 1.000000 0.000000 -vi -2.789550 -10.993323 0.331822</code></li>
-</ul>
-<h2 id="animated-woody">Animated Woody</h2>
-<p><a href="demos/sponza_animated.jpg"><img src="demos/sponza_animated_small.jpg" /></a></p>
-<p><em>Model courtesy Carson Brownlee, Ingo Wald, Morgan McGuire, Crytek</em></p>
-<h3 id="demo-highlights-3">Demo Highlights</h3>
-<ul>
-<li>Animated Wooden Doll walking in the Sponza model (from <a href="http://graphics.cs.williams.edu/data/meshes.xml" title="McGuire, Computer Graphics Archive, Aug 2011">McGuire Graphics Data</a>).</li>
-</ul>
-<h3 id="instructions-3">Instructions</h3>
-<ul>
-<li><em>IMPORTANT:</em> This demo currently requires a build from GitHub with <code>OSPRAY_SG_OPENIMAGEIO=ON</code></li>
-<li>Download <a href="http://www.sdvis.org/ospray/download/demos/crytek-sponza.tgz">crytek-sponza.tgz</a> and <a href="http://www.sdvis.org/ospray/download/demos/wooddoll.tgz">wooddoll.tgz</a>.</li>
-<li>Run via<br />
-<code>./ospExampleViewer [path/to/crytek-sponza/sponza.obj] --renderer scivis -sun:direction=-.3,-1,-.04 -sg:sun:intensity=3 -vp 667.492554 186.974228 76.008301 -vu 0.000000 1.000000 0.000000 -vi 84.557503 188.199417 -38.148270 --translate 250 -11 0 --scale 300 300 300 --animation [path/to/wooddoll/wooddoll*.obj] -sg:aoSamples=0</code></li>
-<li>Controls: +/- increase and decrease animation speed. Space bar pauses.</li>
-</ul>
 <h2 id="magnetic-reconnection-volume-rendered">“Magnetic Reconnection” Volume Rendered</h2>
 <p><a href="demos/MagneticReconnection/magnetic-512-volume.png"><img src="demos/MagneticReconnection/magnetic-512-volume-thumbnail.jpg" /></a></p>
 <p><em>Model courtesy Bill Daughton (LANL) and Berk Geveci (KitWare). Please acknowledge via <a href="http://arxiv.org/abs/1405.4040">this paper</a>.</em></p>
-<h3 id="demo-highlights-4">Demo Highlights</h3>
+<h3 id="demo-highlights-1">Demo Highlights</h3>
 <ul>
 <li>Volume rendering of the 512<sup>3</sup> Magnetic Reconnection volume data.</li>
 <li>Rendered using OSPRay’s ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
 </ul>
-<h3 id="instructions-4">Instructions</h3>
+<h3 id="instructions-1">Instructions</h3>
 <ul>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/MagneticReconnection/magnetic-512-volume.tar.bz2">magnetic-512-volume.tar.bz2</a>.</li>
 <li>Run via<br />
-<code>./ospExampleViewerSg magnetic-512-volume.osp</code></li>
-</ul>
-<h2 id="m-triangle-richtmyer-meshkov-iso-surface">290M triangle “Richtmyer-Meshkov” Iso-Surface</h2>
-<p><a href="demos/llnl-250/llnl-250.png"><img src="demos/llnl-250/llnl-250-small.png" /></a></p>
-<p><em>Model courtesy Lawrence-Livermore National Labs (LLNL).</em></p>
-<h3 id="demo-highlights-5">Demo Highlights</h3>
-<ul>
-<li>Iso-surface of the 2048<sup>3</sup> Richtmyer-Meshkov Instability simulation performed by LLNL, iso-surface extracted through ParaView.</li>
-<li>Detailed iso-surface has 290 million triangles.</li>
-<li>Rendered using OSPRay’s Ambient Occlusion renderer (<code>ao4</code>).</li>
-</ul>
-<h3 id="instructions-5">Instructions</h3>
-<ul>
-<li>Download <a href="http://www.sdvis.org/ospray/download/demos/LLNLRichtmyerMeshkov/llnl-2048-iso.tar.bz2">llnl-2048-iso.tar.bz2</a>.</li>
-<li>Run via<br />
-<code>./ospExampleViewer llnl-2048-iso.xml</code></li>
-</ul>
-<h2 id="csafe-heptane-gas-data-set">CSAFE Heptane Gas Data Set</h2>
-<p><a href="demos/CSAFEHeptane/csafe-heptane-302-volume.png"><img src="demos/CSAFEHeptane/csafe-heptane-302-volume-thumbnail.jpg" /></a></p>
-<p><em>Model courtesy of the Center for the Simulation of Accidental Fires and Explosions (CSAFE) at the Scientific Computing and Imaging Institute (SCI), University of Utah.</em></p>
-<h3 id="demo-highlights-6">Demo Highlights</h3>
-<ul>
-<li>Volume rendering of a 302<sup>3</sup> data set containing a single time step from a computational simulation of the combustion of heptane gas.</li>
-<li>Rendered using OSPRay’s ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
-</ul>
-<h3 id="instructions-6">Instructions</h3>
-<ul>
-<li>Download <a href="http://www.sdvis.org/ospray/download/demos/CSAFEHeptane/csafe-heptane-302-volume.tar.bz2">csafe-heptane-302-volume.tar.bz2</a>.</li>
-<li>Run via<br />
-<code>./ospExampleViewerSg csafe-heptane-302-volume.osp</code></li>
-</ul>
-<h2 id="tacc-isotropic-turbulence-volume-rendered">“TACC Isotropic Turbulence” Volume Rendered</h2>
-<p><a href="demos/TACCIsotropicTurbulence/tacc-turbulence-256-volume.png"><img src="demos/TACCIsotropicTurbulence/tacc-turbulence-256-volume-thumbnail.jpg" /></a></p>
-<p><em>Model courtesy of the Texas Advanced Computing Center (TACC), Texas A&amp;M University, and Georgia Tech.</em></p>
-<h3 id="demo-highlights-7">Demo Highlights</h3>
-<ul>
-<li>Volume rendering of a 256<sup>3</sup> data set containing a single time step from a computational simulation of isotropic turbulence.</li>
-<li>Rendered using OSPRay’s ray cast volume renderer (<code>raycast_volume_renderer</code>).</li>
-</ul>
-<h3 id="instructions-7">Instructions</h3>
-<ul>
-<li>Download <a href="http://www.sdvis.org/ospray/download/demos/TACCIsotropicTurbulence/tacc-turbulence-256-volume.tar.bz2">tacc-turbulence-256-volume.tar.bz2</a>.</li>
-<li>Run via<br />
-<code>./ospExampleViewerSg tacc-turbulence-256-volume.osp</code></li>
+<code>./ospExampleViewer magnetic-512-volume.osp</code></li>
 </ul>
 <h2 id="fiu-ground-water-simulation">“FIU” Ground Water Simulation</h2>
 <p><a href="demos/fiu/fiu-ao.png"><img src="demos/fiu/fiu-ao-small.jpg" /></a></p>
 <p><em>Model courtesy Texas Advanced Computing Center (TACC) and Florida International University. Please obtain TACC/FIU’s permission before using this model.</em></p>
-<h3 id="demo-highlights-8">Demo Highlights</h3>
+<h3 id="demo-highlights-2">Demo Highlights</h3>
 <ul>
 <li>Data set captured from VTK-based ParaView through TACC’s GLURay tool.</li>
 <li>Streamlines in this data set are actually tessellated. OSPRay could do them natively, but ParaView tessellates internally.</li>
 <li>Model size roughly 8 million triangles</li>
 <li>Rendered via OSPRay’s Ambient Occlusion based renderer. To see a comparison with/without Ambient occlusion, <a href="fiu_comparison.html">see this page</a>.</li>
 </ul>
-<h3 id="instructions-8">Instructions</h3>
+<h3 id="instructions-2">Instructions</h3>
 <ul>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/FIUGroundWater/fiu-groundwater.tar.bz2">fiu-groundwater.tar.bz2</a>.</li>
 <li>Run via<br />
@@ -174,13 +86,13 @@
 <h2 id="xfrog-forest---a-1.7-billion-triangle-forest-model">“XFrog Forest” - A 1.7 billion triangle forest model</h2>
 <p><a href="demos/xfrog/xfrog.png"><img src="demos/xfrog/xfrog-small.jpg" /></a></p>
 <p><em>Model courtesy Oliver Deussen, University of Konstanz; modeled via the <a href="http://www.xfrog.com">XFrog</a> tool. Please acknowledge accordingly when using this model.</em></p>
-<h3 id="demo-highlights-9">Demo Highlights</h3>
+<h3 id="demo-highlights-3">Demo Highlights</h3>
 <ul>
 <li>1.7 billion triangles (377,266 instances of 69 different kinds of plants, for a total of 1,679,235,546 triangles after instantiation).</li>
 <li>Additional detail through high-resolution alpha “stencil” textures to stencil detailed leaf shapes out of already highly detailed geometry.</li>
 <li>Requires many rays per pixel to handle the (high!) number of transparency layers.</li>
 </ul>
-<h3 id="instructions-9">Instructions</h3>
+<h3 id="instructions-3">Instructions</h3>
 <ul>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/XFrogForest/xfrog-forest.tar.bz2">xfrog-forest.tar.bz2</a>.</li>
 <li>Run via<br />
@@ -189,13 +101,13 @@
 <h2 id="nasa-streamlines">“NASA Streamlines”</h2>
 <p><a href="demos/nasa-streamlines/nasa-streamlines.png"><img src="demos/nasa-streamlines/nasa-streamlines-small.jpg" /></a></p>
 <p><em>Model courtesy Timothy Sandstrom, NASA.</em></p>
-<h3 id="demo-highlights-10">Demo Highlights</h3>
+<h3 id="demo-highlights-4">Demo Highlights</h3>
 <ul>
 <li>Model of a magnetic field on the sun, visualized through a attribute-mapped iso-surface of the B-field, plus a set of streamlines.</li>
 <li>The streamlines are not tessellated, but OSPRay’s actual “<code>streamlines</code>” primitive (essentially, a set of smoothly connected cylinders), which makes for a memory-efficient representation.</li>
 <li>Ambient occlusion greatly helps in understanding the shape of the streamlines (when rendered with local-only shading, it looks like a “lint ball”).</li>
 </ul>
-<h3 id="instructions-10">Instructions</h3>
+<h3 id="instructions-4">Instructions</h3>
 <ul>
 <li>Download <a href="http://www.sdvis.org/ospray/download/demos/NASA-B-field-sun/NASA-B-field-sun.osx">NASA-B-field-sun.osx</a>.</li>
 <li>Run via<br />

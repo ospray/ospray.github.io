@@ -4,6 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
     <title>Intel OSPRay</title>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
+
+<!-- for teaser carousel -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -12,10 +17,7 @@
         <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
-        Intel<sup>®</sup> OSPRay
-              <div id="header-subtitle">
-        A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
-      </div>
+        Intel<sup>&reg;</sup> OSPRay
       </div>
 
       <div id="header-navbar">
@@ -38,101 +40,151 @@
       <div id="content">
 
 <div class="title">
-<h1>
-Intel<sup>®</sup> OSPRay
-</h1>
 <h2>
-A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
+The Open, Scalable, and Portable Ray Tracing Engine
 </h2>
 </div>
 <hr>
-<div class="teaser-img">
-<div class="fadein">
-<img id="f1" src="images/rm_volume.jpg"> <img id="f2" class="fade" src="images/rm_volume_ao_shadows.jpg">
+<div id="demo" class="carousel slide" data-ride="carousel">
+<!-- Indicators -->
+<ul class="carousel-indicators">
+<li data-target="#demo" data-slide-to="0" class="active">
+</li>
+<li data-target="#demo" data-slide-to="1">
+</li>
+<li data-target="#demo" data-slide-to="2">
+</li>
+<li data-target="#demo" data-slide-to="3">
+</li>
+<li data-target="#demo" data-slide-to="4">
+</li>
+<li data-target="#demo" data-slide-to="5">
+</li>
+</ul>
+<div class="carousel-inner">
+<div class="carousel-item active">
+<img src="images/teaser_moana.jpg">
+<div class="carousel-caption">
+<h3>
+Render massive scenes interactively
+</h3>
+<p>
+Disney’s Moana Island Scene: over 15 billion instanced primitives rendered interactively
+</p>
 </div>
-<!-- do not change formatting here! -->
 </div>
-<script type="text/javascript">
-el=document.getElementById("f2");
-el.addEventListener("click", function(e) {
- e.preventDefault;
- el.classList.remove("fade");
- void el.offsetWidth;
- el.classList.add("fade");
-}, false);
-</script>
+<div class="carousel-item">
+<img src="images/teaser_rm.jpg">
+<div class="carousel-caption">
+<h3>
+Feature rich, large-scale volume visualization
+</h3>
+<p>
+Richtmyer–meshkov volume shown with shadows and ambient occlusion
+</p>
+</div>
+</div>
+<div class="carousel-item">
+<img src="images/teaser_materials.jpg">
+<div class="carousel-caption">
+<h3>
+Physically-based materials
+</h3>
+<p>
+OSPRay’s path tracer supports physically-based materials and a common principled material
+</p>
+</div>
+</div>
+<div class="carousel-item">
+<img src="images/teaser_hdospray.jpg">
+<div class="carousel-caption">
+<h3>
+USD Hydra Integration
+</h3>
+<p>
+Gramophone rendered in Pixar’s usdview
+</p>
+</div>
+</div>
+<div class="carousel-item">
+<img src="images/teaser_clouds.jpg">
+<div class="carousel-caption">
+<h3>
+Integrations in VTK, ParaView, VisIt, and more
+</h3>
+<p>
+DKRZ weather data rendered with shadows inside ParaView
+</p>
+</div>
+</div>
+<div class="carousel-item">
+<img src="images/teaser_cosmos.jpg">
+<div class="carousel-caption">
+<h3>
+Directly render unstructured and AMR volumes
+</h3>
+<p>
+AMR volume rendered without resampling inside ParaView
+</p>
+</div>
+</div>
+</div>
+<!-- Left and right controls -->
+<a class="carousel-control-prev" href="#demo" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#demo" data-slide="next"> <span class="carousel-control-next-icon"></span> </a>
+</div>
 <hr>
 <div class="teaser-features">
 <div class="feature">
-<img src="images/heptane_bubbly_osp.jpg">
 <div class="container">
 <h2>
 Interactive CPU Rendering
 </h2>
 <p>
-OSPRay features interactive CPU rendering capabilities geared toward Scientific Visualization applications. Advanced shading effects such as Ambient Occlusion, shadows, and transparency can be rendered interactively, enabling new insights into data exploration.
+OSPRay features scalable CPU rendering capabilities geared toward Scientific Visualization applications. Advanced shading effects such as ambient occlusion, shadows, and transparency can be rendered interactively to enable new insights into huge data.
 </p>
 </div>
 </div>
 <div class="feature feature-alt">
-<img src="images/mag_pt.jpg">
 <div class="container">
 <h2>
 Global Illumination
 </h2>
 <p>
-OSPRay includes a path tracer capable of interactively rendering photorealistic global illumination.
+OSPRay includes a path tracer capable of interactively rendering photorealistic global illumination with phyiscally-based materials.
 </p>
 </div>
 </div>
 <div class="feature">
-<img src="images/rm_volume2.jpg">
 <div class="container">
 <h2>
 Volume Rendering
 </h2>
 <p>
-OSPRay supports high-fidelity interactive direct volume rendering with a number of state of the art features.
+OSPRay supports high-fidelity, interactive direct volume rendering with a number of state of the art visualization features.
 </p>
 </div>
 </div>
 <div class="feature feature-alt">
-<img src="images/dns_small.jpg">
 <div class="container">
 <h2>
 MPI Distributed
 </h2>
 <p>
-Run on large scale distributed-memory systems with a high-performance MPI backend. Shown is a 450GB direct numerical simulation data set running interactively at TACC’s Maverick cluster.
+Run on large scale distributed-memory systems with high-performance MPI backends to both decrease render time and increase total scene size.
 </p>
 </div>
 </div>
 <div class="feature">
-<a href="displaywall.html"> <img src="gallery/ospray_stallion-thumb.jpg">
 <div class="container">
 <h2>
-Display Walls
+Industry Adoption
 </h2>
 <p>
-OSPRay parallel rendering on TACC’s “Stallion” display wall.
+OSPRay is directly integrated into ParaView 5.x. Implementations for VisIt, VMD, and other popular tools have also freely available.
 </p>
 </div>
-<p></a></p>
 </div>
 <div class="feature feature-alt">
-<a href="pvospray.html"> <img src="related_projects/vtk-paraview/screenshot-paraview-fiu-thumb.jpg">
-<div class="container">
-<h2>
-ParaView
-</h2>
-<p>
-OSPRay is directly integrated into ParaView 5.x. Implementations for VisIt, VMD, and other popular tools have also been developed.
-</p>
-</div>
-<p></a></p>
-</div>
-<div class="feature">
-<img src="images/code.jpg">
 <div class="container">
 <h2>
 Open Source
@@ -142,11 +194,9 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </p>
 </div>
 </div>
-<p/>
-<hr>
 </div>
 <h1 id="ospray-overview">OSPRay Overview</h1>
-<p>Intel® OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel Rendering Framework</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
+<p>Intel OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel Rendering Framework</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
 <p>OSPRay internally builds on top of <a href="https://embree.github.io/">Intel Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel SPMD Program Compiler)</a>, and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
@@ -154,6 +204,13 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v1.8.5">Changes in v1.8.5:</h3>
+<ul>
+<li>Fix float precision cornercase (<code>NaN</code>s) in sphere light sampling</li>
+<li>Fix CMake bug that assumed <code>.git</code> was a directory, which is not true when using OSPRay as a git submodule</li>
+<li>Fix CMake warning</li>
+<li>Fix DLL_EXPORT issue with <code>ospray_testing</code> helper library on Windows</li>
+</ul>
 <h3 id="changes-in-v1.8.4">Changes in v1.8.4:</h3>
 <ul>
 <li>Add location of <code>libospray</code> to paths searched to find modules</li>

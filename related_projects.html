@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
     <title>Intel OSPRay &ndash; RelatedProjects</title>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
+
   </head>
 
   <body>
@@ -12,10 +13,7 @@
         <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
-        Intel<sup>®</sup> OSPRay
-              <div id="header-subtitle">
-        A Ray Tracing Based Rendering Engine for High-Fidelity Visualization
-      </div>
+        Intel<sup>&reg;</sup> OSPRay
       </div>
 
       <div id="header-navbar">
@@ -40,23 +38,28 @@
 <h1 id="projects-that-make-use-of-ospray">Projects that make use of OSPRay</h1>
 <p>This page gives a brief (and incomplete) list of other projects that make use of OSPRay, as well as a set of related links to other projects and related information.</p>
 <p>If you have a project that makes use of OSPRay and would like this to be listed here, please let us know.</p>
-<h2 id="ballview">BALLView</h2>
-<p><a href="related_projects/ballview/ballview.jpg"><img src="related_projects/ballview/ballview.jpg" /></a></p>
-<p><a href="http://bio.informatik.uni-mainz.de/members/andreas.hildebrandt">Prof Andreas Hildebrandt</a>, head of the <a href="http://bio.informatik.uni-mainz.de/">Software Engineering and Bioinformatics group</a> at the University of Mainz is currently creating an OSPRay rendering module for their <a href="http://www.ballview.org/">BALLView</a> package, a standalone molecular modeling and visualization application for the “BALL” Biochemical Algorithm Library.</p>
-<h2 id="gluray">GLuRay</h2>
-<p><a href="https://tacc.github.io/GLuRay/$"><img src="images/GLuRayPage.jpg" /></a></p>
-<p><a href="https://tacc.github.io/GLuRay/$">GLuRay</a> OpenGL to Ray Tracing Mapper</p>
-<h2 id="pvospray-a-ospray-plugin-to-paraviewvtkx">pvOSPRay: A OSPRay Plugin to ParaView/VTKx</h2>
-<p><a href="related_projects/vtk-paraview/screenshot-paraview-fiu.jpg"><img src="related_projects/vtk-paraview/screenshot-paraview-fiu-thumb.jpg" /></a></p>
-<p>The Remote Visualization Group at the <a href="https://www.tacc.utexas.edu/">Texas Advanced Computing Center</a> (TACC) is building and maintaining OSPRay plugins for ParaView, VisIt, and VTK. The <a href="pvospray.html">screenshot supplied here</a> shows a working version of ParaView, rendering a non-trivial model through OSPRay. All three OSPRay plugins are hosted on TACC’s github pages: <a href="https://github.com/TACC/pvOSPRay">pvOSPRay</a> for the ParaView module, <a href="https://github.com/TACC/visitOSPRay">visitOSPRay</a> for the VisIt module, and <a href="https://github.com/TACC/vtkOSPRay">vtkOSPRay</a> for the base VTK module.</p>
+<h2 id="vtk-paraview-and-visit">VTK, ParaView and VisIt</h2>
+<p><img src="images/teaser_clouds.jpg" /> VTK and Paraview 5.x+ have direct integrations for OSPRay rendering, as has <a href="https://wci.llnl.gov/simulation/computer-codes/visit">VisIt 3.x+</a>. Code and documentation are available on Kitware’s instance of <a href="https://gitlab.kitware.com/paraview/paraview">GitLab</a>. Furthermore, interested users can also access Kitware’s <a href="https://www.paraview.org/Wiki/Intel_HPC_Dev_Con_ParaView_and_OSPRay_Tutorial">tutorial on using OSPRay</a>. For information on using the path tracer inside ParaView, see <a href="https://blog.kitware.com/virtual-tour-and-high-quality-visualization-with-paraview-5-6-ospray/">this Kitware blog post</a>.</p>
+<h2 id="hdospray">HdOSPRay</h2>
+<p><img src="images/teaser_hdospray.jpg" /> HdOSPRay is a rendering plugin for the Hydra rendering layer in USD. For more information see the project’s <a href="https://github.com/ospray/hdospray">page on GitHub</a>.</p>
+<h2 id="tapestry">Tapestry</h2>
+<p><img src="images/teaser_tapestry.png" /> Tapestry is a microservice for delivering scientific visualization on the cloud. With OSPRay, Tapestry can provide interactive visualization of large datasets accessible to many users throughout the web ecosystem. See the <a href="https://seelabutk.github.io/tapestry/">demo page</a> and the project’s <a href="https://github.com/seelabutk/tapestry">page on GitHub</a> for more information.</p>
+<h2 id="megamol">Megamol</h2>
+<p><a href="https://megamol.org/2018/07/02/megamol-at-isc-2018/">Megamol</a> is a molecular dynamics framework. With OSPRay, it can render billions of particles interactively.</p>
+<h2 id="vestec">VESTEC</h2>
+<p><a href="https://vestec-project.eu/"><img src="images/VESTEC-Logo-web.png" alt="VESTEC" style="display:inline" /></a></p>
+<p><a href="https://vestec-project.eu/">VESTEC</a> – Visual Exploration and Sampling Toolkit for Extreme Computing – is an European funded project that builds a flexible toolchain to combine multiple data sources, efficiently extract essential features, enable flexible scheduling and interactive supercomputing, and realize 3D visualization environments (partly using OSPRay) for interactive explorations by stakeholders and decision makers.</p>
+<h2 id="vmd">VMD</h2>
+<p>VMD is a popular molecular dynamics visualization package, where OSPRay is integrated as one its renderers. For more information see VMD’s <a href="https://www.ks.uiuc.edu/Research/vmd/current/">release notes</a>.</p>
 <h2 id="stingray">StingRay</h2>
-<p><a href="related_projects/stingray/stingray.jpg"><img src="related_projects/stingray/stingray.jpg" /></a></p>
-<p>SURVICE Engineering’s <a href="http://www.rtvtk.org/~cgribble/research/papers/gribble14high.pdf">“StingRay” toolkit</a> makes use of Embree for simulating radio frequency, and uses OSPRay for visualizing the results.</p>
+<p><img src="images/stingray.jpg" /> SURVICE Engineering’s <a href="http://www.rtvtk.org/~cgribble/research/papers/gribble14high.pdf">“StingRay” toolkit</a> makes use of Embree for simulating radio frequency, and uses OSPRay for visualizing the results.</p>
 <h1 id="projects-that-are-closely-related-to-ospray">Projects that are closely related to OSPRay</h1>
 <ul>
-<li>The <a href="http://embree.github.io">Embree</a> Ray Tracing Kernel Framework</li>
-<li>The <a href="http://ispc.github.io">Intel® SPMD Program Compiler</a> (ISPC)</li>
-<li>OSPRay’s “sister project” is <a href="http://OpenSWR.github.io">OpenSWR</a> (<strong>o</strong>pen <strong>s</strong>oft<strong>w</strong>are <strong>r</strong>asterizer), a new high-performance, highly-scalable, software OpenGL implementation that runs on host CPUs.</li>
+<li><a href="https://github.com/ospray/ospray_studio">OSPRay Studio</a> is the OSPRay team’s lightweight visualization application used to showcase the latest features of OSPRay. <img src="images/ospray_studio_dlaf.jpg" /></li>
+<li>The Intel® <a href="https://embree.github.io/">Embree</a> Ray Tracing Kernel Framework</li>
+<li>Intel <a href="http://www.openimagedenoise.org/">Open Image Denoise</a>, a high-performance denoising library</li>
+<li>OSPRay’s “sister project” <a href="http://openswr.org/">OpenSWR</a> (<strong>o</strong>pen <strong>s</strong>oft<strong>w</strong>are <strong>r</strong>asterizer), a high-performance, highly-scalable, software OpenGL implementation that runs entirely on CPUs. OpenSWR is now included in <a href="http://mesa3d.org/">Mesa</a>.</li>
+<li>The <a href="http://ispc.github.io">Intel SPMD Program Compiler</a> (ISPC)</li>
 </ul>
 
       </div>
