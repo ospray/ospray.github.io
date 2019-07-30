@@ -6,9 +6,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
 
 <!-- for teaser carousel -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/popper.min.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -196,7 +196,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </div>
 </div>
 <h1 id="ospray-overview">OSPRay Overview</h1>
-<p>Intel OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel Rendering Framework</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
+<p>Intel OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel oneAPI Rendering Toolkit</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
 <p>OSPRay internally builds on top of <a href="https://embree.github.io/">Intel Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel SPMD Program Compiler)</a>, and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
@@ -209,7 +209,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Fix float precision cornercase (<code>NaN</code>s) in sphere light sampling</li>
 <li>Fix CMake bug that assumed <code>.git</code> was a directory, which is not true when using OSPRay as a git submodule</li>
 <li>Fix CMake warning</li>
-<li>Fix DLL_EXPORT issue with <code>ospray_testing</code> helper library on Windows</li>
+<li>Fix <code>DLL_EXPORT</code> issue with <code>ospray_testing</code> helper library on Windows</li>
 </ul>
 <h3 id="changes-in-v1.8.4">Changes in v1.8.4:</h3>
 <ul>
