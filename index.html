@@ -23,12 +23,10 @@
       <div id="header-navbar">
         <ul>
           <li id="selected"><a href="index.html">Overview</a></li>
-	  <li><a href="news.html">News</a></li>
-	  <li><a href="demos.html">Demos</a></li>
-	  <li><a href="documentation.html">Documentation</a></li>
-	  <li><a href="gallery.html">Gallery</a></li>
 	  <li><a href="downloads.html">Downloads</a></li>
-	  <li><a href="https://github.com/ospray/OSPRay/wiki">Wiki</a></li>
+	  <li><a href="documentation.html">Documentation</a></li>
+	  <li><a href="examples.html">Examples</a></li>
+	  <li><a href="gallery.html">Gallery</a></li>
 	  <li><a href="https://github.com/ospray/OSPRay/issues">Bugs/Issues</a></li>
 	  <li><a href="related_projects.html">Related Projects</a></li>
 	</ul>
@@ -204,6 +202,70 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v2.0.0">Changes in v2.0.0:</h3>
+<ul>
+<li>New major revision of OSPRay brings API breaking improvements over v1.x. See <code>doc/ospray2_porting_guide.md</code> for a deeper description of migrating from v1.x to v2.0 and <code>doc/api.md</code> for the latest API documentation
+<ul>
+<li><code>ospRenderFrame</code> now takes all participating objects as function parameters instead of setting some as renderer params</li>
+<li><code>ospRenderFrame</code> is now asynchronous, where the task is managed through a returned <code>OSPFuture</code> handle</li>
+<li>The heirarchy of objets in a scene are now more granular to aid in scene construction flexibility and reduce potential object duplication</li>
+<li>Type-specific parameter setting functions have been consolidated into a single <code>ospSetParam</code> API call</li>
+<li>C++ wrappers found in <code>ospray_cpp.h</code> now automatically track handle lifetimes, therefore applications using them do not need to use <code>ospRelease</code> (or the new <code>ospRetain</code>) with them: see usage example in <code>apps/tutorials/ospTutorial.cpp</code></li>
+<li>Unused parameters are reported as status messages when <code>logLevel</code> is &gt;= 1 (most easily set by enabling OSPRay debug on initialization)</li>
+</ul></li>
+<li>New utility library which adds functions to help with new API migration and reduction of boilerplate code
+<ul>
+<li>Use <code>ospray_util.h</code> to access these additional functions</li>
+<li>All utility functions are implemented in terms of the core API found in <code>ospray.h</code>, therefore they are compatible with any device backend</li>
+</ul></li>
+<li>Introduction of new Intel® Open Volume Kernel Library (Open VKL) for greatly enhanced volume sampling and rendering features and performance</li>
+<li>Added direct support for Intel® Open Image Denoise as an optional module, which adds a <code>denoiser</code> type to <code>ospNewImageOperation</code></li>
+<li>OSPRay now requires minimum Embree v3.7.0</li>
+<li>New CMake superbuild available to build both OSPRay’s dependencies and OSPRay itself
+<ul>
+<li>Found in <code>scripts/superbuild</code></li>
+<li>See documentation for more details and example usage</li>
+</ul></li>
+<li>The <code>ospcommon</code> library now lives as a stand alone repository and is required to build OSPRay</li>
+<li>The MPI module is now a separate repository, which also contains all MPI distributed rendering documentation</li>
+<li>Log levels are now controled with enums and named strings (where applicable)
+<ul>
+<li>A new flag was also introduced which turns all OSP_LOG_WARNING messages into errors, which are submitted to the error callback instead of the message callback</li>
+<li>Any unused parameters an object ignores now emit a warning message</li>
+</ul></li>
+<li>New support for volumes in the <code>pathtracer</code>
+<ul>
+<li>Several parameters are available for performance/quality trade-offs for both photo-realistic and scientific visualization use cases</li>
+</ul></li>
+<li>Simplification of the SciVis renderer
+<ul>
+<li>Fixed AO lighting and simple ray marched volume rendering for ease of use and performance</li>
+</ul></li>
+<li>Overlapping volumes are now supported in both the <code>pathtracer</code> and <code>scivis</code> renderers</li>
+<li>New API call for querying the bounds of objects (<code>OSPWorld</code>, <code>OSPInstance</code>, and <code>OSPGroup</code>)</li>
+<li>Lights now exist as a parameter to the world instead of the renderer</li>
+<li>Removal of <code>slices</code> geometry. Instead, any geometry with volume texture can be used for slicing</li>
+<li>Introduction of new <code>boxes</code> geometry type</li>
+<li>Expansion of information returned by <code>ospPick</code></li>
+<li>Addition of API to query version information at runtime</li>
+<li>Curves now supports both, per vertex varying radii as in <code>vec4f[] vertex.position_radius</code> and constant radius for the geometry with <code>float radius</code>. It uses <code>OSP_ROUND</code> type and <code>OSP_LINEAR</code> basis by default to create the connected segments of constant radius. For per vertex varying radii curves it uses Embree curves.</li>
+<li>Add new Embree curve type <code>OSP_CATMULL_ROM</code> for curves</li>
+<li>Minimum required Embree version is now 3.7.0</li>
+<li>Removal of <code>cylinders</code> and <code>streamlines</code> geometry, use <code>curves</code> instead</li>
+<li>Triangle mesh and Quad mesh are superseded by the <code>mesh</code> geometry</li>
+<li>Applications need to use the various error reporting methods to check wether the creation (via <code>ospNew...</code>) of objects failed; a returned <code>NULL</code> is not a special handle anymore to signify an error</li>
+<li>Changed module init methods to facilitate version checking: <code>extern "C" OSPError ospray_module_init_&lt;name&gt;(int16_t versionMajor, int16_t versionMinor, int16_t versionPatch)</code></li>
+<li>The <code>map_backplate</code> texture is supported in all renderers and does not hide lights in infinity (like the HDRI light) anymore; explicitely make lights in<code>visible</code> if this is needed</li>
+<li>Changed the computation of variance for adaptive accumulation to be independent of <code>TILE_SIZE</code>, thus <code>varianceThreshold</code> needs to be adapted if using a different TILE_SIZE than default 64</li>
+<li><code>OSPGeometricModel</code> now has the option to index a renderer-global material list that lives on the renderer, allowing scenes to avoid renderer-specific materials</li>
+<li>Object type names and parameters all now follow the camel-case convention</li>
+<li>New <code>ospExamples</code> app which consolidates previous interactive apps into one</li>
+<li>New <code>ospBenchmark</code> app which implements a runnable benchmark suite</li>
+<li>Known issues:
+<ul>
+<li>ISPC v1.11.0 and Embree v3.6.0 are both incompatible with OSPRay and should be avoided (OSPRay should catch this during CMake configure)</li>
+</ul></li>
+</ul>
 <h3 id="changes-in-v1.8.5">Changes in v1.8.5:</h3>
 <ul>
 <li>Fix float precision cornercase (<code>NaN</code>s) in sphere light sampling</li>

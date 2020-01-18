@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>Intel OSPRay Examples</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
+
+  </head>
+
+  <body>
+    <div id="header">
+      <div id="header-github">
+        <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
+      </div>
+      <div id="header-title">
+        Intel<sup>&reg;</sup> OSPRay
+      </div>
+
+      <div id="header-navbar">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+	  <li><a href="downloads.html">Downloads</a></li>
+	  <li><a href="documentation.html">Documentation</a></li>
+	  <li id="selected"><a href="examples.html">Examples</a></li>
+	  <li><a href="gallery.html">Gallery</a></li>
+	  <li><a href="https://github.com/ospray/OSPRay/issues">Bugs/Issues</a></li>
+	  <li><a href="related_projects.html">Related Projects</a></li>
+	</ul>
+      </div>
+      <div id="header-spacing"></div>
+    </div>
+
+    <div id="content-wrap">
+      <div id="content">
+
+<h1 id="examples">Examples</h1>
+<h2 id="simple-tutorial">Simple Tutorial</h2>
+<p>A minimal working example demonstrating how to use OSPRay can be found at <code>apps/tutorials/ospTutorial.c</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>An example of building <code>ospTutorial.c</code> with CMake can be found in <code>apps/tutorials/ospTutorialFindospray/</code>.</p>
+<p>To build the tutorial on Linux, build it in a build directory with</p>
+<pre><code>gcc -std=c99 ../apps/ospTutorial/ospTutorial.c \
+-I ../ospray/include -L . -lospray -Wl,-rpath,. -o ospTutorial</code></pre>
+<p>On Windows build it can be build manually in a “build_directory\$Configuration” directory with</p>
+<pre><code>cl ..\..\apps\ospTutorial\ospTutorial.c -I ..\..\ospray\include -I ..\.. ospray.lib</code></pre>
+<p>Running <code>ospTutorial</code> will create two images of two triangles, rendered with the Scientific Visualization renderer with full Ambient Occlusion. The first image <code>firstFrame.ppm</code> shows the result after one call to <code>ospRenderFrame</code> – jagged edges and noise in the shadow can be seen. Calling <code>ospRenderFrame</code> multiple times enables progressive refinement, resulting in antialiased edges and converged shadows, shown after ten frames in the second image <code>accumulatedFrames.ppm</code>.</p>
+<figure>
+<img src="images/tutorial_firstframe.png" alt="" /><figcaption>First frame.</figcaption>
+</figure>
+<figure>
+<img src="images/tutorial_accumulatedframe.png" alt="" /><figcaption>After accumulating ten frames.</figcaption>
+</figure>
+<h2 id="ospexamples">ospExamples</h2>
+<p>Apart from tutorials, <code>OSPRay</code> comes with a C++ app called <code>ospExamples</code> which is an elaborate easy-to-use tutorial, with a single interface to try various <code>OSPRay</code> features. It is aimed at providing users with multiple simple scenes composed of basic geometry types, lights, volumes etc. to get started with OSPRay quickly.</p>
+<p><code>ospExamples</code> app runs a <code>GLFWOSPRayWindow</code> instance that manages instances of the camera, framebuffer, renderer and other OSPRay objects necessary to render an interactive scene. The scene is rendered on a <code>GLFW</code> window with an <code>imgui</code> GUI controls panel for the user to manipulate the scene at runtime.</p>
+<p>The application is located in <code>apps/ospExamples/</code> directory and can be built with CMake. It can be run from the build directory via:</p>
+<pre><code>./ospExamples &lt;command-line-parameter&gt;</code></pre>
+<p>The command line parameter is optional however.</p>
+<h3 id="scenes">Scenes</h3>
+<p>Different scenes can be selected from the <code>scenes</code> dropdown and each scene corresponds to an instance of a special <code>detail::Builder</code> struct. Example builders are located in <code>apps/common/ospray_testing/builders/</code>. These builders provide a usage guide for the OSPRay scene hierarchy and OSPRay API in the form of <code>cpp</code> wrappers. They instantiate and manage objects for the specific scene like <code>cpp::Geometry</code>, <code>cpp::Volume</code>, <code>cpp::Light</code> etc.</p>
+<p>The <code>detail::Builder</code> base struct is mostly responsible for setting up OSPRay <code>world</code> and objects common in all scenes (for eg: lighting and ground plane), which can be conveniently overridden in the derived builders.</p>
+<p>Given below are different scenes listed with their string identifiers:</p>
+<dl>
+<dt>boxes</dt>
+<dd>A simple scene with <code>box</code> geometry type.
+</dd>
+<dt>cornell_box</dt>
+<dd>A scene depicting a classic cornell box with <code>quad</code> mesh geometry type for rendering two cubes and a <code>quad</code> light type.
+</dd>
+<dt>curves</dt>
+<dd>A simple scene with <code>curve</code> geometry type and options to change <code>curveBasis</code>. For details on different basis’ please check documentation of <a href="#curves">curves</a>.
+</dd>
+<dt>gravity_spheres_volume</dt>
+<dd>A scene with <code>structuredRegular</code> type of <a href="#volumes">volume</a>.
+</dd>
+<dt>gravity_spheres_isosurface</dt>
+<dd>A scene depicting iso-surface rendering of <code>gravity_spheres_volume</code> using geometry type <code>isosurface</code>.
+</dd>
+<dt>perlin_noise_volumes</dt>
+<dd>An example scene with <code>structuredRegular</code> volume type depicting perlin noise.
+</dd>
+<dt>random_spheres</dt>
+<dd>A simple scene depicting <code>sphere</code> geometry type.
+</dd>
+<dt>streamlines</dt>
+<dd>A scene showcasing streamlines geometry derived from <code>curve</code> geometry type.
+</dd>
+<dt>subdivision_cube</dt>
+<dd>A scene with a cube of <code>subdivision</code> geometry type to showcase subdivision surfaces.
+</dd>
+<dt>unstructured_volume</dt>
+<dd>A simple scene with a volume of <code>unstructured</code> volume type.
+</dd>
+</dl>
+<h3 id="renderer">Renderer</h3>
+<p>This app comes with three <a href="#renderers">renderer</a> options: <code>scivis</code>, <code>pathtracer</code> and <code>debug</code>. The app provides some common rendering controls like <code>pixel samples</code> and other more specific to the renderer type like <code>aoIntensity</code> for <code>scivis</code> renderer.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <code>include/ospray/ospray_cpp.h</code> is available at <code>apps/tutorials/ospTutorial.cpp</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+      </div>
+    </div>
+
+      <div id="footer">
+        © 2013–2019 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        <a href="https://www.intel.com/privacy">Privacy</a>
+      </div>
+  </body>
+</html>
