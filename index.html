@@ -199,19 +199,18 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>OSPRay internally builds on top of <a href="https://embree.github.io/">Intel Embree</a> and <a href="https://ispc.github.io/">ISPC (Intel SPMD Program Compiler)</a>, and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
-<p>For recent news, updates, and announcements, please see our complete <a href="https://www.ospray.org/news.html">news/updates</a> page.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
 <h3 id="changes-in-v2.0.0">Changes in v2.0.0:</h3>
 <ul>
-<li>New major revision of OSPRay brings API breaking improvements over v1.x. See <code>doc/ospray2_porting_guide.md</code> for a deeper description of migrating from v1.x to v2.0 and <code>doc/api.md</code> for the latest API documentation
+<li>New major revision of OSPRay brings API breaking improvements over v1.x. See [doc/ospray2_porting_guide.md] for a deeper description of migrating from v1.x to v2.0 and the latest <a href="README.md#ospray-api">API documentation</a>
 <ul>
 <li><code>ospRenderFrame</code> now takes all participating objects as function parameters instead of setting some as renderer params</li>
 <li><code>ospRenderFrame</code> is now asynchronous, where the task is managed through a returned <code>OSPFuture</code> handle</li>
 <li>The heirarchy of objets in a scene are now more granular to aid in scene construction flexibility and reduce potential object duplication</li>
 <li>Type-specific parameter setting functions have been consolidated into a single <code>ospSetParam</code> API call</li>
 <li>C++ wrappers found in <code>ospray_cpp.h</code> now automatically track handle lifetimes, therefore applications using them do not need to use <code>ospRelease</code> (or the new <code>ospRetain</code>) with them: see usage example in <code>apps/tutorials/ospTutorial.cpp</code></li>
-<li>Unused parameters are reported as status messages when <code>logLevel</code> is &gt;= 1 (most easily set by enabling OSPRay debug on initialization)</li>
+<li>Unused parameters are reported as status messages when <code>logLevel</code> is at least <code>warning</code> (most easily set by enabling OSPRay debug on initialization)</li>
 </ul></li>
 <li>New utility library which adds functions to help with new API migration and reduction of boilerplate code
 <ul>
@@ -809,7 +808,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
     </div>
 
       <div id="footer">
-        © 2013–2019 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2020 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>

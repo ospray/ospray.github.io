@@ -222,7 +222,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">debug</td>
-<td style="text-align: left;">set debug mode; equivalent to logLevel=2 and numThreads=1</td>
+<td style="text-align: left;">set debug mode; equivalent to <code>logLevel=debug</code> and <code>numThreads=1</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bool</td>
@@ -386,7 +386,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Parameters allow to configure the behavior of and to pass data to objects. However, objects do <em>not</em> have an explicit interface for reasons of high flexibility and a more stable compile-time API. Instead, parameters are passed separately to objects in an arbitrary order, and unknown parameters will simply be ignored (though a warning message will be posted). The following function allows adding various types of parameters with name <code>id</code> to a given object:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1"></a><span class="dt">void</span> ospSetParam(OSPObject, <span class="at">const</span> <span class="dt">char</span> *id, OSPDataType type, <span class="at">const</span> <span class="dt">void</span> *mem);</span></code></pre></div>
 <p>The valid parameter names for all <code>OSPObject</code>s and what types are valid are discussed in future sections.</p>
-<p>Note that <code>mem</code> must always be a pointer <em>to</em> the object, otherwise accidental type casting can occur. This is especially true for pointer types (<code>OSP_VOID_PTR</code> and <code>OSPObject</code> handles), as they will implicitly cast to <code>void *</code>, but be incorrectly interpreted. To help with some of these issues, there also exist variants of <code>ospSetParam</code> for specific types, such as <code>ospSetInt</code> and <code>ospSetVec3f</code> in the <a href="util.md">OSPRay utility library</a> (found in <code>ospray_util.h</code>).</p>
+<p>Note that <code>mem</code> must always be a pointer <em>to</em> the object, otherwise accidental type casting can occur. This is especially true for pointer types (<code>OSP_VOID_PTR</code> and <code>OSPObject</code> handles), as they will implicitly cast to <code>void *</code>, but be incorrectly interpreted. To help with some of these issues, there also exist variants of <code>ospSetParam</code> for specific types, such as <code>ospSetInt</code> and <code>ospSetVec3f</code> in the OSPRay utility library (found in <code>ospray_util.h</code>).</p>
 <p>Users can also remove parameters that have been explicitly set from <code>ospSetParam</code>. Any parameters which have been removed will go back to their default value during the next commit unless a new parameter was set after the parameter was removed. To remove a parameter, use</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1"></a><span class="dt">void</span> ospRemoveParam(OSPObject, <span class="at">const</span> <span class="dt">char</span> *id);</span></code></pre></div>
 <h3 id="data">Data</h3>
@@ -2976,10 +2976,10 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<h3 id="image-operation" class="unnumbered">Image Operation</h3>
+<h3 id="image-operation">Image Operation</h3>
 <p>Image operations are functions that are applied to every pixel of a frame. Examples include post-processing, filtering, blending, tone mapping, or sending tiles to a display wall. To create a new pixel operation of given type <code>type</code> use</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1"></a>OSPImageOperation ospNewImageOperation(<span class="at">const</span> <span class="dt">char</span> *type);</span></code></pre></div>
-<h4 id="tone-mapper" class="unnumbered">Tone Mapper</h4>
+<h4 id="tone-mapper">Tone Mapper</h4>
 <p>The tone mapper is a pixel operation which implements a generic filmic tone mapping operator. Using the default parameters it approximates the Academy Color Encoding System (ACES). The tone mapper is created by passing the type string “<code>tonemapper</code>” to <code>ospNewImageOperation</code>. The tone mapping curve can be customized using the parameters listed in the table below.</p>
 <table style="width:97%;">
 <caption>Parameters accepted by the tone mapper.</caption>
@@ -3078,17 +3078,14 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<h4 id="denoiser" class="unnumbered">Denoiser</h4>
+<h4 id="denoiser">Denoiser</h4>
 <p>OSPRay comes with a module that adds support for Intel® Open Image Denoise. This is provided as an optional module as it creates an additional project dependency at compile time. The module implements a “<code>denoiser</code>” frame operation, which denoises the entire frame before the frame is completed.</p>
 <h2 id="rendering">Rendering</h2>
 <h3 id="asynchronous-rendering">Asynchronous Rendering</h3>
 <p>Rendering is by default asynchronous (non-blocking), and is done by combining a frame buffer, renderer, camera, and world.</p>
 <p>What to render and how to render it depends on the renderer’s parameters. If the framebuffer supports accumulation (i.e., it was created with <code>OSP_FB_ACCUM</code>) then successive calls to <code>ospRenderFrame</code> will progressively refine the rendered image. If additionally the framebuffer has an <code>OSP_FB_VARIANCE</code> channel then <code>ospRenderFrame</code> returns an estimate of the current variance of the rendered image, otherwise <code>inf</code> is returned. The estimated variance can be used by the application as a quality indicator and thus to decide whether to stop or to continue progressive rendering.</p>
 <p>To start an render task, use</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1"></a>OSPFuture ospRenderFrame(OSPFrameBuffer,</span>
-<span id="cb50-2"><a href="#cb50-2"></a>                         OSPRenderer,</span>
-<span id="cb50-3"><a href="#cb50-3"></a>                         OSPCamera,</span>
-<span id="cb50-4"><a href="#cb50-4"></a>                         OSPWorld);</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1"></a>OSPFuture ospRenderFrame(OSPFrameBuffer, OSPRenderer, OSPCamera, OSPWorld);</span></code></pre></div>
 <p>This returns an <code>OSPFuture</code> handle, which can be used to synchronize with the application, cancel, or query for progress of the running task. When <code>ospRenderFrame</code> is called, there is no guarantee when the associated task will begin execution.</p>
 <p>Progress of a running frame can be queried with the following API function</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1"></a><span class="dt">float</span> ospGetProgress(OSPFuture);</span></code></pre></div>
@@ -3139,14 +3136,11 @@ div.sourceCode { overflow-x: initial; }
 <p>The use of either <code>ospRenderFrame</code> or <code>ospRenderFrame</code> requires that all objects in the scene being rendered have been committed before rendering occurs. If a call to <code>ospCommit()</code> happens while a frame is rendered, the result is undefined behavior and should be avoided.</p>
 <h3 id="synchronous-rendering">Synchronous Rendering</h3>
 <p>For convenience in certain use cases, <code>ospray_util.h</code> provides a synchronous version of <code>ospRenderFrame</code>:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1"></a><span class="dt">float</span> ospRenderFrameBlocking(OSPFrameBuffer,</span>
-<span id="cb54-2"><a href="#cb54-2"></a>                             OSPRenderer,</span>
-<span id="cb54-3"><a href="#cb54-3"></a>                             OSPCamera,</span>
-<span id="cb54-4"><a href="#cb54-4"></a>                             OSPWorld);</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1"></a><span class="dt">float</span> ospRenderFrameBlocking(OSPFrameBuffer, OSPRenderer, OSPCamera, OSPWorld);</span></code></pre></div>
 <p>This version is the equivalent of:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1"></a>- <span class="er">`</span>ospRenderFrame<span class="er">`</span></span>
-<span id="cb55-2"><a href="#cb55-2"></a>- <span class="er">`</span>ospWait(f, OSP_TASK_FINISHED)<span class="er">`</span></span>
-<span id="cb55-3"><a href="#cb55-3"></a>- <span class="cf">return</span> <span class="er">`</span>ospGetVariance(fb)<span class="er">`</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1"></a>ospRenderFrame</span>
+<span id="cb55-2"><a href="#cb55-2"></a>ospWait(f, OSP_TASK_FINISHED)</span>
+<span id="cb55-3"><a href="#cb55-3"></a><span class="cf">return</span> ospGetVariance(fb)</span></code></pre></div>
 <p>This version is closest to <code>ospRenderFrame</code> from OSPRay v1.x.</p>
 <h2 id="distributed-rendering-with-mpi">Distributed rendering with MPI</h2>
 <p>The OSPRay MPI module is now a stand alone repository. It can be found on GitHub <a href="https://github.com/ospray/module_mpi">here</a>, where all code and documentation can be found.</p>
@@ -3164,7 +3158,7 @@ div.sourceCode { overflow-x: initial; }
     </div>
 
       <div id="footer">
-        © 2013–2019 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2020 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>
