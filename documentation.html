@@ -111,7 +111,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="command-line-arguments">Command Line Arguments</h3>
 <p>The first is to do so by giving OSPRay the command line from <code>main()</code> by calling</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a>OSPError ospInit(<span class="dt">int</span> *argc, <span class="at">const</span> <span class="dt">char</span> **argv);</span></code></pre></div>
-<p>OSPRay parses (and removes) its known command line parameters from your application’s <code>main</code> function. For an example see the <a href="#tutorial">tutorial</a>. For possible error codes see section <a href="#error-handling-and-status-messages">Error Handling and Status Messages</a>. It is important to note that the arguments passed to <code>ospInit()</code> are processed in order they are listed. The following parameters (which are prefixed by convention with “<code>--osp:</code>”) are understood:</p>
+<p>OSPRay parses (and removes) its known command line parameters from your application’s <code>main</code> function. For an example see the <a href="examples.html#tutorial">tutorial</a>. For possible error codes see section <a href="#error-handling-and-status-messages">Error Handling and Status Messages</a>. It is important to note that the arguments passed to <code>ospInit()</code> are processed in order they are listed. The following parameters (which are prefixed by convention with “<code>--osp:</code>”) are understood:</p>
 <table style="width:98%;">
 <caption>Command line parameters accepted by OSPRay’s <code>ospInit</code>.</caption>
 <colgroup>
@@ -243,7 +243,7 @@ div.sourceCode { overflow-x: initial; }
 <p>This then sets the given device as the object which will respond to all other OSPRay API calls.</p>
 <p>Users can change parameters on the device after initialization (from either method above), by calling</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1"></a>OSPDevice ospGetCurrentDevice();</span></code></pre></div>
-<p>This function returns the handle to the device currently used to respond to OSPRay API calls, where users can set/change parameters and recommit the device. If changes are made to the device that is already set as the current device, it does not need to be set as current again.</p>
+<p>This function returns the handle to the device currently used to respond to OSPRay API calls, where users can set/change parameters and recommit the device. If changes are made to the device that is already set as the current device, it does not need to be set as current again. Note this API call will increment the ref count of the returned device handle, so applications must use <code>ospDeviceRelease</code> when finished using the handle to avoid leaking the underlying device object.</p>
 <p>OSPRay allows applications to query runtime properties of a device in order to do enhanced validation of what device was loaded at runtime. The following function can be used to get these device-specific properties (attiributes about the device, not paramter values)</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">int64_t</span> ospDeviceGetProperty(OSPDevice, OSPDeviceProperty);</span></code></pre></div>
 <p>It returns an integer value of the queried property and the following properties can be provided as parameter:</p>
@@ -608,7 +608,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSPData</td>
 <td style="text-align: left;">data</td>
 <td style="text-align: right;"></td>
-<td style="text-align: left;">the actual voxel 3D <a href="#data">data</a></td>
+<td style="text-align: left;">the actual voxel 3D <a href="documentation.html#data">data</a></td>
 </tr>
 </tbody>
 </table>
@@ -645,7 +645,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSPData</td>
 <td style="text-align: left;">data</td>
 <td style="text-align: center;"></td>
-<td style="text-align: left;">the actual voxel 3D <a href="#data">data</a></td>
+<td style="text-align: left;">the actual voxel 3D <a href="documentation.html#data">data</a></td>
 </tr>
 </tbody>
 </table>
@@ -664,10 +664,10 @@ div.sourceCode { overflow-x: initial; }
 <table style="width:98%;">
 <caption>Additional configuration parameters for AMR volumes.</caption>
 <colgroup>
-<col style="width: 20%" />
+<col style="width: 19%" />
 <col style="width: 17%" />
-<col style="width: 23%" />
-<col style="width: 35%" />
+<col style="width: 22%" />
+<col style="width: 38%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -712,7 +712,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">box3f[]</td>
 <td style="text-align: left;">block.bounds</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of bounds for each AMR block</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of bounds for each AMR block</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">int[]</td>
@@ -724,7 +724,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSPData[]</td>
 <td style="text-align: left;">block.data</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of OSPData containing the actual scalar voxel data</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of OSPData containing the actual scalar voxel data</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec3f</td>
@@ -767,8 +767,8 @@ div.sourceCode { overflow-x: initial; }
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 25%" />
-<col style="width: 12%" />
-<col style="width: 38%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -783,43 +783,43 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.position</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex positions</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex positions</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">vertex.data</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex data values to be sampled</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex data values to be sampled</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">uint32[] / uint64[]</td>
 <td style="text-align: left;">index</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="#data">data</a> array of indices (into the vertex array(s)) that form cells</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of indices (into the vertex array(s)) that form cells</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">uint32[] / uint64[]</td>
 <td style="text-align: left;">indexPrefixed</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">alternative <a href="#data">data</a> array of indices compatible to VTK, where the indices of each cell are prefixed with the number of vertices</td>
+<td style="text-align: left;">alternative <a href="documentation.html#data">data</a> array of indices compatible to VTK, where the indices of each cell are prefixed with the number of vertices</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">uint32[] / uint64[]</td>
 <td style="text-align: left;">cell.index</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="#data">data</a> array of locations (into the index array), specifying the first index of each cell</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of locations (into the index array), specifying the first index of each cell</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">cell.data</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="#data">data</a> array of cell data values to be sampled</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of cell data values to be sampled</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">uint8[]</td>
 <td style="text-align: left;">cell.type</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="#data">data</a> array of cell types (VTK compatible). Supported types are:</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of cell types (VTK compatible). Supported types are:</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
@@ -877,12 +877,12 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">color</td>
-<td style="text-align: left;"><a href="#data">data</a> array of RGB colors</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of RGB colors</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">opacity</td>
-<td style="text-align: left;"><a href="#data">data</a> array of opacities</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of opacities</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec2f</td>
@@ -897,10 +897,10 @@ div.sourceCode { overflow-x: initial; }
 <table style="width:98%;">
 <caption>Parameters understood by VolumetricModel.</caption>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 22%" />
-<col style="width: 11%" />
-<col style="width: 37%" />
+<col style="width: 23%" />
+<col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 44%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -927,7 +927,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">anisotropy</td>
 <td style="text-align: left;">0.0</td>
-<td style="text-align: left;">anisotropy of the (Henyey-Greenstein) phase function in [-1, 1] (<a href="#path-tracer">path tracer</a> only), default to isotropic scattering</td>
+<td style="text-align: left;">anisotropy of the (Henyey-Greenstein) phase function in [-1, 1] (<a href="documentation.html#path-tracer">path tracer</a> only), default to isotropic scattering</td>
 </tr>
 </tbody>
 </table>
@@ -950,27 +950,27 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.position</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex positions</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex positions</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.normal</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex normals</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex normals</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec4f[] / vec3f[]</td>
 <td style="text-align: left;">vertex.color</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex colors (RGBA/RGB)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex colors (RGBA/RGB)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec2f[]</td>
 <td style="text-align: left;">vertex.texcoord</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex texture coordinates</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex texture coordinates</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec3ui[] / vec4ui[]</td>
 <td style="text-align: left;">index</td>
-<td style="text-align: left;"><a href="#data">data</a> array of (either triangle or quad) indices (into the vertex array(s))</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of (either triangle or quad) indices (into the vertex array(s))</td>
 </tr>
 </tbody>
 </table>
@@ -999,19 +999,19 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.position</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex positions</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex positions</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec4f[]</td>
 <td style="text-align: left;">vertex.color</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex colors (RGBA)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex colors (RGBA)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec2f[]</td>
 <td style="text-align: left;">vertex.texcoord</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex texture coordinates</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex texture coordinates</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1023,43 +1023,43 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">uint[]</td>
 <td style="text-align: left;">index</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of indices (into the vertex array(s))</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of indices (into the vertex array(s))</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">index.level</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of per-edge levels of tessellation, overrides global level</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of per-edge levels of tessellation, overrides global level</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">uint[]</td>
 <td style="text-align: left;">face</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array holding the number of indices/edges (3 to 15) per face</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array holding the number of indices/edges (3 to 15) per face</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec2i[]</td>
 <td style="text-align: left;">edgeCrease.index</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of edge crease indices</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of edge crease indices</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">edgeCrease.weight</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of edge crease weights</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of edge crease weights</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">uint[]</td>
 <td style="text-align: left;">vertexCrease.index</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex crease indices</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex crease indices</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">vertexCrease.weight</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex crease weights</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex crease weights</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">int</td>
@@ -1101,7 +1101,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>The <code>vertex</code> and <code>index</code> arrays are mandatory to create a valid subdivision surface. If no <code>face</code> array is present then a pure quad mesh is assumed (the number of indices must be a multiple of 4). Optionally supported are edge and vertex creases.</p>
 <h3 id="spheres">Spheres</h3>
-<p>A geometry consisting of individual spheres, each of which can have an own radius, is created by calling <code>ospNewGeometry</code> with type string “<code>sphere</code>”. The spheres will not be tessellated but rendered procedurally and are thus perfectly round. To allow a variety of sphere representations in the application this geometry allows a flexible way of specifying the data of center position and radius within a <a href="#data">data</a> array:</p>
+<p>A geometry consisting of individual spheres, each of which can have an own radius, is created by calling <code>ospNewGeometry</code> with type string “<code>sphere</code>”. The spheres will not be tessellated but rendered procedurally and are thus perfectly round. To allow a variety of sphere representations in the application this geometry allows a flexible way of specifying the data of center position and radius within a <a href="documentation.html#data">data</a> array:</p>
 <table style="width:97%;">
 <caption>Parameters defining a spheres geometry.</caption>
 <colgroup>
@@ -1123,19 +1123,19 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">sphere.position</td>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><a href="#data">data</a> array of center positions</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of center positions</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">sphere.radius</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;">optional <a href="#data">data</a> array of the per-sphere radius</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of the per-sphere radius</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec2f[]</td>
 <td style="text-align: left;">sphere.texcoord</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;">optional <a href="#data">data</a> array of texture coordinates (constant per sphere)</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of texture coordinates (constant per sphere)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1165,12 +1165,12 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">vec4f[]</td>
 <td style="text-align: left;">vertex.position_radius</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex position and per-vertex radius</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex position and per-vertex radius</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.position</td>
-<td style="text-align: left;"><a href="#data">data</a> array of vertex position</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex position</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
@@ -1180,27 +1180,27 @@ div.sourceCode { overflow-x: initial; }
 <tr class="even">
 <td style="text-align: left;">vec2f[]</td>
 <td style="text-align: left;">vertex.texcoord</td>
-<td style="text-align: left;"><a href="#data">data</a> array of per-vertex texture coordinates</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of per-vertex texture coordinates</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec4f[]</td>
 <td style="text-align: left;">vertex.color</td>
-<td style="text-align: left;"><a href="#data">data</a> array of corresponding vertex colors (RGBA)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of corresponding vertex colors (RGBA)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.normal</td>
-<td style="text-align: left;"><a href="#data">data</a> array of curve normals (only for “ribbon” curves)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of curve normals (only for “ribbon” curves)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.tangent</td>
-<td style="text-align: left;"><a href="#data">data</a> array of curve tangents (only for “hermite” curves)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of curve tangents (only for “hermite” curves)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">uint32[]</td>
 <td style="text-align: left;">index</td>
-<td style="text-align: left;"><a href="#data">data</a> array of indices to the first vertex or tangent of a curve segment</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of indices to the first vertex or tangent of a curve segment</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">int</td>
@@ -1302,7 +1302,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">box3f[]</td>
 <td style="text-align: left;">box</td>
-<td style="text-align: left;"><a href="#data">data</a> array of boxes</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of boxes</td>
 </tr>
 </tbody>
 </table>
@@ -1326,7 +1326,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="even">
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">isovalue</td>
-<td style="text-align: left;"><a href="#data">data</a> array of isovalues</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of isovalues</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSPVolumetricModel</td>
@@ -1338,7 +1338,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="geometricmodels">GeometricModels</h3>
 <p>Geometries are matched with surface appearance information through GeometricModels. These take a geometry, which defines the surface representation, and applies either full-object or per-primitive color and material information. To create a geometric model, call</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1"></a>OSPGeometricModel ospNewGeometricModel(OSPGeometry geometry);</span></code></pre></div>
-<p>Color and material are fetched with the primitive ID of the hit (clamped to the valid range, thus a single color or material is fine), or mapped first via the <code>index</code> array (if present). All paramters are optional, however, some renderers (notably the <a href="#path-tracer">path tracer</a>) require a material to be set. Materials are either handles of <code>OSPMaterial</code>, or indices into the <code>material</code> array on the <a href="#renderers">renderer</a>, which allows to build a <a href="#world">world</a> which can be used by different types of renderers.</p>
+<p>Color and material are fetched with the primitive ID of the hit (clamped to the valid range, thus a single color or material is fine), or mapped first via the <code>index</code> array (if present). All paramters are optional, however, some renderers (notably the <a href="documentation.html#path-tracer">path tracer</a>) require a material to be set. Materials are either handles of <code>OSPMaterial</code>, or indices into the <code>material</code> array on the <a href="documentation.html#renderers">renderer</a>, which allows to build a <a href="documentation.html#world">world</a> which can be used by different types of renderers.</p>
 <table style="width:97%;">
 <caption>Parameters understood by GeometricModel.</caption>
 <colgroup>
@@ -1357,22 +1357,22 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">OSPMaterial / uint32</td>
 <td style="text-align: left;">material</td>
-<td style="text-align: left;">optional <a href="#materials">material</a> applied to the geometry, may be an index into the <code>material</code> parameter on the <a href="#renderers">renderer</a> (if it exists)</td>
+<td style="text-align: left;">optional <a href="documentation.html#materials">material</a> applied to the geometry, may be an index into the <code>material</code> parameter on the <a href="documentation.html#renderers">renderer</a> (if it exists)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSPMaterial[] / uint32[]</td>
 <td style="text-align: left;">material</td>
-<td style="text-align: left;">optional <a href="#data">data</a> array of (per-primitive) materials, may be an index into the <code>material</code> parameter on the renderer (if it exists)</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) materials, may be an index into the <code>material</code> parameter on the renderer (if it exists)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec4f[]</td>
 <td style="text-align: left;">color</td>
-<td style="text-align: left;">optional <a href="#data">data</a> array of (per-primitive) colors</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) colors</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">uint8[]</td>
 <td style="text-align: left;">index</td>
-<td style="text-align: left;">optional <a href="#data">data</a> array of per-primitive indices into <code>color</code> and <code>material</code></td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of per-primitive indices into <code>color</code> and <code>material</code></td>
 </tr>
 </tbody>
 </table>
@@ -1436,7 +1436,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>Setting the angular diameter to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>). For instance, the apparent size of the sun is about 0.53°.</p>
+<p>Setting the angular diameter to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="documentation.html#path-tracer">path tracer</a>). For instance, the apparent size of the sun is about 0.53°.</p>
 <h3 id="point-light-sphere-light">Point Light / Sphere Light</h3>
 <p>The sphere light (or the special case point light) is a light emitting uniformly in all directions from the surface towards the outside. It does not emit any light towards the inside of the sphere. It is created by passing the type string “<code>sphere</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the sphere light supports the following special parameters:</p>
 <table>
@@ -1461,7 +1461,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>).</p>
+<p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="documentation.html#path-tracer">path tracer</a>).</p>
 <h3 id="spotlight">Spotlight</h3>
 <p>The spotlight is a light emitting into a cone of directions. It is created by passing the type string “<code>spot</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the spotlight supports the special parameters listed in the table.</p>
 <table style="width:98%;">
@@ -1516,7 +1516,7 @@ div.sourceCode { overflow-x: initial; }
 <figure>
 <img src="images/spot_light.png" alt="" /><figcaption>Angles used by the spotlight.</figcaption>
 </figure>
-<p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="#path-tracer">path tracer</a>).</p>
+<p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="documentation.html#path-tracer">path tracer</a>).</p>
 <h3 id="quad-light">Quad Light</h3>
 <p>The quad<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half-space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the quad light supports the following special parameters:</p>
 <table>
@@ -1587,12 +1587,12 @@ div.sourceCode { overflow-x: initial; }
 <figure>
 <img src="images/hdri_light.png" alt="" /><figcaption>Orientation and Mapping of an HDRI Light.</figcaption>
 </figure>
-<p>Note that the currently only the <a href="#path-tracer">path tracer</a> supports the HDRI light.</p>
+<p>Note that the currently only the <a href="documentation.html#path-tracer">path tracer</a> supports the HDRI light.</p>
 <h3 id="ambient-light">Ambient Light</h3>
 <p>The ambient light surrounds the scene and illuminates it from infinity with constant radiance (determined by combining the <a href="#lights">parameters <code>color</code> and <code>intensity</code></a>). It is created by passing the type string “<code>ambient</code>” to <code>ospNewLight</code>.</p>
-<p>Note that the <a href="#scivis-renderer">SciVis renderer</a> uses ambient lights to control the color and intensity of the computed ambient occlusion (AO).</p>
+<p>Note that the <a href="documentation.html#scivis-renderer">SciVis renderer</a> uses ambient lights to control the color and intensity of the computed ambient occlusion (AO).</p>
 <h3 id="emissive-objects">Emissive Objects</h3>
-<p>The <a href="#path-tracer">path tracer</a> will consider illumination by <a href="#geometries">geometries</a> which have a light emitting material assigned (for example the <a href="#luminous">Luminous</a> material).</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> will consider illumination by <a href="#geometries">geometries</a> which have a light emitting material assigned (for example the <a href="#luminous">Luminous</a> material).</p>
 <h2 id="scene-hierarchy">Scene Hierarchy</h2>
 <h3 id="groups">Groups</h3>
 <p>Groups in OSPRay represent collections of GeometricModels and VolumetricModels which share a common local-space coordinate system. To create a group call</p>
@@ -1619,13 +1619,13 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSPGeometricModel[]</td>
 <td style="text-align: left;">geometry</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of <a href="#geometricmodels">GeometricModels</a></td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of <a href="#geometricmodels">GeometricModels</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSPVolumetricModel[]</td>
 <td style="text-align: left;">volume</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array of <a href="#volumetricmodels">VolumetricModels</a></td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of <a href="#volumetricmodels">VolumetricModels</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">bool</td>
@@ -1705,13 +1705,13 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSPInstance[]</td>
 <td style="text-align: left;">instance</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array with handles of the <a href="#instances">instances</a></td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array with handles of the <a href="#instances">instances</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSPLight[]</td>
 <td style="text-align: left;">light</td>
 <td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="#data">data</a> array with handles of the <a href="#lights">lights</a></td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array with handles of the <a href="#lights">lights</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">bool</td>
@@ -1740,10 +1740,10 @@ div.sourceCode { overflow-x: initial; }
 <table style="width:98%;">
 <caption>Parameters understood by all renderers.</caption>
 <colgroup>
-<col style="width: 19%" />
-<col style="width: 21%" />
-<col style="width: 15%" />
-<col style="width: 41%" />
+<col style="width: 16%" />
+<col style="width: 18%" />
+<col style="width: 12%" />
+<col style="width: 51%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1800,7 +1800,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSPMaterial[]</td>
 <td style="text-align: left;">material</td>
 <td style="text-align: right;"></td>
-<td style="text-align: left;">optional <a href="#data">data</a> array of <a href="#materials">materials</a> which can be indexed by a <a href="#geometricmodels">GeometricModel</a>’s <code>material</code> parameter</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of <a href="#materials">materials</a> which can be indexed by a <a href="documentation.html#geometricmodels">GeometricModel</a>’s <code>material</code> parameter</td>
 </tr>
 </tbody>
 </table>
@@ -1899,7 +1899,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The returned handle can then be used to assign the material to a given geometry with</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1"></a><span class="dt">void</span> ospSetObject(OSPGeometricModel, <span class="st">&quot;material&quot;</span>, OSPMaterial);</span></code></pre></div>
 <h4 id="obj-material">OBJ Material</h4>
-<p>The OBJ material is the workhorse material supported by both the <a href="#scivis-renderer">SciVis renderer</a> and the <a href="#path-tracer">path tracer</a>. It offers widely used common properties like diffuse and specular reflection and is based on the <a href="http://paulbourke.net/dataformats/mtl/">MTL material format</a> of Lightwave’s OBJ scene files. To create an OBJ material pass the type string “<code>obj</code>” to <code>ospNewMaterial</code>. Its main parameters are</p>
+<p>The OBJ material is the workhorse material supported by both the <a href="documentation.html#scivis-renderer">SciVis renderer</a> and the <a href="documentation.html#path-tracer">path tracer</a>. It offers widely used common properties like diffuse and specular reflection and is based on the <a href="http://paulbourke.net/dataformats/mtl/">MTL material format</a> of Lightwave’s OBJ scene files. To create an OBJ material pass the type string “<code>obj</code>” to <code>ospNewMaterial</code>. Its main parameters are</p>
 <table>
 <caption>Main parameters of the OBJ material.</caption>
 <thead>
@@ -1959,12 +1959,12 @@ div.sourceCode { overflow-x: initial; }
 <figure>
 <img src="images/normalmap_frustum.png" style="width:60.0%" alt="" /><figcaption>Normal map representing an exalted square pyramidal frustum.</figcaption>
 </figure>
-<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g., a [triangle mesh] with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support <a href="#texture2d-transformations">texture transformations</a>.</p>
+<p>All parameters (except <code>Tf</code>) can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”. The fetched texels are multiplied by the respective parameter value. Texturing requires <a href="#geometries">geometries</a> with texture coordinates, e.g., a [triangle mesh] with <code>vertex.texcoord</code> provided. The color textures <code>map_Kd</code> and <code>map_Ks</code> are typically in one of the sRGB gamma encoded formats, whereas textures <code>map_Ns</code> and <code>map_d</code> are usually in a linear format (and only the first component is used). Additionally, all textures support <a href="documentation.html#texture2d-transformations">texture transformations</a>.</p>
 <figure>
 <img src="images/material_OBJ.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of a OBJ material with wood textures.</figcaption>
 </figure>
 <h4 id="principled">Principled</h4>
-<p>The Principled material is the most complex material offered by the <a href="#path-tracer">path tracer</a>, which is capable of producing a wide variety of materials (e.g., plastic, metal, wood, glass) by combining multiple different layers and lobes. It uses the GGX microfacet distribution with approximate multiple scattering for dielectrics and metals, uses the Oren-Nayar model for diffuse reflection, and is energy conserving. To create a Principled material, pass the type string “<code>principled</code>” to <code>ospNewMaterial</code>. Its parameters are listed in the table below.</p>
+<p>The Principled material is the most complex material offered by the <a href="documentation.html#path-tracer">path tracer</a>, which is capable of producing a wide variety of materials (e.g., plastic, metal, wood, glass) by combining multiple different layers and lobes. It uses the GGX microfacet distribution with approximate multiple scattering for dielectrics and metals, uses the Oren-Nayar model for diffuse reflection, and is energy conserving. To create a Principled material, pass the type string “<code>principled</code>” to <code>ospNewMaterial</code>. Its parameters are listed in the table below.</p>
 <table style="width:98%;">
 <caption>Parameters of the Principled material.</caption>
 <colgroup>
@@ -2152,7 +2152,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>” (e.g., “<code>map_baseColor</code>”). <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>” (e.g., “<code>map_baseColor</code>”). <a href="documentation.html#texture2d-transformations">texture transformations</a> are supported as well.</p>
 <figure>
 <img src="images/material_Principled.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of a Principled coated brushed metal material with textured anisotropic rotation and a dust layer (sheen) on top.</figcaption>
 </figure>
@@ -2273,12 +2273,12 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>” (e.g., “<code>map_baseColor</code>”). <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
+<p>All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>” (e.g., “<code>map_baseColor</code>”). <a href="documentation.html#texture2d-transformations">texture transformations</a> are supported as well.</p>
 <figure>
 <img src="images/material_CarPaint.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of a pearlescent CarPaint material.</figcaption>
 </figure>
 <h4 id="metal">Metal</h4>
-<p>The <a href="#path-tracer">path tracer</a> offers a physical metal, supporting changing roughness and realistic color shifts at edges. To create a Metal material pass the type string “<code>metal</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> offers a physical metal, supporting changing roughness and realistic color shifts at edges. To create a Metal material pass the type string “<code>metal</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
 <table style="width:97%;">
 <caption>Parameters of the Metal material.</caption>
 <colgroup>
@@ -2300,7 +2300,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">ior</td>
 <td style="text-align: right;">Aluminium</td>
-<td style="text-align: left;"><a href="#data">data</a> array of spectral samples of complex refractive index, each entry in the form (wavelength, eta, k), ordered by wavelength (which is in nm)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of spectral samples of complex refractive index, each entry in the form (wavelength, eta, k), ordered by wavelength (which is in nm)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f</td>
@@ -2360,12 +2360,12 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> (<a href="#texture2d-transformations">texture transformations</a> are supported as well) to create notable edging effects.</p>
+<p>The <code>roughness</code> parameter controls the variation of microfacets and thus how polished the metal will look. The roughness can be modified by a <a href="#texture">texture</a> <code>map_roughness</code> (<a href="documentation.html#texture2d-transformations">texture transformations</a> are supported as well) to create notable edging effects.</p>
 <figure>
 <img src="images/material_Metal.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of golden Metal material with textured roughness.</figcaption>
 </figure>
 <h4 id="alloy">Alloy</h4>
-<p>The <a href="#path-tracer">path tracer</a> offers an alloy material, which behaves similar to <a href="#metal">Metal</a>, but allows for more intuitive and flexible control of the color. To create an Alloy material pass the type string “<code>alloy</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> offers an alloy material, which behaves similar to <a href="#metal">Metal</a>, but allows for more intuitive and flexible control of the color. To create an Alloy material pass the type string “<code>alloy</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
 <table>
 <caption>Parameters of the Alloy material.</caption>
 <thead>
@@ -2397,12 +2397,12 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; <a href="#texture2d-transformations">texture transformations</a> are supported as well.</p>
+<p>The main appearance of the Alloy material is controlled by the parameter <code>color</code>, while <code>edgeColor</code> influences the tint of reflections when seen at grazing angles (for real metals this is always 100% white). If present, the color component of <a href="#geometries">geometries</a> is also used for reflectivity at normal incidence <code>color</code>. As in <a href="#metal">Metal</a> the <code>roughness</code> parameter controls the variation of microfacets and thus how polished the alloy will look. All parameters can be textured by passing a <a href="#texture">texture</a> handle, prefixed with “<code>map_</code>”; <a href="documentation.html#texture2d-transformations">texture transformations</a> are supported as well.</p>
 <figure>
 <img src="images/material_Alloy.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of a fictional Alloy material with textured color.</figcaption>
 </figure>
 <h4 id="glass">Glass</h4>
-<p>The <a href="#path-tracer">path tracer</a> offers a realistic a glass material, supporting refraction and volumetric attenuation (i.e., the transparency color varies with the geometric thickness). To create a Glass material pass the type string “<code>glass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> offers a realistic a glass material, supporting refraction and volumetric attenuation (i.e., the transparency color varies with the geometric thickness). To create a Glass material pass the type string “<code>glass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
 <table>
 <caption>Parameters of the Glass material.</caption>
 <thead>
@@ -2439,7 +2439,7 @@ div.sourceCode { overflow-x: initial; }
 <img src="images/material_Glass.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of a Glass material with orange attenuation.</figcaption>
 </figure>
 <h4 id="thinglass">ThinGlass</h4>
-<p>The <a href="#path-tracer">path tracer</a> offers a thin glass material useful for objects with just a single surface, most prominently windows. It models a thin, transparent slab, i.e., it behaves as if a second, virtual surface is parallel to the real geometric surface. The implementation accounts for multiple internal reflections between the interfaces (including attenuation), but neglects parallax effects due to its (virtual) thickness. To create a such a thin glass material pass the type string “<code>thinGlass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> offers a thin glass material useful for objects with just a single surface, most prominently windows. It models a thin, transparent slab, i.e., it behaves as if a second, virtual surface is parallel to the real geometric surface. The implementation accounts for multiple internal reflections between the interfaces (including attenuation), but neglects parallax effects due to its (virtual) thickness. To create a such a thin glass material pass the type string “<code>thinGlass</code>” to <code>ospNewMaterial</code>. Its parameters are</p>
 <table>
 <caption>Parameters of the ThinGlass material.</caption>
 <thead>
@@ -2477,7 +2477,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> (<a href="#texture2d-transformations">texture transformations</a> are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
+<p>For convenience the attenuation is controlled the same way as with the <a href="#glass">Glass</a> material. Additionally, the color due to attenuation can be modulated with a <a href="#texture">texture</a> <code>map_attenuationColor</code> (<a href="documentation.html#texture2d-transformations">texture transformations</a> are supported as well). If present, the color component of <a href="#geometries">geometries</a> is also used for the attenuation color. The <code>thickness</code> parameter sets the (virtual) thickness and allows for easy exchange of parameters with the (real) <a href="#glass">Glass</a> material; internally just the ratio between <code>attenuationDistance</code> and <code>thickness</code> is used to calculate the resulting attenuation and thus the material appearance.</p>
 <figure>
 <img src="images/material_ThinGlass.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of a ThinGlass material with red attenuation.</figcaption>
 </figure>
@@ -2485,7 +2485,7 @@ div.sourceCode { overflow-x: initial; }
 <img src="images/ColoredWindow.jpg" style="width:60.0%" alt="" /><figcaption>Example image of a colored window made with textured attenuation of the ThinGlass material.</figcaption>
 </figure>
 <h4 id="metallicpaint">MetallicPaint</h4>
-<p>The <a href="#path-tracer">path tracer</a> offers a metallic paint material, consisting of a base coat with optional flakes and a clear coat. To create a MetallicPaint material pass the type string “<code>metallicPaint</code>” to <code>ospNewMaterial</code>. Its parameters are listed in the table below.</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> offers a metallic paint material, consisting of a base coat with optional flakes and a clear coat. To create a MetallicPaint material pass the type string “<code>metallicPaint</code>” to <code>ospNewMaterial</code>. Its parameters are listed in the table below.</p>
 <table>
 <caption>Parameters of the MetallicPaint material.</caption>
 <thead>
@@ -2529,12 +2529,12 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports <a href="#texture2d-transformations">texture transformations</a>. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. Parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
+<p>The color of the base coat <code>baseColor</code> can be textured by a <a href="#texture">texture</a> <code>map_baseColor</code>, which also supports <a href="documentation.html#texture2d-transformations">texture transformations</a>. If present, the color component of <a href="#geometries">geometries</a> is also used for the color of the base coat. Parameter <code>flakeAmount</code> controls the proportion of flakes in the base coat, so when setting it to 1 the <code>baseColor</code> will not be visible. The shininess of the metallic component is governed by <code>flakeSpread</code>, which controls the variation of the orientation of the flakes, similar to the <code>roughness</code> parameter of <a href="#metal">Metal</a>. Note that the effect of the metallic flakes is currently only computed on average, thus individual flakes are not visible.</p>
 <figure>
 <img src="images/material_MetallicPaint.jpg" style="width:60.0%" alt="" /><figcaption>Rendering of a MetallicPaint material.</figcaption>
 </figure>
 <h4 id="luminous">Luminous</h4>
-<p>The <a href="#path-tracer">path tracer</a> supports the Luminous material which emits light uniformly in all directions and which can thus be used to turn any geometric object into a light source. It is created by passing the type string “<code>Luminous</code>” to <code>ospNewMaterial</code>. The amount of constant radiance that is emitted is determined by combining the general parameters of lights: <a href="#lights"><code>color</code> and <code>intensity</code></a>.</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> supports the Luminous material which emits light uniformly in all directions and which can thus be used to turn any geometric object into a light source. It is created by passing the type string “<code>luminous</code>” to <code>ospNewMaterial</code>. The amount of constant radiance that is emitted is determined by combining the general parameters of lights: <a href="#lights"><code>color</code> and <code>intensity</code></a>.</p>
 <table>
 <caption>Parameters accepted by the Luminous material.</caption>
 <thead>
@@ -2598,7 +2598,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">OSPData</td>
 <td style="text-align: left;">data</td>
-<td style="text-align: left;">the actual texel 2D <a href="#data">data</a></td>
+<td style="text-align: left;">the actual texel 2D <a href="documentation.html#data">data</a></td>
 </tr>
 </tbody>
 </table>

@@ -55,6 +55,9 @@
 <p>The application is located in <code>apps/ospExamples/</code> directory and can be built with CMake. It can be run from the build directory via:</p>
 <pre><code>./ospExamples &lt;command-line-parameter&gt;</code></pre>
 <p>The command line parameter is optional however.</p>
+<figure>
+<img src="images/ospExamples.png" style="width:90.0%" alt="" /><figcaption><code>ospExamples</code> application with default <code>boxes</code> scene.</figcaption>
+</figure>
 <h3 id="scenes">Scenes</h3>
 <p>Different scenes can be selected from the <code>scenes</code> dropdown and each scene corresponds to an instance of a special <code>detail::Builder</code> struct. Example builders are located in <code>apps/common/ospray_testing/builders/</code>. These builders provide a usage guide for the OSPRay scene hierarchy and OSPRay API in the form of <code>cpp</code> wrappers. They instantiate and manage objects for the specific scene like <code>cpp::Geometry</code>, <code>cpp::Volume</code>, <code>cpp::Light</code> etc.</p>
 <p>The <code>detail::Builder</code> base struct is mostly responsible for setting up OSPRay <code>world</code> and objects common in all scenes (for eg: lighting and ground plane), which can be conveniently overridden in the derived builders.</p>
@@ -67,10 +70,10 @@
 <dd>A scene depicting a classic cornell box with <code>quad</code> mesh geometry type for rendering two cubes and a <code>quad</code> light type.
 </dd>
 <dt>curves</dt>
-<dd>A simple scene with <code>curve</code> geometry type and options to change <code>curveBasis</code>. For details on different basis’ please check documentation of <a href="#curves">curves</a>.
+<dd>A simple scene with <code>curve</code> geometry type and options to change <code>curveBasis</code>. For details on different basis’ please check documentation of <a href="documentation.html#curves">curves</a>.
 </dd>
 <dt>gravity_spheres_volume</dt>
-<dd>A scene with <code>structuredRegular</code> type of <a href="#volumes">volume</a>.
+<dd>A scene with <code>structuredRegular</code> type of <a href="documentation.html#volumes">volume</a>.
 </dd>
 <dt>gravity_spheres_isosurface</dt>
 <dd>A scene depicting iso-surface rendering of <code>gravity_spheres_volume</code> using geometry type <code>isosurface</code>.
@@ -92,7 +95,7 @@
 </dd>
 </dl>
 <h3 id="renderer">Renderer</h3>
-<p>This app comes with three <a href="#renderers">renderer</a> options: <code>scivis</code>, <code>pathtracer</code> and <code>debug</code>. The app provides some common rendering controls like <code>pixel samples</code> and other more specific to the renderer type like <code>aoIntensity</code> for <code>scivis</code> renderer.</p>
+<p>This app comes with three <a href="documentation.html#renderers">renderer</a> options: <code>scivis</code>, <code>pathtracer</code> and <code>debug</code>. The app provides some common rendering controls like <code>pixel samples</code> and other more specific to the renderer type like <code>aoIntensity</code> for <code>scivis</code> renderer.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
