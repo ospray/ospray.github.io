@@ -201,6 +201,22 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>Join our <a href="https://groups.google.com/forum/#!forum/ospray-announce/join">mailing list</a> to receive release announcements and major news regarding OSPRay.</p>
 <h2 id="version-history">Version History</h2>
+<h3 id="changes-in-v2.0.1">Changes in v2.0.1:</h3>
+<ul>
+<li>Fix bug where Embree user-defined geometries were not indexed correctly in the scene, which now requires Embree v3.8.0+</li>
+<li>Fix crash when the path tracer encounters geometric models that do not have a material</li>
+<li>Fix crash when some path tracer materials generated NULL bsdfs</li>
+<li>Fix bug where <code>ospGetBounds</code> returned incorrect values</li>
+<li>Fix missing symbol in denoiser module</li>
+<li>Fix missing symbol exports on Windows for all OSPRay built modules</li>
+<li>Add the option to specify a single color for geometric models</li>
+<li>The <code>scivis</code> renderer now respects the opacity component of <code>color</code> on geometric models</li>
+<li>Fix various inconsistent handling of frame buffer alpha between renderers</li>
+<li><code>ospGetCurrentDevice</code> now increments the ref count of the returned <code>OSPDevice</code> handle, so applications will need to release the handle when finished by using <code>ospDeviceRelease</code> accordingly</li>
+<li>Added denoiser to <code>ospExamples</code> app</li>
+<li>Added <code>module_mpi</code> to superbuild (disabled by default)</li>
+<li>The superbuild now will emit a CMake error when using any 32-bit CMake generator, as 32-bit builds are not supported</li>
+</ul>
 <h3 id="changes-in-v2.0.0">Changes in v2.0.0:</h3>
 <ul>
 <li>New major revision of OSPRay brings API breaking improvements over v1.x. See <a href="https://www.ospray.org/ospray2_porting_guide.html">doc/ospray2_porting_guide.md</a> for a deeper description of migrating from v1.x to v2.0 and the latest <a href="documentation.html#ospray-api">API documentation</a>

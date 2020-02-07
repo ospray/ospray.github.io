@@ -95,9 +95,77 @@ div.sourceCode { overflow-x: initial; }
       </div>
       <div id="header-spacing"></div>
     </div>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#ospray-api">OSPRay API</a><ul>
+<li><a href="#initialization-and-shutdown">Initialization and Shutdown</a><ul>
+<li><a href="#command-line-arguments">Command Line Arguments</a></li>
+<li><a href="#manual-device-instantiation">Manual Device Instantiation</a></li>
+<li><a href="#environment-variables">Environment Variables</a></li>
+<li><a href="#error-handling-and-status-messages">Error Handling and Status Messages</a></li>
+<li><a href="#loading-ospray-extensions-at-runtime">Loading OSPRay Extensions at Runtime</a></li>
+<li><a href="#shutting-down-ospray">Shutting Down OSPRay</a></li>
+</ul></li>
+<li><a href="#objects">Objects</a><ul>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#data">Data</a></li>
+</ul></li>
+<li><a href="#volumes">Volumes</a><ul>
+<li><a href="#structured-regular-volume">Structured Regular Volume</a></li>
+<li><a href="#structured-spherical-volume">Structured Spherical Volume</a></li>
+<li><a href="#adaptive-mesh-refinement-amr-volume">Adaptive Mesh Refinement (AMR) Volume</a></li>
+<li><a href="#unstructured-volume">Unstructured Volume</a></li>
+<li><a href="#transfer-function">Transfer Function</a></li>
+<li><a href="#volumetricmodels">VolumetricModels</a></li>
+</ul></li>
+<li><a href="#geometries">Geometries</a><ul>
+<li><a href="#mesh">Mesh</a></li>
+<li><a href="#subdivision">Subdivision</a></li>
+<li><a href="#spheres">Spheres</a></li>
+<li><a href="#curves">Curves</a></li>
+<li><a href="#boxes">Boxes</a></li>
+<li><a href="#isosurfaces">Isosurfaces</a></li>
+<li><a href="#geometricmodels">GeometricModels</a></li>
+</ul></li>
+<li><a href="#lights">Lights</a><ul>
+<li><a href="#directional-light-distant-light">Directional Light / Distant Light</a></li>
+<li><a href="#point-light-sphere-light">Point Light / Sphere Light</a></li>
+<li><a href="#spotlight">Spotlight</a></li>
+<li><a href="#quad-light">Quad Light</a></li>
+<li><a href="#hdri-light">HDRI Light</a></li>
+<li><a href="#ambient-light">Ambient Light</a></li>
+<li><a href="#emissive-objects">Emissive Objects</a></li>
+</ul></li>
+<li><a href="#scene-hierarchy">Scene Hierarchy</a><ul>
+<li><a href="#groups">Groups</a></li>
+<li><a href="#instances">Instances</a></li>
+<li><a href="#world">World</a></li>
+</ul></li>
+<li><a href="#renderers">Renderers</a><ul>
+<li><a href="#scivis-renderer">SciVis Renderer</a></li>
+<li><a href="#path-tracer">Path Tracer</a></li>
+<li><a href="#materials">Materials</a></li>
+<li><a href="#texture">Texture</a></li>
+<li><a href="#texture2d-transformations">Texture2D Transformations</a></li>
+<li><a href="#cameras">Cameras</a></li>
+<li><a href="#picking">Picking</a></li>
+</ul></li>
+<li><a href="#framebuffer">Framebuffer</a><ul>
+<li><a href="#image-operation">Image Operation</a></li>
+</ul></li>
+<li><a href="#rendering">Rendering</a><ul>
+<li><a href="#asynchronous-rendering">Asynchronous Rendering</a></li>
+<li><a href="#asynchronously-rendering-and-ospcommit">Asynchronously Rendering and ospCommit()</a></li>
+<li><a href="#synchronous-rendering">Synchronous Rendering</a></li>
+</ul></li>
+<li><a href="#distributed-rendering-with-mpi">Distributed rendering with MPI</a></li>
+</ul></li>
+</ul>
+</nav>
 
     <div id="content-wrap">
-      <div id="content">
+      <div id="content-wtoc">
 
 <h1 id="documentation">Documentation</h1>
 <p>The following <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">API documentation</a> of OSPRay can also be found as a <a href="http://www.sdvis.org/ospray/download/OSPRay_readme.pdf" title="OSPRay Documentation">pdf document</a>.</p>
@@ -180,10 +248,8 @@ div.sourceCode { overflow-x: initial; }
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>OSPDevice ospNewDevice(<span class="at">const</span> <span class="dt">char</span> *type);</span></code></pre></div>
 <p>where the <code>type</code> string maps to a specific device implementation. OSPRay always provides the “<code>cpu</code>” device, which maps to a fast, local CPU implementation. Other devices can also be added through additional modules, such as distributed MPI device implementations.</p>
 <p>Once a device is created, you can call</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">void</span> ospDeviceSet1i(OSPDevice, <span class="at">const</span> <span class="dt">char</span> *id, <span class="dt">int</span> val);</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="dt">void</span> ospDeviceSetString(OSPDevice, <span class="at">const</span> <span class="dt">char</span> *id, <span class="at">const</span> <span class="dt">char</span> *val);</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="dt">void</span> ospDeviceSetVoidPtr(OSPDevice, <span class="at">const</span> <span class="dt">char</span> *id, <span class="dt">void</span> *val);</span></code></pre></div>
-<p>to set parameters on the device. The following parameters can be set on all devices:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">void</span> ospDeviceSetParam(OSPObject, <span class="at">const</span> <span class="dt">char</span> *id, OSPDataType type, <span class="at">const</span> <span class="dt">void</span> *mem);</span></code></pre></div>
+<p>to set parameters on the device. The semantics of setting parameters is exactly the same as <code>ospSetParam</code>, which is documented below in the <a href="#parameters">parameters</a> section. The following parameters can be set on all devices:</p>
 <table style="width:97%;">
 <caption>Parameters shared by all devices.</caption>
 <colgroup>
@@ -371,7 +437,7 @@ div.sourceCode { overflow-x: initial; }
 <div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">void</span> ospShutdown();</span></code></pre></div>
 <p>This API call ensures that the current device is cleaned up appropriately. Due to static object allocation having non-deterministic ordering, it is recommended that applications call <code>ospShutdown()</code> before the calling application process terminates.</p>
 <h2 id="objects">Objects</h2>
-<p>All entities of OSPRay (the renderer, volumes, geometries, lights, cameras, …) are a logical specialization of <code>OSPObject</code> and share common mechanism to deal with parameters and lifetime.</p>
+<p>All entities of OSPRay (the <a href="documentation.html#renderers">renderer</a>, <a href="#volumes">volumes</a>, <a href="#geometries">geometries</a>, <a href="#lights">lights</a>, <a href="#cameras">cameras</a>, …) are a logical specialization of <code>OSPObject</code> and share common mechanism to deal with parameters and lifetime.</p>
 <p>An important aspect of object parameters is that parameters do not get passed to objects immediately. Instead, parameters are not visible at all to objects until they get explicitly committed to a given object via a call to</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1"></a><span class="dt">void</span> ospCommit(OSPObject);</span></code></pre></div>
 <p>at which time all previously additions or changes to parameters are visible at the same time. If a user wants to change the state of an existing object (e.g., to change the origin of an already existing camera) it is perfectly valid to do so, as long as the changed parameters are recommitted.</p>
@@ -1360,16 +1426,21 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">optional <a href="documentation.html#materials">material</a> applied to the geometry, may be an index into the <code>material</code> parameter on the <a href="documentation.html#renderers">renderer</a> (if it exists)</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">vec4f</td>
+<td style="text-align: left;">color</td>
+<td style="text-align: left;">optional color assigned to the geometry</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">OSPMaterial[] / uint32[]</td>
 <td style="text-align: left;">material</td>
 <td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) materials, may be an index into the <code>material</code> parameter on the renderer (if it exists)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vec4f[]</td>
 <td style="text-align: left;">color</td>
 <td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) colors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">uint8[]</td>
 <td style="text-align: left;">index</td>
 <td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of per-primitive indices into <code>color</code> and <code>material</code></td>

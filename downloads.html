@@ -111,16 +111,16 @@ div.sourceCode { overflow-x: initial; }
 <p>We recommend the latest version of both TBB and Embree libraries.</p>
 <h2 id="packages">Packages</h2>
 <p>For Linux we provide OSPRay precompiled for 64 bit as a TGZ archive.<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.0/ospray-2.0.0.x86_64.linux.tar.gz">ospray-2.0.0.x86_64.linux.tar.gz</a></p>
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.1/ospray-2.0.1.x86_64.linux.tar.gz">ospray-2.0.1.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as a ZIP archive:<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.0/ospray-2.0.0.x86_64.macosx.zip">ospray-2.0.0.x86_64.macosx.zip</a></p>
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.1/ospray-2.0.1.x86_64.macosx.zip">ospray-2.0.1.x86_64.macosx.zip</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an MSI installer as well as a ZIP archive:<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.0/ospray-2.0.0.x86_64.windows.msi">ospray-2.0.0.x86_64.windows.msi</a><br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.0/ospray-2.0.0.x86_64.windows.zip">ospray-2.0.0.x86_64.windows.zip</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.1/ospray-2.0.1.x86_64.windows.msi">ospray-2.0.1.x86_64.windows.msi</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.0.1/ospray-2.0.1.x86_64.windows.zip">ospray-2.0.1.x86_64.windows.zip</a><br />
 You may need to additionally install the <a href="https://www.microsoft.com/download/details.aspx?id=53840">x64 Microsoft<sup>*</sup> Visual C++<sup>*</sup> 2015 Redistributable</a>.</p>
 <p>The source code of the latest OSPRay version can be downloaded here:<br />
-<a href="https://github.com/ospray/OSPRay/archive/v2.0.0.zip">ospray-2.0.0.zip</a><br />
-<a href="https://github.com/ospray/OSPRay/archive/v2.0.0.tar.gz">ospray-2.0.0.tar.gz</a></p>
+<a href="https://github.com/ospray/OSPRay/archive/v2.0.1.zip">ospray-2.0.1.zip</a><br />
+<a href="https://github.com/ospray/OSPRay/archive/v2.0.1.tar.gz">ospray-2.0.1.tar.gz</a></p>
 <p>You can also access <a href="https://github.com/ospray/OSPRay/releases">old OSPRay releases</a>.</p>
 <h1 id="building-and-finding-ospray">Building and Finding OSPRay</h1>
 <p>The latest OSPRay sources are always available at the <a href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The default <code>master</code> branch should always point to the latest bugfix release.</p>
@@ -132,7 +132,7 @@ You may need to additionally install the <a href="https://www.microsoft.com/down
 <li><p>To build OSPRay you need <a href="http://www.cmake.org">CMake</a>, any form of C++11 compiler (we recommend using GCC, but also support Clang, MSVC, and <a href="https://software.intel.com/en-us/c-compilers">Intel® C++ Compiler (icc)</a>), and standard Linux development tools. To build the interactive tutorials, you should also have some version of OpenGL and GLFW.</p></li>
 <li><p>Additionally you require a copy of the <a href="http://ispc.github.io">Intel® SPMD Program Compiler (ISPC)</a>, version 1.9.1 or later. Please obtain a release of ISPC from the <a href="https://ispc.github.io/downloads.html">ISPC downloads page</a>. The build system looks for ISPC in the <code>PATH</code> and in the directory right “next to” the checked-out OSPRay sources.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Alternatively set the CMake variable <code>ISPC_EXECUTABLE</code> to the location of the ISPC compiler. Note: OSPRay is incompatible with ISPC v1.11.0.</p></li>
 <li><p>OSPRay builds on top of a small C++ utility library called <code>ospcommon</code>. The library provides abstractions for tasking, aligned memory allocation, vector math types, among others. For users who also need to build <a href="https://www.github.com/ospray/ospcommon">ospcommon</a>, we recommend the default the Intel® <a href="https://www.threadingbuildingblocks.org/">Threading Building Blocks</a> (TBB) as tasking system for performance and flexibility reasons. Alternatively you can set CMake variable <code>OSPCOMMON_TASKING_SYSTEM</code> to <code>OpenMP</code> or <code>Internal</code>.</p></li>
-<li><p>OSPRay also heavily uses Intel <a href="https://www.embree.org/">Embree</a>, installing version 3.7.0 or newer is required. If Embree is not found by CMake its location can be hinted with the variable <code>embree_DIR</code>.</p></li>
+<li><p>OSPRay also heavily uses Intel <a href="https://www.embree.org/">Embree</a>, installing version 3.8.0 or newer is required. If Embree is not found by CMake its location can be hinted with the variable <code>embree_DIR</code>.</p></li>
 <li><p>OSPRay also heavily uses Intel <a href="https://www.openvkl.org/">Open VKL</a>, installing version 0.8.0 or newer is required. If Open VKL is not found by CMake its location can be hinted with the variable <code>openvkl_DIR</code>.</p></li>
 <li><p>OSPRay also provides an optional module that adds support for Intel <a href="https://openimagedenoise.github.io/">Open Image Denoise</a>, which is enabled by <code>OSPRAY_MODULE_DENOISER</code>. When loaded, this module enables the <code>denosier</code> image operation. You may need to hint the location of the library with the CMake variable <code>OpenImageDenoise_DIR</code>.</p></li>
 </ul>
