@@ -60,7 +60,7 @@
 </figure>
 <h3 id="scenes">Scenes</h3>
 <p>Different scenes can be selected from the <code>scenes</code> dropdown and each scene corresponds to an instance of a special <code>detail::Builder</code> struct. Example builders are located in <code>apps/common/ospray_testing/builders/</code>. These builders provide a usage guide for the OSPRay scene hierarchy and OSPRay API in the form of <code>cpp</code> wrappers. They instantiate and manage objects for the specific scene like <code>cpp::Geometry</code>, <code>cpp::Volume</code>, <code>cpp::Light</code> etc.</p>
-<p>The <code>detail::Builder</code> base struct is mostly responsible for setting up OSPRay <code>world</code> and objects common in all scenes (for eg: lighting and ground plane), which can be conveniently overridden in the derived builders.</p>
+<p>The <code>detail::Builder</code> base struct is mostly responsible for setting up OSPRay <code>world</code> and objects common in all scenes (for example lighting and ground plane), which can be conveniently overridden in the derived builders.</p>
 <p>Given below are different scenes listed with their string identifiers:</p>
 <dl>
 <dt>boxes</dt>
@@ -95,7 +95,11 @@
 </dd>
 </dl>
 <h3 id="renderer">Renderer</h3>
-<p>This app comes with three <a href="documentation.html#renderers">renderer</a> options: <code>scivis</code>, <code>pathtracer</code> and <code>debug</code>. The app provides some common rendering controls like <code>pixel samples</code> and other more specific to the renderer type like <code>aoIntensity</code> for <code>scivis</code> renderer.</p>
+<p>This app comes with three <a href="documentation.html#renderers">renderer</a> options: <code>scivis</code>, <code>pathtracer</code> and <code>debug</code>. The app provides some common rendering controls like <code>pixelSamples</code> and other more specific to the renderer type like <code>aoIntensity</code> for <code>scivis</code> renderer.</p>
+<p>The sun-sky lighting can be used in a sample scene by enabling the <code>renderSunSky</code> option of the <code>pathtracer</code> renderer. It allows the user to change <code>turbidity</code> and <code>sunDirection</code>.</p>
+<figure>
+<img src="images/renderSunSky.png" style="width:90.0%" alt="" /><figcaption>Rendering an evening sky with the <code>renderSunSky</code> option.</figcaption>
+</figure>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
