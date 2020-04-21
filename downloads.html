@@ -100,24 +100,26 @@ div.sourceCode { overflow-x: initial; }
 
 <h1 id="download-precompiled-ospray-binary-packages">Download Precompiled OSPRay Binary Packages</h1>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Your CPU must support at least SSE4.1 to run OSPRay. The TGZ/ZIP packages contain most needed 3rd party dependencies. Additionally you need</p>
+<p>Your CPU must support at least SSE4.1 to run OSPRay. The TGZ/ZIP packages contain most needed 3rd party dependencies, whereas for the (much smaller) RPM/installer packages you need to have installed</p>
 <ul>
+<li>Intel® <a href="https://www.threadingbuildingblocks.org/">TBB</a> v3.0 or newer</li>
+<li><a href="https://www.embree.org/">Embree</a> ray tracing kernels v3.7.0 or newer</li>
 <li>To run the example viewer: OpenGL</li>
 <li>To use the distributed, multi-node rendering feature: Intel® <a href="https://software.intel.com/en-us/intel-mpi-library/">MPI Library</a>)</li>
 </ul>
 <p>We recommend the latest version of both TBB and Embree libraries.</p>
 <h2 id="packages">Packages</h2>
 <p>For Linux we provide OSPRay precompiled for 64 bit as a TGZ archive.<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.1.0/ospray-2.1.0.x86_64.linux.tar.gz">ospray-2.1.0.x86_64.linux.tar.gz</a></p>
+<a href="https://github.com/ospray/OSPRay/releases/download/v/ospray-.x86_64.linux.tar.gz">ospray-.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as a ZIP archive:<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.1.0/ospray-2.1.0.x86_64.macosx.zip">ospray-2.1.0.x86_64.macosx.zip</a></p>
+<a href="https://github.com/ospray/OSPRay/releases/download/v/ospray-.x86_64.macosx.zip">ospray-.x86_64.macosx.zip</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an MSI installer as well as a ZIP archive:<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.1.0/ospray-2.1.0.x86_64.windows.msi">ospray-2.1.0.x86_64.windows.msi</a><br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.1.0/ospray-2.1.0.x86_64.windows.zip">ospray-2.1.0.x86_64.windows.zip</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v/ospray-.x86_64.windows.msi">ospray-.x86_64.windows.msi</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v/ospray-.x86_64.windows.zip">ospray-.x86_64.windows.zip</a><br />
 You may need to additionally install the <a href="https://www.microsoft.com/download/details.aspx?id=53840">x64 Microsoft<sup>*</sup> Visual C++<sup>*</sup> 2015 Redistributable</a>.</p>
 <p>The source code of the latest OSPRay version can be downloaded here:<br />
-<a href="https://github.com/ospray/OSPRay/archive/v2.1.0.zip">ospray-2.1.0.zip</a><br />
-<a href="https://github.com/ospray/OSPRay/archive/v2.1.0.tar.gz">ospray-2.1.0.tar.gz</a></p>
+<a href="https://github.com/ospray/OSPRay/archive/v.zip">ospray-.zip</a><br />
+<a href="https://github.com/ospray/OSPRay/archive/v.tar.gz">ospray-.tar.gz</a></p>
 <p>You can also access <a href="https://github.com/ospray/OSPRay/releases">old OSPRay releases</a>.</p>
 <h1 id="building-and-finding-ospray">Building and Finding OSPRay</h1>
 <p>The latest OSPRay sources are always available at the <a href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The default <code>master</code> branch should always point to the latest bugfix release.</p>
@@ -168,10 +170,10 @@ You may need to additionally install the <a href="https://www.microsoft.com/down
 <dd>set to OFF will download a pre-built version of Embree.
 </dd>
 <dt>BUILD_OIDN_FROM_SOURCE</dt>
-<dd>set to OFF will download a pre-built version of Open Image Denoise.
+<dd>set to OFF will download a pre-built version of OpenImageDenoise.
 </dd>
 <dt>BUILD_OIDN_VERSION</dt>
-<dd>determines which version of Open Image Denoise to pull down.
+<dd>determines which verison of OpenImageDenoise to pull down.
 </dd>
 </dl>
 <p>For the full set of options, run:</p>
