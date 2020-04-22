@@ -60,7 +60,7 @@
 </figure>
 <h3 id="scenes">Scenes</h3>
 <p>Different scenes can be selected from the <code>scenes</code> dropdown and each scene corresponds to an instance of a special <code>detail::Builder</code> struct. Example builders are located in <code>apps/common/ospray_testing/builders/</code>. These builders provide a usage guide for the OSPRay scene hierarchy and OSPRay API in the form of <code>cpp</code> wrappers. They instantiate and manage objects for the specific scene like <code>cpp::Geometry</code>, <code>cpp::Volume</code>, <code>cpp::Light</code> etc.</p>
-<p>The <code>detail::Builder</code> base struct is mostly responsible for setting up OSPRay <code>world</code> and objects common in all scenes (for eg: lighting and ground plane), which can be conveniently overridden in the derived builders.</p>
+<p>The <code>detail::Builder</code> base struct is mostly responsible for setting up OSPRay <code>world</code> and objects common in all scenes (for example lighting and ground plane), which can be conveniently overridden in the derived builders.</p>
 <p>Given below are different scenes listed with their string identifiers:</p>
 <dl>
 <dt>boxes</dt>

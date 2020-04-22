@@ -321,7 +321,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Users can change parameters on the device after initialization (from either method above), by calling</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1"></a>OSPDevice ospGetCurrentDevice();</span></code></pre></div>
 <p>This function returns the handle to the device currently used to respond to OSPRay API calls, where users can set/change parameters and recommit the device. If changes are made to the device that is already set as the current device, it does not need to be set as current again. Note this API call will increment the ref count of the returned device handle, so applications must use <code>ospDeviceRelease</code> when finished using the handle to avoid leaking the underlying device object.</p>
-<p>OSPRay allows applications to query runtime properties of a device in order to do enhanced validation of what device was loaded at runtime. The following function can be used to get these device-specific properties (attiributes about the device, not paramter values)</p>
+<p>OSPRay allows applications to query runtime properties of a device in order to do enhanced validation of what device was loaded at runtime. The following function can be used to get these device-specific properties (attributes about the device, not parameter values)</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">int64_t</span> ospDeviceGetProperty(OSPDevice, OSPDeviceProperty);</span></code></pre></div>
 <p>It returns an integer value of the queried property and the following properties can be provided as parameter:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1"></a>OSP_DEVICE_VERSION</span>
@@ -650,7 +650,7 @@ div.sourceCode { overflow-x: initial; }
 <p>which will copy the whole<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> content of the <code>source</code> array into <code>destination</code> at the given location <code>destinationIndex</code>. The <code>OSPDataType</code>s of the data objects must match. The region to be copied must be valid inside the destination, i.e., in all dimensions, <code>destinationIndex + sourceSize &lt;= destinationSize</code>. The affected region <code>[destinationIndex, destinationIndex + sourceSize)</code> is marked as dirty, which may be used by OSPRay to only process or update that sub-region (e.g., updating an acceleration structure). If the destination array is shared with OSPData by the application (created with <code>ospNewSharedData</code>), then</p>
 <ul>
 <li>the source array must be shared as well (thus <code>ospCopyData</code> cannot be used to read opaque data)</li>
-<li>if source and destination memory overlaps (aliasing), then behaviour is undefined</li>
+<li>if source and destination memory overlaps (aliasing), then behavior is undefined</li>
 <li>except if source and destination regions are identical (including matching strides), which can be used by application to mark that region as dirty (instead of the whole <code>OSPData</code>)</li>
 </ul>
 <p>To add a data array as parameter named <code>id</code> to another object call also use</p>
@@ -843,7 +843,7 @@ div.sourceCode { overflow-x: initial; }
 <p>For hexahedral cells, each hexahedron is formed by a group of eight indices into the vertices and data values. Vertex ordering is the same as <code>VTK_HEXAHEDRON</code>: four bottom vertices counterclockwise, then top four counterclockwise.</p>
 <p>For wedge cells, each wedge is formed by a group of six indices into the vertices and data values. Vertex ordering is the same as <code>VTK_WEDGE</code>: three bottom vertices counterclockwise, then top three counterclockwise.</p>
 <p>For pyramid cells, each cell is formed by a group of five indices into the vertices and data values. Vertex ordering is the same as <code>VTK_PYRAMID</code>: four bottom vertices counterclockwise, then the top vertex.</p>
-<p>To maintain VTK data compatibility an index array may be specified via the <code>indexPrefixed</code> array that allow vertex indices to be interleaved with cell sizes in the following format: <span class="math inline"><em>n</em>, <em>i</em><em>d</em><sub>1</sub>, ..., <em>i</em><em>d</em><sub><em>n</em></sub>, <em>m</em>, <em>i</em><em>d</em><sub>1</sub>, ..., <em>i</em><em>d</em><sub><em>m</em></sub></span>.</p>
+<p>To maintain VTK data compatibility an index array may be specified via the <code>indexPrefixed</code> array that allows vertex indices to be interleaved with cell sizes in the following format: <span class="math inline"><em>n</em>, <em>i</em><em>d</em><sub>1</sub>, ..., <em>i</em><em>d</em><sub><em>n</em></sub>, <em>m</em>, <em>i</em><em>d</em><sub>1</sub>, ..., <em>i</em><em>d</em><sub><em>m</em></sub></span>.</p>
 <table style="width:98%;">
 <caption>Additional configuration parameters for unstructured volumes.</caption>
 <colgroup>
@@ -936,7 +936,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">precomputedNormals</td>
-<td style="text-align: left;">true</td>
+<td style="text-align: left;">false</td>
 <td style="text-align: left;">whether to accelerate by precomputing, at a cost of 12 bytes/face</td>
 </tr>
 </tbody>
@@ -1019,7 +1019,7 @@ div.sourceCode { overflow-x: initial; }
 <div class="sourceCode" id="cb30"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1"></a>OSPGeometry ospNewGeometry(<span class="at">const</span> <span class="dt">char</span> *type);</span></code></pre></div>
 <p>Note that in the current implementation geometries are limited to a maximum of 2<sup>32</sup> primitives.</p>
 <h3 id="mesh">Mesh</h3>
-<p>A mesh consiting of either triangles or quads is created by calling <code>ospNewGeometry</code> with type string “<code>mesh</code>”. Once created, a mesh recognizes the following parameters:</p>
+<p>A mesh consisting of either triangles or quads is created by calling <code>ospNewGeometry</code> with type string “<code>mesh</code>”. Once created, a mesh recognizes the following parameters:</p>
 <table>
 <caption>Parameters defining a mesh geometry.</caption>
 <thead>
@@ -1320,7 +1320,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Depending upon the specified data type of vertex positions, the curves will be implemented Embree curves or assembled from rounded and linearly-connected segments.</p>
 <p>Positions in <code>vertex.position_radius</code> format supports per-vertex varying radii with data type <code>vec4f[]</code> and instantiate Embree curves internally for the relevant type/basis mapping (See Embree documentation for discussion of curve types and data formatting).</p>
-<p>If a constant <code>radius</code> is used and positions are specified in a <code>vec3f[]</code> type of <code>vertex.position</code> format, then type/basis defaults to <code>OSP_ROUND</code> and <code>OSP_LINEAR</code> (this is the fastest and most memory efficient mode). Implementation is with round linear segements where each segment corresponds to a link between two vertices.</p>
+<p>If a constant <code>radius</code> is used and positions are specified in a <code>vec3f[]</code> type of <code>vertex.position</code> format, then type/basis defaults to <code>OSP_ROUND</code> and <code>OSP_LINEAR</code> (this is the fastest and most memory efficient mode). Implementation is with round linear segments where each segment corresponds to a link between two vertices.</p>
 <p>The following section describes the properties of different curve basis’ and how they use the data provided in data buffers:</p>
 <dl>
 <dt>OSP_LINEAR</dt>
@@ -1426,7 +1426,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="geometricmodels">GeometricModels</h3>
 <p>Geometries are matched with surface appearance information through GeometricModels. These take a geometry, which defines the surface representation, and applies either full-object or per-primitive color and material information. To create a geometric model, call</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1"></a>OSPGeometricModel ospNewGeometricModel(OSPGeometry geometry);</span></code></pre></div>
-<p>Color and material are fetched with the primitive ID of the hit (clamped to the valid range, thus a single color or material is fine), or mapped first via the <code>index</code> array (if present). All paramters are optional, however, some renderers (notably the <a href="documentation.html#path-tracer">path tracer</a>) require a material to be set. Materials are either handles of <code>OSPMaterial</code>, or indices into the <code>material</code> array on the <a href="documentation.html#renderers">renderer</a>, which allows to build a <a href="documentation.html#world">world</a> which can be used by different types of renderers.</p>
+<p>Color and material are fetched with the primitive ID of the hit (clamped to the valid range, thus a single color or material is fine), or mapped first via the <code>index</code> array (if present). All parameters are optional, however, some renderers (notably the <a href="documentation.html#path-tracer">path tracer</a>) require a material to be set. Materials are either handles of <code>OSPMaterial</code>, or indices into the <code>material</code> array on the <a href="documentation.html#renderers">renderer</a>, which allows to build a <a href="documentation.html#world">world</a> which can be used by different types of renderers.</p>
 <p>An <code>invertNormals</code> flag allows to invert (shading) normal vectors of the rendered geometry. That is particularly useful for clipping. By changing normal vectors orientation one can control whether inside or outside of the clipping geometry is being removed. For example, a clipping geometry with normals oriented outside clips everything what’s inside.</p>
 <table style="width:98%;">
 <caption>Parameters understood by GeometricModel.</caption>
@@ -1614,7 +1614,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float[]</td>
 <td style="text-align: left;">intensityDistribution</td>
 <td style="text-align: right;"></td>
-<td style="text-align: left;">luminous intensity distribution for photometric lights; can be 2D for assymentric illumination; values are assumed to be uniformly distributed</td>
+<td style="text-align: left;">luminous intensity distribution for photometric lights; can be 2D for asymmetric illumination; values are assumed to be uniformly distributed</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec3f</td>
@@ -2813,7 +2813,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_TEXTURE_L8</td>
-<td style="text-align: left;">8 bit [0–255] gamma encoded luminance (replicated into red, gree, blue)</td>
+<td style="text-align: left;">8 bit [0–255] gamma encoded luminance (replicated into red, green, blue)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_TEXTURE_LA8</td>
@@ -2989,7 +2989,27 @@ div.sourceCode { overflow-x: initial; }
 <tr class="even">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">stereoMode</td>
-<td style="text-align: left;">0: no stereo (default), 1: left eye, 2: right eye, 3: side-by-side</td>
+<td style="text-align: left;"><code>OSPStereoMode</code> for stereo rendering, possible values are:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_STEREO_NONE</code> (default)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_STEREO_LEFT</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_STEREO_RIGHT</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_STEREO_SIDE_BY_SIDE</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">float</td>
