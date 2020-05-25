@@ -469,7 +469,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="data">Data</h3>
 <p>OSPRay consumes data arrays from the application using a specific object type, <code>OSPData</code>. There are several components to describing a data array: element type, 1/2/3 dimensional striding, and whether the array is shared with the application or copied into opaque, OSPRay-owned memory.</p>
 <p>Shared data arrays require that the application’s array memory outlives the lifetime of the created <code>OSPData</code>, as OSPRay is referring to application memory. Where this is not preferable, applications use opaque arrays to allow the <code>OSPData</code> to own the lifetime of the array memory. However, opaque arrays dictate the cost of copying data into it, which should be kept in mind.</p>
-<p>Thus the most efficient way to specify a data array from the application is to created a shared data array, which is done with</p>
+<p>Thus, the most efficient way to specify a data array from the application is to created a shared data array, which is done with</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1"></a>OSPData ospNewSharedData(<span class="at">const</span> <span class="dt">void</span> *sharedData,</span>
 <span id="cb23-2"><a href="#cb23-2"></a>    OSPDataType,</span>
 <span id="cb23-3"><a href="#cb23-3"></a>    <span class="dt">uint64_t</span> numItems1,</span>
@@ -1537,7 +1537,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Setting the angular diameter to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="documentation.html#path-tracer">path tracer</a>). For instance, the apparent size of the sun is about 0.53°.</p>
 <h3 id="point-light-sphere-light">Point Light / Sphere Light</h3>
-<p>The sphere light (or the special case point light) is a light emitting uniformly in all directions from the surface towards the outside. It does not emit any light towards the inside of the sphere. It is created by passing the type string “<code>sphere</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the sphere light supports the following special parameters:</p>
+<p>The sphere light (or the special case point light) is a light emitting uniformly in all directions from the surface toward the outside. It does not emit any light toward the inside of the sphere. It is created by passing the type string “<code>sphere</code>” to <code>ospNewLight</code>. In addition to the <a href="#lights">general parameters</a> understood by all lights the sphere light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the sphere light.</caption>
 <thead>
@@ -3284,7 +3284,7 @@ div.sourceCode { overflow-x: initial; }
 <p>OSPRay comes with a module that adds support for Intel® Open Image Denoise. This is provided as an optional module as it creates an additional project dependency at compile time. The module implements a “<code>denoiser</code>” frame operation, which denoises the entire frame before the frame is completed.</p>
 <h2 id="rendering">Rendering</h2>
 <h3 id="asynchronous-rendering">Asynchronous Rendering</h3>
-<p>Rendering is by default asynchronous (non-blocking), and is done by combining a frame buffer, renderer, camera, and world.</p>
+<p>Rendering is by default asynchronous (non-blocking), and is done by combining a framebuffer, renderer, camera, and world.</p>
 <p>What to render and how to render it depends on the renderer’s parameters. If the framebuffer supports accumulation (i.e., it was created with <code>OSP_FB_ACCUM</code>) then successive calls to <code>ospRenderFrame</code> will progressively refine the rendered image.</p>
 <p>To start an render task, use</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1"></a>OSPFuture ospRenderFrame(OSPFrameBuffer, OSPRenderer, OSPCamera, OSPWorld);</span></code></pre></div>
@@ -3310,7 +3310,7 @@ div.sourceCode { overflow-x: initial; }
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">OSP_NONE_FINISHED</td>
-<td style="text-align: left;">Don’t wait for anything to be finished (immediately return from <code>ospWait</code>)</td>
+<td style="text-align: left;">Do not wait for anything to be finished (immediately return from <code>ospWait</code>)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_WORLD_COMMITTED</td>
