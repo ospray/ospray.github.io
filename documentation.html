@@ -957,7 +957,7 @@ div.sourceCode { overflow-x: initial; }
 <p>VDB volumes implement a data structure that is very similar to the data structure outlined in Museth [1], they are created by passing the type string “<code>vdb</code>” to <code>ospNewVolume</code>.</p>
 <p>The data structure is a hierarchical regular grid at its core: Nodes are regular grids, and each grid cell may either store a constant value (this is called a tile), or child pointers. Nodes in VDB trees are wide: Nodes on the first level have a resolution of 32<sup>3</sup> voxels, on the next level 16<sup>3</sup>, and on the leaf level 8<sup>3</sup> voxels. All nodes on a given level have the same resolution. This makes it easy to find the node containing a coordinate using shift operations (see [1]). VDB leaf nodes are implicit in OSPRay / Open VKL: they are stored as pointers to user-provided data.</p>
 <figure>
-<img src="images/vdb_structure.svg" style="width:80.0%" alt="" /><figcaption>Topology of VDB volumes.</figcaption>
+<img src="images/vdb_structure.png" alt="" /><figcaption>Topology of VDB volumes.</figcaption>
 </figure>
 <p>VDB volumes interpret input data as constant cells (which are then potentially filtered). This is in contrast to <code>structuredRegular</code> volumes, which have a vertex-centered interpretation.</p>
 <p>The VDB implementation in OSPRay / Open VKL follows the following goals:</p>
