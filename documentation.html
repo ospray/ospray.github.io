@@ -182,7 +182,7 @@ div.sourceCode { overflow-x: initial; }
 <li><a href="#image-parallel-rendering-in-the-mpi-distributed-device">Image Parallel Rendering in the MPI Distributed Device</a></li>
 <li><a href="#data-parallel-rendering-in-the-mpi-distributed-device">Data Parallel Rendering in the MPI Distributed Device</a></li>
 </ul></li>
-<li><a href="#interaction-with-user-modules">Interaction With User Modules</a></li>
+<li><a href="#interaction-with-user-modules">Interaction with User Modules</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -480,7 +480,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Parameters allow to configure the behavior of and to pass data to objects. However, objects do <em>not</em> have an explicit interface for reasons of high flexibility and a more stable compile-time API. Instead, parameters are passed separately to objects in an arbitrary order, and unknown parameters will simply be ignored (though a warning message will be posted). The following function allows adding various types of parameters with name <code>id</code> to a given object:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetParam(OSPObject, <span class="at">const</span> <span class="dt">char</span> *id, OSPDataType type, <span class="at">const</span> <span class="dt">void</span> *mem);</span></code></pre></div>
 <p>The valid parameter names for all <code>OSPObject</code>s and what types are valid are discussed in future sections.</p>
-<p>Note that <code>mem</code> must always be a pointer <em>to</em> the object, otherwise accidental type casting can occur. This is especially true for pointer types (<code>OSP_VOID_PTR</code> and <code>OSPObject</code> handles), as they will implicitly cast to <code>void\ *</code>, but be incorrectly interpreted. To help with some of these issues, there also exist variants of <code>ospSetParam</code> for specific types, such as <code>ospSetInt</code> and <code>ospSetVec3f</code> in the OSPRay utility library (found in <code>ospray_util.h</code>).</p>
+<p>Note that <code>mem</code> must always be a pointer <em>to</em> the object, otherwise accidental type casting can occur. This is especially true for pointer types (<code>OSP_VOID_PTR</code> and <code>OSPObject</code> handles), as they will implicitly cast to <code>void\ *</code>, but be incorrectly interpreted. To help with some of these issues, there also exist variants of <code>ospSetParam</code> for specific types, such as <code>ospSetInt</code> and <code>ospSetVec3f</code> in the OSPRay utility library (found in <code>ospray_util.h</code>). Note that half precision float parameters <code>OSP_HALF, OSP_VEC[234]H</code> are not supported.</p>
 <p>Users can also remove parameters that have been explicitly set from <code>ospSetParam</code>. Any parameters which have been removed will go back to their default value during the next commit unless a new parameter was set after the parameter was removed. To remove a parameter, use</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospRemoveParam(OSPObject, <span class="at">const</span> <span class="dt">char</span> *id);</span></code></pre></div>
 <h3 id="data">Data</h3>
@@ -603,30 +603,34 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">64 bit unsigned integer scalar and [234]-element vector</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">OSP_HALF, OSP_VEC[234]H</td>
+<td style="text-align: left;">16 bit half precision floating-point scalar and [234]-element vector (IEEE 754 <code>binary16</code>)</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">OSP_FLOAT, OSP_VEC[234]F</td>
 <td style="text-align: left;">32 bit single precision floating-point scalar and [234]-element vector</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_DOUBLE, OSP_VEC[234]D</td>
 <td style="text-align: left;">64 bit double precision floating-point scalar and [234]-element vector</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_BOX[1234]I</td>
 <td style="text-align: left;">32 bit integer box (lower + upper bounds)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_BOX[1234]F</td>
 <td style="text-align: left;">32 bit single precision floating-point box (lower + upper bounds)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_LINEAR[23]F</td>
 <td style="text-align: left;">32 bit single precision floating-point linear transform ([23] vectors)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_AFFINE[23]F</td>
 <td style="text-align: left;">32 bit single precision floating-point affine transform (linear transform plus translation)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_VOID_PTR</td>
 <td style="text-align: left;">raw memory address (only found in module extensions)</td>
 </tr>
@@ -709,7 +713,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The size of the volume is inferred from the size of the 3D array <code>data</code>, as is the type of the voxel values (currently supported are: <code>OSP_UCHAR</code>, <code>OSP_SHORT</code>, <code>OSP_USHORT</code>, <code>OSP_FLOAT</code>, and <code>OSP_DOUBLE</code>).</p>
+<p>The size of the volume is inferred from the size of the 3D array <code>data</code>, as is the type of the voxel values (currently supported are: <code>OSP_UCHAR</code>, <code>OSP_SHORT</code>, <code>OSP_USHORT</code>, <code>OSP_HALF</code>, <code>OSP_FLOAT</code>, and <code>OSP_DOUBLE</code>).</p>
 <h3 id="structured-spherical-volume">Structured Spherical Volume</h3>
 <p>Structured spherical volumes are also supported, which are created by passing a type string of “<code>structuredSpherical</code>” to <code>ospNewVolume</code>. The grid dimensions and parameters are defined in terms of radial distance <span class="math inline"><em>r</em></span>, inclination angle <span class="math inline"><em>θ</em></span>, and azimuthal angle <span class="math inline"><em>ϕ</em></span>, conforming with the ISO convention for spherical coordinate systems. The coordinate system and parameters understood by structured spherical volumes are summarized below.</p>
 <figure>
@@ -764,7 +768,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The dimensions <span class="math inline">(<em>r</em>, <em>θ</em>, <em>ϕ</em>)</span> of the volume are inferred from the size of the 3D array <code>data</code>, as is the type of the voxel values (currently supported are: <code>OSP_UCHAR</code>, <code>OSP_SHORT</code>, <code>OSP_USHORT</code>, <code>OSP_FLOAT</code>, and <code>OSP_DOUBLE</code>).</p>
+<p>The dimensions <span class="math inline">(<em>r</em>, <em>θ</em>, <em>ϕ</em>)</span> of the volume are inferred from the size of the 3D array <code>data</code>, as is the type of the voxel values (currently supported are: <code>OSP_UCHAR</code>, <code>OSP_SHORT</code>, <code>OSP_USHORT</code>, <code>OSP_HALF</code>, <code>OSP_FLOAT</code>, and <code>OSP_DOUBLE</code>).</p>
 <p>These grid parameters support flexible specification of spheres, hemispheres, spherical shells, spherical wedges, and so forth. The grid extents (computed as <code>[gridOrigin, gridOrigin + (dimensions - 1) * gridSpacing]</code>) however must be constrained such that:</p>
 <ul>
 <li><span class="math inline"><em>r</em> ≥ 0</span></li>
@@ -1042,7 +1046,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="even">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">filter</td>
-<td style="text-align: left;">filter used for reconstructing the field, default is <code>OSP_VOLUME_FILTER_TRILINEAR</code>, alternatively <code>OSP_VOLUME_FILTER_NEAREST</code>.</td>
+<td style="text-align: left;">filter used for reconstructing the field, default is <code>OSP_VOLUME_FILTER_TRILINEAR</code>, alternatively <code>OSP_VOLUME_FILTER_NEAREST</code>, or <code>OSP_VOLUME_FILTER_TRICUBIC</code>.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">int</td>
@@ -1061,10 +1065,10 @@ div.sourceCode { overflow-x: initial; }
 <table style="width:98%;">
 <caption>Configuration parameters for particle volumes.</caption>
 <colgroup>
-<col style="width: 14%" />
+<col style="width: 13%" />
 <col style="width: 30%" />
 <col style="width: 11%" />
-<col style="width: 40%" />
+<col style="width: 41%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1109,7 +1113,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">estimateValueRanges</td>
 <td style="text-align: right;">true</td>
-<td style="text-align: left;">Enable heuristic estimation of value ranges which are used in internal acceleration structures as well as for determining the volume’s overall value range. When set to <code>false</code>, the user <em>must</em> specify <code>clampMaxCumulativeValue</code>, and all value ranges will be assumed [0, <code>clampMaxCumulativeValue</code>]. Disabling this switch may improve volume commit time, but will make volume rendering less efficient.</td>
+<td style="text-align: left;">Enable heuristic estimation of value ranges which are used in internal acceleration structures as well as for determining the volume’s overall value range. When set to <code>false</code>, the user <em>must</em> specify <code>clampMaxCumulativeValue</code>, and all value ranges will be assumed [0–<code>clampMaxCumulativeValue</code>]. Disabling this switch may improve volume commit time, but will make volume rendering less efficient.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">int</td>
@@ -1193,7 +1197,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">anisotropy</td>
 <td style="text-align: right;">0.0</td>
-<td style="text-align: left;">anisotropy of the (Henyey-Greenstein) phase function in [-1, 1] (<a href="documentation.html#path-tracer">path tracer</a> only), default to isotropic scattering</td>
+<td style="text-align: left;">anisotropy of the (Henyey-Greenstein) phase function in [-1–1] (<a href="documentation.html#path-tracer">path tracer</a> only), default to isotropic scattering</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSPVolume</td>
@@ -1743,6 +1747,10 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSP_INTENSITY_QUANTITY_IRRADIANCE</td>
 <td style="text-align: left;">the amount of light arriving at a surface point, assuming the light is oriented towards to the surface, unit is W/m<sup>2</sup></td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_INTENSITY_QUANTITY_SCALE</td>
+<td style="text-align: left;">a linear scaling factor for light sources with a built-in quantity (e.g., <code>HDRI</code>, or <code>sunSky</code>).</td>
+</tr>
 </tbody>
 </table>
 <p>The following light types are supported by most OSPRay renderers.</p>
@@ -1907,7 +1915,7 @@ div.sourceCode { overflow-x: initial; }
 </figure>
 <p>The emission side is determined by the cross product of <code>edge1</code>×<code>edge2</code>. Note that only renderers that use stochastic sampling (like the path tracer) will compute soft shadows from the quad light. Other renderers will just sample the center of the quad light, which results in hard shadows.</p>
 <h3 id="hdri-light">HDRI Light</h3>
-<p>The HDRI light is a textured light source surrounding the scene and illuminating it from infinity. It is created by passing the type string “<code>hdri</code>” to <code>ospNewLight</code>. The HDRI light only accepts <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> the HDRI light supports the following special parameters:</p>
+<p>The HDRI light is a textured light source surrounding the scene and illuminating it from infinity. It is created by passing the type string “<code>hdri</code>” to <code>ospNewLight</code>. The values of the HDRI correspond to radiance and therfore the HDRI light only accepts <code>OSP_INTENSITY_QUANTITY_SCALE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> the HDRI light supports the following special parameters:</p>
 <table style="width:97%;">
 <caption>Special parameters accepted by the HDRI light.</caption>
 <colgroup>
@@ -1948,7 +1956,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The ambient light surrounds the scene and illuminates it from infinity with constant radiance (determined by combining the <a href="#lights">parameters <code>color</code> and <code>intensity</code></a>). It is created by passing the type string “<code>ambient</code>” to <code>ospNewLight</code>. The ambient light supports <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> and <code>OSP_INTENSITY_QUANTITY_IRRADIANCE</code> (default) as <code>intensityQuantity</code> parameter value.</p>
 <p>Note that the <a href="documentation.html#scivis-renderer">SciVis renderer</a> uses ambient lights to control the color and intensity of the computed ambient occlusion (AO).</p>
 <h3 id="sun-sky-light">Sun-Sky Light</h3>
-<p>The sun-sky light is a combination of a <code>distant</code> light for the sun and a procedural <code>hdri</code> light for the sky. It is created by passing the type string “<code>sunSky</code>” to <code>ospNewLight</code>. The sun-sky light surrounds the scene and illuminates it from infinity and can be used for rendering outdoor scenes. The radiance values are calculated using the Hošek-Wilkie sky model and solar radiance function. The sun-sky light only accepts <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> the following special parameters are supported:</p>
+<p>The sun-sky light is a combination of a <code>distant</code> light for the sun and a procedural <code>hdri</code> light for the sky. It is created by passing the type string “<code>sunSky</code>” to <code>ospNewLight</code>. The sun-sky light surrounds the scene and illuminates it from infinity and can be used for rendering outdoor scenes. The radiance values are calculated using the Hošek-Wilkie sky model and solar radiance function. The underlying model of the sun-sky light returns radiance values and therfore the light only accepts <code>OSP_INTENSITY_QUANTITY_SCALE</code> as <code>intensityQuantity</code> parameter value. To recale the returned radiance of the sky model the default value for the <code>intensity</code> parameter is set to <code>0.025</code>. In addition to the <a href="#lights">general parameters</a> the following special parameters are supported:</p>
 <table style="width:97%;">
 <caption>Special parameters accepted by the <code>sunSky</code> light.</caption>
 <colgroup>
@@ -3061,7 +3069,7 @@ div.sourceCode { overflow-x: initial; }
 <img src="images/material_MetallicPaint.jpg" style="width:60.0%" alt="Rendering of a MetallicPaint material." /><figcaption aria-hidden="true">Rendering of a MetallicPaint material.</figcaption>
 </figure>
 <h4 id="luminous">Luminous</h4>
-<p>The <a href="documentation.html#path-tracer">path tracer</a> supports the Luminous material which emits light uniformly in all directions and which can thus be used to turn any geometric object into a light source<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. It is created by passing the type string “<code>luminous</code>” to <code>ospNewMaterial</code>. The amount of constant radiance that is emitted is determined by combining the general parameters of lights: <a href="#lights"><code>color</code> and <code>intensity</code></a> (which essentially means that parameter <code>intensityQuantity</code> is not needed because it is always <code>OSP_INTENSITY_QUANTITY_RADIANCE</code>).</p>
+<p>The <a href="documentation.html#path-tracer">path tracer</a> supports the Luminous material which emits light uniformly in all directions and which can thus be used to turn any geometric object into a light source. It is created by passing the type string “<code>luminous</code>” to <code>ospNewMaterial</code>. The amount of constant radiance that is emitted is determined by combining the general parameters of lights: <a href="#lights"><code>color</code> and <code>intensity</code></a> (which essentially means that parameter <code>intensityQuantity</code> is not needed because it is always <code>OSP_INTENSITY_QUANTITY_RADIANCE</code>).</p>
 <table>
 <caption>Parameters accepted by the Luminous material.</caption>
 <thead>
@@ -3223,7 +3231,7 @@ div.sourceCode { overflow-x: initial; }
 <tr class="even">
 <td style="text-align: left;">OSPTransferFunction</td>
 <td style="text-align: left;">transferFunction</td>
-<td style="text-align: left;">[TransferFunction] applied to <code>volume</code></td>
+<td style="text-align: left;"><a href="#transfer-function">transfer function</a> applied to <code>volume</code></td>
 </tr>
 </tbody>
 </table>
@@ -3937,12 +3945,14 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <h3 id="image-parallel-rendering-in-the-mpi-distributed-device">Image Parallel Rendering in the MPI Distributed Device</h3>
-<p>If all ranks specify exactly the same data, the distributed device can be used for image-parallel rendering. This works identical to the offload device, except that the MPI-aware application is able to load data in parallel on each rank rather than loading on the master and shipping data out to the workers. When a parallel file system is available, this can improve data load times. Image-parallel rendering is selected by specifying the same data on each rank, and using any of the existing local renderers (e.g., <code>scivis</code>, <code>pathtracer</code>). See <a href="https://github.com/ospray/ospray/tree/master/modules/mpi/tutorials/ospMPIDistributedTutorialReplicatedData.cpp">ospMPIDistributedTutorialReplicatedData</a> for an example.</p>
+<p>If all ranks specify exactly the same data, the distributed device can be used for image-parallel rendering. This works identical to the offload device, except that the MPI-aware application is able to load data in parallel on each rank rather than loading on the master and shipping data out to the workers. When a parallel file system is available, this can improve data load times. Image-parallel rendering is selected by specifying the same data on each rank, and using any of the existing local renderers (e.g., <code>scivis</code>, <code>pathtracer</code>). See <a href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistributedTutorialReplicatedData.cpp">ospMPIDistributedTutorialReplicatedData</a> for an example.</p>
 <h3 id="data-parallel-rendering-in-the-mpi-distributed-device">Data Parallel Rendering in the MPI Distributed Device</h3>
 <p>The MPI Distributed device also supports data-parallel rendering with sort-last compositing. Each rank can specify a different piece of data, as long as the bounding boxes of each rank’s data are non-overlapping. The rest of the scene setup is similar to local rendering; however, for distributed rendering only the <code>mpiRaycast</code> renderer is supported. This renderer implements a subset of the <code>scivis</code> rendering features which are suitable for implementation in a distributed environment.</p>
-<p>By default the aggregate bounding box of the instances in the local world will be used as the bounds of that rank’s data. However, when using ghost zones for volume interpolation, geometry or ambient occlusion, each rank’s data can overlap. To clip these non-owned overlap regions out a set of regions (the <code>region</code> parameter) can pass as a parameter to the <code>OSPWorld</code> being rendered. Each rank can specify one or more non-overlapping <code>box3f</code>’s which bound the portions of its local data which it is reponsible for rendering. See the <a href="https://github.com/ospray/ospray/tree/master/modules/mpi/tutorials/ospMPIDistributedTutorialStructuredVolume.cpp">ospMPIDistributedTutorialStructuredVolume</a> for an example.</p>
-<p>Finally, the MPI distributed device also supports hybrid-parallel rendering, where multiple ranks can share a single piece of data. For each shared piece of data the rendering work will be assigned image-parallel among the ranks. Partially-shared regions are determined by finding those ranks specifying data with the same bounds (matching regions) and merging them. See the <a href="https://github.com/ospray/ospray/tree/master/modules/mpi/tutorials/ospMPIDistributedTutorialPartiallyReplicatedData.cpp">ospMPIDistributedTutorialPartiallyReplicatedData</a> for an example.</p>
-<h2 id="interaction-with-user-modules">Interaction With User Modules</h2>
+<p>By default the aggregate bounding box of the instances in the local world will be used as the bounds of that rank’s data. However, when using ghost zones for volume interpolation, geometry or ambient occlusion, each rank’s data can overlap. To clip these non-owned overlap regions out a set of regions (the <code>region</code> parameter) can pass as a parameter to the <code>OSPWorld</code> being rendered. Each rank can specify one or more non-overlapping <code>box3f</code>’s which bound the portions of its local data which it is reponsible for rendering. See the <a href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistributedTutorialStructuredVolume.cpp">ospMPIDistributedTutorialStructuredVolume</a> for an example.</p>
+<p>Finally, the MPI distributed device also supports hybrid-parallel rendering, where multiple ranks can share a single piece of data. For each shared piece of data the rendering work will be assigned image-parallel among the ranks. Partially-shared regions are determined by finding those ranks specifying data with the same bounds (matching regions) and merging them. See the <a href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistributedTutorialPartiallyReplicatedData.cpp">ospMPIDistributedTutorialPartiallyReplicatedData</a> for an example.</p>
+<h4 class="unnumbered" id="picking-on-distributed-data-in-the-mpi-distributed-device">Picking on Distributed Data in the MPI Distributed Device</h4>
+<p>Calling <code>ospPick</code> in the distributed device will find and return the closest global object at the screen position on the rank that owns that object. The other ranks will report no hit. Picking in the distributed device takes into account data clipping applied through the <code>regions</code> parameter to avoid picking ghost data.</p>
+<h2 id="interaction-with-user-modules">Interaction with User Modules</h2>
 <p>The MPI Offload rendering mode trivially supports user modules, with the caveat that attempting to share data directly with the application (e.g., passing a <code>void\ *</code> or other tricks to the module) will not work in a distributed environment. Instead, use the <code>ospNewSharedData</code> API to share data from the application with OSPRay, which will in turn be copied over the network to the workers.</p>
 <p>The MPI Distributed device also supports user modules, as all that is required for compositing the distributed data are the bounds of each rank’s local data.</p>
 <section class="footnotes" role="doc-endnotes">
@@ -3954,7 +3964,6 @@ div.sourceCode { overflow-x: initial; }
 <li id="fn4" role="doc-endnote"><p><code>OSPBounds</code> has essentially the same layout as the <code>OSP_BOX3F</code> <a href="documentation.html#data"><code>OSPDataType</code></a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5" role="doc-endnote"><p>If there are multiple ambient lights then their contribution is added<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6" role="doc-endnote"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures and <span class="math inline">(32767, 32767, 65535)</span> for 16 bit textures<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>If <code>geometryLights</code> is enabled in the <a href="documentation.html#path-tracer">path tracer</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
