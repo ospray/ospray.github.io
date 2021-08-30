@@ -184,6 +184,7 @@ div.sourceCode { overflow-x: initial; }
 </ul></li>
 <li><a href="#interaction-with-user-modules">Interaction with User Modules</a></li>
 </ul></li>
+<li><a href="#multidevice-rendering">MultiDevice Rendering</a></li>
 </ul>
 </nav>
 
@@ -433,7 +434,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_UNSUPPORTED_CPU</td>
-<td style="text-align: left;">the CPU is not supported (minimum ISA is SSE4.1)</td>
+<td style="text-align: left;">the CPU is not supported (minimum ISA is SSE4.1 on x86_64 and NEON on ARM64)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_VERSION_MISMATCH</td>
@@ -703,13 +704,19 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">filter</td>
 <td style="text-align: right;"><code>OSP_VOLUME_FILTER_TRILINEAR</code></td>
-<td style="text-align: left;">filter used for reconstructing the field, also allowed is <code>OSP_VOLUME_FILTER_NEAREST</code></td>
+<td style="text-align: left;">filter used for reconstructing the field, also allowed is <code>OSP_VOLUME_FILTER_NEAREST</code> and <code>OSP_VOLUME_FILTER_TRICUBIC</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: right;">same as <code>filter</code></td>
 <td style="text-align: left;">filter used during gradient computations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">background</td>
+<td style="text-align: right;"><code>NaN</code></td>
+<td style="text-align: left;">value that is used when sampling an undefined region outside the volume domain</td>
 </tr>
 </tbody>
 </table>
@@ -765,6 +772,12 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: right;">same as <code>filter</code></td>
 <td style="text-align: left;">filter used during gradient computations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">background</td>
+<td style="text-align: right;"><code>NaN</code></td>
+<td style="text-align: left;">value that is used when sampling an undefined region outside the volume domain</td>
 </tr>
 </tbody>
 </table>
@@ -856,6 +869,12 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">gridSpacing</td>
 <td style="text-align: right;"><span class="math inline">(1, 1, 1)</span></td>
 <td style="text-align: left;">size of the grid cells in world-space</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">background</td>
+<td style="text-align: right;"><code>NaN</code></td>
+<td style="text-align: left;">value that is used when sampling an undefined region outside the volume domain</td>
 </tr>
 </tbody>
 </table>
@@ -982,10 +1001,10 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">whether to accelerate by precomputing, at a cost of 12 bytes/face</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">maxIteratorDepth</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">do not descend further than to this BVH depth during interval iteration</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">background</td>
+<td style="text-align: right;"><code>NaN</code></td>
+<td style="text-align: left;">value that is used when sampling an undefined region outside the volume domain</td>
 </tr>
 </tbody>
 </table>
@@ -1020,38 +1039,38 @@ div.sourceCode { overflow-x: initial; }
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">int</td>
-<td style="text-align: left;">maxIteratorDepth</td>
-<td style="text-align: left;">do not descend further than to this depth during interval iteration, the maximum value and the default is 3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">int</td>
 <td style="text-align: left;">maxSamplingDepth</td>
 <td style="text-align: left;">do not descend further than to this depth during sampling, the maximum value and the default is 3</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">uint32[]</td>
 <td style="text-align: left;">node.level</td>
 <td style="text-align: left;">level on which each input node exists, may be 1, 2 or 3 (levels are counted from the root level = 0 down)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec3i[]</td>
 <td style="text-align: left;">node.origin</td>
 <td style="text-align: left;">the node origin index (per input node)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSPData[]</td>
 <td style="text-align: left;">node.data</td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a> arrays with the node data (per input node). Nodes that are tiles are expected to have single-item arrays. Leaf-nodes with grid data expected to have compact 3D arrays in zyx layout (z changes most quickly) with the correct number of voxels for the <code>level</code>. Only <code>OSP_FLOAT</code> is supported as field <code>OSPDataType</code>.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">filter</td>
 <td style="text-align: left;">filter used for reconstructing the field, default is <code>OSP_VOLUME_FILTER_TRILINEAR</code>, alternatively <code>OSP_VOLUME_FILTER_NEAREST</code>, or <code>OSP_VOLUME_FILTER_TRICUBIC</code>.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: left;">filter used for reconstructing the field during gradient computations, default same as <code>filter</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">background</td>
+<td style="text-align: left;">value that is used when sampling an undefined region outside the volume domain, default <code>NaN</code></td>
 </tr>
 </tbody>
 </table>
@@ -1114,12 +1133,6 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">estimateValueRanges</td>
 <td style="text-align: right;">true</td>
 <td style="text-align: left;">Enable heuristic estimation of value ranges which are used in internal acceleration structures as well as for determining the volume’s overall value range. When set to <code>false</code>, the user <em>must</em> specify <code>clampMaxCumulativeValue</code>, and all value ranges will be assumed [0–<code>clampMaxCumulativeValue</code>]. Disabling this switch may improve volume commit time, but will make volume rendering less efficient.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">maxIteratorDepth</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">do not descend further than to this BVH depth during interval iteration</td>
 </tr>
 </tbody>
 </table>
@@ -1707,7 +1720,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">uchar</td>
 <td style="text-align: left;">intensityQuantity</td>
 <td style="text-align: right;"></td>
-<td style="text-align: left;"><code>OSPIntensityQuantity</code> to set the radiative quantity represented by <code>intensity</code>. The default value depends on the light source.</td>
+<td style="text-align: left;"><code>OSPIntensityQuantity</code> to set the radiometric quantity represented by <code>intensity</code>. The default value depends on the light source.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">bool</td>
@@ -1717,9 +1730,9 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>In OSPRay the <code>intensity</code> parameter of a light source can correspond to different types of radiative quantities. The type of the value represented by a light’s <code>intensity</code> parameter is set using <code>intensityQuantity</code>, which accepts values from the enum type <code>OSPIntensityQuantity</code>. The supported types of <code>OSPIntensityQuantity</code> differ between the different light sources (see documentation of each specific light source).</p>
+<p>In OSPRay the <code>intensity</code> parameter of a light source can correspond to different types of radiometric quantities. The type of the value represented by a light’s <code>intensity</code> parameter is set using <code>intensityQuantity</code>, which accepts values from the enum type <code>OSPIntensityQuantity</code>. The supported types of <code>OSPIntensityQuantity</code> differ between the different light sources (see documentation of each specific light source).</p>
 <table style="width:98%;">
-<caption>Types of radiative quantities used to interpret a light’s <code>intensity</code> parameter.</caption>
+<caption>Types of radiometric quantities used to interpret a light’s <code>intensity</code> parameter.</caption>
 <colgroup>
 <col style="width: 45%" />
 <col style="width: 52%" />
@@ -1915,7 +1928,7 @@ div.sourceCode { overflow-x: initial; }
 </figure>
 <p>The emission side is determined by the cross product of <code>edge1</code>×<code>edge2</code>. Note that only renderers that use stochastic sampling (like the path tracer) will compute soft shadows from the quad light. Other renderers will just sample the center of the quad light, which results in hard shadows.</p>
 <h3 id="hdri-light">HDRI Light</h3>
-<p>The HDRI light is a textured light source surrounding the scene and illuminating it from infinity. It is created by passing the type string “<code>hdri</code>” to <code>ospNewLight</code>. The values of the HDRI correspond to radiance and therfore the HDRI light only accepts <code>OSP_INTENSITY_QUANTITY_SCALE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> the HDRI light supports the following special parameters:</p>
+<p>The HDRI light is a textured light source surrounding the scene and illuminating it from infinity. It is created by passing the type string “<code>hdri</code>” to <code>ospNewLight</code>. The values of the HDRI correspond to radiance and therefore the HDRI light only accepts <code>OSP_INTENSITY_QUANTITY_SCALE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> the HDRI light supports the following special parameters:</p>
 <table style="width:97%;">
 <caption>Special parameters accepted by the HDRI light.</caption>
 <colgroup>
@@ -1956,7 +1969,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The ambient light surrounds the scene and illuminates it from infinity with constant radiance (determined by combining the <a href="#lights">parameters <code>color</code> and <code>intensity</code></a>). It is created by passing the type string “<code>ambient</code>” to <code>ospNewLight</code>. The ambient light supports <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> and <code>OSP_INTENSITY_QUANTITY_IRRADIANCE</code> (default) as <code>intensityQuantity</code> parameter value.</p>
 <p>Note that the <a href="documentation.html#scivis-renderer">SciVis renderer</a> uses ambient lights to control the color and intensity of the computed ambient occlusion (AO).</p>
 <h3 id="sun-sky-light">Sun-Sky Light</h3>
-<p>The sun-sky light is a combination of a <code>distant</code> light for the sun and a procedural <code>hdri</code> light for the sky. It is created by passing the type string “<code>sunSky</code>” to <code>ospNewLight</code>. The sun-sky light surrounds the scene and illuminates it from infinity and can be used for rendering outdoor scenes. The radiance values are calculated using the Hošek-Wilkie sky model and solar radiance function. The underlying model of the sun-sky light returns radiance values and therfore the light only accepts <code>OSP_INTENSITY_QUANTITY_SCALE</code> as <code>intensityQuantity</code> parameter value. To recale the returned radiance of the sky model the default value for the <code>intensity</code> parameter is set to <code>0.025</code>. In addition to the <a href="#lights">general parameters</a> the following special parameters are supported:</p>
+<p>The sun-sky light is a combination of a <code>distant</code> light for the sun and a procedural <code>hdri</code> light for the sky. It is created by passing the type string “<code>sunSky</code>” to <code>ospNewLight</code>. The sun-sky light surrounds the scene and illuminates it from infinity and can be used for rendering outdoor scenes. The radiance values are calculated using the Hošek-Wilkie sky model and solar radiance function. The underlying model of the sun-sky light returns radiance values and therefore the light only accepts <code>OSP_INTENSITY_QUANTITY_SCALE</code> as <code>intensityQuantity</code> parameter value. To rescale the returned radiance of the sky model the default value for the <code>intensity</code> parameter is set to <code>0.025</code>. In addition to the <a href="#lights">general parameters</a> the following special parameters are supported:</p>
 <table style="width:97%;">
 <caption>Special parameters accepted by the <code>sunSky</code> light.</caption>
 <colgroup>
@@ -2075,13 +2088,13 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="instances">Instances</h3>
 <p>Instances in OSPRay represent a single group’s placement into the world via a transform. To create and instance call</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>OSPInstance ospNewInstance(OSPGroup);</span></code></pre></div>
-<table style="width:97%;">
+<table style="width:98%;">
 <caption>Parameters understood by instances.</caption>
 <colgroup>
-<col style="width: 18%" />
-<col style="width: 9%" />
-<col style="width: 15%" />
-<col style="width: 54%" />
+<col style="width: 17%" />
+<col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 46%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2094,9 +2107,21 @@ div.sourceCode { overflow-x: initial; }
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">affine3f</td>
-<td style="text-align: left;">xfm</td>
+<td style="text-align: left;">transform</td>
 <td style="text-align: right;">identity</td>
-<td style="text-align: left;">world-space transform for all attached geometries and volumes</td>
+<td style="text-align: left;">world-space transform for all attached geometries and volumes, overridden by <code>motion.transform</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">affine3f[]</td>
+<td style="text-align: left;">motion.transform</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">uniformly distributed world-space transforms</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">box1f</td>
+<td style="text-align: left;">time</td>
+<td style="text-align: right;">[0, 1]</td>
+<td style="text-align: left;">time associated with first and last key in <code>motion.</code> arrays (for motion blur)</td>
 </tr>
 </tbody>
 </table>
@@ -2424,7 +2449,8 @@ div.sourceCode { overflow-x: initial; }
 <p>The path tracer supports <a href="#volumes">volumes</a> with multiple scattering. The scattering albedo can be specified using the <a href="#transfer-function">transfer function</a>. Extinction is assumed to be spectrally constant.</p>
 <h3 id="materials">Materials</h3>
 <p>Materials describe how light interacts with surfaces, they give objects their distinctive look. To let the given renderer create a new material of given type <code>type</code> call</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>OSPMaterial ospNewMaterial(<span class="at">const</span> <span class="dt">char</span> *<span class="dt">renderer_type</span>, <span class="at">const</span> <span class="dt">char</span> *<span class="dt">material_type</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>OSPMaterial ospNewMaterial(<span class="at">const</span> <span class="dt">char</span> *, <span class="at">const</span> <span class="dt">char</span> *<span class="dt">material_type</span>);</span></code></pre></div>
+<p>Please note that the first argument is ignored.</p>
 <p>The returned handle can then be used to assign the material to a given geometry with</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetObject(OSPGeometricModel, <span class="st">&quot;material&quot;</span>, OSPMaterial);</span></code></pre></div>
 <h4 id="obj-material">OBJ Material</h4>
@@ -3319,25 +3345,46 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">up direction of the camera</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">affine3f</td>
+<td style="text-align: left;">transform</td>
+<td style="text-align: left;">additional world-space transform, overridden by <code>motion.transform</code></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">nearClip</td>
 <td style="text-align: left;">near clipping distance</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vec2f</td>
 <td style="text-align: left;">imageStart</td>
 <td style="text-align: left;">start of image region (lower left corner)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec2f</td>
 <td style="text-align: left;">imageEnd</td>
 <td style="text-align: left;">end of image region (upper right corner)</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">affine3f[]</td>
+<td style="text-align: left;">motion.transform</td>
+<td style="text-align: left;">additional uniformly distributed world-space transforms</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">box1f</td>
+<td style="text-align: left;">time</td>
+<td style="text-align: left;">time associated with first and last key in <code>motion.</code> arrays, default [0, 1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">box1f</td>
+<td style="text-align: left;">shutter</td>
+<td style="text-align: left;">start and end of shutter time (for motion blur), default [0.5, 0.5]</td>
+</tr>
 </tbody>
 </table>
-<p>The camera is placed and oriented in the world with <code>position</code>, <code>direction</code> and <code>up</code>. OSPRay uses a right-handed coordinate system. The region of the camera sensor that is rendered to the image can be specified in normalized screen-space coordinates with <code>imageStart</code> (lower left corner) and <code>imageEnd</code> (upper right corner). This can be used, for example, to crop the image, to achieve asymmetrical view frusta, or to horizontally flip the image to view scenes which are specified in a left-handed coordinate system. Note that values outside the default range of [0–1] are valid, which is useful to easily realize overscan or film gate, or to emulate a shifted sensor.</p>
+<p>The camera is placed and oriented in the world with <code>position</code>, <code>direction</code> and <code>up</code>. Additionally, an extra transformation <code>transform</code> can be specified, which will only be applied to 3D vectors (i.e. <code>position</code>, <code>direction</code> and <code>up</code>), but does <em>not</em> affect any sizes (e.g., <code>nearClip</code>, <code>apertureRadius</code>, or <code>height</code>). The same holds for the array of transformations <code>motion.transform</code> to achieve camera motion blur (in combination with <code>time</code> and <code>shutter</code>).</p>
+<p>OSPRay uses a right-handed coordinate system. The region of the camera sensor that is rendered to the image can be specified in normalized screen-space coordinates with <code>imageStart</code> (lower left corner) and <code>imageEnd</code> (upper right corner). This can be used, for example, to crop the image, to achieve asymmetrical view frusta, or to horizontally flip the image to view scenes which are specified in a left-handed coordinate system. Note that values outside the default range of [0–1] are valid, which is useful to easily realize overscan or film gate, or to emulate a shifted sensor.</p>
 <h4 id="perspective-camera">Perspective Camera</h4>
-<p>The perspective camera implements a simple thin lens camera for perspective rendering, supporting optionally depth of field and stereo rendering, but no motion blur. It is created by passing the type string “<code>perspective</code>” to <code>ospNewCamera</code>. In addition to the <a href="#cameras">general parameters</a> understood by all cameras the perspective camera supports the special parameters listed in the table below.</p>
+<p>The perspective camera implements a simple thin lens camera for perspective rendering, supporting optionally depth of field and stereo rendering (with the <a href="documentation.html#path-tracer">path tracer</a>). It is created by passing the type string “<code>perspective</code>” to <code>ospNewCamera</code>. In addition to the <a href="#cameras">general parameters</a> understood by all cameras the perspective camera supports the special parameters listed in the table below.</p>
 <table style="width:97%;">
 <caption>Additional parameters accepted by the perspective camera.</caption>
 <colgroup>
@@ -3427,7 +3474,7 @@ div.sourceCode { overflow-x: initial; }
 <img src="images/camera_stereo.jpg" style="width:90.0%" alt="Example 3D stereo image using stereoMode = OSP_STEREO_SIDE_BY_SIDE." /><figcaption aria-hidden="true">Example 3D stereo image using <code>stereoMode = OSP_STEREO_SIDE_BY_SIDE</code>.</figcaption>
 </figure>
 <h4 id="orthographic-camera">Orthographic Camera</h4>
-<p>The orthographic camera implements a simple camera with orthographic projection, without support for depth of field or motion blur. It is created by passing the type string “<code>orthographic</code>” to <code>ospNewCamera</code>. In addition to the <a href="#cameras">general parameters</a> understood by all cameras the orthographic camera supports the following special parameters:</p>
+<p>The orthographic camera implements a simple camera with orthographic projection, without support for depth. It is created by passing the type string “<code>orthographic</code>” to <code>ospNewCamera</code>. In addition to the <a href="#cameras">general parameters</a> understood by all cameras the orthographic camera supports the following special parameters:</p>
 <table>
 <caption>Additional parameters accepted by the orthographic camera.</caption>
 <thead>
@@ -3590,7 +3637,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_FB_NORMAL</td>
-<td style="text-align: left;">accumulated world-space normal of the first hit, as vec3f</td>
+<td style="text-align: left;">accumulated world-space normal of the first non-specular hit, as vec3f</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_FB_ALBEDO</td>
@@ -3786,7 +3833,7 @@ div.sourceCode { overflow-x: initial; }
 <p>Currently only rendering can be invoked asynchronously. However, future releases of OSPRay may add more asynchronous versions of API calls (and thus return <code>OSPFuture</code>).</p>
 <p>Applications can query whether particular events are complete with</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> ospIsReady(OSPFuture, OSPSyncEvent = OSP_TASK_FINISHED);</span></code></pre></div>
-<p>As the given running task runs (as tracked by the <code>OSPFuture</code>), applications can query a boolean [0,1] result if the passed event has been completed.</p>
+<p>As the given running task runs (as tracked by the <code>OSPFuture</code>), applications can query a boolean [0, 1] result if the passed event has been completed.</p>
 <p>Applications can query how long an async task ran with</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetTaskDuration(OSPFuture);</span></code></pre></div>
 <p>This returns the wall clock execution time of the task in seconds. If the task is still running, this will block until the task is completed. This is useful for applications to query exactly how long an asynchronous task executed without the overhead of measuring both task execution + synchronization by the calling application.</p>
@@ -3844,7 +3891,7 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">uint</td>
 <td style="text-align: left;">commandBufferSize</td>
 <td style="text-align: right;">512 MiB</td>
-<td style="text-align: left;">Set the max command buffer size to allow. Units are in MiB. Max size is 1.8GiB</td>
+<td style="text-align: left;">Set the max command buffer size to allow. Units are in MiB. Max size is 1.8 GiB</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">uint</td>
@@ -3855,8 +3902,9 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <p>The <code>maxCommandBufferEntries</code>, <code>commandBufferSize</code>, and <code>maxInlineDataSize</code> can also be set via the environment variables: <code>OSPRAY_MPI_MAX_COMMAND_BUFFER_ENTRIES</code>, <code>OSPRAY_MPI_COMMAND_BUFFER_SIZE</code>, and <code>OSPRAY_MPI_MAX_INLINE_DATA_SIZE</code>, respectively.</p>
+<p>The <code>mpiOffload</code> device does not support multiple init/shutdown cycles. Thus, to run <code>ospBenchmark</code> for this device make sure to exclude the init/shutdown test by passing <code>--benchmark_filter=-ospInit_ospShutdown</code> through the command line.</p>
 <h2 id="mpi-distributed-rendering">MPI Distributed Rendering</h2>
-<p>While MPI Offload rendering is used to transparently distribute rendering work without requiring modification to the application, MPI Distributed rendering is targetted at use of OSPRay within MPI-parallel applications. The MPI distributed device can be selected by loading the <code>mpi</code> module, and manually creating and using an instance of the <code>mpiDistributed</code> device:</p>
+<p>While MPI Offload rendering is used to transparently distribute rendering work without requiring modification to the application, MPI Distributed rendering is targeted at use of OSPRay within MPI-parallel applications. The MPI distributed device can be selected by loading the <code>mpi</code> module, and manually creating and using an instance of the <code>mpiDistributed</code> device:</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>ospLoadModule(<span class="st">&quot;mpi&quot;</span>);</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>OSPDevice mpiDevice = ospNewDevice(<span class="st">&quot;mpiDistributed&quot;</span>);</span>
@@ -3948,21 +3996,26 @@ div.sourceCode { overflow-x: initial; }
 <p>If all ranks specify exactly the same data, the distributed device can be used for image-parallel rendering. This works identical to the offload device, except that the MPI-aware application is able to load data in parallel on each rank rather than loading on the master and shipping data out to the workers. When a parallel file system is available, this can improve data load times. Image-parallel rendering is selected by specifying the same data on each rank, and using any of the existing local renderers (e.g., <code>scivis</code>, <code>pathtracer</code>). See <a href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistributedTutorialReplicatedData.cpp">ospMPIDistributedTutorialReplicatedData</a> for an example.</p>
 <h3 id="data-parallel-rendering-in-the-mpi-distributed-device">Data Parallel Rendering in the MPI Distributed Device</h3>
 <p>The MPI Distributed device also supports data-parallel rendering with sort-last compositing. Each rank can specify a different piece of data, as long as the bounding boxes of each rank’s data are non-overlapping. The rest of the scene setup is similar to local rendering; however, for distributed rendering only the <code>mpiRaycast</code> renderer is supported. This renderer implements a subset of the <code>scivis</code> rendering features which are suitable for implementation in a distributed environment.</p>
-<p>By default the aggregate bounding box of the instances in the local world will be used as the bounds of that rank’s data. However, when using ghost zones for volume interpolation, geometry or ambient occlusion, each rank’s data can overlap. To clip these non-owned overlap regions out a set of regions (the <code>region</code> parameter) can pass as a parameter to the <code>OSPWorld</code> being rendered. Each rank can specify one or more non-overlapping <code>box3f</code>’s which bound the portions of its local data which it is reponsible for rendering. See the <a href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistributedTutorialStructuredVolume.cpp">ospMPIDistributedTutorialStructuredVolume</a> for an example.</p>
+<p>By default the aggregate bounding box of the instances in the local world will be used as the bounds of that rank’s data. However, when using ghost zones for volume interpolation, geometry or ambient occlusion, each rank’s data can overlap. To clip these non-owned overlap regions out a set of regions (the <code>region</code> parameter) can pass as a parameter to the <code>OSPWorld</code> being rendered. Each rank can specify one or more non-overlapping <code>box3f</code>’s which bound the portions of its local data which it is responsible for rendering. See the <a href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistributedTutorialStructuredVolume.cpp">ospMPIDistributedTutorialStructuredVolume</a> for an example.</p>
 <p>Finally, the MPI distributed device also supports hybrid-parallel rendering, where multiple ranks can share a single piece of data. For each shared piece of data the rendering work will be assigned image-parallel among the ranks. Partially-shared regions are determined by finding those ranks specifying data with the same bounds (matching regions) and merging them. See the <a href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistributedTutorialPartiallyReplicatedData.cpp">ospMPIDistributedTutorialPartiallyReplicatedData</a> for an example.</p>
 <h4 class="unnumbered" id="picking-on-distributed-data-in-the-mpi-distributed-device">Picking on Distributed Data in the MPI Distributed Device</h4>
 <p>Calling <code>ospPick</code> in the distributed device will find and return the closest global object at the screen position on the rank that owns that object. The other ranks will report no hit. Picking in the distributed device takes into account data clipping applied through the <code>regions</code> parameter to avoid picking ghost data.</p>
 <h2 id="interaction-with-user-modules">Interaction with User Modules</h2>
 <p>The MPI Offload rendering mode trivially supports user modules, with the caveat that attempting to share data directly with the application (e.g., passing a <code>void\ *</code> or other tricks to the module) will not work in a distributed environment. Instead, use the <code>ospNewSharedData</code> API to share data from the application with OSPRay, which will in turn be copied over the network to the workers.</p>
 <p>The MPI Distributed device also supports user modules, as all that is required for compositing the distributed data are the bounds of each rank’s local data.</p>
+<h1 id="multidevice-rendering">MultiDevice Rendering</h1>
+<p>The multidevice module is an experimental OSPRay device type that renders images by delegating off pixel tiles to a number of internal delegate OSPRay devices. Multidevice is in still in an development stage and is currently limited to automatically creating ISPCDevice delegates.</p>
+<p>If you wish to try it set the OSPRAY_NUM_SUBDEVICES environmental variable to the number of subdevices you want to create and tell OSPRay to both load the multidevice extension and create a multidevice for rendering instead of the default ISPCDevice.</p>
+<p>One example in a bash like shell is as follows:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="va">OSPRAY_NUM_SUBDEVICES=</span>6 <span class="ex">./ospTutorial</span> <span class="at">--osp:load-modules</span><span class="op">=</span>multidevice <span class="at">--osp:device</span><span class="op">=</span>multidevice</span></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>The number of items to be copied is defined by the size of the source array<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>The number of items to be copied is defined by the size of the source array.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p>For consecutive memory addresses the x-index of the corresponding voxel changes the quickest.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3" role="doc-endnote"><p>actually a parallelogram<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4" role="doc-endnote"><p><code>OSPBounds</code> has essentially the same layout as the <code>OSP_BOX3F</code> <a href="documentation.html#data"><code>OSPDataType</code></a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>If there are multiple ambient lights then their contribution is added<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>If there are multiple ambient lights then their contribution is added.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6" role="doc-endnote"><p>respectively <span class="math inline">(127, 127, 255)</span> for 8 bit textures and <span class="math inline">(32767, 32767, 65535)</span> for 16 bit textures<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>

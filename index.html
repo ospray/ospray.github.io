@@ -195,10 +195,30 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <h1 id="ospray-overview">OSPRay Overview</h1>
 <p>Intel OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel oneAPI Rendering Toolkit</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
-<p>OSPRay internally builds on top of <a href="https://www.embree.org/">Intel Embree</a> and <a href="https://ispc.github.io/">Intel ISPC (Implicit SPMD Program Compiler)</a>, and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2, and AVX-512 to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay.</p>
+<p>OSPRay internally builds on top of <a href="https://www.embree.org/">Intel Embree</a> and <a href="https://ispc.github.io/">Intel ISPC (Implicit SPMD Program Compiler)</a>, and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2, AVX-512 and NEON to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay on x86_64 architectures. A CPU with support for NEON is required to run OSPRay on ARM64 architectures.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>To receive release announcements simply <a href="https://github.com/ospray/OSPRay">“Watch” the OSPRay repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v2.7.0">Changes in v2.7.0:</h3>
+<ul>
+<li>Add support for transformation and camera Motion Blur (with the path tracer) via <code>shutter</code> parameter of the camera and <code>motion.transform</code> array and <code>time</code> parameter of the instance and camera</li>
+<li>OSPRay can now be built for ARM64 CPUs with NEON (e.g., Apple M1) using the superbuild. Thus, new minimum versions are for ISPC 1.16.0, for Embree 3.13.1 and for rkcommon 1.7.0</li>
+<li>OSPRay now requires minimum Open VKL v1.0.0 to bring the following improvements:
+<ul>
+<li>Configurable <code>background</code> values for all volume types (default <code>NaN</code>), defining region outside the volume domain</li>
+<li>Better default sampling rate for scaled VDB volumes, improved robustness</li>
+<li>Structured regular volumes now support tricubic filtering and more accurate gradient computations as well as more robust isosurfaces</li>
+</ul></li>
+<li>The multidevice module contains a new OSPRay device implementation that delegates work to any number of subdevices. This is an experimental feature in this release but we invite feedback</li>
+<li>SciVis Renderer now ignores normal/albedo/depth hits on surfaces that are fully transmissive (material <code>d = 0</code>)</li>
+<li>Changed the behavior of background rendering in SciVis renderer to more closely reflect that of the path tracer: Background hits are rendered in background color in the albedo buffer and black in the normal buffer</li>
+<li>The SciVis renderer does not compute depth of field (DoF) anymore, as this effect does not align with the SciVis renderer definition and exposed artifacts</li>
+<li>Fixed crash on exit when using the MPI device</li>
+<li>Fixed rendering of depth buffer in the example application</li>
+<li>The first argument to material constructor <code>ospNewMaterial</code>, i.e., <code>renderer_type</code>, is now deprecated and will be removed in a future release. AO and SciVis renderers still assume “obj” like behavior for all material types</li>
+<li>Deprecated the <code>xfm</code> parameter of the instance, use <code>transform</code> instead</li>
+<li>Dependencies Google Benchmark, GoggleTest, and Snappy moved out-of-source to superbuild ExternalProjects</li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.6.0">Changes in v2.6.0:</h3>
 <ul>
 <li>Added new <code>intensityQuantity</code> type <code>OSP_INTENSITY_QUANTITY_SCALE</code> for the <code>hdri</code> and <code>sunSky</code> light source. For the future this is the only supported quantity for these lights, the value <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> is deprecated. When <code>OSP_INTENSITY_QUANTITY_SCALE</code> is used for <code>sunSky</code> the default value of <code>intensity</code> is <code>0.025</code> to match the old behaviour</li>
@@ -216,37 +236,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Open VKL and Embree internal errors are now correctly mapped to their corresponding OSPRay errors</li>
 <li>Fix behavior of committing the framebuffer in distributed rendering to match that of local rendering</li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.5.0">Changes in v2.5.0:</h3>
-<ul>
-<li>Add native support for cones or cylinders with curves geometry of type <code>OSP_DISJOINT</code>, requiring minimum version 3.12.0 of Embree</li>
-<li>Replaced OSPRay’s internal implementation of round linear curves by Embree’s native implementation. Internal surfaces at joints are now correctly removed, leading to higher quality renderings with transparency, at the cost of intersection performance</li>
-<li>SciVis renderer improvements:
-<ul>
-<li>Colored transparency, colored shadows</li>
-<li>Light sources are visible including HDRI Light environment map</li>
-</ul></li>
-<li>The MPI module is now distributed as part of OSPRay in the modules directory
-<ul>
-<li>The socket-based communication layer has been removed</li>
-</ul></li>
-<li>Add <code>intensityQuantity</code> parameter to light sources to control the interpretation and conversion of the <code>intensity</code> into a radiative quantity</li>
-<li>OSPRay now requires minimum Open VKL v0.12.0 to bring the following improvements:
-<ul>
-<li>Better default sampling rate for scaled volumes, improving performance</li>
-<li>Higher robustness for axis-aligned rays</li>
-</ul></li>
-<li>Removed limit on the number of volumes (both overlapped and separate) that a ray can intersect while rendering. Now it is limited by available memory only.</li>
-<li>Move to OIDN v1.3.0 to bring the following improvements:
-<ul>
-<li>Improved denoising quality (sharpness of fine details, fewer noisy artifacts)</li>
-<li>Slightly improved performance and lower memory consumption</li>
-</ul></li>
-<li>Both geometric and volumetric models can now have their child geometry/volume objects rebound using an object parameter</li>
-<li>Fix light leaking artifacts at poles of HDRI (and Sun-Sky) light</li>
-<li>Add sRGB conversion to <code>ospExamples</code> such that the color of the widget for <code>backgroundColor</code> actually matches</li>
-<li>Dropping support for MSVC14, new minimum compiler on Windows is MSVC15 (Visual Studio 2017)</li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.4.0"></h3>
+<h3 class="unnumbered" id="changes-in-v2.5.0"></h3>
 <p>For the complete history of changes have a look at the <a href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
       </div>
