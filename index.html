@@ -199,6 +199,18 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>To receive release announcements simply <a href="https://github.com/ospray/OSPRay">“Watch” the OSPRay repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v2.7.1">Changes in v2.7.1:</h3>
+<ul>
+<li>Use Open VKL v1.0.1 to fix sporadic slowdowns when rendering structured regular and VDB volumes with the SciVis renderer</li>
+<li>Fix CMake variables and logic</li>
+<li>Fix crash when transferfunction.opacity = 0</li>
+<li>Fix bug in MPI data-parallel rendering that caused rendering to hang</li>
+<li>Workaround dynamic linking issue on Windows in MPI distributed rendering</li>
+<li>Correctly initialize renderFrame progress</li>
+<li>Improved performance of data-parallel rendering for scenes with a large number of regions</li>
+<li>Expanded camera model support of the data-parallel renderer, data-parallel rendering can now use all the camera models supported by the scivis renderer</li>
+<li>Clarify documentation and error messages</li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.7.0">Changes in v2.7.0:</h3>
 <ul>
 <li>Add support for transformation and camera Motion Blur (with the path tracer) via <code>shutter</code> parameter of the camera and <code>motion.transform</code> array and <code>time</code> parameter of the instance and camera</li>
@@ -219,24 +231,7 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Deprecated the <code>xfm</code> parameter of the instance, use <code>transform</code> instead</li>
 <li>Dependencies Google Benchmark, GoggleTest, and Snappy moved out-of-source to superbuild ExternalProjects</li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.6.0">Changes in v2.6.0:</h3>
-<ul>
-<li>Added new <code>intensityQuantity</code> type <code>OSP_INTENSITY_QUANTITY_SCALE</code> for the <code>hdri</code> and <code>sunSky</code> light source. For the future this is the only supported quantity for these lights, the value <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> is deprecated. When <code>OSP_INTENSITY_QUANTITY_SCALE</code> is used for <code>sunSky</code> the default value of <code>intensity</code> is <code>0.025</code> to match the old behaviour</li>
-<li>The MPI module is included in the releases packages. An <a href="https://www.mpich.org/abi/">MPICH-ABI</a> compatible build is provided for Linux that can be run with the Intel oneAPI HPC Toolki, MPICH, and other MPICH-ABI compatible MPI distributions. The Windows release is built against MPI provided in the Intel oneAPI HPC Toolkit</li>
-<li>OSPRay now requires minimum Open VKL v0.13.0 to bring the following improvements:
-<ul>
-<li>Support half precision float (fp16) voxel data in strutured volumes (regular and spherical) and VDB volume</li>
-<li>Supporting tricubic filtering via <code>VKL_FILTER_TRICUBIC</code> filter for VDB volume</li>
-<li>Fixed artifacts for isosurfaces of unstructured volumes</li>
-<li>Performance improvements for isosurfaces when multiple isovalues are selected</li>
-<li>Better, adaptive sampling of AMR volumes</li>
-</ul></li>
-<li>The <code>mpiOffload</code> and <code>mpiDistributed</code> devices now support picking. Picking in the distributed device will return the globally closest object on the rank that owns that object. Other ranks will report no hit</li>
-<li>Messages issued from ISPC code use the same reporting path as the C++ code, thus now the whole OSPRay console output can be consistently filtered with log levels</li>
-<li>Open VKL and Embree internal errors are now correctly mapped to their corresponding OSPRay errors</li>
-<li>Fix behavior of committing the framebuffer in distributed rendering to match that of local rendering</li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.5.0"></h3>
+<h3 class="unnumbered" id="changes-in-v2.6.0"></h3>
 <p>For the complete history of changes have a look at the <a href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
       </div>
