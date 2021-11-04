@@ -199,39 +199,27 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>To receive release announcements simply <a href="https://github.com/ospray/OSPRay">“Watch” the OSPRay repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v2.8.0">Changes in v2.8.0:</h3>
+<ul>
+<li>Lights can be now part of <code>OSPGroup</code> and thus instanced like geometries and volumes and thus lights also support motion blur (with the path tracer)</li>
+<li>Add cylinder light (with solid area sampling)</li>
+<li>Add support for rolling shutter of cameras</li>
+<li>Add support for quaternion motion blur for instance and camera to allow for smoothly interpolated rotations</li>
+<li>Fix illumination from emissive quad meshes</li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.7.1">Changes in v2.7.1:</h3>
 <ul>
 <li>Use Open VKL v1.0.1 to fix sporadic slowdowns when rendering structured regular and VDB volumes with the SciVis renderer</li>
 <li>Fix CMake variables and logic</li>
-<li>Fix crash when transferfunction.opacity = 0</li>
+<li>Fix crash when <code>transferfunction.opacity = 0</code></li>
 <li>Fix bug in MPI data-parallel rendering that caused rendering to hang</li>
 <li>Workaround dynamic linking issue on Windows in MPI distributed rendering</li>
-<li>Correctly initialize renderFrame progress</li>
+<li>Correctly initialize <code>renderFrame</code> progress</li>
 <li>Improved performance of data-parallel rendering for scenes with a large number of regions</li>
-<li>Expanded camera model support of the data-parallel renderer, data-parallel rendering can now use all the camera models supported by the scivis renderer</li>
+<li>Expanded camera model support of the data-parallel renderer, data-parallel rendering can now use all the camera models supported by the SciVis renderer</li>
 <li>Clarify documentation and error messages</li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.7.0">Changes in v2.7.0:</h3>
-<ul>
-<li>Add support for transformation and camera Motion Blur (with the path tracer) via <code>shutter</code> parameter of the camera and <code>motion.transform</code> array and <code>time</code> parameter of the instance and camera</li>
-<li>OSPRay can now be built for ARM64 CPUs with NEON (e.g., Apple M1) using the superbuild. Thus, new minimum versions are for ISPC 1.16.0, for Embree 3.13.1 and for rkcommon 1.7.0</li>
-<li>OSPRay now requires minimum Open VKL v1.0.0 to bring the following improvements:
-<ul>
-<li>Configurable <code>background</code> values for all volume types (default <code>NaN</code>), defining region outside the volume domain</li>
-<li>Better default sampling rate for scaled VDB volumes, improved robustness</li>
-<li>Structured regular volumes now support tricubic filtering and more accurate gradient computations as well as more robust isosurfaces</li>
-</ul></li>
-<li>The multidevice module contains a new OSPRay device implementation that delegates work to any number of subdevices. This is an experimental feature in this release but we invite feedback</li>
-<li>SciVis Renderer now ignores normal/albedo/depth hits on surfaces that are fully transmissive (material <code>d = 0</code>)</li>
-<li>Changed the behavior of background rendering in SciVis renderer to more closely reflect that of the path tracer: Background hits are rendered in background color in the albedo buffer and black in the normal buffer</li>
-<li>The SciVis renderer does not compute depth of field (DoF) anymore, as this effect does not align with the SciVis renderer definition and exposed artifacts</li>
-<li>Fixed crash on exit when using the MPI device</li>
-<li>Fixed rendering of depth buffer in the example application</li>
-<li>The first argument to material constructor <code>ospNewMaterial</code>, i.e., <code>renderer_type</code>, is now deprecated and will be removed in a future release. AO and SciVis renderers still assume “obj” like behavior for all material types</li>
-<li>Deprecated the <code>xfm</code> parameter of the instance, use <code>transform</code> instead</li>
-<li>Dependencies Google Benchmark, GoggleTest, and Snappy moved out-of-source to superbuild ExternalProjects</li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.6.0"></h3>
+<h3 class="unnumbered" id="changes-in-v2.7.0"></h3>
 <p>For the complete history of changes have a look at the <a href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
       </div>

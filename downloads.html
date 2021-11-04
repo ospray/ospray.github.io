@@ -110,15 +110,15 @@ div.sourceCode { overflow-x: initial; }
 <h2 id="packages">Packages</h2>
 <p>Packages for x86_64 are provided, OSPRay can be built for ARM64/NEON using the superbuild (see <a href="#building-and-finding-ospray">Building and Finding OSPRay</a>).</p>
 <p>For Linux we provide OSPRay precompiled for 64 bit as a TGZ archive.<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.7.1/ospray-2.7.1.x86_64.linux.tar.gz">ospray-2.7.1.x86_64.linux.tar.gz</a></p>
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.8.0/ospray-2.8.0.x86_64.linux.tar.gz">ospray-2.8.0.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as a ZIP archive:<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.7.1/ospray-2.7.1.x86_64.macosx.zip">ospray-2.7.1.x86_64.macosx.zip</a></p>
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.8.0/ospray-2.8.0.x86_64.macosx.zip">ospray-2.8.0.x86_64.macosx.zip</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an MSI installer as well as a ZIP archive:<br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.7.1/ospray-2.7.1.x86_64.windows.msi">ospray-2.7.1.x86_64.windows.msi</a><br />
-<a href="https://github.com/ospray/OSPRay/releases/download/v2.7.1/ospray-2.7.1.x86_64.windows.zip">ospray-2.7.1.x86_64.windows.zip</a></p>
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.8.0/ospray-2.8.0.x86_64.windows.msi">ospray-2.8.0.x86_64.windows.msi</a><br />
+<a href="https://github.com/ospray/OSPRay/releases/download/v2.8.0/ospray-2.8.0.x86_64.windows.zip">ospray-2.8.0.x86_64.windows.zip</a></p>
 <p>The source code of the latest OSPRay version can be downloaded here:<br />
-<a href="https://github.com/ospray/OSPRay/archive/v2.7.1.zip">ospray-2.7.1.zip</a><br />
-<a href="https://github.com/ospray/OSPRay/archive/v2.7.1.tar.gz">ospray-2.7.1.tar.gz</a></p>
+<a href="https://github.com/ospray/OSPRay/archive/v2.8.0.zip">ospray-2.8.0.zip</a><br />
+<a href="https://github.com/ospray/OSPRay/archive/v2.8.0.tar.gz">ospray-2.8.0.tar.gz</a></p>
 <p>You can also access <a href="https://github.com/ospray/OSPRay/releases">old OSPRay releases</a>.</p>
 <h1 id="building-and-finding-ospray">Building and Finding OSPRay</h1>
 <p>The latest OSPRay sources are always available at the <a href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The default <code>master</code> branch should always point to the latest bugfix release.</p>
@@ -229,7 +229,7 @@ div.sourceCode { overflow-x: initial; }
 <div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">target_link_libraries</span><span class="er">(</span><span class="va">${client_target}</span> ospray::ospray<span class="kw">)</span></span></code></pre></div>
 <p>This will automatically propagate all required include paths, linked libraries, and compiler definitions to the client CMake target (either an executable or library).</p>
 <p>Advanced users may want to link to additional targets which are exported in OSPRay’s CMake config, which includes all installed modules. All targets built with OSPRay are exported in the <code>ospray::</code> namespace, therefore all targets locally used in the OSPRay source tree can be accessed from an install. For example, <code>ospray_module_ispc</code> can be consumed directly via the <code>ospray::ospray_module_ispc</code> target. All targets have their libraries, includes, and definitions attached to them for public consumption (please <a href="index.html#ospray-support-and-contact">report bugs</a> if this is broken!).</p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>For example, if OSPRay is in <code>~/Projects/ospray</code>, ISPC will also be searched in <code>~/Projects/ispc-v1.16.1-linux</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
