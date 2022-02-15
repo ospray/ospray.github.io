@@ -170,7 +170,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The MPI Distributed tutorials demonstrate various ways that distributed applications using MPI can leverage OSPRay’s distributed rendering capabilities to render distributed, replicated, and partially replicated data across the processes. The tutorials will be built as part of OSPRay when running cmake with</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="dt">\</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_ENABLE_APPS</span><span class="op">=</span>ON <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_APPS_TUTORIALS</span><span class="op">=</span>ON <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_ENABLE_APPS_TUTORIALS</span><span class="op">=</span>ON <span class="dt">\</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_MODULE_MPI</span><span class="op">=</span>ON <span class="dt">\</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_MPI_BUILD_TUTORIALS</span><span class="op">=</span>ON <span class="dt">\</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>other args<span class="op">&gt;</span></span></code></pre></div>
@@ -207,7 +207,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The replicated MPI tutorial demonstrates how OSPRay’s distributed rendering capabilities can be used to render data sets that are fully replicated among the ranks with advanced illumination effects. In this case, although the processes are run MPI parallel, each rank specifies the exact same data. OSPRay’s MPI parallel renderer will detect that the data is replicated in this case and use the same image-parallel rendering algorithms employed in the MPI offload rendering configuration to render the data. This image-parallel rendering algorithm supports all rendering configurations that are used in local rendering, e.g., path tracing, to provide high-quality images.</p>
 <p>The replicated MPI tutorial supports the same scenes and parameters as the <a href="tutorials.html#ospexamples"><code>ospExamples</code></a> app described above.</p>
 <p>This mode can be useful when high-quality rendering is desired and it is possible to copy the entire data set on to each rank, or to accelerate loading of a large model by leveraging a parallel file system.</p>
-<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>A C++ version that uses the C++ convenience wrappers of OSPRay’s C99 API via <a href="https://github.com/ospray/ospray/blob/master/ospray/include/ospray/ospray_cpp.h"><code>include/ospray/ospray_cpp.h</code></a> is available at <a href="https://github.com/ospray/ospray/blob/master/apps/ospTutorial/ospTutorial.cpp"><code>apps/tutorials/ospTutorial.cpp</code></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -219,7 +219,7 @@ div.sourceCode { overflow-x: initial; }
     </div>
 
       <div id="footer">
-        © 2013–2021 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2022 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>

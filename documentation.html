@@ -138,9 +138,10 @@ div.sourceCode { overflow-x: initial; }
 </ul></li>
 <li><a href="#lights">Lights</a>
 <ul>
+<li><a href="#photometric-lights">Photometric Lights</a></li>
 <li><a href="#directional-light-distant-light">Directional Light / Distant Light</a></li>
 <li><a href="#point-light-sphere-light">Point Light / Sphere Light</a></li>
-<li><a href="#spotlight-photometric-light">Spotlight / Photometric Light</a></li>
+<li><a href="#spotlight-ring-light">Spotlight / Ring Light</a></li>
 <li><a href="#quad-light">Quad Light</a></li>
 <li><a href="#cylinder-light">Cylinder Light</a></li>
 <li><a href="#hdri-light">HDRI Light</a></li>
@@ -171,8 +172,8 @@ div.sourceCode { overflow-x: initial; }
 <li><a href="#rendering">Rendering</a>
 <ul>
 <li><a href="#asynchronous-rendering">Asynchronous Rendering</a></li>
-<li><a href="#asynchronously-rendering-and-ospcommit">Asynchronously Rendering and ospCommit()</a></li>
 <li><a href="#synchronous-rendering">Synchronous Rendering</a></li>
+<li><a href="#rendering-and-ospcommit">Rendering and ospCommit</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#distributed-rendering-with-mpi">Distributed Rendering with MPI</a>
@@ -204,7 +205,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="command-line-arguments">Command Line Arguments</h3>
 <p>The first is to do so by giving OSPRay the command line from <code>main()</code> by calling</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>OSPError ospInit<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>argc<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">);</span></span></code></pre></div>
-<p>OSPRay parses (and removes) its known command line parameters from your application’s <code>main</code> function. For an example see the <a href="tutorials.html#osptutorial">tutorial</a>. For possible error codes see section <a href="#error-handling-and-status-messages">Error Handling and Status Messages</a>. It is important to note that the arguments passed to <code>ospInit()</code> are processed in order they are listed. The following parameters (which are prefixed by convention with “<code>--osp:</code>”) are understood:</p>
+<p>OSPRay parses (and removes) its known command line parameters from your application’s <code>main</code> function. For an example see the <a href="tutorials.html#osptutorial">tutorial</a>. For possible error codes see section <a href="#error-handling-and-status-messages">Error Handling and Status Messages</a>. It is important to note that the arguments passed to <code>ospInit</code> are processed in order they are listed. The following parameters (which are prefixed by convention with “<code>--osp:</code>”) are understood:</p>
 <table style="width:98%;">
 <caption>Command line parameters accepted by OSPRay’s <code>ospInit</code>.</caption>
 <colgroup>
@@ -456,7 +457,7 @@ div.sourceCode { overflow-x: initial; }
 <div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospDeviceSetStatusCallback<span class="op">(</span>OSPDevice<span class="op">,</span> OSPStatusCallback<span class="op">,</span> <span class="dt">void</span> <span class="op">*</span>userData<span class="op">);</span></span></code></pre></div>
 <p>in order to register a callback function of type</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="dt">void</span> <span class="op">(*</span>OSPStatusCallback<span class="op">)(</span><span class="dt">void</span> <span class="op">*</span>userData<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> messageText<span class="op">);</span></span></code></pre></div>
-<p>which OSPRay will use to emit status messages. By default, OSPRay uses a callback which does nothing, so any output desired by an application will require that a callback is provided. Note that callbacks for C++ <code>std::cout</code> and <code>std::cerr</code> can be alternatively set through <code>ospInit()</code> or the <code>OSPRAY_LOG_OUTPUT</code> environment variable.</p>
+<p>which OSPRay will use to emit status messages. By default, OSPRay uses a callback which does nothing, so any output desired by an application will require that a callback is provided. Note that callbacks for C++ <code>std::cout</code> and <code>std::cerr</code> can be alternatively set through <code>ospInit</code> or the <code>OSPRAY_LOG_OUTPUT</code> environment variable.</p>
 <p>Applications can clear either callback by passing <code>NULL</code> instead of an actual function pointer.</p>
 <h3 id="loading-ospray-extensions-at-runtime">Loading OSPRay Extensions at Runtime</h3>
 <p>OSPRay’s functionality can be extended via plugins (which we call “modules”), which are implemented in shared libraries. To load module <code>name</code> from <code>libospray_module_&lt;name&gt;.so</code> (on Linux and Mac OS X) or <code>ospray_module_&lt;name&gt;.dll</code> (on Windows) use</p>
@@ -465,7 +466,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="shutting-down-ospray">Shutting Down OSPRay</h3>
 <p>When the application is finished using OSPRay (typically on application exit), the OSPRay API should be finalized with</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospShutdown<span class="op">();</span></span></code></pre></div>
-<p>This API call ensures that the current device is cleaned up appropriately. Due to static object allocation having non-deterministic ordering, it is recommended that applications call <code>ospShutdown()</code> before the calling application process terminates.</p>
+<p>This API call ensures that the current device is cleaned up appropriately. Due to static object allocation having non-deterministic ordering, it is recommended that applications call <code>ospShutdown</code> before the calling application process terminates.</p>
 <h2 id="objects">Objects</h2>
 <p>All entities of OSPRay (the <a href="documentation.html#renderers">renderer</a>, <a href="#volumes">volumes</a>, <a href="#geometries">geometries</a>, <a href="#lights">lights</a>, <a href="#cameras">cameras</a>, …) are a logical specialization of <code>OSPObject</code> and share common mechanism to deal with parameters and lifetime.</p>
 <p>An important aspect of object parameters is that parameters do not get passed to objects immediately. Instead, parameters are not visible at all to objects until they get explicitly committed to a given object via a call to</p>
@@ -706,18 +707,24 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">the actual voxel 3D <a href="documentation.html#data">data</a></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">cellCentered</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">whether the data is provided per cell (as opposed to per vertex)</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">filter</td>
 <td style="text-align: right;"><code>OSP_VOLUME_FILTER_TRILINEAR</code></td>
 <td style="text-align: left;">filter used for reconstructing the field, also allowed is <code>OSP_VOLUME_FILTER_NEAREST</code> and <code>OSP_VOLUME_FILTER_TRICUBIC</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: right;">same as <code>filter</code></td>
 <td style="text-align: left;">filter used during gradient computations</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">background</td>
 <td style="text-align: right;"><code>NaN</code></td>
@@ -725,7 +732,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>The size of the volume is inferred from the size of the 3D array <code>data</code>, as is the type of the voxel values (currently supported are: <code>OSP_UCHAR</code>, <code>OSP_SHORT</code>, <code>OSP_USHORT</code>, <code>OSP_HALF</code>, <code>OSP_FLOAT</code>, and <code>OSP_DOUBLE</code>).</p>
+<p>The size of the volume is inferred from the size of the 3D array <code>data</code>, as is the type of the voxel values (currently supported are: <code>OSP_UCHAR</code>, <code>OSP_SHORT</code>, <code>OSP_USHORT</code>, <code>OSP_HALF</code>, <code>OSP_FLOAT</code>, and <code>OSP_DOUBLE</code>). Data can be provided either per cell or per vertex (the default), selectable via the <code>cellCentered</code> parameter (which will also affect the computed bounding box).</p>
 <h3 id="structured-spherical-volume">Structured Spherical Volume</h3>
 <p>Structured spherical volumes are also supported, which are created by passing a type string of “<code>structuredSpherical</code>” to <code>ospNewVolume</code>. The grid dimensions and parameters are defined in terms of radial distance <span class="math inline"><em>r</em></span>, inclination angle <span class="math inline"><em>θ</em></span>, and azimuthal angle <span class="math inline"><em>ϕ</em></span>, conforming with the ISO convention for spherical coordinate systems. The coordinate system and parameters understood by structured spherical volumes are summarized below.</p>
 <figure>
@@ -1180,7 +1187,7 @@ div.sourceCode { overflow-x: initial; }
 <p>The arrays <code>color</code> and <code>opacity</code> can be of different length.</p>
 <h3 id="volumetricmodels">VolumetricModels</h3>
 <p>Volumes in OSPRay are given volume rendering appearance information through VolumetricModels. This decouples the physical representation of the volume (and possible acceleration structures it contains) to rendering-specific parameters (where more than one set may exist concurrently). To create a volume instance, call</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>OSPVolumetricModel ospNewVolumetricModel<span class="op">(</span>OSPVolume volume<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>OSPVolumetricModel ospNewVolumetricModel<span class="op">(</span>OSPVolume<span class="op">);</span></span></code></pre></div>
 <p>The passed volume can be <code>NULL</code> as long as the volume to be used is passed as a parameter. If both a volume is specified on object creation and as a parameter, the parameter value is used. If the parameter value is later removed, the volume object passed on object creation is again used.</p>
 <table style="width:98%;">
 <caption>Parameters understood by VolumetricModel.</caption>
@@ -1200,28 +1207,28 @@ div.sourceCode { overflow-x: initial; }
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">OSPVolume</td>
+<td style="text-align: left;">volume</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">optional <a href="documentation.html#volumes">volume</a> object this model references</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">OSPTransferFunction</td>
 <td style="text-align: left;">transferFunction</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><a href="#transfer-function">transfer function</a> to use</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">densityScale</td>
 <td style="text-align: right;">1.0</td>
 <td style="text-align: left;">makes volumes uniformly thinner or thicker</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">anisotropy</td>
 <td style="text-align: right;">0.0</td>
 <td style="text-align: left;">anisotropy of the (Henyey-Greenstein) phase function in [-1–1] (<a href="documentation.html#path-tracer">path tracer</a> only), default to isotropic scattering</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSPVolume</td>
-<td style="text-align: left;">volume</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">optional <a href="documentation.html#volumes">volume</a> object this model references</td>
 </tr>
 </tbody>
 </table>
@@ -1244,12 +1251,12 @@ div.sourceCode { overflow-x: initial; }
 <tr class="odd">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.position</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex positions</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex positions, overridden by <code>motion.*</code> arrays</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.normal</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex normals</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex normals, overridden by <code>motion.*</code> arrays</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec4f[] / vec3f[]</td>
@@ -1265,6 +1272,21 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">vec3ui[] / vec4ui[]</td>
 <td style="text-align: left;">index</td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a> array of (either triangle or quad) indices (into the vertex array(s))</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec3f[][]</td>
+<td style="text-align: left;">motion.vertex.position</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex position arrays (uniformly distributed keys for deformation motion blur)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec3f[][]</td>
+<td style="text-align: left;">motion.vertex.normal</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex normal arrays (uniformly distributed keys for deformation motion blur)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">box1f</td>
+<td style="text-align: left;">time</td>
+<td style="text-align: left;">time associated with first and last key in <code>motion.*</code> arrays (for deformation motion blur), default [0, 1]</td>
 </tr>
 </tbody>
 </table>
@@ -1632,7 +1654,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <h3 id="geometricmodels">GeometricModels</h3>
 <p>Geometries are matched with surface appearance information through GeometricModels. These take a geometry, which defines the surface representation, and applies either full-object or per-primitive color and material information. To create a geometric model, call</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>OSPGeometricModel ospNewGeometricModel<span class="op">(</span>OSPGeometry geometry<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>OSPGeometricModel ospNewGeometricModel<span class="op">(</span>OSPGeometry<span class="op">);</span></span></code></pre></div>
 <p>The passed geometry can be <code>NULL</code> as long as the geometry to be used is passed as a parameter. If both a geometry is specified on object creation and as a parameter, the parameter value is used. If the parameter value is later removed, the geometry object passed on object creation is again used.</p>
 <p>Color and material are fetched with the primitive ID of the hit (clamped to the valid range, thus a single color or material is fine), or mapped first via the <code>index</code> array (if present). All parameters are optional, however, some renderers (notably the <a href="documentation.html#path-tracer">path tracer</a>) require a material to be set. Materials are either handles of <code>OSPMaterial</code>, or indices into the <code>material</code> array on the <a href="documentation.html#renderers">renderer</a>, which allows to build a <a href="documentation.html#world">world</a> which can be used by different types of renderers.</p>
 <p>An <code>invertNormals</code> flag allows to invert (shading) normal vectors of the rendered geometry. That is particularly useful for clipping. By changing normal vectors orientation one can control whether inside or outside of the clipping geometry is being removed. For example, a clipping geometry with normals oriented outside clips everything what’s inside.</p>
@@ -1640,8 +1662,8 @@ div.sourceCode { overflow-x: initial; }
 <caption>Parameters understood by GeometricModel.</caption>
 <colgroup>
 <col style="width: 23%" />
-<col style="width: 20%" />
-<col style="width: 53%" />
+<col style="width: 19%" />
+<col style="width: 54%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1652,39 +1674,39 @@ div.sourceCode { overflow-x: initial; }
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">OSPGeometry</td>
+<td style="text-align: left;">geometry</td>
+<td style="text-align: left;">optional <a href="documentation.html#geometries">geometry</a> object this model references</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">OSPMaterial / uint32</td>
 <td style="text-align: left;">material</td>
 <td style="text-align: left;">optional <a href="documentation.html#materials">material</a> applied to the geometry, may be an index into the <code>material</code> parameter on the <a href="documentation.html#renderers">renderer</a> (if it exists)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec4f</td>
 <td style="text-align: left;">color</td>
 <td style="text-align: left;">optional color assigned to the geometry (linear RGBA)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSPMaterial[] / uint32[]</td>
 <td style="text-align: left;">material</td>
 <td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) materials, may be an index into the <code>material</code> parameter on the renderer (if it exists)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec4f[]</td>
 <td style="text-align: left;">color</td>
 <td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) colors (linear RGBA)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">uint8[]</td>
 <td style="text-align: left;">index</td>
 <td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of per-primitive indices into <code>color</code> and <code>material</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">invertNormals</td>
 <td style="text-align: left;">inverts all shading normals (Ns), default false</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OSPGeometry</td>
-<td style="text-align: left;">geometry</td>
-<td style="text-align: left;">optional [geometry] object this model references</td>
 </tr>
 </tbody>
 </table>
@@ -1767,10 +1789,44 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_INTENSITY_QUANTITY_SCALE</td>
-<td style="text-align: left;">a linear scaling factor for light sources with a built-in quantity (e.g., <code>HDRI</code>, or <code>sunSky</code>).</td>
+<td style="text-align: left;">a linear scaling factor for light sources with a built-in quantity (e.g., <code>HDRI</code>, or <code>sunSky</code>, or when using <code>intensityDistribution</code>).</td>
 </tr>
 </tbody>
 </table>
+<h3 id="photometric-lights">Photometric Lights</h3>
+<p>Measured light sources (IES, EULUMDAT, …) are supported by the <code>sphere</code>, <code>spot</code>, and <code>quad</code> lights when setting an <code>intensityDistribution</code> <a href="documentation.html#data">data</a> array to modulate the intensity per direction. The mapping is using the C-γ coordinate system (see also below figure): the values of the first (or only) dimension of <code>intensityDistribution</code> are uniformly mapped to γ in [0–π]; the first intensity value to 0, the last value to π, thus at least two values need to be present.</p>
+<figure>
+<img src="images/c-gamma_coords.png" alt="C-γ coordinate system for the mapping of intensityDistribution with photometric lights." /><figcaption aria-hidden="true">C-γ coordinate system for the mapping of <code>intensityDistribution</code> with photometric lights.</figcaption>
+</figure>
+<p>If the array has a second dimension then the intensities are not rotational symmetric around the main direction (where angle γ is zero), but are accordingly mapped to the C-halfplanes in [0–2π]; the first “row” of values to 0 and 2π, the other rows such that they have uniform distance to its neighbors. The orientation of the C0-plane is specified via <code>c0</code>.</p>
+<table style="width:97%;">
+<caption>Special parameters for photometric lights.</caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 30%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">float[]</td>
+<td style="text-align: left;">intensityDistribution</td>
+<td style="text-align: left;">luminous intensity distribution for photometric lights; can be 2D for asymmetric illumination; values are assumed to be uniformly distributed</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec3f</td>
+<td style="text-align: left;">c0</td>
+<td style="text-align: left;">orientation, i.e., direction of the C0-(half)plane (only needed if illumination via <code>intensityDistribution</code> is asymmetric)</td>
+</tr>
+</tbody>
+</table>
+<p>When using an <code>intensityDistribution</code> then the default and only valid value for <code>intensityQuantity</code> is <code>OSP_INTENSITY_QUANTITY_SCALE</code>.</p>
 <p>The following light types are supported by most OSPRay renderers.</p>
 <h3 id="directional-light-distant-light">Directional Light / Distant Light</h3>
 <p>The distant light (or traditionally the directional light) is thought to be far away (outside of the scene), thus its light arrives (almost) as parallel rays. It is created by passing the type string “<code>distant</code>” to <code>ospNewLight</code>. The distant light supports <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> and <code>OSP_INTENSITY_QUANTITY_IRRADIANCE</code> (default) as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> understood by all lights the distant light supports the following special parameters:</p>
@@ -1801,7 +1857,7 @@ div.sourceCode { overflow-x: initial; }
 </table>
 <p>Setting the angular diameter to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="documentation.html#path-tracer">path tracer</a>). For instance, the apparent size of the sun is about 0.53°.</p>
 <h3 id="point-light-sphere-light">Point Light / Sphere Light</h3>
-<p>The sphere light (or the special case point light) is a light emitting uniformly in all directions from the surface toward the outside. It does not emit any light toward the inside of the sphere. It is created by passing the type string “<code>sphere</code>” to <code>ospNewLight</code>. The point light supports <code>OSP_INTENSITY_QUANTITY_POWER</code>, <code>OSP_INTENSITY_QUANTITY_INTENSITY</code> (default) and <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> understood by all lights the sphere light supports the following special parameters:</p>
+<p>The sphere light (or the special case point light) is a light emitting uniformly in all directions from the surface toward the outside. It does not emit any light toward the inside of the sphere. It is created by passing the type string “<code>sphere</code>” to <code>ospNewLight</code>. The point light supports only <code>OSP_INTENSITY_QUANTITY_SCALE</code> when <code>intensityDistribution</code> is set, or otherwise <code>OSP_INTENSITY_QUANTITY_POWER</code>, <code>OSP_INTENSITY_QUANTITY_INTENSITY</code> (then default) and <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> understood by all lights and the <a href="#photometric-lights">photometric parameters</a> the sphere light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the sphere light.</caption>
 <thead>
@@ -1825,18 +1881,24 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">the size of the sphere light</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">vec3f</td>
+<td style="text-align: left;">direction</td>
+<td style="text-align: right;"><span class="math inline">(0,0,1)</span></td>
+<td style="text-align: left;">main orientation of <code>intensityDistribution</code></td>
+</tr>
 </tbody>
 </table>
 <p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="documentation.html#path-tracer">path tracer</a>).</p>
-<h3 id="spotlight-photometric-light">Spotlight / Photometric Light</h3>
-<p>The spotlight is a light emitting into a cone of directions. It is created by passing the type string “<code>spot</code>” to <code>ospNewLight</code>. The spotlight supports <code>OSP_INTENSITY_QUANTITY_POWER</code>, <code>OSP_INTENSITY_QUANTITY_INTENSITY</code> (default) and <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> understood by all lights the spotlight supports the special parameters listed in the table.</p>
-<table style="width:98%;">
+<h3 id="spotlight-ring-light">Spotlight / Ring Light</h3>
+<p>The spotlight is a light emitting into a cone of directions. It is created by passing the type string “<code>spot</code>” to <code>ospNewLight</code>. The spotlight supports only <code>OSP_INTENSITY_QUANTITY_SCALE</code> when <code>intensityDistribution</code> is set, or otherwise <code>OSP_INTENSITY_QUANTITY_POWER</code>, <code>OSP_INTENSITY_QUANTITY_INTENSITY</code> (then default) and <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> as <code>intensityQuantity</code> parameter value. In addition to the <a href="#lights">general parameters</a> understood by all lights and the <a href="#photometric-lights">photometric parameters</a> the spotlight supports the special parameters listed in the table.</p>
+<table style="width:97%;">
 <caption>Special parameters accepted by the spotlight.</caption>
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 29%" />
-<col style="width: 17%" />
-<col style="width: 36%" />
+<col style="width: 13%" />
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 39%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1883,30 +1945,14 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">in combination with <code>radius</code> turns the disk into a ring</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">float[]</td>
-<td style="text-align: left;">intensityDistribution</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">luminous intensity distribution for photometric lights; can be 2D for asymmetric illumination; values are assumed to be uniformly distributed</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">vec3f</td>
-<td style="text-align: left;">c0</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">orientation, i.e., direction of the C0-(half)plane (only needed if illumination via <code>intensityDistribution</code> is asymmetric)</td>
-</tr>
 </tbody>
 </table>
 <figure>
 <img src="images/spot_light.png" alt="Angles used by the spotlight." /><figcaption aria-hidden="true">Angles used by the spotlight.</figcaption>
 </figure>
 <p>Setting the radius to a value greater than zero will result in soft shadows when the renderer uses stochastic sampling (like the <a href="documentation.html#path-tracer">path tracer</a>). Additionally setting the inner radius will result in a ring instead of a disk emitting the light.</p>
-<p>Measured light sources (IES, EULUMDAT, …) are supported by providing an <code>intensityDistribution</code> <a href="documentation.html#data">data</a> array to modulate the intensity per direction. The mapping is using the C-γ coordinate system (see also below figure): the values of the first (or only) dimension of <code>intensityDistribution</code> are uniformly mapped to γ in [0–π]; the first intensity value to 0, the last value to π, thus at least two values need to be present. If the array has a second dimension then the intensities are not rotational symmetric around <code>direction</code>, but are accordingly mapped to the C-halfplanes in [0–2π]; the first “row” of values to 0 and 2π, the other rows such that they have uniform distance to its neighbors. The orientation of the C0-plane is specified via <code>c0</code>. A combination of using an <code>intensityDistribution</code> and <code>OSP_INTENSITY_QUANTITY_POWER</code> as <code>intensityQuantity</code> is not supported at the moment.</p>
-<figure>
-<img src="images/spot_coords.png" alt="C-γ coordinate system for the mapping of intensityDistribution to the spotlight." /><figcaption aria-hidden="true">C-γ coordinate system for the mapping of <code>intensityDistribution</code> to the spotlight.</figcaption>
-</figure>
 <h3 id="quad-light">Quad Light</h3>
-<p>The quad<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half-space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight</code>. The quad light supports <code>OSP_INTENSITY_QUANTITY_POWER</code>, <code>OSP_INTENSITY_QUANTITY_INTENSITY</code> and <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> (default) as <code>intensityQuantity</code> parameter. In addition to the <a href="#lights">general parameters</a> understood by all lights the quad light supports the following special parameters:</p>
+<p>The quad<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> light is a planar, procedural area light source emitting uniformly on one side into the half-space. It is created by passing the type string “<code>quad</code>” to <code>ospNewLight</code>. The quad light supports only <code>OSP_INTENSITY_QUANTITY_SCALE</code> when <code>intensityDistribution</code> is set, or otherwise <code>OSP_INTENSITY_QUANTITY_POWER</code>, <code>OSP_INTENSITY_QUANTITY_INTENSITY</code> and <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> (then default) as <code>intensityQuantity</code> parameter. In addition to the <a href="#lights">general parameters</a> understood by all lights and the <a href="#photometric-lights">photometric parameters</a> the quad light supports the following special parameters:</p>
 <table>
 <caption>Special parameters accepted by the quad light.</caption>
 <thead>
@@ -1941,7 +1987,7 @@ div.sourceCode { overflow-x: initial; }
 <figure>
 <img src="images/quad_light.png" alt="Defining a quad light which emits toward the reader." /><figcaption aria-hidden="true">Defining a quad light which emits toward the reader.</figcaption>
 </figure>
-<p>The emission side is determined by the cross product of <code>edge1</code>×<code>edge2</code>. Note that only renderers that use stochastic sampling (like the path tracer) will compute soft shadows from the quad light. Other renderers will just sample the center of the quad light, which results in hard shadows.</p>
+<p>The emission side is determined by the cross product of <code>edge1</code>×<code>edge2</code>. which is also the main emission direction for <code>intensityDistribution</code>. Note that only renderers that use stochastic sampling (like the path tracer) will compute soft shadows from the quad light. Other renderers will just sample the center of the quad light, which results in hard shadows.</p>
 <h3 id="cylinder-light">Cylinder Light</h3>
 <p>The cylinder light is a cylinderical, procedural area light source emitting uniformly outwardly into the space beyond the boundary. It is created by passing the type string “<code>cylinder</code>” to <code>ospNewLight</code>. The cylinder light supports <code>OSP_INTENSITY_QUANTITY_POWER</code>, <code>OSP_INTENSITY_QUANTITY_INTENSITY</code> and <code>OSP_INTENSITY_QUANTITY_RADIANCE</code> (default) as <code>intensityQuantity</code> parameter. In addition to the <a href="#lights">general parameters</a> understood by all lights the cylinder light supports the following special parameters:</p>
 <table>
@@ -2147,6 +2193,7 @@ div.sourceCode { overflow-x: initial; }
 <h3 id="instances">Instances</h3>
 <p>Instances in OSPRay represent a single group’s placement into the world via a transform. To create and instance call</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>OSPInstance ospNewInstance<span class="op">(</span>OSPGroup<span class="op">);</span></span></code></pre></div>
+<p>The passed group can be <code>NULL</code> as long as the group to be instanced is passed as a parameter. If both a group is specified on object creation and as a parameter, the parameter value is used. If the parameter value is later removed, the group object passed on object creation is again used.</p>
 <table style="width:98%;">
 <caption>Parameters understood by instances.</caption>
 <colgroup>
@@ -2165,42 +2212,48 @@ div.sourceCode { overflow-x: initial; }
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">OSPGroup</td>
+<td style="text-align: left;">group</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">optional <a href="documentation.html#groups">group</a> object to be instanced</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">affine3f</td>
 <td style="text-align: left;">transform</td>
 <td style="text-align: right;">identity</td>
 <td style="text-align: left;">world-space transform for all attached geometries and volumes, overridden by <code>motion.*</code> arrays</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">affine3f[]</td>
 <td style="text-align: left;">motion.transform</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;">uniformly distributed world-space transforms</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">motion.scale</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;">uniformly distributed world-space scale, overridden by <code>motion.transform</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">motion.pivot</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;">uniformly distributed world-space translation which is applied before <code>motion.rotation</code> (i.e., the rotation center), overridden by <code>motion.transform</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">quatf[]</td>
 <td style="text-align: left;">motion.rotation</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;">uniformly distributed world-space quaternion rotation, overridden by <code>motion.transform</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">motion.translation</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;">uniformly distributed world-space translation, overridden by <code>motion.transform</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">box1f</td>
 <td style="text-align: left;">time</td>
 <td style="text-align: right;">[0, 1]</td>
@@ -3078,7 +3131,7 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 </tbody>
 </table>
-<p>For convenience, the rather counter-intuitive physical attenuation coefficients will be calculated from the user inputs in such a way, that the <code>attenuationColor</code> will be the result when white light traveled trough a glass of thickness <code>attenuationDistance</code>.</p>
+<p>For convenience, the rather counter-intuitive physical attenuation coefficients will be calculated from the user inputs in such a way, that the <code>attenuationColor</code> will be the result when white light traveled through a glass of thickness <code>attenuationDistance</code>.</p>
 <figure>
 <img src="images/material_Glass.jpg" style="width:60.0%" alt="Rendering of a Glass material with orange attenuation." /><figcaption aria-hidden="true">Rendering of a Glass material with orange attenuation.</figcaption>
 </figure>
@@ -4005,8 +4058,6 @@ div.sourceCode { overflow-x: initial; }
 <p>Applications can query how long an async task ran with</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetTaskDuration<span class="op">(</span>OSPFuture<span class="op">);</span></span></code></pre></div>
 <p>This returns the wall clock execution time of the task in seconds. If the task is still running, this will block until the task is completed. This is useful for applications to query exactly how long an asynchronous task executed without the overhead of measuring both task execution + synchronization by the calling application.</p>
-<h3 id="asynchronously-rendering-and-ospcommit">Asynchronously Rendering and ospCommit()</h3>
-<p>The use of either <code>ospRenderFrame</code> or <code>ospRenderFrame</code> requires that all objects in the scene being rendered have been committed before rendering occurs. If a call to <code>ospCommit()</code> happens while a frame is rendered, the result is undefined behavior and should be avoided.</p>
 <h3 id="synchronous-rendering">Synchronous Rendering</h3>
 <p>For convenience in certain use cases, <code>ospray_util.h</code> provides a synchronous version of <code>ospRenderFrame</code>:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospRenderFrameBlocking<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
@@ -4015,6 +4066,8 @@ div.sourceCode { overflow-x: initial; }
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>ospWait<span class="op">(</span>f<span class="op">,</span> OSP_TASK_FINISHED<span class="op">)</span></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> ospGetVariance<span class="op">(</span>fb<span class="op">)</span></span></code></pre></div>
 <p>This version is closest to <code>ospRenderFrame</code> from OSPRay v1.x.</p>
+<h3 id="rendering-and-ospcommit">Rendering and ospCommit</h3>
+<p>The use of either <code>ospRenderFrame</code> or <code>ospRenderFrameBlocking</code> requires that all objects in the scene being rendered have been committed before rendering occurs. If a call to <code>ospCommit</code> happens while a frame is rendered, the result is undefined behavior and should be avoided.</p>
 <h1 id="distributed-rendering-with-mpi">Distributed Rendering with MPI</h1>
 <p>The purpose of the MPI module for OSPRay is to provide distributed rendering capabilities for OSPRay. The module enables image- and data-parallel rendering across HPC clusters using MPI, allowing applications to transparently distribute rendering work, or to render data sets which are too large to fit in memory on a single machine.</p>
 <p>The MPI module provides two OSPRay devices to allow applications to leverage distributed rendering capabilities. The <code>mpiOffload</code> device provides transparent image-parallel rendering, where the same OSPRay application written for local rendering can be replicated across multiple nodes to distribute the rendering work. The <code>mpiDistributed</code> device allows MPI distributed applications to use OSPRay for distributed rendering, where each rank can render and independent piece of a global data set, or hybrid rendering where ranks partially or completely share data.</p>
@@ -4070,6 +4123,7 @@ div.sourceCode { overflow-x: initial; }
 </tbody>
 </table>
 <p>The <code>maxCommandBufferEntries</code>, <code>commandBufferSize</code>, and <code>maxInlineDataSize</code> can also be set via the environment variables: <code>OSPRAY_MPI_MAX_COMMAND_BUFFER_ENTRIES</code>, <code>OSPRAY_MPI_COMMAND_BUFFER_SIZE</code>, and <code>OSPRAY_MPI_MAX_INLINE_DATA_SIZE</code>, respectively.</p>
+<p>The <code>mpiOffload</code> device uses a dynamic load balancer by default. If you wish to use a static load balancer you can do so by setting the <code>OSPRAY_STATIC_BALANCER</code> environment variable to 1.</p>
 <p>The <code>mpiOffload</code> device does not support multiple init/shutdown cycles. Thus, to run <code>ospBenchmark</code> for this device make sure to exclude the init/shutdown test by passing <code>--benchmark_filter=-ospInit_ospShutdown</code> through the command line.</p>
 <h2 id="mpi-distributed-rendering">MPI Distributed Rendering</h2>
 <p>While MPI Offload rendering is used to transparently distribute rendering work without requiring modification to the application, MPI Distributed rendering is targeted at use of OSPRay within MPI-parallel applications. The MPI distributed device can be selected by loading the <code>mpi</code> module, and manually creating and using an instance of the <code>mpiDistributed</code> device:</p>
@@ -4176,7 +4230,7 @@ div.sourceCode { overflow-x: initial; }
 <p>If you wish to try it set the OSPRAY_NUM_SUBDEVICES environmental variable to the number of subdevices you want to create and tell OSPRay to both load the multidevice extension and create a multidevice for rendering instead of the default ISPCDevice.</p>
 <p>One example in a bash like shell is as follows:</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="va">OSPRAY_NUM_SUBDEVICES</span><span class="op">=</span>6 <span class="ex">./ospTutorial</span> <span class="at">--osp:load-modules</span><span class="op">=</span>multidevice <span class="at">--osp:device</span><span class="op">=</span>multidevice</span></code></pre></div>
-<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>The number of items to be copied is defined by the size of the source array.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -4193,7 +4247,7 @@ div.sourceCode { overflow-x: initial; }
     </div>
 
       <div id="footer">
-        © 2013–2021 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2022 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>

@@ -199,6 +199,34 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>To receive release announcements simply <a href="https://github.com/ospray/OSPRay">“Watch” the OSPRay repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v2.9.0">Changes in v2.9.0:</h3>
+<ul>
+<li>Add support for multi-segment deformation motion blur for <code>mesh</code> geometry</li>
+<li>OSPRay now requires minimum Open VKL v1.2.0 to bring the following improvements:
+<ul>
+<li>Structured regular volumes support for cell-centered data via the <code>cellCentered</code> parameter (vertex-centered remains the default)</li>
+<li>Particle volumes ignore particles with zero radius</li>
+</ul></li>
+<li>Add support for dynamic load balancing in MPI Offload device</li>
+<li>Support for photometric lights (e.g., IES or EULUMDAT) also for <code>sphere</code> and <code>quad</code> lights. When setting <code>intensityDistribution</code>, other values for <code>intensityQuantity</code> than <code>OSP_INTENSITY_QUANTITY_SCALE</code> are deprecated</li>
+<li>Changed CMake variables for enabling app categories:
+<ul>
+<li><code>OSPRAY_ENABLE_APPS_BENCHMARK</code> replaces <code>OSPRAY_APPS_BENCHMARK</code></li>
+<li><code>OSPRAY_ENABLE_APPS_EXAMPLES</code> replaces <code>OSPRAY_APPS_EXAMPLES</code></li>
+<li><code>OSPRAY_ENABLE_APPS_TUTORIALS</code> replaces <code>OSPRAY_APPS_TUTORIALS</code></li>
+<li><code>OSPRAY_ENABLE_APPS_TESTING</code> replaces <code>OSPRAY_APPS_TESTING</code></li>
+</ul></li>
+<li>Improve sampling of quad lights in the pathtracer (solid angle instead of area)</li>
+<li>Instances can now have the group object rebound via a parameter</li>
+<li>Fix leaking framebuffers in the MPI Offload device</li>
+<li>Resolve possible race condition in assigning IDs to distributed objects in the MPI device</li>
+<li>Move ISPC module to <code>modules/</code> folder and renamed the module to <code>cpu</code></li>
+<li>Minimum version of rkcommon is 1.9.0, which brings the following improvements:
+<ul>
+<li>Add support for Intel oneAPI DPCPP compiler</li>
+<li>Fix memory leak</li>
+</ul></li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.8.0">Changes in v2.8.0:</h3>
 <ul>
 <li>Lights can be now part of <code>OSPGroup</code> and thus instanced like geometries and volumes and thus lights also support motion blur (with the path tracer)</li>
@@ -207,26 +235,14 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Add support for quaternion motion blur for instance and camera to allow for smoothly interpolated rotations</li>
 <li>Fix illumination from emissive quad meshes</li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.7.1">Changes in v2.7.1:</h3>
-<ul>
-<li>Use Open VKL v1.0.1 to fix sporadic slowdowns when rendering structured regular and VDB volumes with the SciVis renderer</li>
-<li>Fix CMake variables and logic</li>
-<li>Fix crash when <code>transferfunction.opacity = 0</code></li>
-<li>Fix bug in MPI data-parallel rendering that caused rendering to hang</li>
-<li>Workaround dynamic linking issue on Windows in MPI distributed rendering</li>
-<li>Correctly initialize <code>renderFrame</code> progress</li>
-<li>Improved performance of data-parallel rendering for scenes with a large number of regions</li>
-<li>Expanded camera model support of the data-parallel renderer, data-parallel rendering can now use all the camera models supported by the SciVis renderer</li>
-<li>Clarify documentation and error messages</li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.7.0"></h3>
+<h3 class="unnumbered" id="changes-in-v2.7.1"></h3>
 <p>For the complete history of changes have a look at the <a href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
       </div>
     </div>
 
       <div id="footer">
-        © 2013–2021 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2022 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>

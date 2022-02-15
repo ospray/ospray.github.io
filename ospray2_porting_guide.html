@@ -154,7 +154,7 @@ div.sourceCode { overflow-x: initial; }
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>ospSetObject<span class="op">(</span>world<span class="op">,</span> <span class="st">&quot;instance&quot;</span><span class="op">,</span> instances<span class="op">);</span></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>ospCommit<span class="op">(</span>world<span class="op">);</span></span></code></pre></div>
 <p>While this looks more complex at first, the new hierarchy structure provides more fine control over appearance information and instance transformations.</p>
-<p>In OSPRay v1.x, geometries and volumes contained both structural and appearance information which limited their reuse in other objets. For example, the volume’s transfer function can now be different between an isosurface, slice, and rendered volume all in the same scene without duplicating the actual volume itself.</p>
+<p>In OSPRay v1.x, geometries and volumes contained both structural and appearance information which limited their reuse in other objects. For example, the volume’s transfer function can now be different between an isosurface, slice, and rendered volume all in the same scene without duplicating the actual volume itself.</p>
 <h4 id="ospgeometry-and-ospvolume">OSPGeometry and OSPVolume</h4>
 <p><code>OSPGeometry</code> and <code>OSPVolume</code> contain the physical data represented by the object. For geometries, this is the intersectable surface. For volumes, it is the scalar field to be sampled.</p>
 <h4 id="ospgeometricmodel-and-ospvolumetricmodel">OSPGeometricModel and OSPVolumetricModel</h4>
@@ -235,7 +235,7 @@ div.sourceCode { overflow-x: initial; }
     </div>
 
       <div id="footer">
-        © 2013–2021 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013–2022 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>
