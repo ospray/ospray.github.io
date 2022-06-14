@@ -508,7 +508,7 @@ div.sourceCode { overflow-x: initial; }
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Type/Name</th>
+<th style="text-align: left;">Type / Name</th>
 <th style="text-align: left;">Description</th>
 </tr>
 </thead>
@@ -1070,22 +1070,38 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;"><a href="documentation.html#data">data</a> arrays with the node data (per input node). Nodes that are tiles are expected to have single-item arrays. Leaf-nodes with grid data expected to have compact 3D arrays in zyx layout (z changes most quickly) with the correct number of voxels for the <code>level</code>. Only <code>OSP_FLOAT</code> is supported as field <code>OSPDataType</code>.</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">OSPData</td>
+<td style="text-align: left;">nodesPackedDense</td>
+<td style="text-align: left;">optionally provided instead of <code>node.data</code>, a single array of all dense node data in a contiguous zyx layout, provided in the same order as the corresponding <code>node.*</code> parameters</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSPData</td>
+<td style="text-align: left;">nodesPackedTile</td>
+<td style="text-align: left;">optionally provided instead of <code>node.data</code>, a single array of all tile node data in a contiguous layout, provided in the same order as the corresponding <code>node.*</code> parameters</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">uint32[]</td>
+<td style="text-align: left;">node.format</td>
+<td style="text-align: left;">for each input node, whether it is of format <code>OSP_VOLUME_FORMAT_DENSE_ZYX</code> (and thus stored in <code>nodesPackedDense</code>), or <code>OSP_VOLUME_FORMAT_TILE</code> (stored in <code>nodesPackedTile</code>)</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">filter</td>
 <td style="text-align: left;">filter used for reconstructing the field, default is <code>OSP_VOLUME_FILTER_TRILINEAR</code>, alternatively <code>OSP_VOLUME_FILTER_NEAREST</code>, or <code>OSP_VOLUME_FILTER_TRICUBIC</code>.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: left;">filter used for reconstructing the field during gradient computations, default same as <code>filter</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">background</td>
 <td style="text-align: left;">value that is used when sampling an undefined region outside the volume domain, default <code>NaN</code></td>
 </tr>
 </tbody>
 </table>
+<p>The <code>nodesPackedDense</code> and <code>nodesPackedTile</code> together with <code>node.format</code> parameters may be provided instead of <code>node.data</code>; this packed data layout may provide better performance.</p>
 <ol type="1">
 <li>Museth, K. VDB: High-Resolution Sparse Volumes with Dynamic Topology. ACM Transactions on Graphics 32(3), 2013. DOI: 10.1145/2487228.2487235</li>
 </ol>
@@ -1178,8 +1194,8 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;"><a href="documentation.html#data">data</a> array of opacities</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">vec2f</td>
-<td style="text-align: left;">valueRange</td>
+<td style="text-align: left;">box1f</td>
+<td style="text-align: left;">value</td>
 <td style="text-align: left;">domain (scalar range) this function maps from</td>
 </tr>
 </tbody>
@@ -1230,6 +1246,12 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: right;">0.0</td>
 <td style="text-align: left;">anisotropy of the (Henyey-Greenstein) phase function in [-1–1] (<a href="documentation.html#path-tracer">path tracer</a> only), default to isotropic scattering</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">uint32</td>
+<td style="text-align: left;">id</td>
+<td style="text-align: right;">-1u</td>
+<td style="text-align: left;">optional user ID, for <a href="#framebuffer">framebuffer</a> channel <code>OSP_FB_ID_OBJECT</code></td>
+</tr>
 </tbody>
 </table>
 <h2 id="geometries">Geometries</h2>
@@ -1255,33 +1277,53 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec3f[]</td>
+<td style="text-align: left;">normal</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of face-varying normals, overridden by <code>motion.*</code> arrays</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec3f[]</td>
 <td style="text-align: left;">vertex.normal</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex normals, overridden by <code>motion.*</code> arrays</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex-varying normals, overridden by <code>motion.*</code> arrays</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec4f[] / vec3f[]</td>
+<td style="text-align: left;">color</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of face-varying colors (linear RGBA/RGB)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec4f[] / vec3f[]</td>
 <td style="text-align: left;">vertex.color</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex colors (linear RGBA/RGB)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex-varying colors (linear RGBA/RGB)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec2f[]</td>
-<td style="text-align: left;">vertex.texcoord</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex texture coordinates</td>
+<td style="text-align: left;">texcoord</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of face-varying texture coordinates</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">vec2f[]</td>
+<td style="text-align: left;">vertex.texcoord</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex-varying texture coordinates</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">vec3ui[] / vec4ui[]</td>
 <td style="text-align: left;">index</td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a> array of (either triangle or quad) indices (into the vertex array(s))</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec3f[][]</td>
 <td style="text-align: left;">motion.vertex.position</td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex position arrays (uniformly distributed keys for deformation motion blur)</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">vec3f[][]</td>
+<td style="text-align: left;">motion.normal</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of face-varying normal arrays (uniformly distributed keys for deformation motion blur)</td>
+</tr>
 <tr class="odd">
 <td style="text-align: left;">vec3f[][]</td>
 <td style="text-align: left;">motion.vertex.normal</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex normal arrays (uniformly distributed keys for deformation motion blur)</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a> array of vertex-varying normal arrays (uniformly distributed keys for deformation motion blur)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">box1f</td>
@@ -1316,13 +1358,23 @@ div.sourceCode { overflow-x: initial; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">vec4f[]</td>
+<td style="text-align: left;">color</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of face-varying colors (linear RGBA)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec4f[]</td>
 <td style="text-align: left;">vertex.color</td>
-<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of vertex colors (linear RGBA)</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of vertex-varying colors (linear RGBA)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec2f[]</td>
+<td style="text-align: left;">texcoord</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of vertex-varying texture coordinates</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vec2f[]</td>
 <td style="text-align: left;">vertex.texcoord</td>
-<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of vertex texture coordinates</td>
+<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of vertex-varying texture coordinates</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
@@ -1661,9 +1713,9 @@ div.sourceCode { overflow-x: initial; }
 <table style="width:98%;">
 <caption>Parameters understood by GeometricModel.</caption>
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 19%" />
-<col style="width: 54%" />
+<col style="width: 32%" />
+<col style="width: 17%" />
+<col style="width: 47%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1679,24 +1731,14 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">optional <a href="documentation.html#geometries">geometry</a> object this model references</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">OSPMaterial / uint32</td>
+<td style="text-align: left;">OSPMaterial / OSPMaterial[] / uint32 / uint32[]</td>
 <td style="text-align: left;">material</td>
-<td style="text-align: left;">optional <a href="documentation.html#materials">material</a> applied to the geometry, may be an index into the <code>material</code> parameter on the <a href="documentation.html#renderers">renderer</a> (if it exists)</td>
+<td style="text-align: left;">optional (<a href="documentation.html#data">data</a> array of per-primitive) <a href="documentation.html#materials">material</a>, may be an index into the <code>material</code> parameter on the renderer (if it exists)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">vec4f</td>
+<td style="text-align: left;">vec4f / vec4f[]</td>
 <td style="text-align: left;">color</td>
-<td style="text-align: left;">optional color assigned to the geometry (linear RGBA)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSPMaterial[] / uint32[]</td>
-<td style="text-align: left;">material</td>
-<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) materials, may be an index into the <code>material</code> parameter on the renderer (if it exists)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">vec4f[]</td>
-<td style="text-align: left;">color</td>
-<td style="text-align: left;">optional <a href="documentation.html#data">data</a> array of (per-primitive) colors (linear RGBA)</td>
+<td style="text-align: left;">optional (<a href="documentation.html#data">data</a> array of per-primitive) color assigned to the geometry (linear RGBA)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">uint8[]</td>
@@ -1707,6 +1749,11 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">invertNormals</td>
 <td style="text-align: left;">inverts all shading normals (Ns), default false</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">uint32</td>
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">optional user ID, for <a href="#framebuffer">framebuffer</a> channel <code>OSP_FB_ID_OBJECT</code>, default -1u</td>
 </tr>
 </tbody>
 </table>
@@ -2258,6 +2305,12 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">time</td>
 <td style="text-align: right;">[0, 1]</td>
 <td style="text-align: left;">time associated with first and last key in <code>motion.*</code> arrays (for motion blur)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">uint32</td>
+<td style="text-align: left;">id</td>
+<td style="text-align: right;">-1u</td>
+<td style="text-align: left;">optional user ID, for <a href="#framebuffer">framebuffer</a> channel <code>OSP_FB_ID_INSTANCE</code></td>
 </tr>
 </tbody>
 </table>
@@ -3864,6 +3917,18 @@ div.sourceCode { overflow-x: initial; }
 <td style="text-align: left;">OSP_FB_ALBEDO</td>
 <td style="text-align: left;">accumulated material albedo (color without illumination) at the first hit, as vec3f</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_FB_ID_PRIMITIVE</td>
+<td style="text-align: left;">primitive index of the first hit, as uint32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSP_FB_ID_OBJECT</td>
+<td style="text-align: left;">geometric/volumetric model <code>id</code>, if specified, or index in <a href="documentation.html#groups">group</a> of first hit, as uint32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_FB_ID_INSTANCE</td>
+<td style="text-align: left;">user defined <a href="documentation.html#instances">instance</a> <code>id</code>, if specified, or instance index of first hit, as uint32</td>
+</tr>
 </tbody>
 </table>
 <p>If a certain channel value is <em>not</em> specified, the given buffer channel will not be present. Note that OSPRay makes a clear distinction between the <em>external</em> format of the framebuffer and the internal one: The external format is the format the user specifies in the <code>format</code> parameter; it specifies what color format OSPRay will eventually <em>return</em> the framebuffer to the application (when calling <code>ospMapFrameBuffer</code>): no matter what OSPRay uses internally, it will simply return a 2D array of pixels of that format, with possibly all kinds of reformatting, compression/decompression, etc., going on in-between the generation of the <em>internal</em> framebuffer and the mapping of the externally visible one.</p>
@@ -4247,7 +4312,7 @@ div.sourceCode { overflow-x: initial; }
     </div>
 
       <div id="footer">
-        © 2013–2022 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>

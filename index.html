@@ -199,6 +199,23 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
 <p>To receive release announcements simply <a href="https://github.com/ospray/OSPRay">“Watch” the OSPRay repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v2.10.0">Changes in v2.10.0:</h3>
+<ul>
+<li>Add support for primitive, object, and instance ID buffers as framebuffer channels</li>
+<li>Support face-varying attributes for Mesh and Subdivision geometry</li>
+<li>Replace CMake variable <code>OSPRAY_PIXELS_PER_JOB</code> by <code>OSPRAY_RENDER_TASK_SIZE</code>; variance tracking for adaptive accumulation is now per task instead of per tile, allowing for more granular adaptation</li>
+<li>OSPRay now requires minimum Open VKL v1.3.0 to bring the following improvements:
+<ul>
+<li>VDB volumes added support for contiguous data layouts, which can provide improved performance (<code>nodesPackedDense</code>, <code>nodesPackedTile</code> parameters)</li>
+<li>Particle volumes are more memory efficiency and improved performance</li>
+</ul></li>
+<li>OSPRay now requires minimum ISPC v1.18.0 for Open VKL and to include a fix for parallel dispatch of uniform function pointers</li>
+<li>MPI Offload: resolve object life time tracking issue that would result in framebuffer and data info being release too early, leading to a crash</li>
+<li>Fix crash with OpenMPI due to argument handling</li>
+<li>Fix clipping when rays are parallel to clipping planes</li>
+<li>Fix missing SDK headers from CPU and MPI module</li>
+<li>Deprecated the <code>vec2f valueRange</code> parameter of the <code>piecewiseLinear</code> transfer function, use <code>box1f value</code> instead</li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.9.0">Changes in v2.9.0:</h3>
 <ul>
 <li>Add support for multi-segment deformation motion blur for <code>mesh</code> geometry</li>
@@ -223,26 +240,18 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 <li>Move ISPC module to <code>modules/</code> folder and renamed the module to <code>cpu</code></li>
 <li>Minimum version of rkcommon is 1.9.0, which brings the following improvements:
 <ul>
-<li>Add support for Intel oneAPI DPCPP compiler</li>
+<li>Add detection of Intel oneAPI DPC++/C++ compiler</li>
 <li>Fix memory leak</li>
 </ul></li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.8.0">Changes in v2.8.0:</h3>
-<ul>
-<li>Lights can be now part of <code>OSPGroup</code> and thus instanced like geometries and volumes and thus lights also support motion blur (with the path tracer)</li>
-<li>Add cylinder light (with solid area sampling)</li>
-<li>Add support for rolling shutter of cameras</li>
-<li>Add support for quaternion motion blur for instance and camera to allow for smoothly interpolated rotations</li>
-<li>Fix illumination from emissive quad meshes</li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.7.1"></h3>
+<h3 class="unnumbered" id="changes-in-v2.8.0"></h3>
 <p>For the complete history of changes have a look at the <a href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
       </div>
     </div>
 
       <div id="footer">
-        © 2013–2022 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
+        © 2013 Intel Corporation <a href="legal.html">Disclaimer and Legal Information</a>
         <a href="https://www.intel.com/privacy">Privacy</a>
       </div>
   </body>
