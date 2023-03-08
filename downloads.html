@@ -292,7 +292,7 @@ specific ISAs for the target by passing
 <code>BUILD_ISA_&lt;ISA_NAME&gt;=OFF</code> as well.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--toolchain</span> <span class="pp">[</span><span class="ss">toolchain_file.cmake</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">path/to/this/directory</span><span class="pp">]</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--toolchain</span> [toolchain_file.cmake] [path/to/this/directory]</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">-DBUILD_TBB_FROM_SOURCE=ON</span> <span class="dt">\</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DBUILD_EMBREE_FROM_SOURCE</span><span class="op">=</span>ON <span class="dt">\</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>other arguments<span class="op">&gt;</span></span></code></pre></div>
@@ -309,7 +309,7 @@ flags should be passed to disable all ISAs besides SSE4 for Rosetta:</p>
 class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arch</span> <span class="at">-x86_64</span> bash</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="pp">[</span><span class="ss">path/to/this/directory</span><span class="pp">]</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> [path/to/this/directory]</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">-DBUILD_TBB_FROM_SOURCE=ON</span> <span class="dt">\</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DBUILD_EMBREE_FROM_SOURCE</span><span class="op">=</span>ON <span class="dt">\</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DBUILD_ISA_AVX</span><span class="op">=</span>OFF <span class="dt">\</span></span>
