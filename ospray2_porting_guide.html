@@ -43,7 +43,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -56,7 +56,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -100,26 +100,56 @@ div.sourceCode { overflow-x: initial; }
       <div id="content">
 
 <h1 id="ospray-v2.0-porting-guide">OSPRay v2.0 Porting Guide</h1>
-<p>OSPRay v2.0.0 introduces a number of new features and updates, as well as some API changes. This guide is intended as an introduction to the new features and the concepts behind them, and as a guide to porting applications using OSPRay v1.8.x to v2.0.0.</p>
+<p>OSPRay v2.0.0 introduces a number of new features and updates, as
+well as some API changes. This guide is intended as an introduction to
+the new features and the concepts behind them, and as a guide to porting
+applications using OSPRay v1.8.x to v2.0.0.</p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="setting-parameters">Setting parameters</h3>
-<p>OSPRay traded having a limited number of parameter types (with a unique function signature for each type) by instead having a single generic function that takes any type found in the <code>OSPDataType</code> enum. The new function signature is as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetParam<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>name<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>mem<span class="op">)</span></span></code></pre></div>
-<p>This function takes the address of the value being set, where care should be taken when setting pointer-based types. For example, consider the following C-array:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> myValues<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="fl">0.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">1.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">2.</span><span class="bu">f</span><span class="op">}</span></span></code></pre></div>
-<p>If the application wants to set these values as an OSP_VEC3F, note that the <code>const void *mem</code> parameter to <code>ospSetParam</code> should point to what is the address of what would be a <code>vec3f</code>. Thus either of the following are valid:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetParam<span class="op">(</span>object<span class="op">,</span> <span class="st">&quot;some_parameter&quot;</span><span class="op">,</span> OSP_VEC3F<span class="op">,</span> <span class="op">&amp;</span>myValues<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span></code></pre></div>
+<p>OSPRay traded having a limited number of parameter types (with a
+unique function signature for each type) by instead having a single
+generic function that takes any type found in the
+<code>OSPDataType</code> enum. The new function signature is as
+follows:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetParam<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>name<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>mem<span class="op">)</span></span></code></pre></div>
+<p>This function takes the address of the value being set, where care
+should be taken when setting pointer-based types. For example, consider
+the following C-array:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> myValues<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="fl">0.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">1.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">2.</span><span class="bu">f</span><span class="op">}</span></span></code></pre></div>
+<p>If the application wants to set these values as an OSP_VEC3F, note
+that the <code>const void *mem</code> parameter to
+<code>ospSetParam</code> should point to what is the address of what
+would be a <code>vec3f</code>. Thus either of the following are
+valid:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetParam<span class="op">(</span>object<span class="op">,</span> <span class="st">&quot;some_parameter&quot;</span><span class="op">,</span> OSP_VEC3F<span class="op">,</span> <span class="op">&amp;</span>myValues<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetParam<span class="op">(</span>object<span class="op">,</span> <span class="st">&quot;some_parameter&quot;</span><span class="op">,</span> OSP_VEC3F<span class="op">,</span> myValues<span class="op">);</span></span></code></pre></div>
-<p>The second variant relies on implicit casting from <code>float[]</code> to <code>float *</code>, which will point to the address of the first value. This then gets casted to a <code>vec3f</code> to be set on the target <code>object</code>.</p>
-<p>Some of the <code>ospSet*</code> functions were preserved as utility wrapper functions outlined later in this document (and can be found in <code>ospray_util.h</code>).</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetParam<span class="op">(</span>object<span class="op">,</span> <span class="st">&quot;some_parameter&quot;</span><span class="op">,</span> OSP_VEC3F<span class="op">,</span> myValues<span class="op">);</span></span></code></pre></div>
+<p>The second variant relies on implicit casting from
+<code>float[]</code> to <code>float *</code>, which will point to the
+address of the first value. This then gets casted to a
+<code>vec3f</code> to be set on the target <code>object</code>.</p>
+<p>Some of the <code>ospSet*</code> functions were preserved as utility
+wrapper functions outlined later in this document (and can be found in
+<code>ospray_util.h</code>).</p>
 <h3 id="ospdatatype-type-checking">OSPDataType type checking</h3>
-<p>Where it was previously accepted to create data of generic type <code>OSP_OBJECT</code> to represent a list of any object type, the <code>OSPDataType</code> must now match the object(s) it contains.</p>
+<p>Where it was previously accepted to create data of generic type
+<code>OSP_OBJECT</code> to represent a list of any object type, the
+<code>OSPDataType</code> must now match the object(s) it contains.</p>
 <h2 id="objects">Objects</h2>
 <h3 id="new-object-hierarchy">New Object Hierarchy</h3>
-<p>OSPRay objects, such as <code>OSPGeometry</code> and <code>OSPVolume</code>, have a new hierarchy that affords more control over geometry and volume transformation and instancing in the scene.</p>
-<p>Previously, the workflow was to create an object, fill it with the necessary parameters, and then place the object into an <code>OSPModel</code> via, for example, <code>ospAddGeometry</code>. An example is shown below using the C API.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>OSPGeometry mesh <span class="op">=</span> ospNewGeometry<span class="op">(</span><span class="st">&quot;triangles&quot;</span><span class="op">);</span></span>
+<p>OSPRay objects, such as <code>OSPGeometry</code> and
+<code>OSPVolume</code>, have a new hierarchy that affords more control
+over geometry and volume transformation and instancing in the scene.</p>
+<p>Previously, the workflow was to create an object, fill it with the
+necessary parameters, and then place the object into an
+<code>OSPModel</code> via, for example, <code>ospAddGeometry</code>. An
+example is shown below using the C API.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>OSPGeometry mesh <span class="op">=</span> ospNewGeometry<span class="op">(</span><span class="st">&quot;triangles&quot;</span><span class="op">);</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">// set parameters on mesh</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ospCommit<span class="op">(</span>mesh<span class="op">);</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -127,9 +157,17 @@ div.sourceCode { overflow-x: initial; }
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ospAddGeometry<span class="op">(</span>world<span class="op">,</span> mesh<span class="op">);</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ospRelease<span class="op">(</span>mesh<span class="op">);</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ospCommit<span class="op">(</span>world<span class="op">);</span></span></code></pre></div>
-<p>In OSPRay v2.0.0, there is now an <code>OSPWorld</code>, which effectively replaces the old <code>OSPModel</code>. In addition, there are now 3 new objects that exist “in between” the geometry and the world: <code>OSPGeometricModel</code>, <code>OSPGroup</code>, and <code>OSPInstance</code>. There is also an <code>OSPVolumetricModel</code> equivalent for working with <code>OSPVolume</code> objects.</p>
-<p>The new workflow is shown below. Note that calls to <code>ospRelease()</code> have been removed for brevity.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// create a geometry</span></span>
+<p>In OSPRay v2.0.0, there is now an <code>OSPWorld</code>, which
+effectively replaces the old <code>OSPModel</code>. In addition, there
+are now 3 new objects that exist “in between” the geometry and the
+world: <code>OSPGeometricModel</code>, <code>OSPGroup</code>, and
+<code>OSPInstance</code>. There is also an
+<code>OSPVolumetricModel</code> equivalent for working with
+<code>OSPVolume</code> objects.</p>
+<p>The new workflow is shown below. Note that calls to
+<code>ospRelease()</code> have been removed for brevity.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// create a geometry</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>OSPGeometry mesh <span class="op">=</span> ospNewGeometry<span class="op">(</span><span class="st">&quot;triangles&quot;</span><span class="op">);</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">// set parameters on mesh</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ospCommit<span class="op">(</span>mesh<span class="op">);</span></span>
@@ -153,42 +191,110 @@ div.sourceCode { overflow-x: initial; }
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>OSPData instances <span class="op">=</span> ospNewSharedData1D<span class="op">(&amp;</span>instance<span class="op">,</span> OSP_INSTANCE<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>ospSetObject<span class="op">(</span>world<span class="op">,</span> <span class="st">&quot;instance&quot;</span><span class="op">,</span> instances<span class="op">);</span></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>ospCommit<span class="op">(</span>world<span class="op">);</span></span></code></pre></div>
-<p>While this looks more complex at first, the new hierarchy structure provides more fine control over appearance information and instance transformations.</p>
-<p>In OSPRay v1.x, geometries and volumes contained both structural and appearance information which limited their reuse in other objects. For example, the volume’s transfer function can now be different between an isosurface, slice, and rendered volume all in the same scene without duplicating the actual volume itself.</p>
+<p>While this looks more complex at first, the new hierarchy structure
+provides more fine control over appearance information and instance
+transformations.</p>
+<p>In OSPRay v1.x, geometries and volumes contained both structural and
+appearance information which limited their reuse in other objects. For
+example, the volume’s transfer function can now be different between an
+isosurface, slice, and rendered volume all in the same scene without
+duplicating the actual volume itself.</p>
 <h4 id="ospgeometry-and-ospvolume">OSPGeometry and OSPVolume</h4>
-<p><code>OSPGeometry</code> and <code>OSPVolume</code> contain the physical data represented by the object. For geometries, this is the intersectable surface. For volumes, it is the scalar field to be sampled.</p>
-<h4 id="ospgeometricmodel-and-ospvolumetricmodel">OSPGeometricModel and OSPVolumetricModel</h4>
-<p><code>OSPGeometricModel</code> and <code>OSPVolumetricModel</code> contain appearance information about the geometry or volume that they hold. They have a one-to-N relationship with <code>OSPGeometry</code> and <code>OSPVolume</code> objects (i.e. a geometry or volume can exist in more than one model), but commonly exist as one-to-one. This could be used to create multiple copies of a geometry with different materials, for example.</p>
-<p><code>OSPGeometricModel</code>s can hold primitive color information (e.g. the color used for each sphere in a <code>Spheres</code> geometry), a material or list of materials, and primitive material IDs (i.e. indexes into the list of materials if it is used).</p>
+<p><code>OSPGeometry</code> and <code>OSPVolume</code> contain the
+physical data represented by the object. For geometries, this is the
+intersectable surface. For volumes, it is the scalar field to be
+sampled.</p>
+<h4 id="ospgeometricmodel-and-ospvolumetricmodel">OSPGeometricModel and
+OSPVolumetricModel</h4>
+<p><code>OSPGeometricModel</code> and <code>OSPVolumetricModel</code>
+contain appearance information about the geometry or volume that they
+hold. They have a one-to-N relationship with <code>OSPGeometry</code>
+and <code>OSPVolume</code> objects (i.e. a geometry or volume can exist
+in more than one model), but commonly exist as one-to-one. This could be
+used to create multiple copies of a geometry with different materials,
+for example.</p>
+<p><code>OSPGeometricModel</code>s can hold primitive color information
+(e.g. the color used for each sphere in a <code>Spheres</code>
+geometry), a material or list of materials, and primitive material IDs
+(i.e. indexes into the list of materials if it is used).</p>
 <p><code>OSPVolumetricModel</code>s can hold transfer functions.</p>
 <h4 id="ospgroup">OSPGroup</h4>
-<p><code>OSPGroup</code> objects contain zero or more <code>OSPGeometricModel</code> and <code>OSPVolumetricModel</code> objects. They can hold geometries and volumes simultaneously.</p>
-<p>This is useful to collect together any objects that are logically grouped together in the scene.</p>
+<p><code>OSPGroup</code> objects contain zero or more
+<code>OSPGeometricModel</code> and <code>OSPVolumetricModel</code>
+objects. They can hold geometries and volumes simultaneously.</p>
+<p>This is useful to collect together any objects that are logically
+grouped together in the scene.</p>
 <h4 id="ospinstance">OSPInstance</h4>
-<p><code>OSPInstance</code> contains transformation information on an <code>OSPGroup</code> object. It has a one-to-one relationship with <code>OSPGroup</code>.</p>
-<p>This means that each <code>OSPInstance</code> contains exactly one <code>OSPGroup</code>. Similar to models and groups, a single <code>OSPGroup</code> may be placed into multiple <code>OSPInstace</code> objects. This allows for <em>instancing</em> of multiple objects throughout the scene, each with different transformations.</p>
-<p><code>OSPInstance</code> objects holds an affine transformation matrix that is applied to all objects in its group.</p>
+<p><code>OSPInstance</code> contains transformation information on an
+<code>OSPGroup</code> object. It has a one-to-one relationship with
+<code>OSPGroup</code>.</p>
+<p>This means that each <code>OSPInstance</code> contains exactly one
+<code>OSPGroup</code>. Similar to models and groups, a single
+<code>OSPGroup</code> may be placed into multiple
+<code>OSPInstace</code> objects. This allows for <em>instancing</em> of
+multiple objects throughout the scene, each with different
+transformations.</p>
+<p><code>OSPInstance</code> objects holds an affine transformation
+matrix that is applied to all objects in its group.</p>
 <h4 id="ospworld">OSPWorld</h4>
-<p><code>OSPWorld</code> is the final container for all <code>OSPInstance</code> and <code>OSPLight</code> objects. It can contain one or more instances and lights. The world is passed along with a renderer, camera, and framebuffer to <code>ospRenderFrame</code> to generate an image.</p>
+<p><code>OSPWorld</code> is the final container for all
+<code>OSPInstance</code> and <code>OSPLight</code> objects. It can
+contain one or more instances and lights. The world is passed along with
+a renderer, camera, and framebuffer to <code>ospRenderFrame</code> to
+generate an image.</p>
 <h3 id="void-ospretainospobject">void ospRetain(OSPObject)</h3>
-<p>To allow the user greater control over the lifetime of objects, a new API <code>ospRetain</code> has been introduced. This call increments an object’s reference count, and can delay automatic deletion.</p>
-<h2 id="updated-public-parameter-names">Updated Public Parameter Names</h2>
-<p>OSPRay v2.0.0 has updated public parameter names (the strings used in <code>ospSetParam</code>) to a more consistent naming convention. OSPRay now will print a warning (visible if debug logs are enabled) if a parameter provided by the user is not used by an object. This can help catch cases where applications are using parameter names from OSPRay v1.8.5 or mistyped names. Some objects have required parameters. In these cases, OSPRay will invoke the error callback indicating which object and which parameter.</p>
-<p>OSPRay now universally uses the camelCase naming convention for all object types and parameter names. Furthermore, parameter names which are data arrays now use singular names to indicate what the elements are, and parameters which form a logical “struture-of-arrays” are communicated via the <code>"[structure_name].[member_name]"</code> naming convention.</p>
-<p>For example, the <code>"opacities"</code> array for <code>linear</code> transfer functions is now named <code>"opacity"</code>.</p>
-<p>Finally, some parameters have changed from being string-based to enum-based. All enums can be found in <code>OSPEnums.h</code>, where their usage can be found in the main API documentation.</p>
+<p>To allow the user greater control over the lifetime of objects, a new
+API <code>ospRetain</code> has been introduced. This call increments an
+object’s reference count, and can delay automatic deletion.</p>
+<h2 id="updated-public-parameter-names">Updated Public Parameter
+Names</h2>
+<p>OSPRay v2.0.0 has updated public parameter names (the strings used in
+<code>ospSetParam</code>) to a more consistent naming convention. OSPRay
+now will print a warning (visible if debug logs are enabled) if a
+parameter provided by the user is not used by an object. This can help
+catch cases where applications are using parameter names from OSPRay
+v1.8.5 or mistyped names. Some objects have required parameters. In
+these cases, OSPRay will invoke the error callback indicating which
+object and which parameter.</p>
+<p>OSPRay now universally uses the camelCase naming convention for all
+object types and parameter names. Furthermore, parameter names which are
+data arrays now use singular names to indicate what the elements are,
+and parameters which form a logical “struture-of-arrays” are
+communicated via the <code>"[structure_name].[member_name]"</code>
+naming convention.</p>
+<p>For example, the <code>"opacities"</code> array for
+<code>linear</code> transfer functions is now named
+<code>"opacity"</code>.</p>
+<p>Finally, some parameters have changed from being string-based to
+enum-based. All enums can be found in <code>OSPEnums.h</code>, where
+their usage can be found in the main API documentation.</p>
 <h2 id="osprenderframe">ospRenderFrame</h2>
-<p><code>ospRenderFrame</code> has changed in two ways. The signature has changed from:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospRenderFrame<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span></span>
+<p><code>ospRenderFrame</code> has changed in two ways. The signature
+has changed from:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospRenderFrame<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">const</span> <span class="dt">uint32_t</span> frameBufferChannels <span class="op">=</span> OSP_FB_COLOR<span class="op">);</span></span></code></pre></div>
 <p>to</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>OSPFuture ospRenderFrame<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
-<p>And, notably, it is no longer blocking. Two new calls <code>ospIsReady</code>, and <code>ospWait</code> are available to manage synchronization.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>OSPFuture ospRenderFrame<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
+<p>And, notably, it is no longer blocking. Two new calls
+<code>ospIsReady</code>, and <code>ospWait</code> are available to
+manage synchronization.</p>
 <h2 id="utility-library">Utility Library</h2>
-<p>As a convenience, a lightweight utility library has been provided to help users port from the previous versions and reduce boilerplate code. This set of additional API calls are all implemented in terms of the core API found in <code>ospray.h</code>, where they can be found in <code>ospray_util.h</code>. Their definitions are compiled into <code>libospray</code> (the <code>ospray::ospray</code> CMake target) and are compatible with any valid device implementation.</p>
-<h3 id="ospdata-and-parameter-helpers">OSPData and Parameter helpers</h3>
-<p>The core OSPRay API has been simplified by removing many of the type specializations from the data and parameter set calls. The utility library provides wrappers to the familiar calls listed below:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ospSetString<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>n<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">);</span></span>
+<p>As a convenience, a lightweight utility library has been provided to
+help users port from the previous versions and reduce boilerplate code.
+This set of additional API calls are all implemented in terms of the
+core API found in <code>ospray.h</code>, where they can be found in
+<code>ospray_util.h</code>. Their definitions are compiled into
+<code>libospray</code> (the <code>ospray::ospray</code> CMake target)
+and are compatible with any valid device implementation.</p>
+<h3 id="ospdata-and-parameter-helpers">OSPData and Parameter
+helpers</h3>
+<p>The core OSPRay API has been simplified by removing many of the type
+specializations from the data and parameter set calls. The utility
+library provides wrappers to the familiar calls listed below:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ospSetString<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>n<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">);</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ospSetObject<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>n<span class="op">,</span> OSPObject obj<span class="op">);</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ospSetBool<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>n<span class="op">,</span> <span class="dt">int</span> x<span class="op">);</span></span>
@@ -204,8 +310,12 @@ div.sourceCode { overflow-x: initial; }
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>ospSetVec4i<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>n<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> z<span class="op">,</span> <span class="dt">int</span> w<span class="op">);</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>ospSetObjectAsData<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>n<span class="op">,</span> OSPDataType type<span class="op">,</span> OSPObject obj<span class="op">);</span></span></code></pre></div>
-<p>OSPRay v1.x calls to <code>ospSetData</code> have been replaced with <code>ospSetObject</code>. Convenience wrappers have also been provided to specialize <code>ospNewData</code>, and the new <code>ospNewSharedData</code> and <code>ospCopyData</code> APIs.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ospNewSharedData1D<span class="op">(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>sharedData<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="dt">uint32_t</span> numItems<span class="op">);</span></span>
+<p>OSPRay v1.x calls to <code>ospSetData</code> have been replaced with
+<code>ospSetObject</code>. Convenience wrappers have also been provided
+to specialize <code>ospNewData</code>, and the new
+<code>ospNewSharedData</code> and <code>ospCopyData</code> APIs.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ospNewSharedData1D<span class="op">(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>sharedData<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="dt">uint32_t</span> numItems<span class="op">);</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ospNewSharedData1DStride<span class="op">(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>sharedData<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="dt">uint32_t</span> numItems<span class="op">,</span> <span class="dt">int64_t</span> byteStride<span class="op">);</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ospNewSharedData2D<span class="op">(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>sharedData<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="dt">uint32_t</span> numItems1<span class="op">,</span> <span class="dt">uint32_t</span> numItems2<span class="op">);</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ospNewSharedData2DStride<span class="op">(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>sharedData<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="dt">uint32_t</span> numItems1<span class="op">,</span> <span class="dt">int64_t</span> byteStride1<span class="op">,</span> <span class="dt">uint32_t</span> numItems2<span class="op">,</span> <span class="dt">int64_t</span> byteStride2<span class="op">);</span></span>
@@ -217,16 +327,25 @@ div.sourceCode { overflow-x: initial; }
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>ospCopyData1D<span class="op">(</span><span class="at">const</span> OSPData source<span class="op">,</span> OSPData destination<span class="op">,</span> <span class="dt">uint32_t</span> destinationIndex<span class="op">);</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>ospCopyData2D<span class="op">(</span><span class="at">const</span> OSPData source<span class="op">,</span> OSPData destination<span class="op">,</span> <span class="dt">uint32_t</span> destinationIndex1<span class="op">,</span> <span class="dt">uint32_t</span> destinationIndex2<span class="op">);</span></span></code></pre></div>
 <h3 id="object-usage-simplification">Object Usage Simplification</h3>
-<p>To simplify setting data onto an object, if there is only a single data item, the wrapper <code>ospSetObjectAsData</code> permits the user to assign this item without first creating a data object containing that item.</p>
+<p>To simplify setting data onto an object, if there is only a single
+data item, the wrapper <code>ospSetObjectAsData</code> permits the user
+to assign this item without first creating a data object containing that
+item.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>OSPData geometricModels <span class="op">=</span> ospNewSharedData1D<span class="op">(&amp;</span>model<span class="op">,</span> OSP_GEOMETRIC_MODEL<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>OSPData geometricModels <span class="op">=</span> ospNewSharedData1D<span class="op">(&amp;</span>model<span class="op">,</span> OSP_GEOMETRIC_MODEL<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ospSetObject<span class="op">(</span>group<span class="op">,</span> <span class="st">&quot;geometry&quot;</span><span class="op">,</span> geometricModels<span class="op">);</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ospRelease<span class="op">(</span>geometricModels<span class="op">);</span></span></code></pre></div>
 <p>simply becomes:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ospSetObjectAsData<span class="op">(</span>group<span class="op">,</span> <span class="st">&quot;geometry&quot;</span><span class="op">,</span> OSP_GEOMETRIC_MODEL<span class="op">,</span> model<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ospSetObjectAsData<span class="op">(</span>group<span class="op">,</span> <span class="st">&quot;geometry&quot;</span><span class="op">,</span> OSP_GEOMETRIC_MODEL<span class="op">,</span> model<span class="op">);</span></span></code></pre></div>
 <h3 id="rendering-helpers">Rendering helpers</h3>
-<p>While <code>ospRenderFrame</code> is now asynchronous, some users will prefer the original blocking behavior that returns the frame variance. The utility library provides a wrapper to this functionality:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospRenderFrameBlocking<span class="op">(</span>OSPFrameBuffer fb<span class="op">,</span></span>
+<p>While <code>ospRenderFrame</code> is now asynchronous, some users
+will prefer the original blocking behavior that returns the frame
+variance. The utility library provides a wrapper to this
+functionality:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospRenderFrameBlocking<span class="op">(</span>OSPFrameBuffer fb<span class="op">,</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                             OSPRenderer renderer<span class="op">,</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                             OSPCamera camera<span class="op">,</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                             OSPWorld world<span class="op">)</span></span></code></pre></div>

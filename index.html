@@ -67,7 +67,8 @@ The Open, Scalable, and Portable Ray Tracing Engine
 Render massive scenes interactively
 </h3>
 <p>
-Disney’s Moana Island Scene: over 15 billion instanced primitives+volume at interactive rates
+Disney’s Moana Island Scene: over 15 billion instanced primitives+volume
+at interactive rates
 </p>
 </div>
 </div>
@@ -127,7 +128,11 @@ AMR volume rendered without resampling inside ParaView
 </div>
 </div>
 </div>
-<p><!-- Left and right controls --> <a class="carousel-control-prev" href="#demo" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#demo" data-slide="next"> <span class="carousel-control-next-icon"></span> </a></p>
+<p><!-- Left and right controls -->
+<a class="carousel-control-prev" href="#demo" data-slide="prev"> <span
+class="carousel-control-prev-icon"></span> </a>
+<a class="carousel-control-next" href="#demo" data-slide="next"> <span
+class="carousel-control-next-icon"></span> </a></p>
 </div>
 <hr>
 <div class="teaser-features">
@@ -137,7 +142,10 @@ AMR volume rendered without resampling inside ParaView
 Interactive CPU Rendering
 </h2>
 <p>
-OSPRay features scalable CPU rendering capabilities geared toward Scientific Visualization applications. Advanced shading effects such as ambient occlusion, shadows, and transparency can be rendered interactively to enable new insights into huge data.
+OSPRay features scalable CPU rendering capabilities geared toward
+Scientific Visualization applications. Advanced shading effects such as
+ambient occlusion, shadows, and transparency can be rendered
+interactively to enable new insights into huge data.
 </p>
 </div>
 </div>
@@ -147,7 +155,8 @@ OSPRay features scalable CPU rendering capabilities geared toward Scientific Vis
 Global Illumination
 </h2>
 <p>
-OSPRay includes a path tracer capable of interactively rendering photorealistic global illumination with phyiscally-based materials.
+OSPRay includes a path tracer capable of interactively rendering
+photorealistic global illumination with phyiscally-based materials.
 </p>
 </div>
 </div>
@@ -157,7 +166,8 @@ OSPRay includes a path tracer capable of interactively rendering photorealistic 
 Volume Rendering
 </h2>
 <p>
-OSPRay supports high-fidelity, interactive direct volume rendering with a number of state of the art visualization features.
+OSPRay supports high-fidelity, interactive direct volume rendering with
+a number of state of the art visualization features.
 </p>
 </div>
 </div>
@@ -167,7 +177,8 @@ OSPRay supports high-fidelity, interactive direct volume rendering with a number
 MPI Distributed
 </h2>
 <p>
-Run on large scale distributed-memory systems with high-performance MPI backends to both decrease render time and increase total scene size.
+Run on large scale distributed-memory systems with high-performance MPI
+backends to both decrease render time and increase total scene size.
 </p>
 </div>
 </div>
@@ -177,7 +188,8 @@ Run on large scale distributed-memory systems with high-performance MPI backends
 Industry Adoption
 </h2>
 <p>
-OSPRay is directly integrated into ParaView 5.x. Implementations for VisIt, VMD, and other popular tools have also freely available.
+OSPRay is directly integrated into ParaView 5.x. Implementations for
+VisIt, VMD, and other popular tools have also freely available.
 </p>
 </div>
 </div>
@@ -193,59 +205,110 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </div>
 </div>
 <h1 id="ospray-overview">OSPRay Overview</h1>
-<p>Intel OSPRay is an <strong>o</strong>pen source, <strong>s</strong>calable, and <strong>p</strong>ortable <strong>ray</strong> tracing engine for high-performance, high-fidelity visualization on Intel Architecture CPUs. OSPRay is part of the <a href="https://software.intel.com/en-us/rendering-framework">Intel oneAPI Rendering Toolkit</a> and is released under the permissive <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
-<p>The purpose of OSPRay is to provide an open, powerful, and easy-to-use rendering library that allows one to easily build applications that use ray tracing based rendering for interactive applications (including both surface- and volume-based visualizations). OSPRay is completely CPU-based, and runs on anything from laptops, to workstations, to compute nodes in HPC systems.</p>
-<p>OSPRay internally builds on top of <a href="https://www.embree.org/">Intel Embree</a> and <a href="https://ispc.github.io/">Intel ISPC (Implicit SPMD Program Compiler)</a>, and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2, AVX-512 and NEON to achieve high rendering performance, thus a CPU with support for at least SSE4.1 is required to run OSPRay on x86_64 architectures. A CPU with support for NEON is required to run OSPRay on ARM64 architectures.</p>
+<p>Intel OSPRay is an <strong>o</strong>pen source,
+<strong>s</strong>calable, and <strong>p</strong>ortable
+<strong>ray</strong> tracing engine for high-performance, high-fidelity
+visualization on Intel Architecture CPUs. OSPRay is part of the <a
+href="https://software.intel.com/en-us/rendering-framework">Intel oneAPI
+Rendering Toolkit</a> and is released under the permissive <a
+href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0
+license</a>.</p>
+<p>The purpose of OSPRay is to provide an open, powerful, and
+easy-to-use rendering library that allows one to easily build
+applications that use ray tracing based rendering for interactive
+applications (including both surface- and volume-based visualizations).
+OSPRay is completely CPU-based, and runs on anything from laptops, to
+workstations, to compute nodes in HPC systems.</p>
+<p>OSPRay internally builds on top of <a
+href="https://www.embree.org/">Intel Embree</a> and <a
+href="https://ispc.github.io/">Intel ISPC (Implicit SPMD Program
+Compiler)</a>, and fully exploits modern instruction sets like Intel
+SSE4, AVX, AVX2, AVX-512 and NEON to achieve high rendering performance,
+thus a CPU with support for at least SSE4.1 is required to run OSPRay on
+x86_64 architectures. A CPU with support for NEON is required to run
+OSPRay on ARM64 architectures.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
-<p>OSPRay is under active development, and though we do our best to guarantee stable release versions a certain number of bugs, as-yet-missing features, inconsistencies, or any other issues are still possible. Should you find any such issues please report them immediately via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue Tracker</a> (or, if you should happen to have a fix for it,you can also send us a pull request); for missing features please contact us via email at <a href="mailto:ospray@googlegroups.com" class="email">ospray@googlegroups.com</a>.</p>
-<p>To receive release announcements simply <a href="https://github.com/ospray/OSPRay">“Watch” the OSPRay repository</a> on GitHub.</p>
+<p>OSPRay is under active development, and though we do our best to
+guarantee stable release versions a certain number of bugs,
+as-yet-missing features, inconsistencies, or any other issues are still
+possible. Should you find any such issues please report them immediately
+via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub
+Issue Tracker</a> (or, if you should happen to have a fix for it,you can
+also send us a pull request); for missing features please contact us via
+email at <a href="mailto:ospray@googlegroups.com"
+class="email">ospray@googlegroups.com</a>.</p>
+<p>To receive release announcements simply <a
+href="https://github.com/ospray/OSPRay">“Watch” the OSPRay
+repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v2.11.0">Changes in v2.11.0:</h3>
+<ul>
+<li>Support single ISPC target on Windows</li>
+<li>OSPRay’s superbuild can now be provided a CMake toolchain file for
+cross-compilation</li>
+<li>Add support for double pumped NEON instruction on ARM64</li>
+<li>Reduce the memory overhead of the <code>mpiOffload</code> device and
+resolve memory and <code>MPI_Comm</code> handle leaks</li>
+<li>Support for volume rendering (and thus the dependency to Open VKL)
+can now be compile-time controlled via CMake variable
+<code>OSPRAY_ENABLE_VOLUMES</code></li>
+<li>OSPRay’s MPI modules have been split up and renamed, the
+<code>mpiOffload</code> device is now in the <code>mpi_offload</code>
+module, while the <code>mpiDistributed</code> device is now in the
+<code>mpi_distributed_cpu</code> module</li>
+<li>Add native support for spheres via Embree, which requires the
+positions and radius of the spheres to be interleaved in memory; if this
+is not the case, OSPRay will internally create a copy of the data</li>
+<li>Fix <code>dynamicScene</code> flag on World and Group to influence
+BVH quality again: default is now “high”, which should improve rendering
+performance, depending on the scene; and “low” when
+<code>dynamicScene</code> is enabled (improving BVH build
+performance)</li>
+<li>Fix a crash in <code>pathtracer</code> when there are no lights</li>
+<li>Fix a data corruption bug when setting string parameters for objects
+in the <code>mpiOffload</code> device</li>
+<li>Various documentation fixes</li>
+<li>OSPRay now has a new dependency, which is ISPC Run Time (ISPCRT) in
+minimum 1.19.0 version</li>
+<li>Adapt to Embree v4.0.0 API changes, which is thus the new minimum
+version; additionally, the new minimum version for Open VKL is v1.3.2
+and for ISPC v1.19.0</li>
+<li>Removed support of MSVC14.0 (Visual Studio 2015) and the second
+generation Intel Xeon Phi processor (codename Knights Landing)</li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.10.0">Changes in v2.10.0:</h3>
 <ul>
-<li>Add support for primitive, object, and instance ID buffers as framebuffer channels</li>
-<li>Support face-varying attributes for Mesh and Subdivision geometry</li>
-<li>Replace CMake variable <code>OSPRAY_PIXELS_PER_JOB</code> by <code>OSPRAY_RENDER_TASK_SIZE</code>; variance tracking for adaptive accumulation is now per task instead of per tile, allowing for more granular adaptation</li>
-<li>OSPRay now requires minimum Open VKL v1.3.0 to bring the following improvements:
+<li>Add support for primitive, object, and instance ID buffers as
+framebuffer channels</li>
+<li>Support face-varying attributes for Mesh and Subdivision
+geometry</li>
+<li>Replace CMake variable <code>OSPRAY_PIXELS_PER_JOB</code> by
+<code>OSPRAY_RENDER_TASK_SIZE</code>; variance tracking for adaptive
+accumulation is now per task instead of per tile, allowing for more
+granular adaptation</li>
+<li>OSPRay now requires minimum Open VKL v1.3.0 to bring the following
+improvements:
 <ul>
-<li>VDB volumes added support for contiguous data layouts, which can provide improved performance (<code>nodesPackedDense</code>, <code>nodesPackedTile</code> parameters)</li>
-<li>Particle volumes are more memory efficiency and improved performance</li>
+<li>VDB volumes added support for contiguous data layouts, which can
+provide improved performance (<code>nodesPackedDense</code>,
+<code>nodesPackedTile</code> parameters)</li>
+<li>Particle volumes are more memory efficiency and improved
+performance</li>
 </ul></li>
-<li>OSPRay now requires minimum ISPC v1.18.0 for Open VKL and to include a fix for parallel dispatch of uniform function pointers</li>
-<li>MPI Offload: resolve object life time tracking issue that would result in framebuffer and data info being release too early, leading to a crash</li>
+<li>OSPRay now requires minimum ISPC v1.18.0 for Open VKL and to include
+a fix for parallel dispatch of uniform function pointers</li>
+<li>MPI Offload: resolve object life time tracking issue that would
+result in framebuffer and data info being release too early, leading to
+a crash</li>
 <li>Fix crash with OpenMPI due to argument handling</li>
 <li>Fix clipping when rays are parallel to clipping planes</li>
 <li>Fix missing SDK headers from CPU and MPI module</li>
-<li>Deprecated the <code>vec2f valueRange</code> parameter of the <code>piecewiseLinear</code> transfer function, use <code>box1f value</code> instead</li>
+<li>Deprecated the <code>vec2f valueRange</code> parameter of the
+<code>piecewiseLinear</code> transfer function, use
+<code>box1f value</code> instead</li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.9.0">Changes in v2.9.0:</h3>
-<ul>
-<li>Add support for multi-segment deformation motion blur for <code>mesh</code> geometry</li>
-<li>OSPRay now requires minimum Open VKL v1.2.0 to bring the following improvements:
-<ul>
-<li>Structured regular volumes support for cell-centered data via the <code>cellCentered</code> parameter (vertex-centered remains the default)</li>
-<li>Particle volumes ignore particles with zero radius</li>
-</ul></li>
-<li>Add support for dynamic load balancing in MPI Offload device</li>
-<li>Support for photometric lights (e.g., IES or EULUMDAT) also for <code>sphere</code> and <code>quad</code> lights. When setting <code>intensityDistribution</code>, other values for <code>intensityQuantity</code> than <code>OSP_INTENSITY_QUANTITY_SCALE</code> are deprecated</li>
-<li>Changed CMake variables for enabling app categories:
-<ul>
-<li><code>OSPRAY_ENABLE_APPS_BENCHMARK</code> replaces <code>OSPRAY_APPS_BENCHMARK</code></li>
-<li><code>OSPRAY_ENABLE_APPS_EXAMPLES</code> replaces <code>OSPRAY_APPS_EXAMPLES</code></li>
-<li><code>OSPRAY_ENABLE_APPS_TUTORIALS</code> replaces <code>OSPRAY_APPS_TUTORIALS</code></li>
-<li><code>OSPRAY_ENABLE_APPS_TESTING</code> replaces <code>OSPRAY_APPS_TESTING</code></li>
-</ul></li>
-<li>Improve sampling of quad lights in the pathtracer (solid angle instead of area)</li>
-<li>Instances can now have the group object rebound via a parameter</li>
-<li>Fix leaking framebuffers in the MPI Offload device</li>
-<li>Resolve possible race condition in assigning IDs to distributed objects in the MPI device</li>
-<li>Move ISPC module to <code>modules/</code> folder and renamed the module to <code>cpu</code></li>
-<li>Minimum version of rkcommon is 1.9.0, which brings the following improvements:
-<ul>
-<li>Add detection of Intel oneAPI DPC++/C++ compiler</li>
-<li>Fix memory leak</li>
-</ul></li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.8.0"></h3>
-<p>For the complete history of changes have a look at the <a href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
+<h3 class="unnumbered" id="changes-in-v2.9.0"></h3>
+<p>For the complete history of changes have a look at the <a
+href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
       </div>
     </div>
