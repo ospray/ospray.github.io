@@ -240,6 +240,22 @@ class="email">ospray@googlegroups.com</a>.</p>
 <p>To receive release announcements simply <a
 href="https://github.com/ospray/OSPRay">“Watch” the OSPRay
 repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v2.12.0">Changes in v2.12.0:</h3>
+<ul>
+<li>Support denoising on the GPU with OIDN 2.0, which is the new minimum
+version. The <code>denoiser</code> now uses HDR mode</li>
+<li>New parameter <code>maxScatteringEvents</code> for the
+<code>pathtracer</code> which limits the number of non-specular (i.e.,
+diffuse and glossy) bounces</li>
+<li>Optimized dynamic load balancing for MPI devices</li>
+<li>Fix crash when using small image resolution and many MPI ranks</li>
+<li>Fix crash in <code>pathtracer</code> when
+<code>lightSamples &gt; 0</code> but lights in the scene</li>
+<li>Fix transparent shadows with too high <code>minContribution</code>
+setting</li>
+<li>The new minimum version for ISPC is v1.20.0</li>
+<li>Release binaries on Linux are built on Rocky 8</li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.11.0">Changes in v2.11.0:</h3>
 <ul>
 <li>Support single ISPC target on Windows</li>
@@ -275,38 +291,7 @@ and for ISPC v1.19.0</li>
 <li>Removed support of MSVC14.0 (Visual Studio 2015) and the second
 generation Intel Xeon Phi processor (codename Knights Landing)</li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.10.0">Changes in v2.10.0:</h3>
-<ul>
-<li>Add support for primitive, object, and instance ID buffers as
-framebuffer channels</li>
-<li>Support face-varying attributes for Mesh and Subdivision
-geometry</li>
-<li>Replace CMake variable <code>OSPRAY_PIXELS_PER_JOB</code> by
-<code>OSPRAY_RENDER_TASK_SIZE</code>; variance tracking for adaptive
-accumulation is now per task instead of per tile, allowing for more
-granular adaptation</li>
-<li>OSPRay now requires minimum Open VKL v1.3.0 to bring the following
-improvements:
-<ul>
-<li>VDB volumes added support for contiguous data layouts, which can
-provide improved performance (<code>nodesPackedDense</code>,
-<code>nodesPackedTile</code> parameters)</li>
-<li>Particle volumes are more memory efficiency and improved
-performance</li>
-</ul></li>
-<li>OSPRay now requires minimum ISPC v1.18.0 for Open VKL and to include
-a fix for parallel dispatch of uniform function pointers</li>
-<li>MPI Offload: resolve object life time tracking issue that would
-result in framebuffer and data info being release too early, leading to
-a crash</li>
-<li>Fix crash with OpenMPI due to argument handling</li>
-<li>Fix clipping when rays are parallel to clipping planes</li>
-<li>Fix missing SDK headers from CPU and MPI module</li>
-<li>Deprecated the <code>vec2f valueRange</code> parameter of the
-<code>piecewiseLinear</code> transfer function, use
-<code>box1f value</code> instead</li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.9.0"></h3>
+<h3 class="unnumbered" id="changes-in-v2.10.0"></h3>
 <p>For the complete history of changes have a look at the <a
 href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 

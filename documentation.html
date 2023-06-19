@@ -3668,8 +3668,8 @@ occlusion).</p>
 href="documentation.html#scivis-renderer">SciVis renderer</a> to gain
 performance. As the name suggest its main shading method is ambient
 occlusion (AO), <a href="#lights">lights</a> are <em>not</em> considered
-at all and , Volume rendering is supported. The Ambient Occlusion
-renderer is created by passing the type string “<code>ao</code>” to
+at all. Volume rendering is supported. The Ambient Occlusion renderer is
+created by passing the type string “<code>ao</code>” to
 <code>ospNewRenderer</code>. In addition to the <a
 href="#renderer">general parameters</a> understood by all renderers the
 following parameters are supported as well:</p>
@@ -3757,13 +3757,20 @@ vertex, per default all light sources are sampled</td>
 Russian roulette termination</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">maxScatteringEvents</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">maximum number of non-specular (i.e.,
+diffuse and glossy) bounces</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">maxContribution</td>
 <td style="text-align: right;">∞</td>
 <td style="text-align: left;">samples are clamped to this value before
 they are accumulated into the framebuffer</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">backgroundRefraction</td>
 <td style="text-align: right;">false</td>
@@ -5726,10 +5733,14 @@ includes an exposure bias to match 18% middle gray.</caption>
 </table>
 <h4 id="denoiser">Denoiser</h4>
 <p>OSPRay comes with a module that adds support for Intel® Open Image
-Denoise. This is provided as an optional module as it creates an
+Denoise (OIDN). This is provided as an optional module as it creates an
 additional project dependency at compile time. The module implements a
 “<code>denoiser</code>” frame operation, which denoises the entire frame
-before the frame is completed.</p>
+before the frame is completed. OIDN will automatically select the
+fastest device, using a GPU when available. The device selection be
+overriden by the environment valiable <code>OIDN_DEFAULT_DEVICE</code>,
+possible values are <code>cpu</code>, <code>sycl</code>,
+<code>cuda</code>, <code>hip</code>, or a physical device ID</p>
 <h2 id="rendering">Rendering</h2>
 <h3 id="asynchronous-rendering">Asynchronous Rendering</h3>
 <p>Rendering is by default asynchronous (non-blocking), and is done by

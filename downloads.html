@@ -120,22 +120,22 @@ OSPRay</a>).</p>
 <p>For Linux we provide OSPRay precompiled for 64 bit as a TGZ
 archive.<br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.11.0/ospray-2.11.0.x86_64.linux.tar.gz">ospray-2.11.0.x86_64.linux.tar.gz</a></p>
+href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.linux.tar.gz">ospray-2.12.0.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as a ZIP archive:<br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.11.0/ospray-2.11.0.x86_64.macosx.zip">ospray-2.11.0.x86_64.macosx.zip</a></p>
+href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.macosx.zip">ospray-2.12.0.x86_64.macosx.zip</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an
 MSI installer as well as a ZIP archive:<br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.11.0/ospray-2.11.0.x86_64.windows.msi">ospray-2.11.0.x86_64.windows.msi</a><br />
+href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.windows.msi">ospray-2.12.0.x86_64.windows.msi</a><br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.11.0/ospray-2.11.0.x86_64.windows.zip">ospray-2.11.0.x86_64.windows.zip</a></p>
+href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.windows.zip">ospray-2.12.0.x86_64.windows.zip</a></p>
 <p>The source code of the latest OSPRay version can be downloaded
 here:<br />
 <a
-href="https://github.com/ospray/OSPRay/archive/v2.11.0.zip">ospray-2.11.0.zip</a><br />
+href="https://github.com/ospray/OSPRay/archive/v2.12.0.zip">ospray-2.12.0.zip</a><br />
 <a
-href="https://github.com/ospray/OSPRay/archive/v2.11.0.tar.gz">ospray-2.11.0.tar.gz</a></p>
+href="https://github.com/ospray/OSPRay/archive/v2.12.0.tar.gz">ospray-2.12.0.tar.gz</a></p>
 <p>You can also access <a
 href="https://github.com/ospray/OSPRay/releases">old OSPRay
 releases</a>.</p>
@@ -158,7 +158,7 @@ href="https://software.intel.com/en-us/c-compilers">Intel® C++ Compiler
 (icc)</a>), and standard Linux development tools.</p></li>
 <li><p>Additionally you require a copy of the <a
 href="http://ispc.github.io">Intel® Implicit SPMD Program Compiler
-(ISPC)</a>, version 1.19.0 or later. Please obtain a release of ISPC
+(ISPC)</a>, version 1.20.0 or later. Please obtain a release of ISPC
 from the <a href="https://ispc.github.io/downloads.html">ISPC downloads
 page</a>. If ISPC is not found by CMake its location can be hinted with
 the variable <code>ispcrt_DIR</code>.</p></li>
@@ -188,7 +188,7 @@ with the variable <code>openvkl_DIR</code>, or disable
 <code>denoiser</code> image operation, which is enabled by
 <code>OSPRAY_MODULE_DENOISER</code>. This module requires Intel <a
 href="https://openimagedenoise.github.io/">Open Image Denoise</a> in
-version 1.2.3 or newer. You may need to hint the location of the library
+version 2.0.0 or newer. You may need to hint the location of the library
 with the CMake variable <code>OpenImageDenoise_DIR</code>.</p></li>
 <li><p>For the optional MPI modules (enabled by
 <code>OSPRAY_MODULE_MPI</code>), which provide the
