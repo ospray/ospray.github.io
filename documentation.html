@@ -179,6 +179,36 @@ Light</a></li>
 <li><a href="#emissive-objects" id="toc-emissive-objects">Emissive
 Objects</a></li>
 </ul></li>
+<li><a href="#materials" id="toc-materials">Materials</a>
+<ul>
+<li><a href="#obj-material" id="toc-obj-material">OBJ Material</a></li>
+<li><a href="#principled" id="toc-principled">Principled</a></li>
+<li><a href="#carpaint" id="toc-carpaint">CarPaint</a></li>
+<li><a href="#metal" id="toc-metal">Metal</a></li>
+<li><a href="#alloy" id="toc-alloy">Alloy</a></li>
+<li><a href="#glass" id="toc-glass">Glass</a></li>
+<li><a href="#thinglass" id="toc-thinglass">ThinGlass</a></li>
+<li><a href="#metallicpaint"
+id="toc-metallicpaint">MetallicPaint</a></li>
+<li><a href="#luminous" id="toc-luminous">Luminous</a></li>
+</ul></li>
+<li><a href="#texture" id="toc-texture">Texture</a>
+<ul>
+<li><a href="#texture2d" id="toc-texture2d">Texture2D</a></li>
+<li><a href="#volume-texture" id="toc-volume-texture">Volume
+Texture</a></li>
+<li><a href="#texture-transformations"
+id="toc-texture-transformations">Texture Transformations</a></li>
+</ul></li>
+<li><a href="#cameras" id="toc-cameras">Cameras</a>
+<ul>
+<li><a href="#perspective-camera"
+id="toc-perspective-camera">Perspective Camera</a></li>
+<li><a href="#orthographic-camera"
+id="toc-orthographic-camera">Orthographic Camera</a></li>
+<li><a href="#panoramic-camera" id="toc-panoramic-camera">Panoramic
+Camera</a></li>
+</ul></li>
 <li><a href="#scene-hierarchy" id="toc-scene-hierarchy">Scene
 Hierarchy</a>
 <ul>
@@ -193,10 +223,6 @@ Renderer</a></li>
 <li><a href="#ambient-occlusion-renderer"
 id="toc-ambient-occlusion-renderer">Ambient Occlusion Renderer</a></li>
 <li><a href="#path-tracer" id="toc-path-tracer">Path Tracer</a></li>
-<li><a href="#materials" id="toc-materials">Materials</a></li>
-<li><a href="#texture" id="toc-texture">Texture</a></li>
-<li><a href="#cameras" id="toc-cameras">Cameras</a></li>
-<li><a href="#picking" id="toc-picking">Picking</a></li>
 </ul></li>
 <li><a href="#framebuffer" id="toc-framebuffer">Framebuffer</a>
 <ul>
@@ -211,7 +237,16 @@ id="toc-asynchronous-rendering">Asynchronous Rendering</a></li>
 id="toc-synchronous-rendering">Synchronous Rendering</a></li>
 <li><a href="#rendering-and-ospcommit"
 id="toc-rendering-and-ospcommit">Rendering and ospCommit</a></li>
+<li><a href="#picking" id="toc-picking">Picking</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#modules-and-devices" id="toc-modules-and-devices">Modules
+and Devices</a>
+<ul>
+<li><a href="#cpu" id="toc-cpu">CPU</a></li>
+<li><a href="#gpu-beta" id="toc-gpu-beta">GPU (Beta)</a>
+<ul>
+<li><a href="#known-issues" id="toc-known-issues">Known Issues</a></li>
 </ul></li>
 <li><a href="#distributed-rendering-with-mpi"
 id="toc-distributed-rendering-with-mpi">Distributed Rendering with
@@ -220,21 +255,13 @@ MPI</a>
 <li><a href="#mpi-offload-rendering" id="toc-mpi-offload-rendering">MPI
 Offload Rendering</a></li>
 <li><a href="#mpi-distributed-rendering"
-id="toc-mpi-distributed-rendering">MPI Distributed Rendering</a>
-<ul>
-<li><a href="#image-parallel-rendering-in-the-mpi-distributed-device"
-id="toc-image-parallel-rendering-in-the-mpi-distributed-device">Image
-Parallel Rendering in the MPI Distributed Device</a></li>
-<li><a href="#data-parallel-rendering-in-the-mpi-distributed-device"
-id="toc-data-parallel-rendering-in-the-mpi-distributed-device">Data
-Parallel Rendering in the MPI Distributed Device</a></li>
-</ul></li>
+id="toc-mpi-distributed-rendering">MPI Distributed Rendering</a></li>
 <li><a href="#interaction-with-user-modules"
 id="toc-interaction-with-user-modules">Interaction with User
 Modules</a></li>
 </ul></li>
-<li><a href="#multidevice-rendering"
-id="toc-multidevice-rendering">MultiDevice Rendering</a></li>
+<li><a href="#multidevice" id="toc-multidevice">MultiDevice</a></li>
+</ul></li>
 </ul>
 </nav>
 
@@ -388,7 +415,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#c
 implementation. OSPRay always provides the “<code>cpu</code>” device,
 which maps to a fast, local CPU implementation. Other devices can also
 be added through additional modules, such as distributed MPI device
-implementations.</p>
+implementations. See next Chapter for details.</p>
 <p>Once a device is created, you can call</p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospDeviceSetParam<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>id<span class="op">,</span> OSPDataType type<span class="op">,</span> <span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>mem<span class="op">);</span></span></code></pre></div>
@@ -418,7 +445,7 @@ parameters can be set on all devices:</p>
 use</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">logLevel</td>
 <td style="text-align: left;">logging level; valid values (in order of
 severity) are <code>OSP_LOG_NONE</code>, <code>OSP_LOG_ERROR</code>,
@@ -778,7 +805,9 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="#
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems2 <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> byteStride2 <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems3 <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> byteStride3 <span class="op">=</span> <span class="dv">0</span><span class="op">);</span></span></code></pre></div>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> byteStride3 <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    OSPDeleterCallback <span class="op">=</span> NULL<span class="op">,</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="op">*</span>userData <span class="op">=</span> NULL<span class="op">);</span></span></code></pre></div>
 <p>The call returns an <code>OSPData</code> handle to the created array.
 The calling program guarantees that the <code>sharedData</code> pointer
 will remain valid for the duration that this data array is being used.
@@ -794,6 +823,17 @@ than <code>byteStride1</code>, which is equivalent to a transpose.
 However, if the stride should be calculated, then an ordering in
 dimensions is assumed to disambiguate, i.e.,
 <code>byteStride1 &lt; byteStride2 &lt; byteStride3</code>.</p>
+<p>An application can pass ownership of shared data to OSPRay (for
+example, when it temporarily created a modified version of its data only
+to make it compatible with OSPRay) by providing a deleter function that
+OSPRay will call whenever the time comes to deallocate the shared
+buffer. The deleter function has the following signature:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="dt">void</span> <span class="op">(*</span>OSPDeleterCallback<span class="op">)(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>userData<span class="op">,</span> <span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>sharedData<span class="op">);</span></span></code></pre></div>
+<p>where <code>sharedData</code> will receive the address of the buffer
+and <code>userData</code> will receive whatever additional state the
+function needs to perform the deletion (both provided to
+<code>ospNewSharedData</code> when sharing the data with OSPRay).</p>
 <p>The enum type <code>OSPDataType</code> describes the different
 element types that can be represented in OSPRay; valid constants are
 listed in the table below.</p>
@@ -964,18 +1004,18 @@ extensions)</td>
 reference counter is incremented.</p>
 <p>An opaque <code>OSPData</code> with memory allocated by OSPRay is
 created with</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>OSPData ospNewData<span class="op">(</span>OSPDataType<span class="op">,</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems1<span class="op">,</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems2 <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems3 <span class="op">=</span> <span class="dv">1</span><span class="op">);</span></span></code></pre></div>
-<p>To allow for (partial) copies or updates of data arrays use</p>
 <div class="sourceCode" id="cb27"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospCopyData<span class="op">(</span><span class="at">const</span> OSPData source<span class="op">,</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    OSPData destination<span class="op">,</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> destinationIndex1 <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> destinationIndex2 <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> destinationIndex3 <span class="op">=</span> <span class="dv">0</span><span class="op">);</span></span></code></pre></div>
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>OSPData ospNewData<span class="op">(</span>OSPDataType<span class="op">,</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems1<span class="op">,</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems2 <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> numItems3 <span class="op">=</span> <span class="dv">1</span><span class="op">);</span></span></code></pre></div>
+<p>To allow for (partial) copies or updates of data arrays use</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospCopyData<span class="op">(</span><span class="at">const</span> OSPData source<span class="op">,</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    OSPData destination<span class="op">,</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> destinationIndex1 <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> destinationIndex2 <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint64_t</span> destinationIndex3 <span class="op">=</span> <span class="dv">0</span><span class="op">);</span></span></code></pre></div>
 <p>which will copy the whole<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a> content of the
 <code>source</code> array into <code>destination</code> at the given
@@ -1000,14 +1040,14 @@ as dirty (instead of the whole <code>OSPData</code>)</li>
 </ul>
 <p>To add a data array as parameter named <code>id</code> to another
 object call also use</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetObject<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>id<span class="op">,</span> OSPData<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetObject<span class="op">(</span>OSPObject<span class="op">,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>id<span class="op">,</span> OSPData<span class="op">);</span></span></code></pre></div>
 <h2 id="volumes">Volumes</h2>
 <p>Volumes are volumetric data sets with discretely sampled values in 3D
 space, typically a 3D scalar field. To create a new volume object of
 given type <code>type</code> use</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>OSPVolume ospNewVolume<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>OSPVolume ospNewVolume<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
 <p>Note that OSPRay’s implementation forwards <code>type</code> directly
 to Open VKL, allowing new Open VKL volume types to be usable within
 OSPRay without the need to change (or even recompile) OSPRay.</p>
@@ -1033,9 +1073,9 @@ table below.</p>
 volumes.</caption>
 <colgroup>
 <col style="width: 10%" />
-<col style="width: 17%" />
-<col style="width: 33%" />
-<col style="width: 35%" />
+<col style="width: 18%" />
+<col style="width: 31%" />
+<col style="width: 36%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1076,16 +1116,16 @@ href="documentation.html#data">data</a></td>
 opposed to per vertex)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">filter</td>
 <td
-style="text-align: right;"><code>OSP_VOLUME_FILTER_TRILINEAR</code></td>
+style="text-align: right;"><code>OSP_VOLUME_FILTER_LINEAR</code></td>
 <td style="text-align: left;">filter used for reconstructing the field,
 also allowed is <code>OSP_VOLUME_FILTER_NEAREST</code> and
-<code>OSP_VOLUME_FILTER_TRICUBIC</code></td>
+<code>OSP_VOLUME_FILTER_CUBIC</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: right;">same as <code>filter</code></td>
 <td style="text-align: left;">filter used during gradient
@@ -1129,9 +1169,9 @@ volumes.</figcaption>
 volumes.</caption>
 <colgroup>
 <col style="width: 10%" />
-<col style="width: 17%" />
-<col style="width: 33%" />
-<col style="width: 35%" />
+<col style="width: 18%" />
+<col style="width: 32%" />
+<col style="width: 36%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1155,10 +1195,10 @@ degrees</td>
 <td style="text-align: left;">vec3f</td>
 <td style="text-align: left;">gridSpacing</td>
 <td style="text-align: right;"><span
-class="math inline">(1,1,1)</span></td>
+class="math inline">(1,180/<em>d</em><em>i</em><em>m</em>.<em>y</em>,360/<em>d</em><em>i</em><em>m</em>.<em>z</em>)</span></td>
 <td style="text-align: left;">size of the grid cells in units of <span
-class="math inline">(<em>r</em>,<em>θ</em>,<em>ϕ</em>)</span>; angles in
-degrees</td>
+class="math inline">(<em>r</em>,<em>θ</em>,<em>ϕ</em>)</span>, per
+default covering the full sphere; angles in degrees</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSPData</td>
@@ -1168,15 +1208,15 @@ degrees</td>
 href="documentation.html#data">data</a></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">filter</td>
 <td
-style="text-align: right;"><code>OSP_VOLUME_FILTER_TRILINEAR</code></td>
+style="text-align: right;"><code>OSP_VOLUME_FILTER_LINEAR</code></td>
 <td style="text-align: left;">filter used for reconstructing the field,
 also allowed is <code>OSP_VOLUME_FILTER_NEAREST</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: right;">same as <code>filter</code></td>
 <td style="text-align: left;">filter used during gradient
@@ -1228,10 +1268,10 @@ per block.</p>
 <table style="width:98%;">
 <caption>Configuration parameters for AMR volumes.</caption>
 <colgroup>
-<col style="width: 19%" />
+<col style="width: 16%" />
 <col style="width: 17%" />
-<col style="width: 22%" />
-<col style="width: 38%" />
+<col style="width: 23%" />
+<col style="width: 40%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1243,7 +1283,7 @@ per block.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><code>OSPAMRMethod</code></td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">method</td>
 <td style="text-align: right;"><code>OSP_AMR_CURRENT</code></td>
 <td style="text-align: left;"><code>OSPAMRMethod</code> sampling method.
@@ -1612,15 +1652,15 @@ format <code>OSP_VOLUME_FORMAT_DENSE_ZYX</code> (and thus stored in
 (stored in <code>nodesPackedTile</code>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">filter</td>
 <td style="text-align: left;">filter used for reconstructing the field,
-default is <code>OSP_VOLUME_FILTER_TRILINEAR</code>, alternatively
+default is <code>OSP_VOLUME_FILTER_LINEAR</code>, alternatively
 <code>OSP_VOLUME_FILTER_NEAREST</code>, or
-<code>OSP_VOLUME_FILTER_TRICUBIC</code>.</td>
+<code>OSP_VOLUME_FILTER_CUBIC</code>.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">gradientFilter</td>
 <td style="text-align: left;">filter used for reconstructing the field
 during gradient computations, default same as <code>filter</code></td>
@@ -1749,8 +1789,8 @@ pp. 59–65.</p></li>
 opacity and thus they can be used to visually emphasize certain features
 of the volume. To create a new transfer function of given type
 <code>type</code> use</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>OSPTransferFunction ospNewTransferFunction<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>OSPTransferFunction ospNewTransferFunction<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
 <p>The returned handle can be assigned to a volumetric model (described
 below) as parameter “<code>transferFunction</code>” using
 <code>ospSetObject</code>.</p>
@@ -1797,8 +1837,8 @@ through VolumetricModels. This decouples the physical representation of
 the volume (and possible acceleration structures it contains) to
 rendering-specific parameters (where more than one set may exist
 concurrently). To create a volume instance, call</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>OSPVolumetricModel ospNewVolumetricModel<span class="op">(</span>OSPVolume<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>OSPVolumetricModel ospNewVolumetricModel<span class="op">(</span>OSPVolume<span class="op">);</span></span></code></pre></div>
 <p>The passed volume can be <code>NULL</code> as long as the volume to
 be used is passed as a parameter. If both a volume is specified on
 object creation and as a parameter, the parameter value is used. If the
@@ -1865,8 +1905,8 @@ href="#framebuffer">framebuffer</a> channel
 <p>Geometries in OSPRay are objects that describe intersectable
 surfaces. To create a new geometry object of given type
 <code>type</code> use</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>OSPGeometry ospNewGeometry<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>OSPGeometry ospNewGeometry<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
 <p>Note that in the current implementation geometries are limited to a
 maximum of 2<sup>32</sup> primitives.</p>
 <h3 id="mesh">Mesh</h3>
@@ -1936,27 +1976,34 @@ array of (either triangle or quad) indices (into the vertex
 array(s))</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">quadSoup</td>
+<td style="text-align: left;">when no explicit <code>index</code> is
+given, indicates whether to assume a ‘soup’ of quads instead of
+triangles, default false</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">vec3f[][]</td>
 <td style="text-align: left;">motion.vertex.position</td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a>
 array of vertex position arrays (uniformly distributed keys for
 deformation motion blur)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">vec3f[][]</td>
 <td style="text-align: left;">motion.normal</td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a>
 array of face-varying normal arrays (uniformly distributed keys for
 deformation motion blur)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">vec3f[][]</td>
 <td style="text-align: left;">motion.vertex.normal</td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a>
 array of vertex-varying normal arrays (uniformly distributed keys for
 deformation motion blur)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">box1f</td>
 <td style="text-align: left;">time</td>
 <td style="text-align: left;">time associated with first and last key in
@@ -1971,8 +2018,15 @@ and quads for <code>vec4ui</code> type. Quads are internally handled as
 a pair of two triangles, thus mixing triangles and quads is supported by
 encoding some triangle as a quad with the last two vertex indices being
 identical (<code>w=z</code>).</p>
-<p>The <code>vertex.position</code> and <code>index</code> arrays are
-mandatory to create a valid mesh.</p>
+<p>The <code>vertex.position</code> array is mandatory to create a valid
+mesh.</p>
+<p>The <code>index</code> array is optional. If none is provided, a
+‘triangle soup’ is assumed, i.e., each three consecutive vertices form
+one triangle; unless the boolean <code>quadSoup</code> is set to true,
+then a ‘quad soup’ is assumed i.e., each four subsequent vertices form
+one quad. If the size of the <code>vertex.position</code> array is not a
+multiple of three for triangles or four for quads, the remainder
+vertices are ignored.</p>
 <h3 id="subdivision">Subdivision</h3>
 <p>A mesh consisting of subdivision surfaces, created by specifying a
 geometry of type “<code>subdivision</code>”. Once created, a subdivision
@@ -2081,10 +2135,10 @@ href="documentation.html#data">data</a> array of vertex crease
 weights</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">uchar</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">mode</td>
-<td style="text-align: left;">subdivision edge boundary mode, supported
-modes are:</td>
+<td style="text-align: left;"><code>OSPSubdivisionMode</code>
+subdivision edge boundary mode, supported modes are:</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"></td>
@@ -2235,7 +2289,7 @@ array of curve tangents (only for “hermite” curves)</td>
 array of indices to the first vertex or tangent of a curve segment</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">uchar</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">type</td>
 <td style="text-align: left;"><code>OSPCurveType</code> for rendering
 the curve. Supported types are:</td>
@@ -2261,7 +2315,7 @@ the curve. Supported types are:</td>
 <td style="text-align: left;"><code>OSP_DISJOINT</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">uchar</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">basis</td>
 <td style="text-align: left;"><code>OSPCurveBasis</code> for defining
 the curve. Supported bases are:</td>
@@ -2479,8 +2533,8 @@ href="documentation.html#volumes">Volume</a> to be isosurfaced</td>
 GeometricModels. These take a geometry, which defines the surface
 representation, and applies either full-object or per-primitive color
 and material information. To create a geometric model, call</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>OSPGeometricModel ospNewGeometricModel<span class="op">(</span>OSPGeometry<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>OSPGeometricModel ospNewGeometricModel<span class="op">(</span>OSPGeometry<span class="op">);</span></span></code></pre></div>
 <p>The passed geometry can be <code>NULL</code> as long as the geometry
 to be used is passed as a parameter. If both a geometry is specified on
 object creation and as a parameter, the parameter value is used. If the
@@ -2564,8 +2618,8 @@ href="#framebuffer">framebuffer</a> channel
 </table>
 <h2 id="lights">Lights</h2>
 <p>To create a new light source of given type <code>type</code> use</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>OSPLight ospNewLight<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>OSPLight ospNewLight<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
 <p>All light sources accept the following parameters:</p>
 <table style="width:97%;">
 <caption>Parameters accepted by all lights.</caption>
@@ -2597,7 +2651,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#
 <td style="text-align: left;">intensity of the light (a factor)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">uchar</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">intensityQuantity</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><code>OSPIntensityQuantity</code> to set
@@ -3162,642 +3216,17 @@ still shown in the background, like an environment map).</p>
 consider illumination by <a href="#geometries">geometries</a> which have
 a light emitting material assigned (for example the <a
 href="#luminous">Luminous</a> material).</p>
-<h2 id="scene-hierarchy">Scene Hierarchy</h2>
-<h3 id="groups">Groups</h3>
-<p>Groups in OSPRay represent collections of GeometricModels,
-VolumetricModels and Lights which share a common local-space coordinate
-system. To create a group call</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>OSPGroup ospNewGroup<span class="op">();</span></span></code></pre></div>
-<p>Groups take arrays of geometric models, volumetric models, clipping
-geometric models and lights, but they are all optional. In other words,
-there is no need to create empty arrays if there are no geometries,
-volumes or lights in the group.</p>
-<p>By adding <code>OSPGeometricModel</code>s to the
-<code>clippingGeometry</code> array a clipping geometry feature is
-enabled. Geometries assigned to this parameter will be used as clipping
-geometries. Any supported geometry can be used for clipping<a
-href="#fn4" class="footnote-ref" id="fnref4"
-role="doc-noteref"><sup>4</sup></a>, the only requirement is that it has
-to distinctly partition space into clipping and non-clipping one. The
-use of clipping geometry that is not closed or infinite could result in
-rendering artifacts. User can decide which part of space is clipped by
-changing shading normals orientation with the <code>invertNormals</code>
-flag of the <a
-href="documentation.html#geometricmodels">GeometricModel</a>. All
-geometries and volumes assigned to <code>geometry</code> or
-<code>volume</code> will be clipped. All clipping geometries from all
-groups and <a href="#instances">Instances</a> will be combined together
-– a union of these areas will be applied to all other objects in the <a
-href="documentation.html#world">world</a>.</p>
-<table style="width:98%;">
-<caption>Parameters understood by groups.</caption>
-<colgroup>
-<col style="width: 26%" />
-<col style="width: 19%" />
-<col style="width: 10%" />
-<col style="width: 41%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">OSPGeometricModel[]</td>
-<td style="text-align: left;">geometry</td>
-<td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a>
-array of <a href="#geometricmodels">GeometricModels</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSPVolumetricModel[]</td>
-<td style="text-align: left;">volume</td>
-<td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a>
-array of <a href="#volumetricmodels">VolumetricModels</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OSPGeometricModel[]</td>
-<td style="text-align: left;">clippingGeometry</td>
-<td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a>
-array of <a href="#geometricmodels">GeometricModels</a> used for
-clipping</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSPLight[]</td>
-<td style="text-align: left;">light</td>
-<td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a>
-array of <a href="#lights">lights</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">dynamicScene</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">tell Embree to use faster BVH build
-(slower ray traversal), otherwise optimized for faster ray traversal
-(slightly slower BVH build)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">compactMode</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">tell Embree to use a more compact BVH in
-memory by trading ray traversal performance</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">robustMode</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">tell Embree to enable more robust ray
-intersection code paths (slightly slower)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="instances">Instances</h3>
-<p>Instances in OSPRay represent a single group’s placement into the
-world via a transform. To create and instance call</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>OSPInstance ospNewInstance<span class="op">(</span>OSPGroup<span class="op">);</span></span></code></pre></div>
-<p>The passed group can be <code>NULL</code> as long as the group to be
-instanced is passed as a parameter. If both a group is specified on
-object creation and as a parameter, the parameter value is used. If the
-parameter value is later removed, the group object passed on object
-creation is again used.</p>
-<table style="width:98%;">
-<caption>Parameters understood by instances.</caption>
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 23%" />
-<col style="width: 12%" />
-<col style="width: 45%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">OSPGroup</td>
-<td style="text-align: left;">group</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">optional <a
-href="documentation.html#groups">group</a> object to be instanced</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">affine3f</td>
-<td style="text-align: left;">transform</td>
-<td style="text-align: right;">identity</td>
-<td style="text-align: left;">world-space transform for all attached
-geometries and volumes, overridden by <code>motion.*</code> arrays</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">affine3f[]</td>
-<td style="text-align: left;">motion.transform</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">uniformly distributed world-space
-transforms</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">vec3f[]</td>
-<td style="text-align: left;">motion.scale</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">uniformly distributed world-space scale,
-overridden by <code>motion.transform</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">vec3f[]</td>
-<td style="text-align: left;">motion.pivot</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">uniformly distributed world-space
-translation which is applied before <code>motion.rotation</code> (i.e.,
-the rotation center), overridden by <code>motion.transform</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quatf[]</td>
-<td style="text-align: left;">motion.rotation</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">uniformly distributed world-space
-quaternion rotation, overridden by <code>motion.transform</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">vec3f[]</td>
-<td style="text-align: left;">motion.translation</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">uniformly distributed world-space
-translation, overridden by <code>motion.transform</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">box1f</td>
-<td style="text-align: left;">time</td>
-<td style="text-align: right;">[0, 1]</td>
-<td style="text-align: left;">time associated with first and last key in
-<code>motion.*</code> arrays (for motion blur)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">uint32</td>
-<td style="text-align: left;">id</td>
-<td style="text-align: right;">-1u</td>
-<td style="text-align: left;">optional user ID, for <a
-href="#framebuffer">framebuffer</a> channel
-<code>OSP_FB_ID_INSTANCE</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="world">World</h3>
-<p>Worlds are a container of scene data represented by <a
-href="#instances">instances</a>. To create an (empty) world call</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>OSPWorld ospNewWorld<span class="op">();</span></span></code></pre></div>
-<p>Objects are placed in the world through an array of instances.
-Similar to <a href="#groups">groups</a>, the array of instances is
-optional: there is no need to create empty arrays if there are no
-instances (though there will be nothing to render).</p>
-<p>Applications can query the world (axis-aligned) bounding box after
-the world has been committed. To get this information, call</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>OSPBounds ospGetBounds<span class="op">(</span>OSPObject<span class="op">);</span></span></code></pre></div>
-<p>The result is returned in the provided <code>OSPBounds</code><a
-href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a> struct:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> lower<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> upper<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> OSPBounds<span class="op">;</span></span></code></pre></div>
-<p>This call can also take <code>OSPGroup</code> and
-<code>OSPInstance</code> as well: all other object types will return an
-empty bounding box.</p>
-<p>Finally, Worlds can be configured with parameters for making various
-feature/performance trade-offs (similar to groups).</p>
-<table style="width:97%;">
-<caption>Parameters understood by worlds.</caption>
-<colgroup>
-<col style="width: 22%" />
-<col style="width: 18%" />
-<col style="width: 12%" />
-<col style="width: 43%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">OSPInstance[]</td>
-<td style="text-align: left;">instance</td>
-<td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a>
-array with handles of the <a href="#instances">instances</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSPLight[]</td>
-<td style="text-align: left;">light</td>
-<td style="text-align: right;">NULL</td>
-<td style="text-align: left;"><a href="documentation.html#data">data</a>
-array with handles of the <a href="#lights">lights</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">dynamicScene</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">tell Embree to use faster BVH build
-(slower ray traversal), otherwise optimized for faster ray traversal
-(slightly slower BVH build)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">compactMode</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">tell Embree to use a more compact BVH in
-memory by trading ray traversal performance</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">robustMode</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">tell Embree to enable more robust ray
-intersection code paths (slightly slower)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="renderers">Renderers</h2>
-<p>A renderer is the central object for rendering in OSPRay. Different
-renderers implement different features and support different materials.
-To create a new renderer of given type <code>type</code> use</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>OSPRenderer ospNewRenderer<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
-<p>General parameters of all renderers are</p>
-<table style="width:98%;">
-<caption>Parameters understood by all renderers.</caption>
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 16%" />
-<col style="width: 21%" />
-<col style="width: 46%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">pixelSamples</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">samples per pixel</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">maxPathLength</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">maximum ray recursion depth</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">minContribution</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: left;">sample contributions below this value will
-be neglected to speedup rendering</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">varianceThreshold</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">threshold for adaptive accumulation</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">float / vec3f / vec4f</td>
-<td style="text-align: left;">backgroundColor</td>
-<td style="text-align: right;">black, transparent</td>
-<td style="text-align: left;">background color and alpha (linear
-A/RGB/RGBA), if no <code>map_backplate</code> is set</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSPTexture</td>
-<td style="text-align: left;">map_backplate</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">optional <a href="#texture">texture</a>
-image used as background (use texture type <code>texture2d</code>)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OSPTexture</td>
-<td style="text-align: left;">map_maxDepth</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">optional screen-sized float <a
-href="#texture">texture</a> with maximum far distance per pixel (use
-texture type <code>texture2d</code>)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSPMaterial[]</td>
-<td style="text-align: left;">material</td>
-<td style="text-align: right;"></td>
-<td style="text-align: left;">optional <a
-href="documentation.html#data">data</a> array of <a
-href="#materials">materials</a> which can be indexed by a <a
-href="documentation.html#geometricmodels">GeometricModel</a>’s
-<code>material</code> parameter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">uchar</td>
-<td style="text-align: left;">pixelFilter</td>
-<td style="text-align: right;"><code>OSP_PIXELFILTER_GAUSS</code></td>
-<td style="text-align: left;"><code>OSPPixelFilterType</code> to select
-the pixel filter used by the renderer for antialiasing. Possible pixel
-filters are listed below.</td>
-</tr>
-</tbody>
-</table>
-<p>OSPRay’s renderers support a feature called adaptive accumulation,
-which accelerates progressive <a href="#rendering">rendering</a> by
-stopping the rendering and refinement of image regions that have an
-estimated variance below the <code>varianceThreshold</code>. This
-feature requires a <a href="#framebuffer">framebuffer</a> with an
-<code>OSP_FB_VARIANCE</code> channel.</p>
-<p>Per default the background of the rendered image will be transparent
-black, i.e., the alpha channel holds the opacity of the rendered
-objects. This eases transparency-aware blending of the image with an
-arbitrary background image by the application. The parameter
-<code>backgroundColor</code> or <code>map_backplate</code> can be used
-to already blend with a constant background color or backplate texture,
-respectively, (and alpha) during rendering.</p>
-<p>OSPRay renderers support depth composition with images of other
-renderers, for example to incorporate help geometries of a 3D UI that
-were rendered with OpenGL. The screen-sized <a
-href="#texture">texture</a> <code>map_maxDepth</code> must have format
-<code>OSP_TEXTURE_R32F</code> and flag
-<code>OSP_TEXTURE_FILTER_NEAREST</code>. The fetched values are used to
-limit the distance of primary rays, thus objects of other renderers can
-hide objects rendered by OSPRay.</p>
-<p>OSPRay supports antialiasing in image space by using pixel filters,
-which are centered around the center of a pixel. The size <span
-class="math inline"><em>w</em> × <em>w</em></span> of the filter depends
-on the selected filter type. The types of supported pixel filters are
-defined by the <code>OSPPixelFilterType</code> enum and can be set using
-the <code>pixelFilter</code> parameter.</p>
-<table style="width:97%;">
-<caption>Pixel filter types supported by OSPRay for antialiasing in
-image space.</caption>
-<colgroup>
-<col style="width: 44%" />
-<col style="width: 53%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">OSP_PIXELFILTER_POINT</td>
-<td style="text-align: left;">a point filter only samples the center of
-the pixel, therefore the filter width is <span
-class="math inline"><em>w</em> = 0</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSP_PIXELFILTER_BOX</td>
-<td style="text-align: left;">a uniform box filter with a width of <span
-class="math inline"><em>w</em> = 1</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OSP_PIXELFILTER_GAUSS</td>
-<td style="text-align: left;">a truncated, smooth Gaussian filter with a
-standard deviation of <span class="math inline"><em>σ</em> = 0.5</span>
-and a filter width of <span
-class="math inline"><em>w</em> = 3</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OSP_PIXELFILTER_MITCHELL</td>
-<td style="text-align: left;">the Mitchell-Netravali filter with a width
-of <span class="math inline"><em>w</em> = 4</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OSP_PIXELFILTER_BLACKMAN_HARRIS</td>
-<td style="text-align: left;">the Blackman-Harris filter with a width of
-<span class="math inline"><em>w</em> = 3</span></td>
-</tr>
-</tbody>
-</table>
-<h3 id="scivis-renderer">SciVis Renderer</h3>
-<p>The SciVis renderer is a fast ray tracer for scientific visualization
-which supports volume rendering and ambient occlusion (AO). It is
-created by passing the type string “<code>scivis</code>” to
-<code>ospNewRenderer</code>. In addition to the <a
-href="#renderer">general parameters</a> understood by all renderers, the
-SciVis renderer supports the following parameters:</p>
-<table style="width:98%;">
-<caption>Special parameters understood by the SciVis renderer.</caption>
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 24%" />
-<col style="width: 12%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">shadows</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">whether to compute (hard) shadows</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">aoSamples</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">number of rays per sample to compute
-ambient occlusion</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">aoDistance</td>
-<td style="text-align: right;">10<sup>20</sup></td>
-<td style="text-align: left;">maximum distance to consider for ambient
-occlusion</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">volumeSamplingRate</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">sampling rate for volumes</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">visibleLights</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">whether light sources are potentially
-visible (as in the <a href="documentation.html#path-tracer">path
-tracer</a>, regarding each light’s <code>visible</code>)</td>
-</tr>
-</tbody>
-</table>
-<p>Note that the intensity (and color) of AO is deduced from an <a
-href="#ambient-light">ambient light</a> in the <code>lights</code>
-array.<a href="#fn6" class="footnote-ref" id="fnref6"
-role="doc-noteref"><sup>6</sup></a> If <code>aoSamples</code> is zero
-(the default) then ambient lights cause ambient illumination (without
-occlusion).</p>
-<h3 id="ambient-occlusion-renderer">Ambient Occlusion Renderer</h3>
-<p>This renderer supports only a subset of the features of the <a
-href="documentation.html#scivis-renderer">SciVis renderer</a> to gain
-performance. As the name suggest its main shading method is ambient
-occlusion (AO), <a href="#lights">lights</a> are <em>not</em> considered
-at all. Volume rendering is supported. The Ambient Occlusion renderer is
-created by passing the type string “<code>ao</code>” to
-<code>ospNewRenderer</code>. In addition to the <a
-href="#renderer">general parameters</a> understood by all renderers the
-following parameters are supported as well:</p>
-<table style="width:97%;">
-<caption>Special parameters understood by the Ambient Occlusion
-renderer.</caption>
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 28%" />
-<col style="width: 17%" />
-<col style="width: 34%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">aoSamples</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">number of rays per sample to compute
-ambient occlusion</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">aoDistance</td>
-<td style="text-align: right;">10<sup>20</sup></td>
-<td style="text-align: left;">maximum distance to consider for ambient
-occlusion</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">aoIntensity</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">ambient occlusion strength</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">volumeSamplingRate</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">sampling rate for volumes</td>
-</tr>
-</tbody>
-</table>
-<h3 id="path-tracer">Path Tracer</h3>
-<p>The path tracer supports soft shadows, indirect illumination and
-realistic materials. This renderer is created by passing the type string
-“<code>pathtracer</code>” to <code>ospNewRenderer</code>. In addition to
-the <a href="#renderer">general parameters</a> understood by all
-renderers the path tracer supports the following special parameters:</p>
-<table style="width:97%;">
-<caption>Special parameters understood by the path tracer.</caption>
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 29%" />
-<col style="width: 12%" />
-<col style="width: 42%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">lightSamples</td>
-<td style="text-align: right;">all</td>
-<td style="text-align: left;">number of random light samples per path
-vertex, per default all light sources are sampled</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">roulettePathLength</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">ray recursion depth at which to start
-Russian roulette termination</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">maxScatteringEvents</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">maximum number of non-specular (i.e.,
-diffuse and glossy) bounces</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">maxContribution</td>
-<td style="text-align: right;">∞</td>
-<td style="text-align: left;">samples are clamped to this value before
-they are accumulated into the framebuffer</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">backgroundRefraction</td>
-<td style="text-align: right;">false</td>
-<td style="text-align: left;">allow for alpha blending even if
-background is seen through refractive objects like glass</td>
-</tr>
-</tbody>
-</table>
-<p>The path tracer requires that <a href="#materials">materials</a> are
-assigned to <a href="#geometries">geometries</a>, otherwise surfaces are
-treated as completely black.</p>
-<p>The path tracer supports <a href="#volumes">volumes</a> with multiple
-scattering. The scattering albedo can be specified using the <a
-href="#transfer-function">transfer function</a>. Extinction is assumed
-to be spectrally constant.</p>
-<h3 id="materials">Materials</h3>
+<h2 id="materials">Materials</h2>
 <p>Materials describe how light interacts with surfaces, they give
-objects their distinctive look. To let the given renderer create a new
-material of given type <code>type</code> call</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>OSPMaterial ospNewMaterial<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*,</span> <span class="at">const</span> <span class="dt">char</span> <span class="op">*</span><span class="dt">material_type</span><span class="op">);</span></span></code></pre></div>
-<p>Please note that the first argument is ignored.</p>
+objects their distinctive look. To create a new material of given type
+<code>type</code> call</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>OSPMaterial ospNewMaterial<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span><span class="dt">material_type</span><span class="op">);</span></span></code></pre></div>
 <p>The returned handle can then be used to assign the material to a
 given geometry with</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetObject<span class="op">(</span>OSPGeometricModel<span class="op">,</span> <span class="st">&quot;material&quot;</span><span class="op">,</span> OSPMaterial<span class="op">);</span></span></code></pre></div>
-<h4 id="obj-material">OBJ Material</h4>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospSetObject<span class="op">(</span>OSPGeometricModel<span class="op">,</span> <span class="st">&quot;material&quot;</span><span class="op">,</span> OSPMaterial<span class="op">);</span></span></code></pre></div>
+<h3 id="obj-material">OBJ Material</h3>
 <p>The OBJ material is the workhorse material supported by both the <a
 href="documentation.html#scivis-renderer">SciVis renderer</a> and the <a
 href="documentation.html#path-tracer">path tracer</a> (the <a
@@ -3888,8 +3317,8 @@ href="#geometries">geometries</a> is also used for the diffuse color
 class="math inline"><em>n</em></span> in the normal map are with respect
 to the local tangential shading coordinate system and are encoded as
 <span class="math inline">½(<em>n</em>+1)</span>, thus a texel <span
-class="math inline">(0.5,0.5,1)</span><a href="#fn7"
-class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>
+class="math inline">(0.5,0.5,1)</span><a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
 represents the unperturbed shading normal <span
 class="math inline">(0,0,1)</span>. Because of this encoding an sRGB
 gamma <a href="#texture">texture</a> format is ignored and normals are
@@ -3926,7 +3355,7 @@ alt="Rendering of a OBJ material with wood textures." />
 <figcaption aria-hidden="true">Rendering of a OBJ material with wood
 textures.</figcaption>
 </figure>
-<h4 id="principled">Principled</h4>
+<h3 id="principled">Principled</h3>
 <p>The Principled material is the most complex material offered by the
 <a href="documentation.html#path-tracer">path tracer</a>, which is
 capable of producing a wide variety of materials (e.g., plastic, metal,
@@ -4157,7 +3586,7 @@ alt="Rendering of a Principled coated brushed metal material with textured aniso
 metal material with textured anisotropic rotation and a dust layer
 (sheen) on top.</figcaption>
 </figure>
-<h4 id="carpaint">CarPaint</h4>
+<h3 id="carpaint">CarPaint</h3>
 <p>The CarPaint material is a specialized version of the Principled
 material for rendering different types of car paints. To create a
 CarPaint material, pass the type string “<code>carPaint</code>” to
@@ -4305,7 +3734,7 @@ alt="Rendering of a pearlescent CarPaint material." />
 <figcaption aria-hidden="true">Rendering of a pearlescent CarPaint
 material.</figcaption>
 </figure>
-<h4 id="metal">Metal</h4>
+<h3 id="metal">Metal</h3>
 <p>The <a href="documentation.html#path-tracer">path tracer</a> offers a
 physical metal, supporting changing roughness and realistic color shifts
 at edges. To create a Metal material pass the type string
@@ -4423,7 +3852,7 @@ alt="Rendering of golden Metal material with textured roughness." />
 <figcaption aria-hidden="true">Rendering of golden Metal material with
 textured roughness.</figcaption>
 </figure>
-<h4 id="alloy">Alloy</h4>
+<h3 id="alloy">Alloy</h3>
 <p>The <a href="documentation.html#path-tracer">path tracer</a> offers
 an alloy material, which behaves similar to <a href="#metal">Metal</a>,
 but allows for more intuitive and flexible control of the color. To
@@ -4481,7 +3910,7 @@ alt="Rendering of a fictional Alloy material with textured color." />
 <figcaption aria-hidden="true">Rendering of a fictional Alloy material
 with textured color.</figcaption>
 </figure>
-<h4 id="glass">Glass</h4>
+<h3 id="glass">Glass</h3>
 <p>The <a href="documentation.html#path-tracer">path tracer</a> offers a
 realistic a glass material, supporting refraction and volumetric
 attenuation (i.e., the transparency color varies with the geometric
@@ -4531,7 +3960,7 @@ alt="Rendering of a Glass material with orange attenuation." />
 <figcaption aria-hidden="true">Rendering of a Glass material with orange
 attenuation.</figcaption>
 </figure>
-<h4 id="thinglass">ThinGlass</h4>
+<h3 id="thinglass">ThinGlass</h3>
 <p>The <a href="documentation.html#path-tracer">path tracer</a> offers a
 thin glass material useful for objects with just a single surface, most
 prominently windows. It models a thin, transparent slab, i.e., it
@@ -4604,7 +4033,7 @@ alt="Example image of a colored window made with textured attenuation of the Thi
 <figcaption aria-hidden="true">Example image of a colored window made
 with textured attenuation of the ThinGlass material.</figcaption>
 </figure>
-<h4 id="metallicpaint">MetallicPaint</h4>
+<h3 id="metallicpaint">MetallicPaint</h3>
 <p>The <a href="documentation.html#path-tracer">path tracer</a> offers a
 metallic paint material, consisting of a base coat with optional flakes
 and a clear coat. To create a MetallicPaint material pass the type
@@ -4672,7 +4101,7 @@ alt="Rendering of a MetallicPaint material." />
 <figcaption aria-hidden="true">Rendering of a MetallicPaint
 material.</figcaption>
 </figure>
-<h4 id="luminous">Luminous</h4>
+<h3 id="luminous">Luminous</h3>
 <p>The <a href="documentation.html#path-tracer">path tracer</a> supports
 the Luminous material which emits light uniformly in all directions and
 which can thus be used to turn any geometric object into a light source.
@@ -4721,14 +4150,14 @@ alt="Rendering of a yellow Luminous material." />
 <figcaption aria-hidden="true">Rendering of a yellow Luminous
 material.</figcaption>
 </figure>
-<h3 id="texture">Texture</h3>
+<h2 id="texture">Texture</h2>
 <p>OSPRay currently implements two texture types (<code>texture2d</code>
 and <code>volume</code>) and is open for extension to other types by
 applications. More types may be added in future releases.</p>
 <p>To create a new texture use</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>OSPTexture ospNewTexture<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
-<h4 id="texture2d">Texture2D</h4>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>OSPTexture ospNewTexture<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<h3 id="texture2d">Texture2D</h3>
 <p>The <code>texture2d</code> texture type implements an image-based
 texture, where its parameters are as follows</p>
 <table>
@@ -4742,16 +4171,16 @@ texture, where its parameters are as follows</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">format</td>
 <td style="text-align: left;"><code>OSPTextureFormat</code> for the
 texture</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">int</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">filter</td>
 <td style="text-align: left;">default
-<code>OSP_TEXTURE_FILTER_BILINEAR</code>, alternatively
+<code>OSP_TEXTURE_FILTER_LINEAR</code>, alternatively
 <code>OSP_TEXTURE_FILTER_NEAREST</code></td>
 </tr>
 <tr class="odd">
@@ -4860,7 +4289,7 @@ nearest texel is desired (i.e., no filtering) then pass the
 <p>Texturing with <code>texture2d</code> image textures requires <a
 href="#geometries">geometries</a> with texture coordinates, e.g., a <a
 href="#mesh">mesh</a> with <code>vertex.texcoord</code> provided.</p>
-<h4 id="volume-texture">Volume Texture</h4>
+<h3 id="volume-texture">Volume Texture</h3>
 <p>The <code>volume</code> texture type implements texture lookups based
 on 3D object coordinates of the surface hit point on the associated
 geometry. If the given hit point is within the attached volume, the
@@ -4897,7 +4326,7 @@ function</a> applied to <code>volume</code></td>
 <p>TextureVolume can be used for implementing slicing of volumes with
 any geometry type. It enables coloring of the slicing geometry with a
 different transfer function than that of the sliced volume.</p>
-<h4 id="texture-transformations">Texture Transformations</h4>
+<h3 id="texture-transformations">Texture Transformations</h3>
 <p>All materials with textures also offer to manipulate the placement of
 these textures with the help of texture transformations. If so, this
 convention shall be used: the following parameters are prefixed with
@@ -4966,10 +4395,10 @@ plus translation</td>
 </table>
 <p>Similarly, volume texture placement can also be modified by an
 <code>affine3f</code> transformation matrix.</p>
-<h3 id="cameras">Cameras</h3>
+<h2 id="cameras">Cameras</h2>
 <p>To create a new camera of given type <code>type</code> use</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>OSPCamera ospNewCamera<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>OSPCamera ospNewCamera<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
 <p>All cameras accept these parameters:</p>
 <table style="width:98%;">
 <caption>Parameters accepted by all cameras.</caption>
@@ -5092,7 +4521,7 @@ world-space translation, overridden by
 blur), in [0, 1]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">uchar</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">shutterType</td>
 <td style="text-align: right;"><code>OSP_SHUTTER_GLOBAL</code></td>
 <td style="text-align: left;"><code>OSPShutterType</code> for motion
@@ -5152,7 +4581,7 @@ frusta, or to horizontally flip the image to view scenes which are
 specified in a left-handed coordinate system. Note that values outside
 the default range of [0–1] are valid, which is useful to easily realize
 overscan or film gate, or to emulate a shifted sensor.</p>
-<h4 id="perspective-camera">Perspective Camera</h4>
+<h3 id="perspective-camera">Perspective Camera</h3>
 <p>The perspective camera implements a simple thin lens camera for
 perspective rendering, supporting optionally depth of field and stereo
 rendering (with the <a href="documentation.html#path-tracer">path
@@ -5215,7 +4644,7 @@ when depth of field is enabled</td>
 parallel</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">uchar</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">stereoMode</td>
 <td style="text-align: right;"><code>OSP_STEREO_NONE</code></td>
 <td style="text-align: left;"><code>OSPStereoMode</code> for stereo
@@ -5290,7 +4719,7 @@ alt="Example 3D stereo image using stereoMode = OSP_STEREO_SIDE_BY_SIDE." />
 <figcaption aria-hidden="true">Example 3D stereo image using
 <code>stereoMode = OSP_STEREO_SIDE_BY_SIDE</code>.</figcaption>
 </figure>
-<h4 id="orthographic-camera">Orthographic Camera</h4>
+<h3 id="orthographic-camera">Orthographic Camera</h3>
 <p>The orthographic camera implements a simple camera with orthographic
 projection, without support for depth. It is created by passing the type
 string “<code>orthographic</code>” to <code>ospNewCamera</code>. In
@@ -5333,7 +4762,7 @@ alt="Example image created with the orthographic camera." />
 <figcaption aria-hidden="true">Example image created with the
 orthographic camera.</figcaption>
 </figure>
-<h4 id="panoramic-camera">Panoramic Camera</h4>
+<h3 id="panoramic-camera">Panoramic Camera</h3>
 <p>The panoramic camera implements a simple camera with support for
 stereo rendering. It captures the complete surrounding with a latitude /
 longitude mapping and thus the rendered images should best have a ratio
@@ -5358,7 +4787,7 @@ camera.</caption>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">uchar</td>
+<td style="text-align: left;">uint</td>
 <td style="text-align: left;">stereoMode</td>
 <td style="text-align: left;"><code>OSPStereoMode</code> for stereo
 rendering, possible values are:</td>
@@ -5404,45 +4833,639 @@ alt="Latitude / longitude map created with the panoramic camera." />
 <figcaption aria-hidden="true">Latitude / longitude map created with the
 panoramic camera.</figcaption>
 </figure>
-<h3 id="picking">Picking</h3>
-<p>To get the world-space position of the geometry (if any) seen at
-[0–1] normalized screen-space pixel coordinates <code>screenPos_x</code>
-and <code>screenPos_y</code> use</p>
+<h2 id="scene-hierarchy">Scene Hierarchy</h2>
+<h3 id="groups">Groups</h3>
+<p>Groups in OSPRay represent collections of GeometricModels,
+VolumetricModels and Lights which share a common local-space coordinate
+system. To create a group call</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>OSPGroup ospNewGroup<span class="op">();</span></span></code></pre></div>
+<p>Groups take arrays of geometric models, volumetric models, clipping
+geometric models and lights, but they are all optional. In other words,
+there is no need to create empty arrays if there are no geometries,
+volumes or lights in the group.</p>
+<p>By adding <code>OSPGeometricModel</code>s to the
+<code>clippingGeometry</code> array a clipping geometry feature is
+enabled. Geometries assigned to this parameter will be used as clipping
+geometries. Any supported geometry can be used for clipping<a
+href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a>, the only requirement is that it has
+to distinctly partition space into clipping and non-clipping one. The
+use of clipping geometry that is not closed or infinite could result in
+rendering artifacts. User can decide which part of space is clipped by
+changing shading normals orientation with the <code>invertNormals</code>
+flag of the <a
+href="documentation.html#geometricmodels">GeometricModel</a>. All
+geometries and volumes assigned to <code>geometry</code> or
+<code>volume</code> will be clipped. All clipping geometries from all
+groups and <a href="#instances">Instances</a> will be combined together
+– a union of these areas will be applied to all other objects in the <a
+href="documentation.html#world">world</a>.</p>
+<table style="width:98%;">
+<caption>Parameters understood by groups.</caption>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 19%" />
+<col style="width: 10%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: right;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OSPGeometricModel[]</td>
+<td style="text-align: left;">geometry</td>
+<td style="text-align: right;">NULL</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a>
+array of <a href="#geometricmodels">GeometricModels</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSPVolumetricModel[]</td>
+<td style="text-align: left;">volume</td>
+<td style="text-align: right;">NULL</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a>
+array of <a href="#volumetricmodels">VolumetricModels</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSPGeometricModel[]</td>
+<td style="text-align: left;">clippingGeometry</td>
+<td style="text-align: right;">NULL</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a>
+array of <a href="#geometricmodels">GeometricModels</a> used for
+clipping</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSPLight[]</td>
+<td style="text-align: left;">light</td>
+<td style="text-align: right;">NULL</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a>
+array of <a href="#lights">lights</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">dynamicScene</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">tell Embree to use faster BVH build
+(slower ray traversal), otherwise optimized for faster ray traversal
+(slightly slower BVH build)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">compactMode</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">tell Embree to use a more compact BVH in
+memory by trading ray traversal performance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">robustMode</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">tell Embree to enable more robust ray
+intersection code paths (slightly slower)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="instances">Instances</h3>
+<p>Instances in OSPRay represent a single group’s placement into the
+world via a transform. To create and instance call</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>OSPInstance ospNewInstance<span class="op">(</span>OSPGroup<span class="op">);</span></span></code></pre></div>
+<p>The passed group can be <code>NULL</code> as long as the group to be
+instanced is passed as a parameter. If both a group is specified on
+object creation and as a parameter, the parameter value is used. If the
+parameter value is later removed, the group object passed on object
+creation is again used.</p>
+<table style="width:98%;">
+<caption>Parameters understood by instances.</caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 23%" />
+<col style="width: 12%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: right;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OSPGroup</td>
+<td style="text-align: left;">group</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">optional <a
+href="documentation.html#groups">group</a> object to be instanced</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">affine3f</td>
+<td style="text-align: left;">transform</td>
+<td style="text-align: right;">identity</td>
+<td style="text-align: left;">world-space transform for all attached
+geometries and volumes, overridden by <code>motion.*</code> arrays</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">affine3f[]</td>
+<td style="text-align: left;">motion.transform</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">uniformly distributed world-space
+transforms</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vec3f[]</td>
+<td style="text-align: left;">motion.scale</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">uniformly distributed world-space scale,
+overridden by <code>motion.transform</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec3f[]</td>
+<td style="text-align: left;">motion.pivot</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">uniformly distributed world-space
+translation which is applied before <code>motion.rotation</code> (i.e.,
+the rotation center), overridden by <code>motion.transform</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">quatf[]</td>
+<td style="text-align: left;">motion.rotation</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">uniformly distributed world-space
+quaternion rotation, overridden by <code>motion.transform</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec3f[]</td>
+<td style="text-align: left;">motion.translation</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">uniformly distributed world-space
+translation, overridden by <code>motion.transform</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">box1f</td>
+<td style="text-align: left;">time</td>
+<td style="text-align: right;">[0, 1]</td>
+<td style="text-align: left;">time associated with first and last key in
+<code>motion.*</code> arrays (for motion blur)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">uint32</td>
+<td style="text-align: left;">id</td>
+<td style="text-align: right;">-1u</td>
+<td style="text-align: left;">optional user ID, for <a
+href="#framebuffer">framebuffer</a> channel
+<code>OSP_FB_ID_INSTANCE</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="world">World</h3>
+<p>Worlds are a container of scene data represented by <a
+href="#instances">instances</a>. To create an (empty) world call</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>OSPWorld ospNewWorld<span class="op">();</span></span></code></pre></div>
+<p>Objects are placed in the world through an array of instances.
+Similar to <a href="#groups">groups</a>, the array of instances is
+optional: there is no need to create empty arrays if there are no
+instances (though there will be nothing to render).</p>
+<p>Applications can query the world (axis-aligned) bounding box after
+the world has been committed. To get this information, call</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>OSPBounds ospGetBounds<span class="op">(</span>OSPObject<span class="op">);</span></span></code></pre></div>
+<p>The result is returned in the provided <code>OSPBounds</code><a
+href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> struct:</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> lower<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> upper<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> OSPBounds<span class="op">;</span></span></code></pre></div>
+<p>This call can also take <code>OSPGroup</code> and
+<code>OSPInstance</code> as well: all other object types will return an
+empty bounding box.</p>
+<p>Finally, Worlds can be configured with parameters for making various
+feature/performance trade-offs (similar to groups).</p>
+<table style="width:97%;">
+<caption>Parameters understood by worlds.</caption>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 12%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: right;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OSPInstance[]</td>
+<td style="text-align: left;">instance</td>
+<td style="text-align: right;">NULL</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a>
+array with handles of the <a href="#instances">instances</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSPLight[]</td>
+<td style="text-align: left;">light</td>
+<td style="text-align: right;">NULL</td>
+<td style="text-align: left;"><a href="documentation.html#data">data</a>
+array with handles of the <a href="#lights">lights</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">dynamicScene</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">tell Embree to use faster BVH build
+(slower ray traversal), otherwise optimized for faster ray traversal
+(slightly slower BVH build)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">compactMode</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">tell Embree to use a more compact BVH in
+memory by trading ray traversal performance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">robustMode</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">tell Embree to enable more robust ray
+intersection code paths (slightly slower)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="renderers">Renderers</h2>
+<p>A renderer is the central object for rendering in OSPRay. Different
+renderers implement different features and support different materials.
+To create a new renderer of given type <code>type</code> use</p>
 <div class="sourceCode" id="cb45"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospPick<span class="op">(</span>OSPPickResult <span class="op">*,</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    OSPFrameBuffer<span class="op">,</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    OSPRenderer<span class="op">,</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    OSPCamera<span class="op">,</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    OSPWorld<span class="op">,</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> screenPos_x<span class="op">,</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> screenPos_y<span class="op">);</span></span></code></pre></div>
-<p>The result is returned in the provided <code>OSPPickResult</code>
-struct:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> hasHit<span class="op">;</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> worldPosition<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    OSPInstance instance<span class="op">;</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    OSPGeometricModel model<span class="op">;</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint32_t</span> primID<span class="op">;</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> OSPPickResult<span class="op">;</span></span></code></pre></div>
-<p>Note that <code>ospPick</code> considers exactly the same camera of
-the given renderer that is used to render an image, thus matching
-results can be expected. If the camera supports depth of field then the
-center of the lens and thus the center of the circle of confusion is
-used for picking. Note that the caller needs to <code>ospRelease</code>
-the <code>instance</code> and <code>model</code> handles of
-<code>OSPPickResult</code> once the information is not needed
-anymore.</p>
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>OSPRenderer ospNewRenderer<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<p>General parameters of all renderers are</p>
+<table style="width:98%;">
+<caption>Parameters understood by all renderers.</caption>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 21%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: right;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">pixelSamples</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">samples per pixel</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">maxPathLength</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">maximum ray recursion depth</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">minContribution</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: left;">sample contributions below this value will
+be neglected to speedup rendering</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">varianceThreshold</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">threshold for adaptive accumulation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">float / vec3f / vec4f</td>
+<td style="text-align: left;">backgroundColor</td>
+<td style="text-align: right;">black, transparent</td>
+<td style="text-align: left;">background color and alpha (linear
+A/RGB/RGBA), if no <code>map_backplate</code> is set</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSPTexture</td>
+<td style="text-align: left;">map_backplate</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">optional <a href="#texture">texture</a>
+image used as background (use texture type <code>texture2d</code>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSPTexture</td>
+<td style="text-align: left;">map_maxDepth</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">optional screen-sized float <a
+href="#texture">texture</a> with maximum far distance per pixel (use
+texture type <code>texture2d</code>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSPMaterial[]</td>
+<td style="text-align: left;">material</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">optional <a
+href="documentation.html#data">data</a> array of <a
+href="#materials">materials</a> which can be indexed by a <a
+href="documentation.html#geometricmodels">GeometricModel</a>’s
+<code>material</code> parameter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">uint</td>
+<td style="text-align: left;">pixelFilter</td>
+<td style="text-align: right;"><code>OSP_PIXELFILTER_GAUSS</code></td>
+<td style="text-align: left;"><code>OSPPixelFilterType</code> to select
+the pixel filter used by the renderer for antialiasing. Possible pixel
+filters are listed below.</td>
+</tr>
+</tbody>
+</table>
+<p>OSPRay’s renderers support a feature called adaptive accumulation,
+which accelerates progressive <a href="#rendering">rendering</a> by
+stopping the rendering and refinement of image regions that have an
+estimated variance below the <code>varianceThreshold</code>. This
+feature requires a <a href="#framebuffer">framebuffer</a> with an
+<code>OSP_FB_VARIANCE</code> channel.</p>
+<p>Per default the background of the rendered image will be transparent
+black, i.e., the alpha channel holds the opacity of the rendered
+objects. This eases transparency-aware blending of the image with an
+arbitrary background image by the application. The parameter
+<code>backgroundColor</code> or <code>map_backplate</code> can be used
+to already blend with a constant background color or backplate texture,
+respectively, (and alpha) during rendering.</p>
+<p>OSPRay renderers support depth composition with images of other
+renderers, for example to incorporate help geometries of a 3D UI that
+were rendered with OpenGL. The screen-sized <a
+href="#texture">texture</a> <code>map_maxDepth</code> must have format
+<code>OSP_TEXTURE_R32F</code> and flag
+<code>OSP_TEXTURE_FILTER_NEAREST</code>. The fetched values are used to
+limit the distance of primary rays, thus objects of other renderers can
+hide objects rendered by OSPRay.</p>
+<p>OSPRay supports antialiasing in image space by using pixel filters,
+which are centered around the center of a pixel. The size <span
+class="math inline"><em>w</em> × <em>w</em></span> of the filter depends
+on the selected filter type. The types of supported pixel filters are
+defined by the <code>OSPPixelFilterType</code> enum and can be set using
+the <code>pixelFilter</code> parameter.</p>
+<table style="width:97%;">
+<caption>Pixel filter types supported by OSPRay for antialiasing in
+image space.</caption>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OSP_PIXELFILTER_POINT</td>
+<td style="text-align: left;">a point filter only samples the center of
+the pixel, therefore the filter width is <span
+class="math inline"><em>w</em> = 0</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSP_PIXELFILTER_BOX</td>
+<td style="text-align: left;">a uniform box filter with a width of <span
+class="math inline"><em>w</em> = 1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_PIXELFILTER_GAUSS</td>
+<td style="text-align: left;">a truncated, smooth Gaussian filter with a
+standard deviation of <span class="math inline"><em>σ</em> = 0.5</span>
+and a filter width of <span
+class="math inline"><em>w</em> = 3</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSP_PIXELFILTER_MITCHELL</td>
+<td style="text-align: left;">the Mitchell-Netravali filter with a width
+of <span class="math inline"><em>w</em> = 4</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_PIXELFILTER_BLACKMAN_HARRIS</td>
+<td style="text-align: left;">the Blackman-Harris filter with a width of
+<span class="math inline"><em>w</em> = 3</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scivis-renderer">SciVis Renderer</h3>
+<p>The SciVis renderer is a fast ray tracer for scientific visualization
+which supports volume rendering and ambient occlusion (AO). It is
+created by passing the type string “<code>scivis</code>” to
+<code>ospNewRenderer</code>. In addition to the <a
+href="#renderer">general parameters</a> understood by all renderers, the
+SciVis renderer supports the following parameters:</p>
+<table style="width:98%;">
+<caption>Special parameters understood by the SciVis renderer.</caption>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 24%" />
+<col style="width: 12%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: right;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">shadows</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">whether to compute (hard) shadows</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">aoSamples</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">number of rays per sample to compute
+ambient occlusion</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">aoDistance</td>
+<td style="text-align: right;">10<sup>20</sup></td>
+<td style="text-align: left;">maximum distance to consider for ambient
+occlusion</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">volumeSamplingRate</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sampling rate for volumes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">visibleLights</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">whether light sources are potentially
+visible (as in the <a href="documentation.html#path-tracer">path
+tracer</a>, regarding each light’s <code>visible</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the intensity (and color) of AO is deduced from an <a
+href="#ambient-light">ambient light</a> in the <code>lights</code>
+array.<a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> If <code>aoSamples</code> is zero
+(the default) then ambient lights cause ambient illumination (without
+occlusion).</p>
+<h3 id="ambient-occlusion-renderer">Ambient Occlusion Renderer</h3>
+<p>This renderer supports only a subset of the features of the <a
+href="documentation.html#scivis-renderer">SciVis renderer</a> to gain
+performance. As the name suggest its main shading method is ambient
+occlusion (AO), <a href="#lights">lights</a> are <em>not</em> considered
+at all. Volume rendering is supported. The Ambient Occlusion renderer is
+created by passing the type string “<code>ao</code>” to
+<code>ospNewRenderer</code>. In addition to the <a
+href="#renderer">general parameters</a> understood by all renderers the
+following parameters are supported as well:</p>
+<table style="width:97%;">
+<caption>Special parameters understood by the Ambient Occlusion
+renderer.</caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 28%" />
+<col style="width: 17%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: right;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">aoSamples</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">number of rays per sample to compute
+ambient occlusion</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">aoDistance</td>
+<td style="text-align: right;">10<sup>20</sup></td>
+<td style="text-align: left;">maximum distance to consider for ambient
+occlusion</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">aoIntensity</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">ambient occlusion strength</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">volumeSamplingRate</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sampling rate for volumes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="path-tracer">Path Tracer</h3>
+<p>The path tracer supports soft shadows, indirect illumination and
+realistic materials. This renderer is created by passing the type string
+“<code>pathtracer</code>” to <code>ospNewRenderer</code>. In addition to
+the <a href="#renderer">general parameters</a> understood by all
+renderers the path tracer supports the following special parameters:</p>
+<table style="width:97%;">
+<caption>Special parameters understood by the path tracer.</caption>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 29%" />
+<col style="width: 12%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: right;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">lightSamples</td>
+<td style="text-align: right;">all</td>
+<td style="text-align: left;">number of random light samples per path
+vertex, per default all light sources are sampled</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">roulettePathLength</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">ray recursion depth at which to start
+Russian roulette termination</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">maxScatteringEvents</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">maximum number of non-specular (i.e.,
+diffuse and glossy) bounces</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">maxContribution</td>
+<td style="text-align: right;">∞</td>
+<td style="text-align: left;">samples are clamped to this value before
+they are accumulated into the framebuffer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">backgroundRefraction</td>
+<td style="text-align: right;">false</td>
+<td style="text-align: left;">allow for alpha blending even if
+background is seen through refractive objects like glass</td>
+</tr>
+</tbody>
+</table>
+<p>The path tracer requires that <a href="#materials">materials</a> are
+assigned to <a href="#geometries">geometries</a>, otherwise surfaces are
+treated as completely black.</p>
+<p>The path tracer supports <a href="#volumes">volumes</a> with multiple
+scattering. The scattering albedo can be specified using the <a
+href="#transfer-function">transfer function</a>. Extinction is assumed
+to be spectrally constant.</p>
 <h2 id="framebuffer">Framebuffer</h2>
 <p>The framebuffer holds the rendered 2D image (and optionally auxiliary
 information associated with pixels). To create a new framebuffer object
 of given size <code>size</code> (in pixels), color format, and channels
 use</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>OSPFrameBuffer ospNewFrameBuffer<span class="op">(</span><span class="dt">int</span> size_x<span class="op">,</span> <span class="dt">int</span> size_y<span class="op">,</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    OSPFrameBufferFormat format <span class="op">=</span> OSP_FB_SRGBA<span class="op">,</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint32_t</span> frameBufferChannels <span class="op">=</span> OSP_FB_COLOR<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>OSPFrameBuffer ospNewFrameBuffer<span class="op">(</span><span class="dt">int</span> size_x<span class="op">,</span> <span class="dt">int</span> size_y<span class="op">,</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    OSPFrameBufferFormat format <span class="op">=</span> OSP_FB_SRGBA<span class="op">,</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint32_t</span> frameBufferChannels <span class="op">=</span> OSP_FB_COLOR<span class="op">);</span></span></code></pre></div>
 <p>The parameter <code>format</code> describes the format the color
 buffer has <em>on the host</em>, and the format that
 <code>ospMapFrameBuffer</code> will eventually return. Valid values
@@ -5566,19 +5589,19 @@ individual displays using an <code>OSPImageOperation</code> <a
 href="#image-operation">image operation</a>.</p>
 <p>The application can map the given channel of a framebuffer – and thus
 access the stored pixel information – via</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>ospMapFrameBuffer<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPFrameBufferChannel <span class="op">=</span> OSP_FB_COLOR<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>ospMapFrameBuffer<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPFrameBufferChannel <span class="op">=</span> OSP_FB_COLOR<span class="op">);</span></span></code></pre></div>
 <p>Note that <code>OSP_FB_ACCUM</code> or <code>OSP_FB_VARIANCE</code>
 cannot be mapped. The origin of the screen coordinate system in OSPRay
 is the lower left corner (as in OpenGL), thus the first pixel addressed
 by the returned pointer is the lower left pixel of the image.</p>
 <p>A previously mapped channel of a framebuffer can be unmapped by
 passing the received pointer <code>mapped</code> to</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospUnmapFrameBuffer<span class="op">(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>mapped<span class="op">,</span> OSPFrameBuffer<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospUnmapFrameBuffer<span class="op">(</span><span class="at">const</span> <span class="dt">void</span> <span class="op">*</span>mapped<span class="op">,</span> OSPFrameBuffer<span class="op">);</span></span></code></pre></div>
 <p>The individual channels of a framebuffer can be cleared with</p>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospResetAccumulation<span class="op">(</span>OSPFrameBuffer<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospResetAccumulation<span class="op">(</span>OSPFrameBuffer<span class="op">);</span></span></code></pre></div>
 <p>This function will clear <em>all</em> accumulating buffers
 (<code>OSP_FB_VARIANCE</code>, <code>OSP_FB_NORMAL</code>, and
 <code>OSP_FB_ALBEDO</code>, if present) and resets the accumulation
@@ -5587,8 +5610,8 @@ and depth buffers are physically cleared when
 <code>ospResetAccumulation</code> is called.</p>
 <p>If <code>OSP_FB_VARIANCE</code> is specified, an estimate of the
 variance of the last accumulated frame can be queried with</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetVariance<span class="op">(</span>OSPFrameBuffer<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetVariance<span class="op">(</span>OSPFrameBuffer<span class="op">);</span></span></code></pre></div>
 <p>Note this value is only updated after synchronizing with
 <code>OSP_FRAME_FINISHED</code>, as further described in <a
 href="#asynchronous-rendering">asynchronous rendering</a>. The estimated
@@ -5619,8 +5642,8 @@ be run in the order they are in the array.</p>
 frame. Examples include post-processing, filtering, blending, tone
 mapping, or sending tiles to a display wall. To create a new pixel
 operation of given type <code>type</code> use</p>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>OSPImageOperation ospNewImageOperation<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>OSPImageOperation ospNewImageOperation<span class="op">(</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>type<span class="op">);</span></span></code></pre></div>
 <h4 id="tone-mapper">Tone Mapper</h4>
 <p>The tone mapper is a pixel operation which implements a generic
 filmic tone mapping operator. Using the default parameters it
@@ -5738,7 +5761,7 @@ additional project dependency at compile time. The module implements a
 “<code>denoiser</code>” frame operation, which denoises the entire frame
 before the frame is completed. OIDN will automatically select the
 fastest device, using a GPU when available. The device selection be
-overriden by the environment valiable <code>OIDN_DEFAULT_DEVICE</code>,
+overridden by the environment valiable <code>OIDN_DEFAULT_DEVICE</code>,
 possible values are <code>cpu</code>, <code>sycl</code>,
 <code>cuda</code>, <code>hip</code>, or a physical device ID</p>
 <h2 id="rendering">Rendering</h2>
@@ -5751,26 +5774,26 @@ created with <code>OSP_FB_ACCUM</code>) then successive calls to
 <code>ospRenderFrame</code> will progressively refine the rendered
 image.</p>
 <p>To start an render task, use</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>OSPFuture ospRenderFrame<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>OSPFuture ospRenderFrame<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
 <p>This returns an <code>OSPFuture</code> handle, which can be used to
 synchronize with the application, cancel, or query for progress of the
 running task. When <code>ospRenderFrame</code> is called, there is no
 guarantee when the associated task will begin execution.</p>
 <p>Progress of a running frame can be queried with the following API
 function</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetProgress<span class="op">(</span>OSPFuture<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetProgress<span class="op">(</span>OSPFuture<span class="op">);</span></span></code></pre></div>
 <p>This returns the approximated progress of the task in [0-1].</p>
 <p>Applications can cancel a currently running asynchronous operation
 via</p>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospCancel<span class="op">(</span>OSPFuture<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospCancel<span class="op">(</span>OSPFuture<span class="op">);</span></span></code></pre></div>
 <p>Applications can wait on the result of an asynchronous operation, or
 choose to only synchronize with a specific event. To synchronize with an
 <code>OSPFuture</code> use</p>
-<div class="sourceCode" id="cb56"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospWait<span class="op">(</span>OSPFuture<span class="op">,</span> OSPSyncEvent <span class="op">=</span> OSP_TASK_FINISHED<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospWait<span class="op">(</span>OSPFuture<span class="op">,</span> OSPSyncEvent <span class="op">=</span> OSP_TASK_FINISHED<span class="op">);</span></span></code></pre></div>
 <p>The following are values which can be synchronized with the
 application</p>
 <table style="width:97%;">
@@ -5820,14 +5843,14 @@ future releases of OSPRay may add more asynchronous versions of API
 calls (and thus return <code>OSPFuture</code>).</p>
 <p>Applications can query whether particular events are complete
 with</p>
-<div class="sourceCode" id="cb57"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> ospIsReady<span class="op">(</span>OSPFuture<span class="op">,</span> OSPSyncEvent <span class="op">=</span> OSP_TASK_FINISHED<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> ospIsReady<span class="op">(</span>OSPFuture<span class="op">,</span> OSPSyncEvent <span class="op">=</span> OSP_TASK_FINISHED<span class="op">);</span></span></code></pre></div>
 <p>As the given running task runs (as tracked by the
 <code>OSPFuture</code>), applications can query a boolean [0, 1] result
 if the passed event has been completed.</p>
 <p>Applications can query how long an async task ran with</p>
-<div class="sourceCode" id="cb58"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetTaskDuration<span class="op">(</span>OSPFuture<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospGetTaskDuration<span class="op">(</span>OSPFuture<span class="op">);</span></span></code></pre></div>
 <p>This returns the wall clock execution time of the task in seconds. If
 the task is still running, this will block until the task is completed.
 This is useful for applications to query exactly how long an
@@ -5836,13 +5859,13 @@ execution + synchronization by the calling application.</p>
 <h3 id="synchronous-rendering">Synchronous Rendering</h3>
 <p>For convenience in certain use cases, <code>ospray_util.h</code>
 provides a synchronous version of <code>ospRenderFrame</code>:</p>
-<div class="sourceCode" id="cb59"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospRenderFrameBlocking<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> ospRenderFrameBlocking<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
 <p>This version is the equivalent of:</p>
-<div class="sourceCode" id="cb60"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>ospRenderFrame</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>ospWait<span class="op">(</span>f<span class="op">,</span> OSP_TASK_FINISHED<span class="op">)</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> ospGetVariance<span class="op">(</span>fb<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>ospRenderFrame</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>ospWait<span class="op">(</span>f<span class="op">,</span> OSP_TASK_FINISHED<span class="op">)</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> ospGetVariance<span class="op">(</span>fb<span class="op">)</span></span></code></pre></div>
 <p>This version is closest to <code>ospRenderFrame</code> from OSPRay
 v1.x.</p>
 <h3 id="rendering-and-ospcommit">Rendering and ospCommit</h3>
@@ -5851,33 +5874,149 @@ v1.x.</p>
 scene being rendered have been committed before rendering occurs. If a
 call to <code>ospCommit</code> happens while a frame is rendered, the
 result is undefined behavior and should be avoided.</p>
-<h1 id="distributed-rendering-with-mpi">Distributed Rendering with
-MPI</h1>
+<h3 id="picking">Picking</h3>
+<p>To get the world-space position of the geometry (if any) seen at
+[0–1] normalized screen-space pixel coordinates <code>screenPos_x</code>
+and <code>screenPos_y</code> use</p>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ospPick<span class="op">(</span>OSPPickResult <span class="op">*,</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    OSPFrameBuffer<span class="op">,</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    OSPRenderer<span class="op">,</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    OSPCamera<span class="op">,</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    OSPWorld<span class="op">,</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> screenPos_x<span class="op">,</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> screenPos_y<span class="op">);</span></span></code></pre></div>
+<p>The result is returned in the provided <code>OSPPickResult</code>
+struct:</p>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> hasHit<span class="op">;</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> worldPosition<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    OSPInstance instance<span class="op">;</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>    OSPGeometricModel model<span class="op">;</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint32_t</span> primID<span class="op">;</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> OSPPickResult<span class="op">;</span></span></code></pre></div>
+<p>Note that <code>ospPick</code> considers exactly the same camera of
+the given renderer that is used to render an image, thus matching
+results can be expected. If the camera supports depth of field then the
+center of the lens and thus the center of the circle of confusion is
+used for picking. Note that the caller needs to <code>ospRelease</code>
+the <code>instance</code> and <code>model</code> handles of
+<code>OSPPickResult</code> once the information is not needed
+anymore.</p>
+<h1 id="modules-and-devices">Modules and Devices</h1>
+<h2 id="cpu">CPU</h2>
+<p>The CPU module is implicitly loaded and the <code>cpu</code> device
+is automatically used if no other options are specified.</p>
+<h2 id="gpu-beta">GPU (Beta)</h2>
+<p>To use the GPU for rendering load the <code>gpu</code> module and
+select the <code>gpu</code> device:</p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./ospExamples</span> <span class="at">--osp:load-modules</span><span class="op">=</span>gpu <span class="at">--osp:device</span><span class="op">=</span>gpu</span></code></pre></div>
+<p>or via explicit device creation by the application:</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>ospLoadModule<span class="op">(</span><span class="st">&quot;gpu&quot;</span><span class="op">);</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>OSPDevice dev <span class="op">=</span> ospNewDevice<span class="op">(</span><span class="st">&quot;gpu&quot;</span><span class="op">);</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>ospDeviceCommit<span class="op">(</span>dev<span class="op">);</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>ospSetCurrentDevice<span class="op">(</span>dev<span class="op">);</span></span></code></pre></div>
+<table>
+<caption>Parameters specific to the <code>gpu</code> device.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">void *</td>
+<td style="text-align: left;">syclContext</td>
+<td style="text-align: left;">SYCL context</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">void *</td>
+<td style="text-align: left;">syclDevice</td>
+<td style="text-align: left;">SYCL device</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">void *</td>
+<td style="text-align: left;">zeContext</td>
+<td style="text-align: left;">Level Zero context</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">void *</td>
+<td style="text-align: left;">zeDevice</td>
+<td style="text-align: left;">Level Zero device</td>
+</tr>
+</tbody>
+</table>
+<p>Applications can either set their SYCL context and device or their
+Level Zero context and device, to share device memory with OSPRay or to
+control which device should be used (e.g., in case multiple GPUs are
+present). If neither parameter is set, the <code>gpu</code> device will
+automatically create a context internally and select a GPU (that
+selection can be influenced via environment variable
+<code>ONEAPI_DEVICE_SELECTOR</code>).</p>
+<p>Compile times for just in time compilation (JIT compilation) can be
+large. To resolve this issue we recommend enabling persistent JIT
+compilation caching inside your application before the SYCL device is
+created, by setting environment variables
+<code>SYCL_CACHE_PERSISTENT=1</code> (and optionally
+<code>SYCL_CACHE_DIR=&lt;path&gt;</code> to some proper directory where
+the JIT cache should get stored).</p>
+<p>To reduce GPU memory allocation overhead when rendering scenes with
+many objects (geometries, instances, etc.), memory pooling should be
+enabled by setting the environment variable
+<code>ISPCRT_MEM_POOL=1</code>.</p>
+<h3 class="unnumbered" id="known-issues">Known Issues</h3>
+<p>The following features are not implemented yet or are not working
+correctly on the GPU device:</p>
+<ul>
+<li>Multiple volumes in the scene</li>
+<li>Clipping</li>
+<li>Motion blur</li>
+<li>Subdivision surfaces</li>
+<li>Progress reporting via <code>ospGetProgress</code> or canceling the
+frame via <code>ospCancel</code></li>
+<li>Picking via <code>ospPick</code></li>
+<li>Adaptive accumulation via <code>OSP_FB_VARIANCE</code> and
+<code>varianceThreshold</code></li>
+<li>Framebuffer channels <code>OSP_FB_ID_*</code> (id buffers)</li>
+<li>Experimental support for shared device-only data, works only for
+<code>structuredRegular</code> volume</li>
+</ul>
+<p>There will be some delay on start-up as the kernel code is JIT
+compiled for the device, and similar pauses when changing the scene
+configuration, because the kernel specialized and re-compiled.</p>
+<p>For some combination of compiler, GPU driver and scene the rendered
+images might show artifacts (e.g., vertical lines or small blocks).</p>
+<h2 id="distributed-rendering-with-mpi">Distributed Rendering with
+MPI</h2>
 <p>The purpose of OSPRay’s MPI modules is to provide distributed
 rendering capabilities for OSPRay. The modules enables image- and
 data-parallel rendering across HPC clusters using MPI, allowing
 applications to transparently distribute rendering work, or to render
 data sets which are too large to fit in memory on a single machine.</p>
-<p>OSPRay provides two MPI modules that expose different distributed
-rendering capabilities. The <code>mpi_offload</code> module provides
-image-parallel rendering through the <code>mpiOffload</code> device,
-while the <code>mpi_distributed_cpu</code> module provides data-parallel
-rendering through the <code>mpiDistributed</code> device. The
-<code>mpiOffload</code> device in the <code>mpi_offload</code> module
-enables OSPRay applications written for local rendering to be replicated
-across multiple nodes to distribute the rendering work without code
-changes. The <code>mpi_distributed_cpu</code> module provides the
-<code>mpiDistributed</code> device, which allows MPI distributed
-applications to use OSPRay for distributed rendering. Each rank using
-the <code>mpiDistributed</code> device can render an independent piece
-of a global data set, or perform hybrid rendering where ranks partially
-or completely share data.</p>
+<p>OSPRay provides multiple MPI modules that expose different
+distributed rendering capabilities. The <code>mpi_offload</code> module
+provides image-parallel rendering through the <code>mpiOffload</code>
+device; it enables OSPRay applications written for local rendering to be
+replicated across multiple nodes to distribute the rendering work
+without code changes.</p>
+<p>And the <code>mpi_distributed_cpu</code> and
+<code>mpi_distributed_gpu</code> modules provides data-parallel
+rendering through the <code>mpiDistributed</code> device, which allows
+MPI distributed applications to use OSPRay for distributed rendering.
+Each rank using the <code>mpiDistributed</code> device can render an
+independent piece of a global data set, or perform hybrid rendering
+where ranks partially or completely share data.</p>
 <p>The <code>mpiDistributed</code> device’s image-parallel rendering
 support can be used to accelerate data loading for image-parallel
 applications, where all ranks load the same data from a shared disk and
 then perform image-parallel rendering on the replicated data, as if the
 <code>mpiOffload</code> device where being used.</p>
-<h2 id="mpi-offload-rendering">MPI Offload Rendering</h2>
+<h3 id="mpi-offload-rendering">MPI Offload Rendering</h3>
 <p>The <code>mpiOffload</code> device can be used to distribute image
 rendering tasks across a cluster without requiring modifications to the
 application itself. Existing applications using OSPRay for local
@@ -5887,8 +6026,8 @@ image-parallel rendering. To load the module, pass
 <code>--osp:load-modules=mpi_offload</code>, to select the
 MPIOffloadDevice, pass <code>--osp:device=mpiOffload</code>. For
 example, the <code>ospExamples</code> application can be run as:</p>
-<div class="sourceCode" id="cb61"><pre
-class="sourceCode sh"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpirun</span> <span class="at">-n</span> <span class="op">&lt;</span>N<span class="op">&gt;</span> ./ospExamples <span class="at">--osp:load-modules</span><span class="op">=</span>mpi_offload <span class="at">--osp:device</span><span class="op">=</span>mpiOffload</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpirun</span> <span class="at">-n</span> <span class="op">&lt;</span>N<span class="op">&gt;</span> ./ospExamples <span class="at">--osp:load-modules</span><span class="op">=</span>mpi_offload <span class="at">--osp:device</span><span class="op">=</span>mpiOffload</span></code></pre></div>
 <p>and will automatically distribute the image rendering tasks among the
 corresponding <code>N</code> nodes. Note that in this configuration rank
 0 will act as a master/application rank, and will run the user
@@ -5902,15 +6041,15 @@ you want to run a worker rank on the master node as well you can run the
 application and the <code>ospray_mpi_worker</code> program through MPI’s
 MPMD mode. The <code>ospray_mpi_worker</code> will load the MPI module
 and select the offload device by default.</p>
-<div class="sourceCode" id="cb62"><pre
-class="sourceCode sh"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpirun</span> <span class="at">-n</span> 1 ./ospExamples <span class="at">--osp:load-modules</span><span class="op">=</span>mpi_offload <span class="at">--osp:device</span><span class="op">=</span>mpiOffload <span class="dt">\</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  : <span class="at">-n</span> <span class="op">&lt;</span>N<span class="op">&gt;</span> ./ospray_mpi_worker</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpirun</span> <span class="at">-n</span> 1 ./ospExamples <span class="at">--osp:load-modules</span><span class="op">=</span>mpi_offload <span class="at">--osp:device</span><span class="op">=</span>mpiOffload <span class="dt">\</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  : <span class="at">-n</span> <span class="op">&lt;</span>N<span class="op">&gt;</span> ./ospray_mpi_worker</span></code></pre></div>
 <p>If initializing the <code>mpiOffload</code> device manually, or
 passing parameters through the command line, the following parameters
 can be set:</p>
 <table style="width:97%;">
 <caption>Parameters specific to the <code>mpiOffload</code>
-Device.</caption>
+device.</caption>
 <colgroup>
 <col style="width: 11%" />
 <col style="width: 33%" />
@@ -5969,24 +6108,36 @@ also be set via the environment variables:
 default. If you wish to use a static load balancer you can do so by
 setting the <code>OSPRAY_STATIC_BALANCER</code> environment variable to
 1.</p>
+<p>For the worker ranks to create GPU devices instead of the default CPU
+devices set the environment variable
+<code>OSPRAY_MPI_DISTRIBUTED_GPU</code>, e.g.,</p>
+<div class="sourceCode" id="cb66"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OSPRAY_MPI_DISTRIBUTED_GPU</span><span class="op">=</span>1</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpiexec</span> <span class="at">-genv</span> OSPRAY_MPI_DISTRIBUTED_GPU 1 <span class="dt">\</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-n</span> 1 ./ospExamples <span class="at">--osp:load-modules</span><span class="op">=</span>mpi_offload <span class="at">--osp:device</span><span class="op">=</span>mpiOffload <span class="dt">\</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>    : <span class="at">-n</span> 2 ./ospray_mpi_worker</span></code></pre></div>
 <p>The <code>mpiOffload</code> device does not support multiple
 init/shutdown cycles. Thus, to run <code>ospBenchmark</code> for this
 device make sure to exclude the init/shutdown test by passing
 <code>--benchmark_filter=-ospInit_ospShutdown</code> through the command
 line.</p>
-<h2 id="mpi-distributed-rendering">MPI Distributed Rendering</h2>
+<h3 id="mpi-distributed-rendering">MPI Distributed Rendering</h3>
 <p>While MPI Offload rendering is used to transparently distribute
 rendering work without requiring modification to the application, MPI
 Distributed rendering is targeted at use of OSPRay within MPI-parallel
 applications. The MPI distributed device can be selected by loading the
-<code>mpi_distributed_cpu</code> module, and manually creating and using
-an instance of the <code>mpiDistributed</code> device:</p>
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>ospLoadModule<span class="op">(</span><span class="st">&quot;mpi_distributed_cpu&quot;</span><span class="op">);</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>OSPDevice mpiDevice <span class="op">=</span> ospNewDevice<span class="op">(</span><span class="st">&quot;mpiDistributed&quot;</span><span class="op">);</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>ospDeviceCommit<span class="op">(</span>mpiDevice<span class="op">);</span></span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>ospSetCurrentDevice<span class="op">(</span>mpiDevice<span class="op">);</span></span></code></pre></div>
+<code>mpi_distributed_cpu</code> module for CPU rendering or
+<code>mpi_distributed_gpu</code> for GPU rendering, and manually
+creating and using an instance of the <code>mpiDistributed</code>
+device, for example:</p>
+<div class="sourceCode" id="cb68"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>ospLoadModule<span class="op">(</span><span class="st">&quot;mpi_distributed_cpu&quot;</span><span class="op">);</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>OSPDevice mpiDevice <span class="op">=</span> ospNewDevice<span class="op">(</span><span class="st">&quot;mpiDistributed&quot;</span><span class="op">);</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>ospDeviceCommit<span class="op">(</span>mpiDevice<span class="op">);</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>ospSetCurrentDevice<span class="op">(</span>mpiDevice<span class="op">);</span></span></code></pre></div>
 <p>Your application can either initialize MPI before-hand, ensuring that
 <code>MPI_THREAD_SERIALIZED</code> or higher is supported, or allow the
 device to initialize MPI on commit. Thread multiple support is required
@@ -6003,8 +6154,8 @@ take a specific MPI communicator to use as the world communicator. Only
 those ranks in the specified communicator will participate in
 rendering.</p>
 <table style="width:97%;">
-<caption>Parameters specific to the distributed
-<code>mpiDistributed</code> Device.</caption>
+<caption>Parameters specific to the <code>mpiDistributed</code>
+device.</caption>
 <colgroup>
 <col style="width: 12%" />
 <col style="width: 25%" />
@@ -6056,14 +6207,14 @@ owned local data to be rendered by the rank</td>
 </tr>
 </tbody>
 </table>
-<table style="width:97%;">
+<table style="width:98%;">
 <caption>Parameters specific to the <code>mpiRaycast</code>
 renderer.</caption>
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 17%" />
-<col style="width: 13%" />
-<col style="width: 56%" />
+<col style="width: 9%" />
+<col style="width: 25%" />
+<col style="width: 12%" />
+<col style="width: 49%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -6089,10 +6240,16 @@ per-pixel</td>
 AO ray would have crossed a rank boundary and ghost geometry is not
 available, there will be visible artifacts in the shading</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">volumeSamplingRate</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">sampling rate for volumes</td>
+</tr>
 </tbody>
 </table>
-<h3 id="image-parallel-rendering-in-the-mpi-distributed-device">Image
-Parallel Rendering in the MPI Distributed Device</h3>
+<h4 id="image-parallel-rendering-in-the-mpi-distributed-device">Image
+Parallel Rendering in the MPI Distributed Device</h4>
 <p>If all ranks specify exactly the same data, the distributed device
 can be used for image-parallel rendering. This works identical to the
 offload device, except that the MPI-aware application is able to load
@@ -6104,8 +6261,8 @@ existing local renderers (e.g., <code>scivis</code>,
 <code>pathtracer</code>). See <a
 href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorialReplicated.cpp">ospMPIDistribTutorialReplicated</a>
 for an example.</p>
-<h3 id="data-parallel-rendering-in-the-mpi-distributed-device">Data
-Parallel Rendering in the MPI Distributed Device</h3>
+<h4 id="data-parallel-rendering-in-the-mpi-distributed-device">Data
+Parallel Rendering in the MPI Distributed Device</h4>
 <p>The MPI Distributed device also supports data-parallel rendering with
 sort-last compositing. Each rank can specify a different piece of data,
 as long as the bounding boxes of each rank’s data are non-overlapping.
@@ -6141,31 +6298,32 @@ return the closest global object at the screen position on the rank that
 owns that object. The other ranks will report no hit. Picking in the
 distributed device takes into account data clipping applied through the
 <code>regions</code> parameter to avoid picking ghost data.</p>
-<h2 id="interaction-with-user-modules">Interaction with User
-Modules</h2>
+<h3 id="interaction-with-user-modules">Interaction with User
+Modules</h3>
 <p>The MPI Offload rendering mode trivially supports user modules, with
 the caveat that attempting to share data directly with the application
-(e.g., passing a <code>void\ *</code> or other tricks to the module)
-will not work in a distributed environment. Instead, use the
+(e.g., passing a <code>void *</code> or other tricks to the module) will
+not work in a distributed environment. Instead, use the
 <code>ospNewSharedData</code> API to share data from the application
 with OSPRay, which will in turn be copied over the network to the
 workers.</p>
 <p>The MPI Distributed device also supports user modules, as all that is
 required for compositing the distributed data are the bounds of each
 rank’s local data.</p>
-<h1 id="multidevice-rendering">MultiDevice Rendering</h1>
+<h2 id="multidevice">MultiDevice</h2>
 <p>The multidevice module is an experimental OSPRay device type that
 renders images by delegating off pixel tiles to a number of internal
-delegate OSPRay devices. Multidevice is in still in an development stage
-and is currently limited to automatically creating ISPCDevice
-delegates.</p>
-<p>If you wish to try it set the OSPRAY_NUM_SUBDEVICES environmental
-variable to the number of subdevices you want to create and tell OSPRay
-to both load the multidevice_cpu extension and create a multidevice for
-rendering instead of the default ISPCDevice.</p>
+delegate OSPRay devices.</p>
+<p>If you wish to try it set the <code>OSPRAY_NUM_SUBDEVICES</code>
+environmental variable to the number of subdevices you want to create
+and tell OSPRay to both load the <code>multidevice_cpu</code> extension
+and create a multidevice for rendering instead of the default CPU
+device.</p>
 <p>One example in a bash like shell is as follows:</p>
-<div class="sourceCode" id="cb64"><pre
-class="sourceCode sh"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="va">OSPRAY_NUM_SUBDEVICES</span><span class="op">=</span>6 <span class="ex">./ospTutorial</span> <span class="at">--osp:load-modules</span><span class="op">=</span>multidevice_cpu <span class="at">--osp:device</span><span class="op">=</span>multidevice</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="va">OSPRAY_NUM_SUBDEVICES</span><span class="op">=</span>6 <span class="ex">./ospTutorial</span> <span class="at">--osp:load-modules</span><span class="op">=</span>multidevice_cpu <span class="at">--osp:device</span><span class="op">=</span>multidevice</span></code></pre></div>
+<p>Note that the multidevice currently does not support
+<code>OSPImageOperation</code>s for denoising nor tone mapping.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -6178,20 +6336,20 @@ corresponding voxel changes the quickest.<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>actually a parallelogram<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>including spheres, boxes, infinite planes, closed
-meshes, closed subdivisions and curves<a href="#fnref4"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p><code>OSPBounds</code> has essentially the same layout
-as the <code>OSP_BOX3F</code> <a
-href="documentation.html#data"><code>OSPDataType</code></a>.<a
-href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>If there are multiple ambient lights then their
-contribution is added.<a href="#fnref6" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>respectively <span
+<li id="fn4"><p>respectively <span
 class="math inline">(127,127,255)</span> for 8 bit textures and <span
 class="math inline">(32767,32767,65535)</span> for 16 bit textures<a
-href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>including spheres, boxes, infinite planes, closed
+meshes, closed subdivisions and curves<a href="#fnref5"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><code>OSPBounds</code> has essentially the same layout
+as the <code>OSP_BOX3F</code> <a
+href="documentation.html#data"><code>OSPDataType</code></a>.<a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>If there are multiple ambient lights then their
+contribution is added.<a href="#fnref7" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

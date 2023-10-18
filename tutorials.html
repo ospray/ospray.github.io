@@ -173,60 +173,6 @@ and manage objects for the specific scene like
 for setting up OSPRay <code>world</code> and objects common in all
 scenes (for example lighting and ground plane), which can be
 conveniently overridden in the derived builders.</p>
-<p>Given below are different scenes listed with their string
-identifiers:</p>
-<dl>
-<dt>boxes</dt>
-<dd>
-A simple scene with <code>box</code> geometry type.
-</dd>
-<dt>cornell_box</dt>
-<dd>
-A scene depicting a classic cornell box with <code>quad</code> mesh
-geometry type for rendering two cubes and a <code>quad</code> light
-type.
-</dd>
-<dt>curves</dt>
-<dd>
-A simple scene with <code>curve</code> geometry type and options to
-change <code>curveBasis</code>. For details on different basis’ please
-check documentation of <a href="documentation.html#curves">curves</a>.
-</dd>
-<dt>gravity_spheres_volume</dt>
-<dd>
-A scene with <code>structuredRegular</code> type of <a
-href="documentation.html#volumes">volume</a>.
-</dd>
-<dt>gravity_spheres_isosurface</dt>
-<dd>
-A scene depicting iso-surface rendering of
-<code>gravity_spheres_volume</code> using geometry type
-<code>isosurface</code>.
-</dd>
-<dt>perlin_noise_volumes</dt>
-<dd>
-An example scene with <code>structuredRegular</code> volume type
-depicting perlin noise.
-</dd>
-<dt>random_spheres</dt>
-<dd>
-A simple scene depicting <code>sphere</code> geometry type.
-</dd>
-<dt>streamlines</dt>
-<dd>
-A scene showcasing streamlines geometry derived from <code>curve</code>
-geometry type.
-</dd>
-<dt>subdivision_cube</dt>
-<dd>
-A scene with a cube of <code>subdivision</code> geometry type to
-showcase subdivision surfaces.
-</dd>
-<dt>unstructured_volume</dt>
-<dd>
-A simple scene with a volume of <code>unstructured</code> volume type.
-</dd>
-</dl>
 <h3 id="renderer">Renderer</h3>
 <p>This app comes with four <a
 href="documentation.html#renderers">renderer</a> options:
@@ -246,18 +192,6 @@ alt="Rendering an evening sky with the renderSunSky option." />
 <figcaption aria-hidden="true">Rendering an evening sky with the
 <code>renderSunSky</code> option.</figcaption>
 </figure>
-<h1 id="mpi-distributed-tutorials">MPI Distributed Tutorials</h1>
-<p>The MPI Distributed tutorials demonstrate various ways that
-distributed applications using MPI can leverage OSPRay’s distributed
-rendering capabilities to render distributed, replicated, and partially
-replicated data across the processes. The tutorials will be built as
-part of OSPRay when running cmake with</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_ENABLE_APPS</span><span class="op">=</span>ON <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_ENABLE_APPS_TUTORIALS</span><span class="op">=</span>ON <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_MODULE_MPI</span><span class="op">=</span>ON <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-DOSPRAY_MPI_BUILD_TUTORIALS</span><span class="op">=</span>ON <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>other args<span class="op">&gt;</span></span></code></pre></div>
 <h2 id="ospmpidistribtutorial">ospMPIDistribTutorial</h2>
 <p>A minimal working example demonstrating how to use OSPRay for
 rendering distributed data can be found at <a
@@ -269,11 +203,11 @@ href="https://github.com/ospray/ospray/tree/master/apps/ospTutorial/ospTutorialF
 with the addition of finding and linking MPI.</p>
 <p>To build the tutorial on Linux, build it in a build directory
 with</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpicc</span> <span class="at">-std</span><span class="op">=</span>c99 ../modules/mpi/tutorials/ospMPIDistribTutorial.c <span class="dt">\</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>-I ../ospray/include <span class="at">-L</span> . <span class="at">-lospray</span> <span class="at">-Wl,-rpath,.</span> <span class="at">-o</span> ospMPIDistribTutorial</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpicc</span> <span class="at">-std</span><span class="op">=</span>c99 ../modules/mpi/tutorials/ospMPIDistribTutorial.c <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>-I ../ospray/include <span class="at">-L</span> . <span class="at">-lospray</span> <span class="at">-Wl,-rpath,.</span> <span class="at">-o</span> ospMPIDistribTutorial</span></code></pre></div>
 <p>On Windows build it can be build manually in a
 “build_directory\$Configuration” directory with</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cl</span> ..<span class="dt">\.</span>.<span class="dt">\m</span>odules<span class="dt">\m</span>pi<span class="dt">\t</span>utorials<span class="dt">\o</span>spMPIDistribTutorial.c <span class="at">-I</span> ..<span class="dt">\.</span>.<span class="dt">\o</span>spray<span class="dt">\i</span>nclude <span class="at">-I</span> ..<span class="dt">\.</span>. ospray.lib</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cl</span> ..<span class="dt">\.</span>.<span class="dt">\m</span>odules<span class="dt">\m</span>pi<span class="dt">\t</span>utorials<span class="dt">\o</span>spMPIDistribTutorial.c <span class="at">-I</span> ..<span class="dt">\.</span>.<span class="dt">\o</span>spray<span class="dt">\i</span>nclude <span class="at">-I</span> ..<span class="dt">\.</span>. ospray.lib</span></code></pre></div>
 <p>The MPI module does not need to be linked explicitly, as it is loaded
 as a module at runtime.</p>
 <figure>

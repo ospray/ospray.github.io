@@ -112,32 +112,50 @@ href="https://software.intel.com/en-us/intel-mpi-library/">MPI
 Library</a>)</li>
 </ul>
 <p>We recommend the latest version of both TBB and Embree libraries.</p>
+<h2 id="gpu-runtime-requirements">GPU Runtime Requirements</h2>
+<p>To run OSPRay on Intel GPUs you will need to first have drivers
+installed on your system.</p>
+<h3 id="gpu-drivers-on-linux">GPU drivers on Linux</h3>
+<p>Install the latest GPGPU drivers for your Intel GPU from:
+https://dgpu-docs.intel.com/. Follow the driver installation
+instructions for your graphics card.</p>
+<h3 id="gpu-drivers-on-windows">GPU drivers on Windows</h3>
+<p>Install the latest GPGPU drivers for your Intel GPU from:
+https://www.intel.com/content/www/us/en/download/785597/intel-arc-iris-xe-graphics-windows.html.
+Follow the driver installation instructions for your graphics card.</p>
 <h2 id="packages">Packages</h2>
 <p>Packages for x86_64 are provided, OSPRay can be built for ARM64/NEON
 using the superbuild (see <a
 href="#building-and-finding-ospray">Building and Finding
 OSPRay</a>).</p>
-<p>For Linux we provide OSPRay precompiled for 64 bit as a TGZ
-archive.<br />
+<p>For Linux we provide OSPRay precompiled for 64 bit as a TGZ archive.
+The “sycl” variant includes the GPU module.<br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.linux.tar.gz">ospray-2.12.0.x86_64.linux.tar.gz</a></p>
+href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.linux.tar.gz">ospray-3.0.0.x86_64.linux.tar.gz</a><br />
+<a
+href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.sycl.x86_64.linux.tar.gz">ospray-3.0.0.sycl.x86_64.linux.tar.gz</a></p>
 <p>For Mac OS X we provide OSPRay as a ZIP archive:<br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.macosx.zip">ospray-2.12.0.x86_64.macosx.zip</a></p>
+href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.macosx.zip">ospray-3.0.0.x86_64.macosx.zip</a></p>
 <p>For Windows we provide OSPRay binaries precompiled for 64 bit as an
-MSI installer as well as a ZIP archive:<br />
+MSI installer as well as a ZIP archive. The “sycl” variant includes the
+GPU module.<br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.windows.msi">ospray-2.12.0.x86_64.windows.msi</a><br />
+href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.windows.msi">ospray-3.0.0.x86_64.windows.msi</a><br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v2.12.0/ospray-2.12.0.x86_64.windows.zip">ospray-2.12.0.x86_64.windows.zip</a></p>
+href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.sycl.x86_64.windows.msi">ospray-3.0.0.sycl.x86_64.windows.msi</a><br />
+<a
+href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.windows.zip">ospray-3.0.0.x86_64.windows.zip</a><br />
+<a
+href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.sycl.x86_64.windows.zip">ospray-3.0.0.sycl.x86_64.windows.zip</a></p>
 <p>The source code of the latest OSPRay version can be downloaded
 here:<br />
 <a
-href="https://github.com/ospray/OSPRay/archive/v2.12.0.zip">ospray-2.12.0.zip</a><br />
+href="https://github.com/ospray/OSPRay/archive/v3.0.0.zip">ospray-3.0.0.zip</a><br />
 <a
-href="https://github.com/ospray/OSPRay/archive/v2.12.0.tar.gz">ospray-2.12.0.tar.gz</a></p>
+href="https://github.com/ospray/OSPRay/archive/v3.0.0.tar.gz">ospray-3.0.0.tar.gz</a></p>
 <p>You can also access <a
-href="https://github.com/ospray/OSPRay/releases">old OSPRay
+href="https://github.com/ospray/OSPRay/releases">previous OSPRay
 releases</a>.</p>
 <h1 id="building-and-finding-ospray">Building and Finding OSPRay</h1>
 <p>The latest OSPRay sources are always available at the <a
@@ -158,7 +176,7 @@ href="https://software.intel.com/en-us/c-compilers">Intel® C++ Compiler
 (icc)</a>), and standard Linux development tools.</p></li>
 <li><p>Additionally you require a copy of the <a
 href="http://ispc.github.io">Intel® Implicit SPMD Program Compiler
-(ISPC)</a>, version 1.20.0 or later. Please obtain a release of ISPC
+(ISPC)</a>, version 1.21.1 or later. Please obtain a release of ISPC
 from the <a href="https://ispc.github.io/downloads.html">ISPC downloads
 page</a>. If ISPC is not found by CMake its location can be hinted with
 the variable <code>ispcrt_DIR</code>.</p></li>
@@ -175,12 +193,12 @@ href="#cmake-superbuild">superbuild</a>. Alternatively you can set CMake
 variable <code>RKCOMMON_TASKING_SYSTEM</code> to <code>OpenMP</code> or
 <code>Internal</code>.</p></li>
 <li><p>OSPRay also heavily uses Intel <a
-href="https://www.embree.org/">Embree</a>, installing version 4.0.0 or
+href="https://www.embree.org/">Embree</a>, installing version 4.3.0 or
 newer is required. If Embree is not found by CMake its location can be
 hinted with the variable <code>embree_DIR</code>.</p></li>
-<li><p>OSPRay support volume rendering (enabled by default via
+<li><p>OSPRay supports volume rendering (enabled by default via
 <code>OSPRAY_ENABLE_VOLUMES</code>), which heavily uses Intel <a
-href="https://www.openvkl.org/">Open VKL</a>, version 1.3.2 or newer is
+href="https://www.openvkl.org/">Open VKL</a>, version 2.0.0 or newer is
 required. If Open VKL is not found by CMake its location can be hinted
 with the variable <code>openvkl_DIR</code>, or disable
 <code>OSPRAY_ENABLE_VOLUMES</code>.</p></li>
@@ -188,7 +206,7 @@ with the variable <code>openvkl_DIR</code>, or disable
 <code>denoiser</code> image operation, which is enabled by
 <code>OSPRAY_MODULE_DENOISER</code>. This module requires Intel <a
 href="https://openimagedenoise.github.io/">Open Image Denoise</a> in
-version 2.0.0 or newer. You may need to hint the location of the library
+version 2.1.0 or newer. You may need to hint the location of the library
 with the CMake variable <code>OpenImageDenoise_DIR</code>.</p></li>
 <li><p>For the optional MPI modules (enabled by
 <code>OSPRAY_MODULE_MPI</code>), which provide the
@@ -222,6 +240,32 @@ href="https://github.com/oneapi-src/oneTBB/releases">TBB</a>, <a
 href="https://ispc.github.io/downloads.html">ISPC</a> (for your Visual
 Studio version) and <a
 href="https://github.com/embree/embree/releases/">Embree</a>.</p>
+<h3 class="unnumbered"
+id="additional-prerequisites-for-gpu-build">Additional Prerequisites for
+GPU Build</h3>
+<p>To build OSPRay’s GPU module you need</p>
+<ul>
+<li>a SYCL compiler, either the open source <a
+href="https://github.com/intel/llvm/releases/tag/nightly-2023-09-22">oneAPI
+DPC++ Compiler 2023-09-22</a> or the latest <a
+href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">Intel
+oneAPI DPC++/C++ Compiler</a></li>
+<li>a recent <a href="http://www.cmake.org">CMake</a>, version 3.25.3 or
+higher</li>
+<li>the <a
+href="https://github.com/oneapi-src/level-zero/releases/tag/v1.12.0">oneAPI
+Level Zero Loader v1.12.0</a> development packages
+<ul>
+<li>On Linux Ubuntu 22.04 there are prebuilt packages available for
+this: <code>level-zero-devel</code> and <code>level-zero</code></li>
+<li>Other Linux distributions require building these packages from
+source</li>
+<li>On Windows, you can use the single package
+<code>level-zero_&lt;version&gt;_win-sdk</code>; note you will need to
+set the environment variable <code>LEVEL_ZERO_ROOT</code> to the
+location of the SDK</li>
+</ul></li>
+</ul>
 <h2 id="cmake-superbuild">CMake Superbuild</h2>
 <p>For convenience, OSPRay provides a CMake Superbuild script which will
 pull down OSPRay’s dependencies and build OSPRay itself. By default, the
@@ -232,9 +276,8 @@ directory.</p>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> [<span class="op">&lt;</span>OSPRAY_SOURCE_DIR<span class="op">&gt;</span>/scripts/superbuild]</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> .</span></code></pre></div>
-<p>On Windows make sure to select the non-default 64bit generator,
-e.g.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-G</span> <span class="st">&quot;Visual Studio 15 2017 Win64&quot;</span> [<span class="op">&lt;</span>OSPRAY_SOURCE_DIR<span class="op">&gt;</span>/scripts/superbuild]</span></code></pre></div>
+<p>On Windows make sure to select a 64bit generator, e.g.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-G</span> <span class="st">&quot;Visual Studio 17 2022&quot;</span> [<span class="op">&lt;</span>OSPRAY_SOURCE_DIR<span class="op">&gt;</span>/scripts/superbuild]</span></code></pre></div>
 <p>The resulting <code>install</code> directory (or the one set with
 <code>CMAKE_INSTALL_PREFIX</code>) will have everything in it, with one
 subdirectory per dependency.</p>
@@ -252,6 +295,10 @@ sets the number given to <code>make -j</code> for parallel builds.
 <dd>
 toggles installation of all libraries in separate or the same directory.
 </dd>
+<dt>BUILD_OPENVKL</dt>
+<dd>
+whether to enable volume rendering via Open VKL
+</dd>
 <dt>BUILD_EMBREE_FROM_SOURCE</dt>
 <dd>
 set to OFF will download a pre-built version of Embree.
@@ -268,6 +315,11 @@ determines which version of Open Image Denoise to pull down.
 <dd>
 set to ON to build OSPRay’s MPI module for data-replicated and
 distributed parallel rendering on multiple nodes.
+</dd>
+<dt>BUILD_GPU_SUPPORT</dt>
+<dd>
+enables beta GPU support, fetching the SYCL variants of the dependencies
+and builds <code>OSPRAY_MODULE_GPU</code>
 </dd>
 <dt>BUILD_TBB_FROM_SOURCE</dt>
 <dd>
@@ -352,6 +404,18 @@ class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#
 a set of <a href="tutorials.html#tutorials">example
 applications</a>.</p></li>
 </ul>
+<h3 id="entitlements-on-mac-os-x">Entitlements on Mac OS X</h3>
+<p>Mac OS X requires notarization of applications as a security
+mechanism, and <a
+href="https://developer.apple.com/documentation/bundleresources/entitlements">entitlements
+must be declared</a> during the notarization process. OSPRay’s
+<code>denoiser</code> uses OIDN, which uses just-in-time compilation
+through <a href="https://github.com/oneapi-src/oneDNN">oneDNN</a> and
+thus requires the following entitlement:</p>
+<ul>
+<li><a
+href="https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_cs_allow-jit"><code>com.apple.security.cs.allow-jit</code></a></li>
+</ul>
 <h3 id="compiling-ospray-on-windows">Compiling OSPRay on Windows</h3>
 <p>On Windows using the CMake GUI (<code>cmake-gui.exe</code>) is the
 most convenient way to configure OSPRay and to create the Visual Studio
@@ -360,9 +424,9 @@ solution files:</p>
 <li><p>Browse to the OSPRay sources and specify a build directory (if it
 does not exist yet CMake will create it).</p></li>
 <li><p>Click “Configure” and select as generator the Visual Studio
-version you have (OSPRay needs Visual Studio 15 2017 or newer), for
-Win64 (32 bit builds are not supported by OSPRay), e.g., “Visual Studio
-15 2017 Win64”.</p></li>
+version you have; OSPRay needs “Visual Studio 15 2017 Win64” or newer,
+32<br />
+bit builds are not supported, e.g., “Visual Studio 17 2022”.</p></li>
 <li><p>If the configuration fails because some dependencies could not be
 found then follow the instructions given in the error message, e.g., set
 the variable <code>embree_DIR</code> to the folder where Embree was
@@ -380,7 +444,7 @@ the console. In the Visual Studio command prompt type:</p>
 class="sourceCode sh"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> path<span class="dt">\t</span>o<span class="dt">\o</span>spray</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-G</span> <span class="st">&quot;Visual Studio 15 2017 Win64&quot;</span> [-D VARIABLE=value] ..</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-G</span> <span class="st">&quot;Visual Studio 17 2022&quot;</span> [-D VARIABLE=value] ..</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> . <span class="at">--config</span> Release</span></code></pre></div>
 <p>Use <code>-D</code> to set variables for CMake, e.g., the path to
 Embree with “<code>-D embree_DIR=\path\to\embree</code>”.</p>
@@ -395,7 +459,7 @@ with CMake</h2>
 <p>Client applications using OSPRay can find it with CMake’s
 <code>find_package()</code> command. For example,</p>
 <div class="sourceCode" id="cb17"><pre
-class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">find_package</span><span class="er">(</span><span class="ex">ospray</span> 2.0.0 REQUIRED<span class="kw">)</span></span></code></pre></div>
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">find_package</span><span class="er">(</span><span class="ex">ospray</span> 3.0.0 REQUIRED<span class="kw">)</span></span></code></pre></div>
 <p>finds OSPRay via OSPRay’s configuration file
 <code>osprayConfig.cmake</code><a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a>. Once found, the

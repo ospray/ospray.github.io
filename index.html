@@ -139,10 +139,10 @@ class="carousel-control-next-icon"></span> </a></p>
 <div class="feature">
 <div class="container">
 <h2>
-Interactive CPU Rendering
+Interactive Rendering on CPU or GPU
 </h2>
 <p>
-OSPRay features scalable CPU rendering capabilities geared toward
+OSPRay features scalable CPU and GPU rendering capabilities geared toward
 Scientific Visualization applications. Advanced shading effects such as
 ambient occlusion, shadows, and transparency can be rendered
 interactively to enable new insights into huge data.
@@ -205,10 +205,11 @@ OSPRay is Open Sourced under the Apache 2.0 license.
 </div>
 </div>
 <h1 id="ospray-overview">OSPRay Overview</h1>
-<p>Intel OSPRay is an <strong>o</strong>pen source,
+<p>Intel® OSPRay is an <strong>o</strong>pen source,
 <strong>s</strong>calable, and <strong>p</strong>ortable
 <strong>ray</strong> tracing engine for high-performance, high-fidelity
-visualization on Intel Architecture CPUs. OSPRay is part of the <a
+visualization on Intel Architecture CPUs, Intel Xe GPUs, and ARM64 CPUs.
+OSPRay is part of the <a
 href="https://software.intel.com/en-us/rendering-framework">Intel oneAPI
 Rendering Toolkit</a> and is released under the permissive <a
 href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0
@@ -217,29 +218,123 @@ license</a>.</p>
 easy-to-use rendering library that allows one to easily build
 applications that use ray tracing based rendering for interactive
 applications (including both surface- and volume-based visualizations).
-OSPRay is completely CPU-based, and runs on anything from laptops, to
-workstations, to compute nodes in HPC systems.</p>
-<p>OSPRay internally builds on top of <a
-href="https://www.embree.org/">Intel Embree</a> and <a
-href="https://ispc.github.io/">Intel ISPC (Implicit SPMD Program
-Compiler)</a>, and fully exploits modern instruction sets like Intel
-SSE4, AVX, AVX2, AVX-512 and NEON to achieve high rendering performance,
-thus a CPU with support for at least SSE4.1 is required to run OSPRay on
-x86_64 architectures. A CPU with support for NEON is required to run
-OSPRay on ARM64 architectures.</p>
+OSPRay runs on anything from laptops, to workstations, to compute nodes
+in HPC systems.</p>
+<p>OSPRay internally builds on top of Intel <a
+href="https://www.embree.org/">Embree</a>, Intel <a
+href="https://www.openvkl.org/">Open VKL</a>, and Intel <a
+href="https://openimagedenoise.github.io/">Open Image Denoise</a>. The
+CPU implementation is based on Intel <a
+href="https://ispc.github.io/">ISPC (Implicit SPMD Program Compiler)</a>
+and fully exploits modern instruction sets like Intel SSE4, AVX, AVX2,
+AVX-512 and NEON to achieve high rendering performance. Hence, a CPU
+with support for at least SSE4.1 is required to run OSPRay on x86_64
+architectures, or a CPU with support for NEON is required to run OSPRay
+on ARM64 architectures.</p>
+<p>OSPRay’s GPU implementation (beta status) is based on the <a
+href="https://www.khronos.org/sycl/">SYCL</a> cross-platform programming
+language implemented by <a
+href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/data-parallel-c-plus-plus.html">Intel
+oneAPI Data Parallel C++ (DPC++)</a> and currently supports Intel Arc™
+GPUs on Linux and Windows, and Intel Data Center GPU Flex and Max Series
+on Linux, exploiting ray tracing hardware support.</p>
 <h2 id="ospray-support-and-contact">OSPRay Support and Contact</h2>
 <p>OSPRay is under active development, and though we do our best to
 guarantee stable release versions a certain number of bugs,
 as-yet-missing features, inconsistencies, or any other issues are still
-possible. Should you find any such issues please report them immediately
-via <a href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub
-Issue Tracker</a> (or, if you should happen to have a fix for it,you can
-also send us a pull request); for missing features please contact us via
-email at <a href="mailto:ospray@googlegroups.com"
-class="email">ospray@googlegroups.com</a>.</p>
+possible. For any such requests or findings please use <a
+href="https://github.com/ospray/OSPRay/issues">OSPRay’s GitHub Issue
+Tracker</a> (or, if you should happen to have a fix for it, you can also
+send us a pull request).</p>
 <p>To receive release announcements simply <a
 href="https://github.com/ospray/OSPRay">“Watch” the OSPRay
 repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v3.0.0">Changes in v3.0.0:</h3>
+<ul>
+<li>Beta support for Intel Xe GPUs (Intel Arc™ GPUs a Intel Data Center
+GPU Flex and Max Series), exploiting ray tracing hardware support.
+Implementation is based on the <a
+href="https://www.khronos.org/sycl/">SYCL</a> cross-platform programming
+language implemented by <a
+href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/data-parallel-c-plus-plus.html">Intel
+oneAPI Data Parallel C++ (DPC++)</a>.<br />
+Note that the following features are not implemented yet or are not
+working correctly on the new <code>gpu</code> device:
+<ul>
+<li>Multiple volumes in the scene</li>
+<li>Clipping</li>
+<li>Motion blur</li>
+<li>Subdivision surfaces</li>
+<li>Progress reporting via <code>ospGetProgress</code> or canceling the
+frame via <code>ospCancel</code></li>
+<li>Picking via <code>ospPick</code></li>
+<li>Adaptive accumulation via <code>OSP_FB_VARIANCE</code> and
+<code>varianceThreshold</code></li>
+<li>Framebuffer channels <code>OSP_FB_ID_*</code> (id buffers)</li>
+<li>Experimental support for shared device-only data, works only for
+<code>structuredRegular</code> volume</li>
+<li>Further known issues
+<ul>
+<li>Some delay on start-up or when changing the scene, because kernel
+code is JIT compiled and specialized. JIT compilation can be cached by
+setting environment variable <code>SYCL_CACHE_PERSISTENT=1</code>, then
+consecutive starts or rendering the same scene configuration is without
+delay</li>
+<li>For some combination of compiler, GPU driver and scene the rendered
+images might show artifacts (e.g., vertical lines or small blocks)</li>
+<li>Multidevice does not support <code>OSPImageOperation</code>s for
+denoising or tone mapping</li>
+</ul></li>
+</ul></li>
+<li>Add implicit indexing for <code>mesh</code> geometry</li>
+<li>Add support for transferring ownership of temporary buffers:
+<code>ospNewSharedData</code> accepts an optional deleter callback</li>
+<li>Optimizations for MPI module, supported by new integrated
+performance tracing framework</li>
+<li>Optimize <code>scivis</code> gradient shading</li>
+<li>Main thread does not set FTZ/DAZ anymore for denormals handling</li>
+<li>Compute intersection epsilon for Mesh to avoid rendering artifacts
+due to self-intersection</li>
+<li>Fix energy conservation of Pricipled material under certain
+parameter combinations</li>
+<li>Fix <code>denoiser</code> to not wipe the alpha channel</li>
+<li>Fix crash in HDRI light</li>
+<li>Fix link order for Debug build on Windows</li>
+<li>The new minimum versions of dependencies:
+<ul>
+<li>Embree v4.3.0</li>
+<li>Open VKL v2.0.0</li>
+<li>Open Image Denoise v2.1.0</li>
+<li>ISPC v1.21.1</li>
+<li>rkcommon v1.12.0</li>
+</ul></li>
+<li>Breaking API changes
+<ul>
+<li>Renamed <code>OSP_TEXTURE_FILTER_BILINEAR</code> to
+<code>OSP_TEXTURE_FILTER_LINEAR</code> and
+<code>OSP_VOLUME_FILTER_TRI[LINEAR|CUBIC]</code> to
+<code>OSP_VOLUME_FILTER_[LINEAR|CUBIC]</code></li>
+<li>Most enums now use storage type <code>uint32</code></li>
+<li><code>gridSpacing</code> of spherical regular volume defaults to
+full sphere</li>
+<li>Remove deprecated parameters and API calls
+<ul>
+<li>error callback signatures without user pointer</li>
+<li>first argument of <code>ospNewMaterial</code></li>
+<li>module name <code>ispc</code>; use <code>cpu</code></li>
+<li><code>volume</code> texture and <code>isosurface</code> geometry:
+<code>volumetricModel</code>; use <code>OSPVolume volume</code></li>
+<li>Transfer function <code>vec2f valueRange</code>; use
+<code>box1f value</code></li>
+<li><code>hdri</code> and <code>sun-sky</code> lights:
+<code>intensityQuantity</code>
+<code>OSP_INTENSITY_QUANTITY_RADIANCE</code></li>
+<li><code>spot</code> light with <code>intensityDistribution</code>:
+<code>intensityQuantity</code> other than
+<code>OSP_INTENSITY_QUANTITY_SCALE</code></li>
+</ul></li>
+</ul></li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v2.12.0">Changes in v2.12.0:</h3>
 <ul>
 <li>Support denoising on the GPU with OIDN 2.0, which is the new minimum
@@ -250,48 +345,13 @@ diffuse and glossy) bounces</li>
 <li>Optimized dynamic load balancing for MPI devices</li>
 <li>Fix crash when using small image resolution and many MPI ranks</li>
 <li>Fix crash in <code>pathtracer</code> when
-<code>lightSamples &gt; 0</code> but lights in the scene</li>
+<code>lightSamples &gt; 0</code> but there are lights in the scene</li>
 <li>Fix transparent shadows with too high <code>minContribution</code>
 setting</li>
 <li>The new minimum version for ISPC is v1.20.0</li>
 <li>Release binaries on Linux are built on Rocky 8</li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v2.11.0">Changes in v2.11.0:</h3>
-<ul>
-<li>Support single ISPC target on Windows</li>
-<li>OSPRay’s superbuild can now be provided a CMake toolchain file for
-cross-compilation</li>
-<li>Add support for double pumped NEON instruction on ARM64</li>
-<li>Reduce the memory overhead of the <code>mpiOffload</code> device and
-resolve memory and <code>MPI_Comm</code> handle leaks</li>
-<li>Support for volume rendering (and thus the dependency to Open VKL)
-can now be compile-time controlled via CMake variable
-<code>OSPRAY_ENABLE_VOLUMES</code></li>
-<li>OSPRay’s MPI modules have been split up and renamed, the
-<code>mpiOffload</code> device is now in the <code>mpi_offload</code>
-module, while the <code>mpiDistributed</code> device is now in the
-<code>mpi_distributed_cpu</code> module</li>
-<li>Add native support for spheres via Embree, which requires the
-positions and radius of the spheres to be interleaved in memory; if this
-is not the case, OSPRay will internally create a copy of the data</li>
-<li>Fix <code>dynamicScene</code> flag on World and Group to influence
-BVH quality again: default is now “high”, which should improve rendering
-performance, depending on the scene; and “low” when
-<code>dynamicScene</code> is enabled (improving BVH build
-performance)</li>
-<li>Fix a crash in <code>pathtracer</code> when there are no lights</li>
-<li>Fix a data corruption bug when setting string parameters for objects
-in the <code>mpiOffload</code> device</li>
-<li>Various documentation fixes</li>
-<li>OSPRay now has a new dependency, which is ISPC Run Time (ISPCRT) in
-minimum 1.19.0 version</li>
-<li>Adapt to Embree v4.0.0 API changes, which is thus the new minimum
-version; additionally, the new minimum version for Open VKL is v1.3.2
-and for ISPC v1.19.0</li>
-<li>Removed support of MSVC14.0 (Visual Studio 2015) and the second
-generation Intel Xeon Phi processor (codename Knights Landing)</li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.10.0"></h3>
+<h3 class="unnumbered" id="changes-in-v2.11.0"></h3>
 <p>For the complete history of changes have a look at the <a
 href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
