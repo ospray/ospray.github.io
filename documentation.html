@@ -2217,6 +2217,13 @@ href="documentation.html#data">data</a> array of the per-sphere
 radius</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">vec3f[]</td>
+<td style="text-align: left;">sphere.normal</td>
+<td style="text-align: right;">NULL</td>
+<td style="text-align: left;">optional <a href="#data">data</a> array of
+normals (only for “oriented disc”)</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">vec2f[]</td>
 <td style="text-align: left;">sphere.texcoord</td>
 <td style="text-align: right;">NULL</td>
@@ -2224,12 +2231,37 @@ radius</td>
 href="documentation.html#data">data</a> array of texture coordinates
 (constant per sphere)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">radius</td>
 <td style="text-align: right;">0.01</td>
 <td style="text-align: left;">default radius for all spheres (if
 <code>sphere.radius</code> is not set)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">uint</td>
+<td style="text-align: left;">type</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><code>OSPSphereType</code> for rendering
+the sphere. Supported types are:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><code>OSP_SPHERE</code> (default)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><code>OSP_DISC</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><code>OSP_ORIENTED_DISC</code></td>
 </tr>
 </tbody>
 </table>
@@ -3215,7 +3247,8 @@ still shown in the background, like an environment map).</p>
 <p>The <a href="documentation.html#path-tracer">path tracer</a> will
 consider illumination by <a href="#geometries">geometries</a> which have
 a light emitting material assigned (for example the <a
-href="#luminous">Luminous</a> material).</p>
+href="#luminous">Luminous</a> or <a href="#principled">Principled</a>
+material).</p>
 <h2 id="materials">Materials</h2>
 <p>Materials describe how light interacts with surfaces, they give
 objects their distinctive look. To create a new material of given type
@@ -3571,6 +3604,13 @@ smooth</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">cut-out opacity/transparency, 1 is fully
 opaque</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vec3f</td>
+<td style="text-align: left;">emissiveColor</td>
+<td style="text-align: right;">black</td>
+<td style="text-align: left;">color (and intensity) of the emitted
+light</td>
 </tr>
 </tbody>
 </table>
@@ -4144,6 +4184,10 @@ RGB)</td>
 </tr>
 </tbody>
 </table>
+<p>The emission can be textured by passing a <code>map_color</code> <a
+href="#texture">texture</a> handle, <a
+href="documentation.html#texture-transformations">texture
+transformations</a> are supported as well.</p>
 <figure>
 <img src="images/material_Luminous.jpg" style="width:60.0%"
 alt="Rendering of a yellow Luminous material." />
@@ -4188,6 +4232,30 @@ texture</td>
 <td style="text-align: left;">data</td>
 <td style="text-align: left;">the actual texel 2D <a
 href="documentation.html#data">data</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">uint / vec2ui</td>
+<td style="text-align: left;">wrapMode</td>
+<td style="text-align: left;"><code>OSPTextureWrapMode</code> for the
+texture coordinates s and t; supported wrap modes are:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_TEXTURE_WRAP_REPEAT</code>
+(default)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td
+style="text-align: left;"><code>OSP_TEXTURE_WRAP_MIRRORED_REPEAT</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td
+style="text-align: left;"><code>OSP_TEXTURE_WRAP_CLAMP_TO_EDGE</code></td>
 </tr>
 </tbody>
 </table>
@@ -5761,7 +5829,7 @@ additional project dependency at compile time. The module implements a
 “<code>denoiser</code>” frame operation, which denoises the entire frame
 before the frame is completed. OIDN will automatically select the
 fastest device, using a GPU when available. The device selection be
-overridden by the environment valiable <code>OIDN_DEFAULT_DEVICE</code>,
+overridden by the environment variable <code>OIDN_DEFAULT_DEVICE</code>,
 possible values are <code>cpu</code>, <code>sycl</code>,
 <code>cuda</code>, <code>hip</code>, or a physical device ID</p>
 <h2 id="rendering">Rendering</h2>

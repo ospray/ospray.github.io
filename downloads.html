@@ -130,32 +130,26 @@ Follow the driver installation instructions for your graphics card.</p>
 using the superbuild (see <a
 href="#building-and-finding-ospray">Building and Finding
 OSPRay</a>).</p>
-<p>For Linux we provide OSPRay precompiled for 64 bit as a TGZ archive.
-The “sycl” variant includes the GPU module.<br />
+<p>For Linux we provide OSPRay precompiled for 64 bit (including the GPU
+module) as a TGZ archive. <a
+href="https://github.com/ospray/OSPRay/releases/download/v3.1.0/ospray-3.1.0.x86_64.linux.tar.gz">ospray-3.1.0.x86_64.linux.tar.gz</a></p>
+<p>For Mac OS X we provide OSPRay as a ZIP archives for x86_64 and ARM64
+architectures: <a
+href="https://github.com/ospray/OSPRay/releases/download/v3.1.0/ospray-3.1.0.x86_64.macosx.zip">ospray-3.1.0.x86_64.macosx.zip</a><br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.linux.tar.gz">ospray-3.0.0.x86_64.linux.tar.gz</a><br />
+href="https://github.com/ospray/OSPRay/releases/download/v3.1.0/ospray-3.1.0.arm64.macosx.zip">ospray-3.1.0.arm64.macosx.zip</a></p>
+<p>For Windows we provide OSPRay binaries precompiled for 64 bit
+(including the GPU module) as an MSI installer as well as a ZIP archive.
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.sycl.x86_64.linux.tar.gz">ospray-3.0.0.sycl.x86_64.linux.tar.gz</a></p>
-<p>For Mac OS X we provide OSPRay as a ZIP archive:<br />
+href="https://github.com/ospray/OSPRay/releases/download/v3.1.0/ospray-3.1.0.x86_64.windows.msi">ospray-3.1.0.x86_64.windows.msi</a><br />
 <a
-href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.macosx.zip">ospray-3.0.0.x86_64.macosx.zip</a></p>
-<p>For Windows we provide OSPRay binaries precompiled for 64 bit as an
-MSI installer as well as a ZIP archive. The “sycl” variant includes the
-GPU module.<br />
-<a
-href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.windows.msi">ospray-3.0.0.x86_64.windows.msi</a><br />
-<a
-href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.sycl.x86_64.windows.msi">ospray-3.0.0.sycl.x86_64.windows.msi</a><br />
-<a
-href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.x86_64.windows.zip">ospray-3.0.0.x86_64.windows.zip</a><br />
-<a
-href="https://github.com/ospray/OSPRay/releases/download/v3.0.0/ospray-3.0.0.sycl.x86_64.windows.zip">ospray-3.0.0.sycl.x86_64.windows.zip</a></p>
+href="https://github.com/ospray/OSPRay/releases/download/v3.1.0/ospray-3.1.0.x86_64.windows.zip">ospray-3.1.0.x86_64.windows.zip</a></p>
 <p>The source code of the latest OSPRay version can be downloaded
 here:<br />
 <a
-href="https://github.com/ospray/OSPRay/archive/v3.0.0.zip">ospray-3.0.0.zip</a><br />
+href="https://github.com/ospray/OSPRay/archive/v3.1.0.zip">ospray-3.1.0.zip</a><br />
 <a
-href="https://github.com/ospray/OSPRay/archive/v3.0.0.tar.gz">ospray-3.0.0.tar.gz</a></p>
+href="https://github.com/ospray/OSPRay/archive/v3.1.0.tar.gz">ospray-3.1.0.tar.gz</a></p>
 <p>You can also access <a
 href="https://github.com/ospray/OSPRay/releases">previous OSPRay
 releases</a>.</p>
@@ -178,7 +172,7 @@ href="https://software.intel.com/en-us/c-compilers">Intel® C++ Compiler
 (icc)</a>), and standard Linux development tools.</p></li>
 <li><p>Additionally you require a copy of the <a
 href="http://ispc.github.io">Intel® Implicit SPMD Program Compiler
-(ISPC)</a>, version 1.21.1 or later. Please obtain a release of ISPC
+(ISPC)</a>, version 1.23.0 or later. Please obtain a release of ISPC
 from the <a href="https://ispc.github.io/downloads.html">ISPC downloads
 page</a>. If ISPC is not found by CMake its location can be hinted with
 the variable <code>ispcrt_DIR</code>.</p></li>
@@ -195,12 +189,12 @@ href="#cmake-superbuild">superbuild</a>. Alternatively you can set CMake
 variable <code>RKCOMMON_TASKING_SYSTEM</code> to <code>OpenMP</code> or
 <code>Internal</code>.</p></li>
 <li><p>OSPRay also heavily uses Intel <a
-href="https://www.embree.org/">Embree</a>, installing version 4.3.0 or
+href="https://www.embree.org/">Embree</a>, installing version 4.3.1 or
 newer is required. If Embree is not found by CMake its location can be
 hinted with the variable <code>embree_DIR</code>.</p></li>
 <li><p>OSPRay supports volume rendering (enabled by default via
 <code>OSPRAY_ENABLE_VOLUMES</code>), which heavily uses Intel <a
-href="https://www.openvkl.org/">Open VKL</a>, version 2.0.0 or newer is
+href="https://www.openvkl.org/">Open VKL</a>, version 2.0.1 or newer is
 required. If Open VKL is not found by CMake its location can be hinted
 with the variable <code>openvkl_DIR</code>, or disable
 <code>OSPRAY_ENABLE_VOLUMES</code>.</p></li>
@@ -208,7 +202,7 @@ with the variable <code>openvkl_DIR</code>, or disable
 <code>denoiser</code> image operation, which is enabled by
 <code>OSPRAY_MODULE_DENOISER</code>. This module requires Intel <a
 href="https://openimagedenoise.github.io/">Open Image Denoise</a> in
-version 2.1.0 or newer. You may need to hint the location of the library
+version 2.2.0 or newer. You may need to hint the location of the library
 with the CMake variable <code>OpenImageDenoise_DIR</code>.</p></li>
 <li><p>For the optional MPI modules (enabled by
 <code>OSPRAY_MODULE_MPI</code>), which provide the
@@ -248,8 +242,8 @@ GPU Build</h3>
 <p>To build OSPRay’s GPU module you need</p>
 <ul>
 <li>a SYCL compiler, either the open source <a
-href="https://github.com/intel/llvm/releases/tag/nightly-2023-09-22">oneAPI
-DPC++ Compiler 2023-09-22</a> or the latest <a
+href="https://github.com/intel/llvm/releases/tag/nightly-2023-10-26">oneAPI
+DPC++ Compiler 2023-10-26</a> or the latest <a
 href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">Intel
 oneAPI DPC++/C++ Compiler</a></li>
 <li>a recent <a href="http://www.cmake.org">CMake</a>, version 3.25.3 or
@@ -405,18 +399,6 @@ class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#
 <li><p>You should now have <code>libospray.[so,dylib]</code> as well as
 a set of <a href="tutorials.html#tutorials">example
 applications</a>.</p></li>
-</ul>
-<h3 id="entitlements-on-mac-os-x">Entitlements on Mac OS X</h3>
-<p>Mac OS X requires notarization of applications as a security
-mechanism, and <a
-href="https://developer.apple.com/documentation/bundleresources/entitlements">entitlements
-must be declared</a> during the notarization process. OSPRay’s
-<code>denoiser</code> uses OIDN, which uses just-in-time compilation
-through <a href="https://github.com/oneapi-src/oneDNN">oneDNN</a> and
-thus requires the following entitlement:</p>
-<ul>
-<li><a
-href="https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_cs_allow-jit"><code>com.apple.security.cs.allow-jit</code></a></li>
 </ul>
 <h3 id="compiling-ospray-on-windows">Compiling OSPRay on Windows</h3>
 <p>On Windows using the CMake GUI (<code>cmake-gui.exe</code>) is the
