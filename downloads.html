@@ -180,14 +180,15 @@ from the <a href="https://ispc.github.io/downloads.html">ISPC downloads
 page</a>. If ISPC is not found by CMake its location can be hinted with
 the variable <code>ispcrt_DIR</code>.</p></li>
 <li><p>OSPRay builds on top of the <a
-href="https://www.github.com/ospray/rkcommon">Intel oneAPI Rendering
-Toolkit common library (rkcommon)</a>. The library provides abstractions
-for tasking, aligned memory allocation, vector math types, among others.
-For users who also need to build rkcommon, we recommend the default the
-Intel <a href="https://www.threadingbuildingblocks.org/">Threading
-Building Blocks (TBB)</a> as tasking system for performance and
-flexibility reasons. TBB must be built from source when targeting ARM
-CPUs, or can be built from source as part of the <a
+href="https://www.github.com/ospray/rkcommon">Intel Rendering Toolkit
+(Render Kit) common library (rkcommon)</a>. The library provides
+abstractions for tasking, aligned memory allocation, vector math types,
+among others. For users who also need to build rkcommon, we recommend
+the default the Intel <a
+href="https://www.threadingbuildingblocks.org/">Threading Building
+Blocks (TBB)</a> as tasking system for performance and flexibility
+reasons. TBB must be built from source when targeting ARM CPUs, or can
+be built from source as part of the <a
 href="#cmake-superbuild">superbuild</a>. Alternatively you can set CMake
 variable <code>RKCOMMON_TASKING_SYSTEM</code> to <code>OpenMP</code> or
 <code>Internal</code>.</p></li>
