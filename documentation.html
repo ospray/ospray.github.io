@@ -427,8 +427,8 @@ parameters can be set on all devices:</p>
 <caption>Parameters shared by all devices.</caption>
 <colgroup>
 <col style="width: 11%" />
-<col style="width: 18%" />
-<col style="width: 67%" />
+<col style="width: 32%" />
+<col style="width: 53%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -445,6 +445,12 @@ parameters can be set on all devices:</p>
 use</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">disableMipMapGeneration</td>
+<td style="text-align: left;">disable the default generation of MIP maps
+for textures (e.g., to save the additional memory needed)</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">uint</td>
 <td style="text-align: left;">logLevel</td>
 <td style="text-align: left;">logging level; valid values (in order of
@@ -452,27 +458,27 @@ severity) are <code>OSP_LOG_NONE</code>, <code>OSP_LOG_ERROR</code>,
 <code>OSP_LOG_WARNING</code>, <code>OSP_LOG_INFO</code>, and
 <code>OSP_LOG_DEBUG</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">string</td>
 <td style="text-align: left;">logOutput</td>
 <td style="text-align: left;">convenience for setting where status
 messages go; valid values are <code>cerr</code> and
 <code>cout</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">string</td>
 <td style="text-align: left;">errorOutput</td>
 <td style="text-align: left;">convenience for setting where error
 messages go; valid values are <code>cerr</code> and
 <code>cout</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">debug</td>
 <td style="text-align: left;">set debug mode; equivalent to
 <code>logLevel=debug</code> and <code>numThreads=1</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">warnAsError</td>
 <td style="text-align: left;">send <code>warning</code> and
@@ -480,7 +486,7 @@ messages go; valid values are <code>cerr</code> and
 <code>warning</code> messages through the message callback; must have
 sufficient <code>logLevel</code> to enable warnings</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">setAffinity</td>
 <td style="text-align: left;">bind software threads to hardware threads
@@ -871,45 +877,69 @@ listed in the table below.</p>
 <td style="text-align: left;">framebuffer object reference</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">OSP_FUTURE</td>
+<td style="text-align: left;">future object reference</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">OSP_LIGHT</td>
 <td style="text-align: left;">light object reference</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_MATERIAL</td>
 <td style="text-align: left;">material object reference</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_TEXTURE</td>
 <td style="text-align: left;">texture object reference</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_RENDERER</td>
 <td style="text-align: left;">renderer object reference</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_WORLD</td>
 <td style="text-align: left;">world object reference</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">OSP_GROUP</td>
+<td style="text-align: left;">group object reference</td>
+</tr>
 <tr class="odd">
+<td style="text-align: left;">OSP_INSTANCE</td>
+<td style="text-align: left;">instance object reference</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">OSP_GEOMETRY</td>
 <td style="text-align: left;">geometry object reference</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_GEOMETRIC_MODEL</td>
+<td style="text-align: left;">geometric model object reference</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_VOLUME</td>
 <td style="text-align: left;">volume object reference</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">OSP_VOLUMETRIC_MODEL</td>
+<td style="text-align: left;">volumetric model object reference</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">OSP_TRANSFER_FUNCTION</td>
 <td style="text-align: left;">transfer function object reference</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_IMAGE_OPERATION</td>
 <td style="text-align: left;">image operation object reference</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_STRING</td>
 <td style="text-align: left;">C-style zero-terminated character
 string</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_BOOL</td>
+<td style="text-align: left;">8 bit boolean</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">OSP_CHAR, OSP_VEC[234]C</td>
@@ -1501,7 +1531,7 @@ array of cell data values to be sampled</td>
 <td style="text-align: right;"></td>
 <td style="text-align: left;"><a href="documentation.html#data">data</a>
 array of cell types (VTK compatible), only set if
-<code>indexPrefixed = false</code> false. Supported types are:</td>
+<code>indexPrefixed = false</code>. Supported types are:</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
@@ -1913,8 +1943,13 @@ maximum of 2<sup>32</sup> primitives.</p>
 <p>A mesh consisting of either triangles or quads is created by calling
 <code>ospNewGeometry</code> with type string “<code>mesh</code>”. Once
 created, a mesh recognizes the following parameters:</p>
-<table>
+<table style="width:98%;">
 <caption>Parameters defining a mesh geometry.</caption>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 31%" />
+<col style="width: 42%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Type</th>
@@ -2027,6 +2062,18 @@ then a ‘quad soup’ is assumed i.e., each four subsequent vertices form
 one quad. If the size of the <code>vertex.position</code> array is not a
 multiple of three for triangles or four for quads, the remainder
 vertices are ignored.</p>
+<p>Face-varying attributes (<code>normal</code>,
+<code>motion.normal</code>, <code>color</code>, <code>texcoord</code>)
+map unique values to each vertex of a primitive/face (triangle or quad),
+thus attributes can be different for the same vertex that is shared by
+multiple primitives. Essentially, face-varying attributes are a
+‘attribute soup’ and behave similar to the implicit index, the size of
+the array must be at least three times the number of triangles or four
+times the number of quads, respectively. Face-varying attributes take
+precedence over the respective vertex attributes
+(<code>vertex.normal</code>, <code>motion.vertex.normal</code>,
+<code>vertex.color</code>, <code>vertex.texcoord</code>) when both
+arrays of the same attribute are present.</p>
 <h3 id="subdivision">Subdivision</h3>
 <p>A mesh consisting of subdivision surfaces, created by specifying a
 geometry of type “<code>subdivision</code>”. Once created, a subdivision
@@ -4179,7 +4226,7 @@ RGB)</td>
 <tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">transparency</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: left;">material transparency</td>
 </tr>
 </tbody>
@@ -4286,18 +4333,28 @@ and linear alpha</td>
 alpha</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">OSP_TEXTURE_RGBA16F</td>
+<td style="text-align: left;">16 bit float components red, green, blue,
+alpha</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">OSP_TEXTURE_RGB8</td>
 <td style="text-align: left;">8 bit [0–255] linear components red,
 green, blue</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_TEXTURE_SRGB</td>
 <td style="text-align: left;">8 bit sRGB gamma encoded components red,
 green, blue</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_TEXTURE_RGB32F</td>
 <td style="text-align: left;">32 bit float components red, green,
+blue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OSP_TEXTURE_RGB16F</td>
+<td style="text-align: left;">16 bit float components red, green,
 blue</td>
 </tr>
 <tr class="odd">
@@ -4321,25 +4378,37 @@ alpha</td>
 linear alpha</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">OSP_TEXTURE_RA32F</td>
+<td style="text-align: left;">32 bit float two component red, alpha</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">OSP_TEXTURE_R32F</td>
 <td style="text-align: left;">32 bit float single component red</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">OSP_TEXTURE_RA16F</td>
+<td style="text-align: left;">16 bit float two component red, alpha</td>
+</tr>
 <tr class="even">
+<td style="text-align: left;">OSP_TEXTURE_R16F</td>
+<td style="text-align: left;">16 bit float single component red</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">OSP_TEXTURE_RGBA16</td>
 <td style="text-align: left;">16 bit [0–65535] linear components red,
 green, blue, alpha</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_TEXTURE_RGB16</td>
 <td style="text-align: left;">16 bit [0–65535] linear components red,
 green, blue</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OSP_TEXTURE_RA16</td>
 <td style="text-align: left;">16 bit [0–65535] linear two components
 red, alpha</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">OSP_TEXTURE_R16</td>
 <td style="text-align: left;">16 bit [0–65535] linear single component
 red</td>
@@ -5202,7 +5271,8 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">pixelSamples</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">samples per pixel</td>
+<td style="text-align: left;">samples per pixel, best results when a
+power of 2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">int</td>
@@ -5263,6 +5333,13 @@ href="documentation.html#geometricmodels">GeometricModel</a>’s
 the pixel filter used by the renderer for antialiasing. Possible pixel
 filters are listed below.</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">mipMapBias</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">bias for texture MIP-mapping, balancing
+between sharpness/aliasing and blurriness due to prefiltering</td>
+</tr>
 </tbody>
 </table>
 <p>OSPRay’s renderers support a feature called adaptive accumulation,
@@ -5274,10 +5351,11 @@ feature requires a <a href="#framebuffer">framebuffer</a> with an
 <p>Per default the background of the rendered image will be transparent
 black, i.e., the alpha channel holds the opacity of the rendered
 objects. This eases transparency-aware blending of the image with an
-arbitrary background image by the application. The parameter
-<code>backgroundColor</code> or <code>map_backplate</code> can be used
-to already blend with a constant background color or backplate texture,
-respectively, (and alpha) during rendering.</p>
+arbitrary background image by the application (via <span
+class="math inline"><em>o</em><em>s</em><em>p</em><em>r</em><em>a</em><em>y</em>.<em>r</em><em>g</em><em>b</em> + <em>a</em><em>p</em><em>p</em><em>B</em><em>a</em><em>c</em><em>k</em><em>g</em><em>r</em><em>o</em><em>u</em><em>n</em><em>d</em>.<em>r</em><em>g</em><em>b</em> ⋅ (1−<em>o</em><em>s</em><em>p</em><em>r</em><em>a</em><em>y</em>.<em>a</em><em>l</em><em>p</em><em>h</em><em>a</em>)</span>).
+The parameter <code>backgroundColor</code> or <code>map_backplate</code>
+can be used to already blend with a constant background color or
+backplate texture, respectively, (and alpha) during rendering.</p>
 <p>OSPRay renderers support depth composition with images of other
 renderers, for example to incorporate help geometries of a 3D UI that
 were rendered with OpenGL. The screen-sized <a
@@ -5287,7 +5365,7 @@ href="#texture">texture</a> <code>map_maxDepth</code> must have format
 limit the distance of primary rays, thus objects of other renderers can
 hide objects rendered by OSPRay.</p>
 <p>OSPRay supports antialiasing in image space by using pixel filters,
-which are centered around the center of a pixel. The size <span
+which are aligned around the center of a pixel. The size <span
 class="math inline"><em>w</em> × <em>w</em></span> of the filter depends
 on the selected filter type. The types of supported pixel filters are
 defined by the <code>OSPPixelFilterType</code> enum and can be set using
@@ -5336,6 +5414,14 @@ of <span class="math inline"><em>w</em> = 4</span></td>
 </tr>
 </tbody>
 </table>
+<p>OSPRay also antialiases textures with prefiltering and MIP-mapping,
+which can be adjusted with parameter <code>mipMapBias</code>. For final
+frame rendering with a high number of <code>pixelSamples</code> or
+accumulated frames <code>mipMapBias</code> can be lowered (e.g., set to
+-0.5 or -2) to result in sharper textures which are essentially
+anisotropically filtered. Conversely, for preview rendering with just a
+single sample per pixel a higher <code>mipMapBias</code> of 1 or 2 can
+reduce texture aliasing and increase rendering speed.</p>
 <h3 id="scivis-renderer">SciVis Renderer</h3>
 <p>The SciVis renderer is a fast ray tracer for scientific visualization
 which supports volume rendering and ambient occlusion (AO). It is
@@ -5467,10 +5553,10 @@ renderers the path tracer supports the following special parameters:</p>
 <table style="width:97%;">
 <caption>Special parameters understood by the path tracer.</caption>
 <colgroup>
+<col style="width: 10%" />
+<col style="width: 35%" />
 <col style="width: 12%" />
-<col style="width: 29%" />
-<col style="width: 12%" />
-<col style="width: 42%" />
+<col style="width: 39%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -5486,30 +5572,39 @@ renderers the path tracer supports the following special parameters:</p>
 <td style="text-align: left;">lightSamples</td>
 <td style="text-align: right;">all</td>
 <td style="text-align: left;">number of random light samples per path
-vertex, per default all light sources are sampled</td>
+vertex, best results when a power of 2; per default all light sources
+are sampled</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">limitIndirectLightSamples</td>
+<td style="text-align: right;">true</td>
+<td style="text-align: left;">after the first non-specular (i.e.,
+diffuse and glossy) path vertex take (at most) a single light sample
+(instead of <code>lightSamples</code> many)</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">roulettePathLength</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: left;">ray recursion depth at which to start
 Russian roulette termination</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">maxScatteringEvents</td>
 <td style="text-align: right;">20</td>
 <td style="text-align: left;">maximum number of non-specular (i.e.,
 diffuse and glossy) bounces</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">maxContribution</td>
 <td style="text-align: right;">∞</td>
 <td style="text-align: left;">samples are clamped to this value before
 they are accumulated into the framebuffer</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">backgroundRefraction</td>
 <td style="text-align: right;">false</td>
@@ -5616,7 +5711,7 @@ first non-specular hit, as vec3f</td>
 <tr class="even">
 <td style="text-align: left;">OSP_FB_ALBEDO</td>
 <td style="text-align: left;">accumulated material albedo (color without
-illumination) at the first hit, as vec3f</td>
+illumination) at the first non-specular hit, as vec3f</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">OSP_FB_ID_PRIMITIVE</td>
@@ -5688,8 +5783,13 @@ to decide whether to stop or to continue progressive rendering.</p>
 <p>The framebuffer takes a list of pixel operations to be applied to the
 image in sequence as an <code>OSPData</code>. The pixel operations will
 be run in the order they are in the array.</p>
-<table>
+<table style="width:98%;">
 <caption>Parameters accepted by the framebuffer.</caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 21%" />
+<col style="width: 46%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Type</th>
@@ -5703,8 +5803,20 @@ be run in the order they are in the array.</p>
 <td style="text-align: left;">imageOperation</td>
 <td style="text-align: left;">ordered sequence of image operations</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">targetFrames</td>
+<td style="text-align: left;">anticipated number of frames that will be
+accumulated for progressive refinement, used renderers to generate a
+blue noise sampling pattern; should be a power of 2, is always 1 without
+<code>OSP_FB_ACCUM</code>; default 0 (disabled)</td>
+</tr>
 </tbody>
 </table>
+<p>If the total number of frames to be accumulated is known, then
+<code>targetFrames</code> should be set, because then renderers can
+generate more pleasing blue noise patterns. Accumulation stops when
+<code>targetFrames</code> is reached.</p>
 <h3 id="image-operation">Image Operation</h3>
 <p>Image operations are functions that are applied to every pixel of a
 frame. Examples include post-processing, filtering, blending, tone
@@ -5720,18 +5832,23 @@ is created by passing the type string “<code>tonemapper</code>” to
 <code>ospNewImageOperation</code>. The tone mapping curve can be
 customized using the parameters listed in the table below.</p>
 <table style="width:97%;">
-<caption>Parameters accepted by the tone mapper.</caption>
+<caption>Parameters accepted by the tone mapper. The column “Filmic”
+lists alternative values for the popular “Uncharted 2” tone mapping
+curve (note that that curve includes an exposure bias to match 18%
+middle gray).</caption>
 <colgroup>
 <col style="width: 10%" />
-<col style="width: 16%" />
-<col style="width: 14%" />
-<col style="width: 55%" />
+<col style="width: 15%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 46%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Type</th>
 <th style="text-align: left;">Name</th>
 <th style="text-align: right;">Default</th>
+<th style="text-align: right;">Filmic</th>
 <th style="text-align: left;">Description</th>
 </tr>
 </thead>
@@ -5740,12 +5857,14 @@ customized using the parameters listed in the table below.</p>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">exposure</td>
 <td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.0</td>
 <td style="text-align: left;">amount of light per unit area</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">contrast</td>
 <td style="text-align: right;">1.6773</td>
+<td style="text-align: right;">1.1759</td>
 <td style="text-align: left;">contrast (toe of the curve); typically is
 in [1–2]</td>
 </tr>
@@ -5753,12 +5872,14 @@ in [1–2]</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">shoulder</td>
 <td style="text-align: right;">0.9714</td>
+<td style="text-align: right;">0.9746</td>
 <td style="text-align: left;">highlight compression (shoulder of the
 curve); typically is in [0.9–1]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">midIn</td>
+<td style="text-align: right;">0.18</td>
 <td style="text-align: right;">0.18</td>
 <td style="text-align: left;">mid-level anchor input; default is 18%
 gray</td>
@@ -5767,6 +5888,7 @@ gray</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">midOut</td>
 <td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.18</td>
 <td style="text-align: left;">mid-level anchor output; default is 18%
 gray</td>
 </tr>
@@ -5774,51 +5896,15 @@ gray</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">hdrMax</td>
 <td style="text-align: right;">11.0785</td>
+<td style="text-align: right;">6.3704</td>
 <td style="text-align: left;">maximum HDR input that is not clipped</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">bool</td>
 <td style="text-align: left;">acesColor</td>
 <td style="text-align: right;">true</td>
+<td style="text-align: right;">false</td>
 <td style="text-align: left;">apply the ACES color transforms</td>
-</tr>
-</tbody>
-</table>
-<p>To use the popular “Uncharted 2” filmic tone mapping curve instead,
-set the parameters to the values listed in the table below.</p>
-<table>
-<caption>Filmic tone mapping curve parameters. Note that the curve
-includes an exposure bias to match 18% middle gray.</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">contrast</td>
-<td style="text-align: left;">1.1759</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">shoulder</td>
-<td style="text-align: left;">0.9746</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">midIn</td>
-<td style="text-align: left;">0.18</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">midOut</td>
-<td style="text-align: left;">0.18</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">hdrMax</td>
-<td style="text-align: left;">6.3704</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">acesColor</td>
-<td style="text-align: left;">false</td>
 </tr>
 </tbody>
 </table>
@@ -5832,6 +5918,54 @@ fastest device, using a GPU when available. The device selection be
 overridden by the environment variable <code>OIDN_DEFAULT_DEVICE</code>,
 possible values are <code>cpu</code>, <code>sycl</code>,
 <code>cuda</code>, <code>hip</code>, or a physical device ID</p>
+<table style="width:97%;">
+<caption>Parameters accepted by the denoiser.</caption>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 19%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">uint</td>
+<td style="text-align: left;">quality</td>
+<td style="text-align: left;"><code>OSPDenoiserQuality</code> for
+denoiser quality, default is</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_DENOISER_QUALITY_MEDIUM</code>:
+balanced quality/performance for interactive/real-time rendering; also
+allowed are:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_DENOISER_QUALITY_LOW</code>:
+high performance, for interactive/real-time preview rendering</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>OSP_DENOISER_QUALITY_HIGH</code>:
+high quality, for final frame rendering</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">denoiseAlpha</td>
+<td style="text-align: left;">whether to denoise the alpha channel as
+well, default false</td>
+</tr>
+</tbody>
+</table>
 <h2 id="rendering">Rendering</h2>
 <h3 id="asynchronous-rendering">Asynchronous Rendering</h3>
 <p>Rendering is by default asynchronous (non-blocking), and is done by
@@ -5839,8 +5973,8 @@ combining a framebuffer, renderer, camera, and world.</p>
 <p>What to render and how to render it depends on the renderer’s
 parameters. If the framebuffer supports accumulation (i.e., it was
 created with <code>OSP_FB_ACCUM</code>) then successive calls to
-<code>ospRenderFrame</code> will progressively refine the rendered
-image.</p>
+<code>ospRenderFrame</code> will progressively refine the rendered image
+(until <code>targetFrames</code> is reached).</p>
 <p>To start an render task, use</p>
 <div class="sourceCode" id="cb52"><pre
 class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>OSPFuture ospRenderFrame<span class="op">(</span>OSPFrameBuffer<span class="op">,</span> OSPRenderer<span class="op">,</span> OSPCamera<span class="op">,</span> OSPWorld<span class="op">);</span></span></code></pre></div>
@@ -6007,25 +6141,16 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb63-1"><a href="#
 <td style="text-align: left;">syclDevice</td>
 <td style="text-align: left;">SYCL device</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">void *</td>
-<td style="text-align: left;">zeContext</td>
-<td style="text-align: left;">Level Zero context</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">void *</td>
-<td style="text-align: left;">zeDevice</td>
-<td style="text-align: left;">Level Zero device</td>
-</tr>
 </tbody>
 </table>
-<p>Applications can either set their SYCL context and device or their
-Level Zero context and device, to share device memory with OSPRay or to
-control which device should be used (e.g., in case multiple GPUs are
-present). If neither parameter is set, the <code>gpu</code> device will
-automatically create a context internally and select a GPU (that
-selection can be influenced via environment variable
-<code>ONEAPI_DEVICE_SELECTOR</code>).</p>
+<p>Applications can set their SYCL context and device to share device
+memory with OSPRay or to control which device should be used (e.g., in
+case multiple GPUs are present). If neither parameter is set, the
+<code>gpu</code> device will automatically create a context internally
+and select a GPU (that selection can be influenced via environment
+variable <code>ONEAPI_DEVICE_SELECTOR</code>, see <a
+href="https://intel.github.io/llvm-docs/EnvironmentVariables.html#oneapi-device-selector">Intel
+oneAPI DPC++ Compiler documentation</a>).</p>
 <p>Compile times for just in time compilation (JIT compilation) can be
 large. To resolve this issue we recommend enabling persistent JIT
 compilation caching inside your application before the SYCL device is
@@ -6036,7 +6161,10 @@ the JIT cache should get stored).</p>
 <p>To reduce GPU memory allocation overhead when rendering scenes with
 many objects (geometries, instances, etc.), memory pooling should be
 enabled by setting the environment variable
-<code>ISPCRT_MEM_POOL=1</code>.</p>
+<code>SYCL_PI_LEVEL_ZERO_USM_ALLOCATOR="1;0;shared:1M,0,2M"</code>. See
+<a
+href="https://intel.github.io/llvm-docs/EnvironmentVariables.html#debugging-variables-for-level-zero-plugin">Intel
+oneAPI DPC++ Compiler documentation</a> for more details.</p>
 <h3 class="unnumbered" id="known-issues">Known Issues</h3>
 <p>The following features are not implemented yet or are not working
 correctly on the GPU device:</p>

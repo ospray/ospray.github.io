@@ -249,6 +249,58 @@ send us a pull request).</p>
 <p>To receive release announcements simply <a
 href="https://github.com/ospray/OSPRay">“Watch” the OSPRay
 repository</a> on GitHub.</p>
+<h3 class="unnumbered" id="changes-in-v3.2.0">Changes in v3.2.0:</h3>
+<ul>
+<li>Sampling improvements:
+<ul>
+<li>Better performance (lower rendering time and faster
+convergence)</li>
+<li>More pleasing blue noise enabled when the total number of frames to
+be accumulated is known in advance and set as the
+<code>targetFrames</code> parameter at the framebuffer</li>
+<li>Note a maximum of 64k samples is supported</li>
+</ul></li>
+<li>Improved <code>denoiser</code> image operation:
+<ul>
+<li>User-controlled quality levels via parameter
+<code>quality</code></li>
+<li>Optionally denoise alpha channel as well, enabled via parameter
+<code>denoiseAlpha</code></li>
+</ul></li>
+<li>Support half-precision (16 bit float) texture formats
+<code>OSP_TEXTURE_[RGBA16F|RGB16F|RA16F|R16F]</code> and two-channel
+32 bit float textures <code>OSP_TEXTURE_RA32F</code></li>
+<li>New parameter <code>limitIndirectLightSamples</code> for the
+<code>pathtracer</code> which limits the number of light samples after
+the first non-specular (i.e., diffuse and glossy) bounce to at most
+one</li>
+<li>Implement MIP Mapping for better texture filtering. If the
+additional memory per texture needed cannot be spared, applications can
+disable the generation of MIP maps with device parameter
+<code>disableMipMapGeneration</code></li>
+<li>The backplate (background texture) is now always sampled at the
+pixel center and thus not blurred by the pixel filter anymore</li>
+<li>Avoid color bleeding across eye-subimages when stereo rendering</li>
+<li>Superbuild uses binary packages of Open VKL</li>
+<li>Removed Intel ISPCRT dependency (ISPC compiler is still needed):
+<ul>
+<li>oneAPI Level Zero Loader is no longer necessary</li>
+<li><code>zeContext</code> and <code>zeDevice</code>device parameters
+are no longer supported</li>
+<li><code>ispcrtContext</code> and <code>ispcrtDevice</code>device
+parameters are no longer supported</li>
+</ul></li>
+<li>Clarify the size of <code>OSP_BOOL</code> to be 1 byte</li>
+<li>Fix artifacts occasionally appearing with <code>gpu</code>
+device</li>
+<li>The new minimum versions of dependencies:
+<ul>
+<li>Embree v4.3.3 (better error reporting)</li>
+<li>Open Image Denoise v2.3 (better image quality with <code>HIGH</code>
+quality mode, added <code>FAST</code> quality mode)</li>
+<li>rkcommon v1.14.0</li>
+</ul></li>
+</ul>
 <h3 class="unnumbered" id="changes-in-v3.1.0">Changes in v3.1.0:</h3>
 <ul>
 <li>Principled and Luminous materials support emissive textures</li>
@@ -280,93 +332,7 @@ AArch64 CPU on Linux)</li>
 <li>rkcommon v1.13.0 (fixes crash using GPU and emissive geometry)</li>
 </ul></li>
 </ul>
-<h3 class="unnumbered" id="changes-in-v3.0.0">Changes in v3.0.0:</h3>
-<ul>
-<li>Beta support for Intel Xe GPUs (Intel Arc™ GPUs a Intel Data Center
-GPU Flex and Max Series), exploiting ray tracing hardware support.
-Implementation is based on the <a
-href="https://www.khronos.org/sycl/">SYCL</a> cross-platform programming
-language implemented by <a
-href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/data-parallel-c-plus-plus.html">Intel
-oneAPI Data Parallel C++ (DPC++)</a>.<br />
-Note that the following features are not implemented yet or are not
-working correctly on the new <code>gpu</code> device:
-<ul>
-<li>Multiple volumes in the scene</li>
-<li>Clipping</li>
-<li>Motion blur</li>
-<li>Subdivision surfaces</li>
-<li>Progress reporting via <code>ospGetProgress</code> or canceling the
-frame via <code>ospCancel</code></li>
-<li>Picking via <code>ospPick</code></li>
-<li>Adaptive accumulation via <code>OSP_FB_VARIANCE</code> and
-<code>varianceThreshold</code></li>
-<li>Framebuffer channels <code>OSP_FB_ID_*</code> (id buffers)</li>
-<li>Experimental support for shared device-only data, works only for
-<code>structuredRegular</code> volume</li>
-<li>Further known issues
-<ul>
-<li>Some delay on start-up or when changing the scene, because kernel
-code is JIT compiled and specialized. JIT compilation can be cached by
-setting environment variable <code>SYCL_CACHE_PERSISTENT=1</code>, then
-consecutive starts or rendering the same scene configuration is without
-delay</li>
-<li>For some combination of compiler, GPU driver and scene the rendered
-images might show artifacts (e.g., vertical lines or small blocks)</li>
-<li>Multidevice does not support <code>OSPImageOperation</code>s for
-denoising or tone mapping</li>
-</ul></li>
-</ul></li>
-<li>Add implicit indexing for <code>mesh</code> geometry</li>
-<li>Add support for transferring ownership of temporary buffers:
-<code>ospNewSharedData</code> accepts an optional deleter callback</li>
-<li>Optimizations for MPI module, supported by new integrated
-performance tracing framework</li>
-<li>Optimize <code>scivis</code> gradient shading</li>
-<li>Main thread does not set FTZ/DAZ anymore for denormals handling</li>
-<li>Compute intersection epsilon for Mesh to avoid rendering artifacts
-due to self-intersection</li>
-<li>Fix energy conservation of Pricipled material under certain
-parameter combinations</li>
-<li>Fix <code>denoiser</code> to not wipe the alpha channel</li>
-<li>Fix crash in HDRI light</li>
-<li>Fix link order for Debug build on Windows</li>
-<li>The new minimum versions of dependencies:
-<ul>
-<li>Embree v4.3.0</li>
-<li>Open VKL v2.0.0</li>
-<li>Open Image Denoise v2.1.0</li>
-<li>ISPC v1.21.1</li>
-<li>rkcommon v1.12.0</li>
-</ul></li>
-<li>Breaking API changes
-<ul>
-<li>Renamed <code>OSP_TEXTURE_FILTER_BILINEAR</code> to
-<code>OSP_TEXTURE_FILTER_LINEAR</code> and
-<code>OSP_VOLUME_FILTER_TRI[LINEAR|CUBIC]</code> to
-<code>OSP_VOLUME_FILTER_[LINEAR|CUBIC]</code></li>
-<li>Most enums now use storage type <code>uint32</code></li>
-<li><code>gridSpacing</code> of spherical regular volume defaults to
-full sphere</li>
-<li>Remove deprecated parameters and API calls
-<ul>
-<li>error callback signatures without user pointer</li>
-<li>first argument of <code>ospNewMaterial</code></li>
-<li>module name <code>ispc</code>; use <code>cpu</code></li>
-<li><code>volume</code> texture and <code>isosurface</code> geometry:
-<code>volumetricModel</code>; use <code>OSPVolume volume</code></li>
-<li>Transfer function <code>vec2f valueRange</code>; use
-<code>box1f value</code></li>
-<li><code>hdri</code> and <code>sun-sky</code> lights:
-<code>intensityQuantity</code>
-<code>OSP_INTENSITY_QUANTITY_RADIANCE</code></li>
-<li><code>spot</code> light with <code>intensityDistribution</code>:
-<code>intensityQuantity</code> other than
-<code>OSP_INTENSITY_QUANTITY_SCALE</code></li>
-</ul></li>
-</ul></li>
-</ul>
-<h3 class="unnumbered" id="changes-in-v2.12.0"></h3>
+<h3 class="unnumbered" id="changes-in-v3.0.0"></h3>
 <p>For the complete history of changes have a look at the <a
 href="https://github.com/ospray/ospray/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
