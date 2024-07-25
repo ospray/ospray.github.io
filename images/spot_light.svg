@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.9 -->
+<!-- CreationDate: 2024-07-25 14:18:32 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="312pt" height="260pt"
+	viewBox="2217 1767 4951 4116">
+<g fill="none">
+<!-- Arc -->
+<path d="M 3600,3150 A 1356 1356 0 0 0 4950 3150"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Arc -->
+<path d="M 5175,4140 A 857 857 0 0 0 5400 4050"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 2250,5850 4275,1800 6300,5850"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 2700,5850 4275,1800 5850,5850"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Text -->
+<text xml:space="preserve" x="4950" y="2970" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="normal" font-size="168" text-anchor="start">openingAngle</text>
+<!-- Text -->
+<text xml:space="preserve" x="5400" y="3870" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="normal" font-size="168" text-anchor="start">penumbraAngle</text>
+</g>
+</svg>

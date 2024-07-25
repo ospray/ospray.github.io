@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.9 -->
+<!-- CreationDate: 2024-07-25 14:18:32 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="194pt" height="94pt"
+	viewBox="3117 324 3069 1488">
+<g fill="none">
+<!-- Line -->
+<polyline points=" 4500,1125"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 5850,450 5850,1800 3150,1800 3150,450"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 3150,450 5850,450"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Text -->
+<text xml:space="preserve" x="5895" y="495" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="normal" font-size="168" text-anchor="start">up</text>
+<!-- Text -->
+<text xml:space="preserve" x="4590" y="1215" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="normal" font-size="168" text-anchor="start">direction</text>
+</g>
+</svg>
