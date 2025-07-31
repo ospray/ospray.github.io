@@ -76,7 +76,7 @@ div.sourceCode { overflow-x: initial; }
   <body>
     <div id="header">
       <div id="header-github">
-        <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
+        <a id="forkme-banner" href="https://github.com/RenderKit/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
         Intel<sup>&reg;</sup> OSPRay
@@ -89,7 +89,7 @@ div.sourceCode { overflow-x: initial; }
 	  <li id="selected"><a href="documentation.html">Documentation</a></li>
 	  <li><a href="tutorials.html">Tutorials</a></li>
 	  <li><a href="gallery.html">Gallery</a></li>
-	  <li><a href="https://github.com/ospray/OSPRay/issues">Bugs/Issues</a></li>
+	  <li><a href="https://github.com/RenderKit/OSPRay/issues">Bugs/Issues</a></li>
 	  <li><a href="related_projects.html">Related Projects</a></li>
 	</ul>
       </div>
@@ -244,7 +244,7 @@ id="toc-rendering-and-ospcommit">Rendering and ospCommit</a></li>
 and Devices</a>
 <ul>
 <li><a href="#cpu" id="toc-cpu">CPU</a></li>
-<li><a href="#gpu-beta" id="toc-gpu-beta">GPU (Beta)</a>
+<li><a href="#gpu" id="toc-gpu">GPU</a>
 <ul>
 <li><a href="#known-issues" id="toc-known-issues">Known Issues</a></li>
 </ul></li>
@@ -1457,9 +1457,9 @@ three counterclockwise.</p>
 into the vertices and data values. Vertex ordering is the same as
 <code>VTK_PYRAMID</code>: four bottom vertices counterclockwise, then
 the top vertex.</p>
-<p>To maintain VTK data compatibility, the <code>index</code> array may
-be specified with cell sizes interleaved with vertex indices in the
-following format: <span
+<p>For backward compatibility with legacy vtkCellArray the
+<code>index</code> array can also be specified with cell sizes
+interleaved with vertex indices in the following format: <span
 class="math inline"><em>n</em>, <em>i</em><em>d</em><sub>1</sub>, ..., <em>i</em><em>d</em><sub><em>n</em></sub>, <em>m</em>, <em>i</em><em>d</em><sub>1</sub>, ..., <em>i</em><em>d</em><sub><em>m</em></sub></span>.
 This alternative <code>index</code> array layout can be enabled through
 the <code>indexPrefixed</code> flag (in which case, the
@@ -1507,8 +1507,8 @@ array of indices (into the vertex array(s)) that form cells</td>
 <td style="text-align: left;">indexPrefixed</td>
 <td style="text-align: right;">false</td>
 <td style="text-align: left;">indicates that the <code>index</code>
-array is compatible to VTK, where the indices of each cell are prefixed
-with the number of vertices</td>
+array is compatible to legacy vtkCellArray, where the indices of each
+cell are prefixed with the number of vertices</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">uint32[] / uint64[]</td>
@@ -5351,7 +5351,8 @@ feature requires a <a href="#framebuffer">framebuffer</a> with an
 <p>Per default the background of the rendered image will be transparent
 black, i.e., the alpha channel holds the opacity of the rendered
 objects. This eases transparency-aware blending of the image with an
-arbitrary background image by the application (via <span
+arbitrary background image by the application (via the “over” operator,
+i.e., <span
 class="math inline"><em>o</em><em>s</em><em>p</em><em>r</em><em>a</em><em>y</em>.<em>r</em><em>g</em><em>b</em> + <em>a</em><em>p</em><em>p</em><em>B</em><em>a</em><em>c</em><em>k</em><em>g</em><em>r</em><em>o</em><em>u</em><em>n</em><em>d</em>.<em>r</em><em>g</em><em>b</em> ⋅ (1−<em>o</em><em>s</em><em>p</em><em>r</em><em>a</em><em>y</em>.<em>a</em><em>l</em><em>p</em><em>h</em><em>a</em>)</span>).
 The parameter <code>backgroundColor</code> or <code>map_backplate</code>
 can be used to already blend with a constant background color or
@@ -6110,7 +6111,7 @@ anymore.</p>
 <h2 id="cpu">CPU</h2>
 <p>The CPU module is implicitly loaded and the <code>cpu</code> device
 is automatically used if no other options are specified.</p>
-<h2 id="gpu-beta">GPU (Beta)</h2>
+<h2 id="gpu">GPU</h2>
 <p>To use the GPU for rendering load the <code>gpu</code> module and
 select the <code>gpu</code> device:</p>
 <div class="sourceCode" id="cb62"><pre
@@ -6171,13 +6172,10 @@ correctly on the GPU device:</p>
 <ul>
 <li>Multiple volumes in the scene</li>
 <li>Clipping</li>
-<li>Motion blur</li>
 <li>Subdivision surfaces</li>
 <li>Progress reporting via <code>ospGetProgress</code> or canceling the
 frame via <code>ospCancel</code></li>
 <li>Picking via <code>ospPick</code></li>
-<li>Adaptive accumulation via <code>OSP_FB_VARIANCE</code> and
-<code>varianceThreshold</code></li>
 <li>Framebuffer channels <code>OSP_FB_ID_*</code> (id buffers)</li>
 <li>Experimental support for shared device-only data, works only for
 <code>structuredRegular</code> volume</li>
@@ -6455,7 +6453,7 @@ available, this can improve data load times. Image-parallel rendering is
 selected by specifying the same data on each rank, and using any of the
 existing local renderers (e.g., <code>scivis</code>,
 <code>pathtracer</code>). See <a
-href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorialReplicated.cpp">ospMPIDistribTutorialReplicated</a>
+href="https://github.com/RenderKit/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorialReplicated.cpp">ospMPIDistribTutorialReplicated</a>
 for an example.</p>
 <h4 id="data-parallel-rendering-in-the-mpi-distributed-device">Data
 Parallel Rendering in the MPI Distributed Device</h4>
@@ -6476,7 +6474,7 @@ pass as a parameter to the <code>OSPWorld</code> being rendered. Each
 rank can specify one or more non-overlapping <code>box3f</code>’s which
 bound the portions of its local data which it is responsible for
 rendering. See the <a
-href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorialVolume.cpp">ospMPIDistribTutorialVolume</a>
+href="https://github.com/RenderKit/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorialVolume.cpp">ospMPIDistribTutorialVolume</a>
 for an example.</p>
 <p>Finally, the MPI distributed device also supports hybrid-parallel
 rendering, where multiple ranks can share a single piece of data. For
@@ -6484,7 +6482,7 @@ each shared piece of data the rendering work will be assigned
 image-parallel among the ranks. Partially-shared regions are determined
 by finding those ranks specifying data with the same bounds (matching
 regions) and merging them. See the <a
-href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorialPartialRepl.cpp">ospMPIDistribTutorialPartialRepl</a>
+href="https://github.com/RenderKit/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorialPartialRepl.cpp">ospMPIDistribTutorialPartialRepl</a>
 for an example.</p>
 <h4 class="unnumbered"
 id="picking-on-distributed-data-in-the-mpi-distributed-device">Picking

@@ -76,7 +76,7 @@ div.sourceCode { overflow-x: initial; }
   <body>
     <div id="header">
       <div id="header-github">
-        <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
+        <a id="forkme-banner" href="https://github.com/RenderKit/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
         Intel<sup>&reg;</sup> OSPRay
@@ -89,7 +89,7 @@ div.sourceCode { overflow-x: initial; }
 	  <li><a href="documentation.html">Documentation</a></li>
 	  <li><a href="tutorials.html">Tutorials</a></li>
 	  <li><a href="gallery.html">Gallery</a></li>
-	  <li><a href="https://github.com/ospray/OSPRay/issues">Bugs/Issues</a></li>
+	  <li><a href="https://github.com/RenderKit/OSPRay/issues">Bugs/Issues</a></li>
 	  <li><a href="related_projects.html">Related Projects</a></li>
 	</ul>
       </div>
@@ -157,12 +157,12 @@ href="https://github.com/ospray/OSPRay/archive/v3.2.0.zip">ospray-3.2.0.zip</a><
 <a
 href="https://github.com/ospray/OSPRay/archive/v3.2.0.tar.gz">ospray-3.2.0.tar.gz</a></p>
 <p>You can also access <a
-href="https://github.com/ospray/OSPRay/releases">previous OSPRay
+href="https://github.com/RenderKit/OSPRay/releases">previous OSPRay
 releases</a>.</p>
 <h1 id="building-and-finding-ospray">Building and Finding OSPRay</h1>
 <p>The latest OSPRay sources are always available at the <a
-href="http://github.com/ospray/ospray">OSPRay GitHub repository</a>. The
-default <code>master</code> branch should always point to the latest
+href="http://github.com/RenderKit/ospray">OSPRay GitHub repository</a>.
+The default <code>master</code> branch should always point to the latest
 bugfix release.</p>
 <h2 id="prerequisites-1">Prerequisites</h2>
 <p>OSPRay currently supports Linux, Mac OS X, and Windows. In addition,
@@ -170,7 +170,7 @@ before you can build OSPRay you need the following prerequisites:</p>
 <ul>
 <li><p>You can clone the latest OSPRay sources via:</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/ospray/ospray.git</span></code></pre></div></li>
+class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/RenderKit/ospray.git</span></code></pre></div></li>
 <li><p>To build OSPRay you need <a
 href="http://www.cmake.org">CMake</a>, any form of C++11 compiler (we
 recommend using GCC, but also support Clang, MSVC, and <a
@@ -183,7 +183,7 @@ from the <a href="https://ispc.github.io/downloads.html">ISPC downloads
 page</a>. If ISPC is not found by CMake its location can be hinted with
 the variable <code>ISPC_EXECUTABLE</code>.</p></li>
 <li><p>OSPRay builds on top of the <a
-href="https://www.github.com/ospray/rkcommon">Intel Rendering Toolkit
+href="https://www.github.com/RenderKit/rkcommon">Intel Rendering Toolkit
 (Render Kit) common library (rkcommon)</a>. The library provides
 abstractions for tasking, aligned memory allocation, vector math types,
 among others. For users who also need to build rkcommon, we recommend
@@ -208,7 +208,7 @@ with the variable <code>openvkl_DIR</code>, or disable
 <li><p>OSPRay also provides an optional module implementing the
 <code>denoiser</code> image operation, which is enabled by
 <code>OSPRAY_MODULE_DENOISER</code>. This module requires Intel <a
-href="https://openimagedenoise.github.io/">Open Image Denoise</a> in
+href="https://www.openimagedenoise.org/">Open Image Denoise</a> in
 version 2.3.0 or newer. You may need to hint the location of the library
 with the CMake variable <code>OpenImageDenoise_DIR</code>.</p></li>
 <li><p>For the optional MPI modules (enabled by
@@ -242,7 +242,7 @@ href="https://cmake.org/download/">CMake</a>, <a
 href="https://github.com/oneapi-src/oneTBB/releases">TBB</a>, <a
 href="https://ispc.github.io/downloads.html">ISPC</a> (for your Visual
 Studio version) and <a
-href="https://github.com/embree/embree/releases/">Embree</a>.</p>
+href="https://github.com/RenderKit/embree/releases/">Embree</a>.</p>
 <h3 class="unnumbered"
 id="additional-prerequisites-for-gpu-build">Additional Prerequisites for
 GPU Build</h3>
@@ -308,8 +308,8 @@ distributed parallel rendering on multiple nodes.
 </dd>
 <dt>BUILD_GPU_SUPPORT</dt>
 <dd>
-enables beta GPU support, fetching the SYCL variants of the dependencies
-and builds <code>OSPRAY_MODULE_GPU</code>
+enables GPU support, fetching the SYCL variants of the dependencies and
+builds <code>OSPRAY_MODULE_GPU</code>
 </dd>
 <dt>BUILD_TBB_FROM_SOURCE</dt>
 <dd>

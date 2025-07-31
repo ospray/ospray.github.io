@@ -76,7 +76,7 @@ div.sourceCode { overflow-x: initial; }
   <body>
     <div id="header">
       <div id="header-github">
-        <a id="forkme-banner" href="https://github.com/ospray/OSPRay">View on GitHub</a>
+        <a id="forkme-banner" href="https://github.com/RenderKit/OSPRay">View on GitHub</a>
       </div>
       <div id="header-title">
         Intel<sup>&reg;</sup> OSPRay
@@ -89,7 +89,7 @@ div.sourceCode { overflow-x: initial; }
 	  <li><a href="documentation.html">Documentation</a></li>
 	  <li id="selected"><a href="tutorials.html">Tutorials</a></li>
 	  <li><a href="gallery.html">Gallery</a></li>
-	  <li><a href="https://github.com/ospray/OSPRay/issues">Bugs/Issues</a></li>
+	  <li><a href="https://github.com/RenderKit/OSPRay/issues">Bugs/Issues</a></li>
 	  <li><a href="related_projects.html">Related Projects</a></li>
 	</ul>
       </div>
@@ -103,12 +103,12 @@ div.sourceCode { overflow-x: initial; }
 <h2 id="osptutorial">ospTutorial</h2>
 <p>A minimal working example demonstrating how to use OSPRay can be
 found at <a
-href="https://github.com/ospray/ospray/blob/master/apps/ospTutorial/ospTutorial.c"><code>apps/tutorials/ospTutorial.c</code></a><a
+href="https://github.com/RenderKit/ospray/blob/master/apps/ospTutorial/ospTutorial.c"><code>apps/tutorials/ospTutorial.c</code></a><a
 href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
 <p>An example of building <code>ospTutorial.c</code> with CMake can be
 found in <a
-href="https://github.com/ospray/ospray/tree/master/apps/ospTutorial/ospTutorialFindospray"><code>apps/tutorials/ospTutorialFindospray/</code></a>.</p>
+href="https://github.com/RenderKit/ospray/tree/master/apps/ospTutorial/ospTutorialFindospray"><code>apps/tutorials/ospTutorialFindospray/</code></a>.</p>
 <p>To build the tutorial on Linux, build it in a build directory
 with</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-std</span><span class="op">=</span>c99 ../apps/ospTutorial/ospTutorial.c <span class="dt">\</span></span>
@@ -137,7 +137,7 @@ frames.</figcaption>
 <h2 id="ospexamples">ospExamples</h2>
 <p>Apart from tutorials, <code>OSPRay</code> comes with a C++ app called
 <a
-href="https://github.com/ospray/ospray/tree/master/apps/ospExamples"><code>ospExamples</code></a>
+href="https://github.com/RenderKit/ospray/tree/master/apps/ospExamples"><code>ospExamples</code></a>
 which is an elaborate easy-to-use tutorial, with a single interface to
 try various <code>OSPRay</code> features. It is aimed at providing users
 with multiple simple scenes composed of basic geometry types, lights,
@@ -148,7 +148,7 @@ other OSPRay objects necessary to render an interactive scene. The scene
 is rendered on a <code>GLFW</code> window with an <code>imgui</code> GUI
 controls panel for the user to manipulate the scene at runtime.</p>
 <p>The application is located in <a
-href="https://github.com/ospray/ospray/tree/master/apps/ospExamples"><code>apps/ospExamples/</code></a>
+href="https://github.com/RenderKit/ospray/tree/master/apps/ospExamples"><code>apps/ospExamples/</code></a>
 directory and can be built with CMake. It can be run from the build
 directory via:</p>
 <pre><code>./ospExamples &lt;command-line-parameter&gt;</code></pre>
@@ -163,7 +163,7 @@ default <code>boxes</code> scene.</figcaption>
 <p>Different scenes can be selected from the <code>scenes</code>
 dropdown and each scene corresponds to an instance of a special
 <code>detail::Builder</code> struct. Example builders are located in <a
-href="https://github.com/ospray/ospray/tree/master/apps/common/ospray_testing/builders"><code>apps/common/ospray_testing/builders/</code></a>.
+href="https://github.com/RenderKit/ospray/tree/master/apps/common/ospray_testing/builders"><code>apps/common/ospray_testing/builders/</code></a>.
 These builders provide a usage guide for the OSPRay scene hierarchy and
 OSPRay API in the form of <code>cpp</code> wrappers. They instantiate
 and manage objects for the specific scene like
@@ -195,11 +195,11 @@ alt="Rendering an evening sky with the renderSunSky option." />
 <h2 id="ospmpidistribtutorial">ospMPIDistribTutorial</h2>
 <p>A minimal working example demonstrating how to use OSPRay for
 rendering distributed data can be found at <a
-href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorial.c"><code>modules/mpi/tutorials/ospMPIDistribTutorial.c</code></a><a
+href="https://github.com/RenderKit/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorial.c"><code>modules/mpi/tutorials/ospMPIDistribTutorial.c</code></a><a
 href="#fn2" class="footnote-ref" id="fnref2"
 role="doc-noteref"><sup>2</sup></a>.</p>
 <p>The compilation process via CMake is the similar to <a
-href="https://github.com/ospray/ospray/tree/master/apps/ospTutorial/ospTutorialFindospray"><code>apps/tutorials/ospTutorialFindospray/</code></a>,
+href="https://github.com/RenderKit/ospray/tree/master/apps/ospTutorial/ospTutorialFindospray"><code>apps/tutorials/ospTutorialFindospray/</code></a>,
 with the addition of finding and linking MPI.</p>
 <p>To build the tutorial on Linux, build it in a build directory
 with</p>
@@ -297,15 +297,15 @@ role="doc-endnotes">
 <ol>
 <li id="fn1"><p>A C++ version that uses the C++ convenience wrappers of
 OSPRay’s C99 API via <a
-href="https://github.com/ospray/ospray/blob/master/ospray/include/ospray/ospray_cpp.h"><code>include/ospray/ospray_cpp.h</code></a>
+href="https://github.com/RenderKit/ospray/blob/master/ospray/include/ospray/ospray_cpp.h"><code>include/ospray/ospray_cpp.h</code></a>
 is available at <a
-href="https://github.com/ospray/ospray/blob/master/apps/ospTutorial/ospTutorial.cpp"><code>apps/tutorials/ospTutorial.cpp</code></a>.<a
+href="https://github.com/RenderKit/ospray/blob/master/apps/ospTutorial/ospTutorial.cpp"><code>apps/tutorials/ospTutorial.cpp</code></a>.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>A C++ version that uses the C++ convenience wrappers of
 OSPRay’s C99 API via <a
-href="https://github.com/ospray/ospray/blob/master/ospray/include/ospray/ospray_cpp.h"><code>include/ospray/ospray_cpp.h</code></a>
+href="https://github.com/RenderKit/ospray/blob/master/ospray/include/ospray/ospray_cpp.h"><code>include/ospray/ospray_cpp.h</code></a>
 is available at <a
-href="https://github.com/ospray/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorial.cpp"><code>modules/mpi/tutorials/ospMPIDistribTutorial.cpp</code></a>.<a
+href="https://github.com/RenderKit/ospray/blob/master/modules/mpi/tutorials/ospMPIDistribTutorial.cpp"><code>modules/mpi/tutorials/ospMPIDistribTutorial.cpp</code></a>.<a
 href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
